@@ -1,3 +1,3 @@
-import loginReducer from "./loginSlice";
+import login from "./loginSlice";
 
-export default { loginReducer };
+export default { login };
