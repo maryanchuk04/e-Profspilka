@@ -1,3 +1,4 @@
 import login from "./loginSlice";
+import user from "./userSlice";
 
-export default { login };
+export default { login, user };
