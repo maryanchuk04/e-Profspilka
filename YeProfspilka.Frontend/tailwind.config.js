@@ -23,6 +23,9 @@ module.exports = {
 				ukraine: ["e-Ukraine"],
 				"ukraine-logo": ["e-Ukraine-logo"]
 			},
+			backgroundImage: {
+				'blue-gradient': "linear-gradient(#0026F3, #565DFF)"
+			}
 		},
 	},
 	plugins: [],
