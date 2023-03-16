@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Backend", "YeProfspilka.Backend\YeProfspilka.Backend.csproj", "{A95250AA-896B-4A8F-A99B-F28ACC2F4494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.API", "YeProfspilka.API\YeProfspilka.API.csproj", "{A95250AA-896B-4A8F-A99B-F28ACC2F4494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Db", "YeProfspilka.Db\YeProfspilka.Db.csproj", "{4F1AE7DB-0AA6-4C2F-9684-89062DF9F3A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Core", "YeProfspilka.Core\YeProfspilka.Core.csproj", "{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{A95250AA-896B-4A8F-A99B-F28ACC2F4494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A95250AA-896B-4A8F-A99B-F28ACC2F4494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A95250AA-896B-4A8F-A99B-F28ACC2F4494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F1AE7DB-0AA6-4C2F-9684-89062DF9F3A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F1AE7DB-0AA6-4C2F-9684-89062DF9F3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F1AE7DB-0AA6-4C2F-9684-89062DF9F3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F1AE7DB-0AA6-4C2F-9684-89062DF9F3A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
