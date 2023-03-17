@@ -1,8 +1,11 @@
 import React from 'react'
+import Landing from './Landing'
 
 const Main = () => {
 	return (
-		<div className='font-ukraine'>Main</div>
+		<div className='w-full'>
+			<Landing />
+		</div>
 	)
 }
 

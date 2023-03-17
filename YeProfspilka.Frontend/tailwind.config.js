@@ -23,8 +23,36 @@ module.exports = {
 				ukraine: ["e-Ukraine"],
 				"ukraine-logo": ["e-Ukraine-logo"]
 			},
-			backgroundImage: {
-				'blue-gradient': "linear-gradient(#0026F3, #565DFF)"
+			colors: {
+				'primary': "#0026F3"
+			},
+			keyframes: {
+				ball: {
+					"0%": {
+						transform: "translateY(0)"
+					},
+					"50%": {
+						transform: "translateY(-35px)"
+					},
+					"100%": {
+						transform: "translateY(0)"
+					}
+				},
+				"second-ball": {
+					"0%": {
+						transform: "translateY(0)"
+					},
+					"50%": {
+						transform: "translateY(35px)"
+					},
+					"100%": {
+						transform: "translateY(0)"
+					}
+				}
+			},
+			animation: {
+				ball: 'ball 3s ease-in-out infinite',
+				'second-ball': 'second-ball 3s ease-in-out infinite',
 			}
 		},
 	},
