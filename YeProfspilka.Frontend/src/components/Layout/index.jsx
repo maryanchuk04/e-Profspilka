@@ -1,8 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleOpen, selectLoginState } from '../../features/loginSlice'
-import Container from '../Container'
-import Header from '../Header'
 import RegistrationForm from '../RegistrationForm'
 import SimpleModal from '../SimpleModal'
 
@@ -16,10 +14,7 @@ const Layout = ({ children }) => {
 
 	return (
 		<div className='relative min-h-screen h-full'>
-			<Container>
-				<Header />
-				{children}
-			</Container>
+			{children}
 			{
 				open && <SimpleModal handleClose={handleClose} >
 					<RegistrationForm />
