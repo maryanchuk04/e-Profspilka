@@ -21,7 +21,7 @@ const Socials = () => {
 
 	return (
 		<div className='my-32'>
-			<h1 className='my-12'>Ми в соц мережах</h1>
+			<h1 className='my-12 max-sm:text-center'>Ми в соц мережах</h1>
 			<div className='flex flex-wrap my-5 justify-between gap-10'>
 				{
 					socials.map((item) => (

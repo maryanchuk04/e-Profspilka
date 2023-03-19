@@ -6,14 +6,14 @@ import PrimaryButton from '../../ui/Buttons/PrimaryButton'
 import TextField from '../../ui/Fields/TextField'
 import Svg from '../Svg'
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ className = "" }) => {
 	const dispatch = useDispatch();
 
 	const handleClick = () => {
 		dispatch(handleOpen())
 	}
 	return (
-		<div className='my-3 w-full h-full flex flex-col justify-center'>
+		<div className={`my-3 w-full h-full flex flex-col justify-center ${className}`}>
 			<h1 className='text-center w-full xs:text-xl sm:text-2xl md:text-3xl'>Зареєструватись<br /> в єПрофспілці</h1>
 			<div className='mt-12 mb-6 flex flex-col gap-4'>
 				<div className='w-full relative'>

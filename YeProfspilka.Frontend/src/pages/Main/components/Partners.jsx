@@ -8,7 +8,7 @@ const Partners = () => {
 	const partners = useSelector(selectPartners);
 	return (
 		<div className='my-12'>
-			<h1 className='mb-12'>Наші партнери</h1>
+			<h1 className='mb-12 max-sm:text-center'>Наші партнери</h1>
 			<Carousel>
 				{
 					partners.map((item, index) => (
