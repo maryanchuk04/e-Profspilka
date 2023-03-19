@@ -1,10 +1,11 @@
 import React from "react"
+import PageWrapper from "../components/PageWrapper";
 import Main from "./Main";
 
 const routes = [
 	{
 		path: "/",
-		element: <Main />
+		element: <PageWrapper element={<Main />} />
 	}
 ]
 

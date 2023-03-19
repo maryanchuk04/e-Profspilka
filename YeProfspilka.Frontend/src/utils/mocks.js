@@ -56,3 +56,54 @@ export const advantagesMock = [
 		text: "самореалізація у комісіях та підрозділах профспілки університету"
 	},
 ]
+
+export const partnersMock = [
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+	{
+		title: "@stip_mayami",
+		text: "Стриптиз клуб “Маямі",
+		link: "#",
+		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+	},
+]

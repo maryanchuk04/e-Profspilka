@@ -23,7 +23,6 @@ const eventsSlice = createSlice({
 	},
 	extraReducers: {
 		[fetchEvents.fulfilled]: (state, action) => {
-			console.log(action.payload)
 			state.data = action.payload;
 		}
 	}
