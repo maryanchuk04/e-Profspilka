@@ -9,6 +9,7 @@ const Carousel = ({ children }) => {
 		dots: true,
 		infinite: false,
 		speed: 800,
+		arrows: false,
 		slidesToShow: 4,
 		autoplay: false,
 		afterChange: (i) => setIndex(i),

@@ -26,17 +26,11 @@ const MobileHeader = () => {
 					</div>
 				)
 			}
-			case 2: {
-				return (
-					<div></div>
-				)
-			}
-
 		}
 	}
 
 	return (
-		<header className={`flex w-full flex-col py-4 ${menuOpen && "bg-primary fixed top-0 z-30"}`}>
+		<header className={`flex w-full flex-col overflow-hiden py-4 ${menuOpen && "bg-primary fixed top-0 z-30"}`}>
 			<Container>
 				<div className='flex justify-between items-center relative'>
 					<div className='w-20 h-20'>
