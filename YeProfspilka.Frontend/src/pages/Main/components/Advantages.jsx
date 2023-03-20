@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useMedia } from 'use-media'
+import { useMediaQuery } from 'react-responsive'
 import AdvantagesCard from '../../../components/AdvantagesCard'
 import Container from '../../../components/Container'
 import { selectAdvantages } from '../../../features/advantagesSlice'
@@ -8,7 +8,7 @@ import PrimaryButton from '../../../ui/Buttons/PrimaryButton'
 
 const Advantages = () => {
 	const smCount = 4;
-	const isSmMedia = useMedia({ maxWidth: "480px" });
+	const isSmMedia = useMediaQuery({ maxWidth: "480px" });
 	const advantages = useSelector(selectAdvantages);
 
 	return (

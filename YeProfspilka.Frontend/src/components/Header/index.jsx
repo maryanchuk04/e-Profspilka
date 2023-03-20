@@ -6,13 +6,13 @@ import Button from '../../ui/Buttons/Button';
 import PrimaryButton from '../../ui/Buttons/PrimaryButton';
 import Container from '../Container';
 import UserDetails from './UserDetails';
-import { useMedia } from 'use-media';
+import { useMediaQuery } from 'react-responsive'
 import MobileHeader from './MobileHeader';
 
 const Header = () => {
 	const dispatch = useDispatch();
 	const autorized = useSelector(selectIsAuthorized);
-	const media = useMedia({ maxWidth: "450px" })
+	const media = useMediaQuery({ maxWidth: "450px" })
 
 	return media ? (
 		<MobileHeader />

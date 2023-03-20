@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useMedia } from 'use-media'
+import { useMediaQuery } from 'react-responsive'
 import Circles from '../Circles'
 import Container from '../Container'
 
 const Footer = () => {
-	const media = useMedia({ maxWidth: "450px" });
+	const media = useMediaQuery({ maxWidth: "450px" });
 
 	return (
 		<div className='bg-[#212121] pt-16 pb-10 mt-12'>
