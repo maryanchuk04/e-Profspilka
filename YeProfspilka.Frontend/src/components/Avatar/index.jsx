@@ -5,7 +5,7 @@ const Avatar = ({ src, className = "" }) => {
 		<div className={`h-16 w-16 rounded-standart ${className}`}>
 			<img src={src}
 				alt="Avatar"
-				className='h-full w-full rounded-standart'
+				className='h-full w-full rounded-standart object-cover'
 			/>
 		</div>
 	)
