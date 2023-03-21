@@ -15,7 +15,7 @@ const TipicalQuestions = () => {
 	]
 
 	return (
-		<div className='my-16'>
+		<div id='questions' className='my-16'>
 			<h1 className='mb-12 max-sm:text-center'>Типові питання</h1>
 			<div>
 				{

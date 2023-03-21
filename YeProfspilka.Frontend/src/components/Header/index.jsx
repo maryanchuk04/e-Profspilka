@@ -33,7 +33,6 @@ const Header = () => {
 					)
 				}
 			</header>
-
 		</Container>
 	)
 }

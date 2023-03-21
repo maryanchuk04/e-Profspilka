@@ -16,7 +16,7 @@ const MobileHeader = () => {
 	const renderModileHeaderContent = () => {
 		switch (headerState) {
 			case 0: {
-				return <MobileMenuContent setHeaderState={setHeaderState} />
+				return <MobileMenuContent setHeaderState={setHeaderState} handleClose={() => setMenuOpen(false)} />
 			}
 			case 1: {
 				return (

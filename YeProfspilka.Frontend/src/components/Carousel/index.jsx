@@ -7,11 +7,14 @@ const Carousel = ({ children }) => {
 	const [index, setIndex] = useState(0);
 	const settings = {
 		dots: true,
-		infinite: false,
+		infinite: true,
 		speed: 800,
 		arrows: false,
 		slidesToShow: 4,
-		autoplay: false,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		initialSlide: 0,
+		pauseOnHover: true,
 		afterChange: (i) => setIndex(i),
 		appendDots: (dots) => <ul className='my-12'>{dots}</ul>,
 		customPaging: (i) => (
@@ -43,6 +46,13 @@ const Carousel = ({ children }) => {
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 380,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
 				}
 			}
 		]

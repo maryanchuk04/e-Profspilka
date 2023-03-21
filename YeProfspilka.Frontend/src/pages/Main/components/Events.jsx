@@ -8,7 +8,7 @@ const Events = () => {
 	const events = useSelector(selectEvents)
 
 	return (
-		<div className='w-full my-4'>
+		<div id="events" className='w-full my-4'>
 			<h1 className='my-12 max-sm:text-center'>Проведені події</h1>
 			<div className='flex w-full flex-wrap justify-between my-6'>
 				{

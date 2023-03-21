@@ -1,17 +1,40 @@
 import React from 'react'
+import { HashLink as Link } from 'react-router-hash-link';
 import Button from '../../ui/Buttons/Button';
 import PrimaryButton from '../../ui/Buttons/PrimaryButton';
 
-const MobileMenuContent = ({ setHeaderState }) => {
-	const links = ["Події", "Переваги", "Ми в соц мережах", "Партнери", "Типові питання"];
+
+const MobileMenuContent = ({ setHeaderState, handleClose }) => {
+	const links = [
+		{
+			name: "Події",
+			link: "#events"
+		},
+		{
+			name: "Переваги",
+			link: "#advantages"
+		},
+		{
+			name: "Ми в соц мережах",
+			link: "#socials"
+		},
+		{
+			name: "Партнери",
+			link: "#partners"
+		},
+		{
+			name: "Типові питання",
+			link: "#questions"
+		}
+	];
 
 	const MenuItem = ({ item }) => {
 		return (
-			<li className='text-white border-b-2 mb-6 border-white flex justify-between items-center'>
-				<p className='text-2xl'>{item}
+			<Link onClick={handleClose} to={item.link} className='text-white border-b-2 mb-6 border-white flex justify-between items-center'>
+				<p className='text-2xl'>{item.name}
 				</p>
 				<i className='fas fa-arrow-up rotate-45 text-2xl'></i>
-			</li>
+			</Link>
 		);
 	}
 
