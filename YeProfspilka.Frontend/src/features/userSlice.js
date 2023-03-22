@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { MemberStatus } from "../utils/memberStatus";
 
 const initialState = {
 	autorized: true,
@@ -6,26 +7,8 @@ const initialState = {
 		pib: "Миколко Микола Миколайович",
 		facultet: "Факультет математики та інформатики",
 		course: 2,
-		isVerificated: true,
-		status: 0,
+		status: MemberStatus.NOT_VERIFICATED,
 		avatar: "http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcSStEXQ52SE6txqvnwfAyOZ-dt6fkkBqzcir0RaZkoG54dYK7UByieR90Nb18ON4rdZ6VyDNVuQdk1kXik",
-		discounts: [
-			{
-				name: "Знижка 15% у Стриптиз клубі “Маямі”",
-				code: "ada",
-				isBlocked: false,
-			},
-			{
-				name: "Знижка 15% у Стриптиз клубі “Маямі”",
-				code: "ada",
-				isBlocked: true,
-			},
-			{
-				name: "Знижка 15% у Стриптиз клубі “Маямі”",
-				code: "ada",
-				isBlocked: true,
-			},
-		]
 	}
 }
 

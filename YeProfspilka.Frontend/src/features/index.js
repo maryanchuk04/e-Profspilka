@@ -4,5 +4,6 @@ import events from "./eventsSlice";
 import advantages from "./advantagesSlice";
 import partners from "./partnersSlice"
 import alert from "./alertSlice";
+import discounts from './discountSlice';
 
-export default { login, user, events, advantages, partners, alert };
+export default { login, user, events, advantages, partners, alert, discounts };

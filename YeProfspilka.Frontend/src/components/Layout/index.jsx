@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { selectAlertState } from '../../features/alertSlice'
+import { fetchDiscounts } from '../../features/discountSlice'
 import { handleOpen, selectLoginState } from '../../features/loginSlice'
 import Alert from '../Alert'
 import RegistrationForm from '../RegistrationForm'
@@ -12,6 +13,10 @@ const Layout = ({ children }) => {
 	const isMobile = useMediaQuery({ maxWidth: "480px" });
 	const alert = useSelector(selectAlertState);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchDiscounts())
+	}, [])
 
 	const handleClose = () => {
 		dispatch(handleOpen());

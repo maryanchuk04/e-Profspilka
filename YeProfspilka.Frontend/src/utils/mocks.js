@@ -107,3 +107,21 @@ export const partnersMock = [
 		image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
 	},
 ]
+
+export const discountsMock = [
+	{
+		name: "Знижка 15% у Стриптиз клубі “Маямі”",
+		code: "ada",
+		isBlocked: false,
+	},
+	{
+		name: "Знижка 15% у Стриптиз клубі “Маямі”",
+		code: "ada",
+		isBlocked: true,
+	},
+	{
+		name: "Знижка 15% у Стриптиз клубі “Маямі”",
+		code: "ada",
+		isBlocked: true,
+	},
+]
