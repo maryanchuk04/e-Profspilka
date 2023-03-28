@@ -51,10 +51,6 @@ const MobileMenuContent = ({ setHeaderState, handleClose }) => {
 			<div>
 				<Button className='bg-white border-0 mb-3' onClick={() => setHeaderState(1)}>Увійти</Button>
 				<PrimaryButton className='border-white text-white border-2 mb-5' onClick={() => setHeaderState(1)}>Зареєструватись</PrimaryButton>
-				<p className='text-white/50 text-center text-xs '>ПРОФСПІЛКОВА ОРГАНІЗАЦІЯ СТУДЕНТІВ
-					ЧЕРНІВЕЦЬКОГО НАЦІОНАЛЬНОГО УНІВЕРСИТЕТУ
-					ІМЕНІ ЮРІЯ ФЕДЬКОВИЧА
-				</p>
 			</div>
 		</div>
 	)

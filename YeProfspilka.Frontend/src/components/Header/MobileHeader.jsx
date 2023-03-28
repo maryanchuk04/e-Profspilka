@@ -43,6 +43,10 @@ const MobileHeader = () => {
 				<div className='bg-primary mt-24 h-full w-full fixed top-0 left-0 z-40'>
 					<Container className='h-full py-5'>
 						{renderModileHeaderContent()}
+						<p className='text-white/50 text-center text-xs '>ПРОФСПІЛКОВА ОРГАНІЗАЦІЯ СТУДЕНТІВ
+							ЧЕРНІВЕЦЬКОГО НАЦІОНАЛЬНОГО УНІВЕРСИТЕТУ
+							ІМЕНІ ЮРІЯ ФЕДЬКОВИЧА
+						</p>
 					</Container>
 				</div>
 			)}

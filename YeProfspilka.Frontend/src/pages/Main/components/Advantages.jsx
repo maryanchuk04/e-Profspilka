@@ -17,7 +17,7 @@ const Advantages = () => {
 				<Container >
 					<div className='w-32 h-32 bg-[#D3D3D3]/30 absolute top-[10%] right-[10%] rounded-full z-10'></div>
 					<div className='w-40 h-40 bg-[#D3D3D3]/30 absolute top-[45%] right-1/4 rounded-full'></div>
-					<h1 className='my-12 max-md:text-center'>Переваги членства<br /> в профспілці</h1>
+					<h1 className='my-12 max-md:text-center'>Переваги профспілкового<br />членства</h1>
 					<div className='relative flex flex-wrap gap-12 w-full justify-between my-10 z-20'>
 						{
 							isSmMedia ? (

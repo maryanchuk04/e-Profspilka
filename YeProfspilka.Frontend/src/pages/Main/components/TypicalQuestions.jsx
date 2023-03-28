@@ -16,7 +16,7 @@ const TipicalQuestions = () => {
 
 	return (
 		<div id='questions' className='my-16'>
-			<h1 className='mb-12 max-sm:text-center'>Типові питання</h1>
+			<h1 className='mb-12 max-sm:text-center'>Типові запитання</h1>
 			<div>
 				{
 					questions.map((item) => (

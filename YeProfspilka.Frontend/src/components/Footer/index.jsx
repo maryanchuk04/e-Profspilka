@@ -17,15 +17,14 @@ const Footer = () => {
 					<h2 className='mb-6 text-white'>Посилання</h2>
 					<Link className='mb-5' to='/'>Головна</Link>
 					<Link className='mb-5' to='/'>Події</Link>
-					<Link className='mb-5' to='/'>Власний кабінет</Link>
-					<Link className='mb-5' to='/'>Галерея</Link>
+					<Link className='mb-5' to='/'>Особистий кабінет</Link>
 				</div>
 				<div className='flex flex-col text-white/75'>
 					<h2 className='mb-6 text-white'>Контакти</h2>
 					<a className='mb-5' href="https://goo.gl/maps/gpTMvQajC4KMmBPs9">
-						<i className='fas fa-house mr-2'></i>58012, Україна, м. Чернівці,<br /> вул. Університетська, 28.</a>
-					<a className='mb-5' href="tel:+380372584857"><i className='fas fa-phone mr-2'></i>+38 (0372) 58-48-57</a>
-					<a className='mb-5' href="mailto:prokfqvkndsa@gmail.com"><i className='fas fa-envelope mr-2'></i>prokfqvkndsa@gmail.com</a>
+						<i className='fas fa-house mr-2'></i>58022, Україна, м. Чернівці,<br /> вул. Небесної сотні 4в.</a>
+					<a className='mb-5' href="tel:+380372584857"><i className='fas fa-phone mr-2'></i>+38 (0372) 509437</a>
+					<a className='mb-5' href="mailto:prokfqvkndsa@gmail.com"><i className='fas fa-envelope mr-2'></i>studprofkom@chnu.edu.ua</a>
 				</div>
 				{!media && <Circles className='scale-75' />}
 			</Container>

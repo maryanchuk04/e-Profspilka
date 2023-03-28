@@ -5,12 +5,14 @@ import 'slick-carousel/slick/slick-theme.css'
 
 const Carousel = ({ children }) => {
 	const [index, setIndex] = useState(0);
+	console.log(index, setIndex)
 	const settings = {
 		dots: true,
 		infinite: true,
 		speed: 800,
 		arrows: false,
 		slidesToShow: 4,
+<<<<<<< Updated upstream
 		autoplay: true,
 		autoplaySpeed: 5000,
 		initialSlide: 0,
@@ -23,6 +25,9 @@ const Carousel = ({ children }) => {
 				</div>
 			</li>
 		),
+=======
+		autoplay: false,
+>>>>>>> Stashed changes
 		responsive: [
 			{
 				breakpoint: 1024,

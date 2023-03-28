@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Container from '../../components/Container'
 import { fetchAdvantages } from '../../features/advantagesSlice'
 import { fetchEvents } from '../../features/eventsSlice'
 import { fetchPartners } from '../../features/partnersSlice'
@@ -11,6 +10,7 @@ import Mark from './components/Mark'
 import Partners from './components/Partners'
 import Socials from './components/Socials'
 import TypicalQuestions from './components/TypicalQuestions'
+import Container from '../../components/Container'
 
 const Main = () => {
 	const dispatch = useDispatch();
