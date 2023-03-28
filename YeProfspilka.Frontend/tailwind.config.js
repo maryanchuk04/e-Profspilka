@@ -6,11 +6,7 @@ module.exports = {
 	],
 	theme: {
 		screens: {
-<<<<<<< Updated upstream
 			xs: '375px',
-=======
-			xs: '380px',
->>>>>>> Stashed changes
 			sm: '480px',
 			md: '767px',
 			lg: '976px',

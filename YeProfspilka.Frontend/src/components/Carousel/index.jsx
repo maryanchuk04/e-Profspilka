@@ -12,7 +12,6 @@ const Carousel = ({ children }) => {
 		speed: 800,
 		arrows: false,
 		slidesToShow: 4,
-<<<<<<< Updated upstream
 		autoplay: true,
 		autoplaySpeed: 5000,
 		initialSlide: 0,
@@ -25,9 +24,6 @@ const Carousel = ({ children }) => {
 				</div>
 			</li>
 		),
-=======
-		autoplay: false,
->>>>>>> Stashed changes
 		responsive: [
 			{
 				breakpoint: 1024,
