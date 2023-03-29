@@ -18,4 +18,8 @@ public class AppDbContext : DbContext
 	public DbSet<Image> Images { get; set; }
 
 	public DbSet<StudentStore> StudentsStore { get; set; }
+
+	public DbSet<Event> Events { get; set; }
+
+	public DbSet<EventImage> EventImages { get; set; }
 }

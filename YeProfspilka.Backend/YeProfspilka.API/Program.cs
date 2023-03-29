@@ -24,6 +24,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IEventService>();
 builder.Services.AddSwaggerGen(options =>
 {
 	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -63,6 +64,8 @@ builder.Services
 			policy.RequireRole(PolicyNames.ModeratorRole));
 		options.AddPolicy(PolicyNames.HeadOfUnitPolicyName, policy =>
 			policy.RequireRole(PolicyNames.HeadOfUnitRole));
+		options.AddPolicy(PolicyNames.ModeratorAndAdminPolicyName, policy =>
+			policy.Requirements.Add(new RoleRequirement(PolicyNames.ModeratorAndAdminRole)));
 	})
 	.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddJwtBearer(options =>
