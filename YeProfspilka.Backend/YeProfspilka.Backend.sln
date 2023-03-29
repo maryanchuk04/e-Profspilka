@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Db", "YeProfsp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Core", "YeProfspilka.Core\YeProfspilka.Core.csproj", "{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeProfspilka.Application", "YeProfspilka.Application\YeProfspilka.Application.csproj", "{099AC314-0130-4CDC-89F2-0F2A01F30FAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ABC6BD0-53C8-4009-B599-F0E3909A72F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{099AC314-0130-4CDC-89F2-0F2A01F30FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099AC314-0130-4CDC-89F2-0F2A01F30FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099AC314-0130-4CDC-89F2-0F2A01F30FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{099AC314-0130-4CDC-89F2-0F2A01F30FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

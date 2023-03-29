@@ -5,10 +5,22 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>YeProfspilka.Backend</RootNamespace>
+        <UserSecretsId>8a72245e-cd8d-4373-9dc0-648acdb3f871</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\YeProfspilka.Application\YeProfspilka.Application.csproj" />
+      <ProjectReference Include="..\YeProfspilka.Db\YeProfspilka.Db.csproj" />
     </ItemGroup>
 
 </Project>
