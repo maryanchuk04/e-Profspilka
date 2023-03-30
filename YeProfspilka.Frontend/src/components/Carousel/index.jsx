@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 const Carousel = ({ children }) => {
 	const [index, setIndex] = useState(0);
-	console.log(index, setIndex)
+
 	const settings = {
 		dots: true,
 		infinite: true,

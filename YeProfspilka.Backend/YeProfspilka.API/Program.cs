@@ -1,10 +1,14 @@
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using YeProfspilka.Application.Configurations;
 using YeProfspilka.Db.EF;
 using YeProfspilka.Application.Services;
+using YeProfspilka.Backend.Mappers;
 using YeProfspilka.Backend.Policies;
 using YeProfspilka.Core.Interfaces;
 
@@ -19,12 +23,27 @@ builder.Services.AddDbContextFactory<AppDbContext>(
 		builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
 		b => b.MigrationsAssembly("YeProfspilka.Db")),
 	ServiceLifetime.Scoped);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<IEventService>();
+builder.Services.AddSingleton<ISecurityContext, SecurityContext>();
+builder.Services.AddScoped<IUserServices, UserService>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IStudentStoreService, StudentStoreService>();
+
+// App configuration
+var appConfig = new AppConfiguration();
+builder.Configuration.GetSection("App").Bind(appConfig);
+builder.Services.AddSingleton(appConfig);
+
+// Jwt configuration.
+var jwtConfiguration = new JwtConfiguration();
+builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
+builder.Services.AddSingleton(jwtConfiguration);
+
 builder.Services.AddSwaggerGen(options =>
 {
 	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -47,7 +66,7 @@ builder.Services.AddSwaggerGen(options =>
 		},
 	});
 });
-
+builder.Services.AddAutoMapper(typeof(EventsMapper).GetTypeInfo().Assembly);
 builder.Services
 	.AddMemoryCache()
 	.AddAuthorization(options =>
@@ -81,6 +100,7 @@ builder.Services
 			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
 		};
 	});
+builder.Services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 
 // Add Logging
 builder.Logging.ClearProviders();
@@ -88,7 +108,6 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();

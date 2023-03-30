@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export const api = axios.create({
-	baseURL: "url"
+	baseURL: process.env.REACT_APP_API_URL
 })
 
 const errorHandler = (error) => {

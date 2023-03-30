@@ -10,5 +10,5 @@ public class EventImage : BaseEntity
 
 	public Guid ImageId { get; set; }
 
-	public Image Type { get; set; }
+	public Image Image { get; set; }
 }

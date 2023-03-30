@@ -1,8 +1,12 @@
+using YeProfspilka.Core.Models;
+
 namespace YeProfspilka.Core.Interfaces;
 
 public interface IAuthenticationService
 {
-	Task Authentication();
+	Task<AuthenticateResponseModel> Authenticate(string email);
 
-	Task Registration(string email, string fullName, string image);
+	Task<AuthenticateResponseModel> Authenticate(string email, string password);
+
+	Task<AuthenticateResponseModel> Registration(string email, string fullName, string image);
 }

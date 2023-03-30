@@ -23,7 +23,6 @@ const advantagesSlice = createSlice({
 	},
 	extraReducers: {
 		[fetchAdvantages.fulfilled]: (state, action) => {
-			console.log(action.payload)
 			state.data = action.payload;
 		}
 	}
