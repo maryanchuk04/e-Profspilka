@@ -25,6 +25,7 @@ public class AuthenticationService : IAuthenticationService
 	{
 		var user = _context.Users
 			.Include(x => x.UserTokens)
+			.Include(x => x.UserRoles)
 			.FirstOrDefault(x => x.Email == email);
 
 		if (user == null)
@@ -74,12 +75,14 @@ public class AuthenticationService : IAuthenticationService
 			UserTokens = new List<UserToken>(),
 		};
 
+		user.UserRoles.Add(new UserRole { RoleId = Role.Student, UserId = user.Id });
+
 		if (!await _studentStore.IsStudent(email))
 		{
 			user.UserRoles.Add(new UserRole
 			{
 				RoleId = Role.NotVerified,
-				UserId = user.Id
+				UserId = user.Id,
 			});
 		}
 		else

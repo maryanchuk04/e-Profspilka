@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AlertType } from "../types/alertTypes";
 
 const initialState = {
 	open: false,
 	text: "Шось пішло не так!",
-	type: "error",
+	type: AlertType.ERROR,
 	duration: 3000
 }
 

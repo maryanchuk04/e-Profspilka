@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YeProfspilka.Backend.Policies;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
 
@@ -7,7 +8,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("user")]
-[Authorize]
+[Authorize(Policy = PolicyNames.StudentPolicyName)]
 public class UserController : ControllerBase
 {
 	private readonly IUserServices _userServices;

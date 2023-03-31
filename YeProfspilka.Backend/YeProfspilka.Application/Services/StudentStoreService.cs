@@ -34,7 +34,8 @@ public class StudentStoreService : IStudentStoreService
 		{
 			user.UserRoles.Add(new UserRole
 			{
-				RoleId = Role.MemberProfspilka
+				RoleId = Role.MemberProfspilka,
+				UserId = user.Id
 			});
 		}
 	}

@@ -10,6 +10,10 @@ public class User : BaseEntity
 
 	public Image Image { get; set; }
 
+	public string? Facultet { get; set; }
+
+	public int? Course { get; set; }
+
 	public ICollection<UserRole> UserRoles { get; set; }
 
 	public ICollection<UserToken> UserTokens { get; set; }

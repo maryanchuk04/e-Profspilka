@@ -52,8 +52,7 @@ public class TokenService : ITokenService
 		var claims = new List<Claim>();
 
 		claims.Add(new Claim(ClaimTypes.Name, $"{user.Id}"));
-		var roles = user.UserRoles.Select(ar => ar.Role);
-		claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
+		claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.RoleId.ToString())));
 
 		return claims;
 	}

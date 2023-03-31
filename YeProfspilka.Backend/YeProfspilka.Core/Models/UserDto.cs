@@ -1,5 +1,3 @@
-using YeProfspilka.Core.Enumerations;
-
 namespace YeProfspilka.Core.Models;
 
 public class UserDto

@@ -2,15 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AuthenticateService } from "../services/AuthenticateService";
 import { googleAuthenticate } from "../services/GoogleAuth";
 import { UserService } from "../services/UserService";
-import { MemberStatus } from "../utils/memberStatus";
-import { showAlert } from "./alertSlice";
+import { MemberStatus } from "../types/memberStatus";
+import { showAlert, showDefaultAlert } from "./alertSlice";
 import { HttpStatusCode } from "axios";
+import { AlertType } from "../types/alertTypes";
+import { handleOpen } from "./loginSlice";
 
 const initialState = {
 	loading: false,
 	data: {
-		fullName: "",
-		facultet: "",
+		id: null,
+		fullName: null,
+		facultet: null,
 		course: 2,
 		status: MemberStatus.NOT_VERIFICATED,
 		avatar: "",
@@ -18,20 +21,21 @@ const initialState = {
 }
 
 const authService = new AuthenticateService();
-const userService = new UserService();
+
 const alert = {
 	open: true,
 	text: "",
-	type: "success",
-	duratuion: 4000
+	type: AlertType.SUCCESS,
+	duration: 4000
 }
 
 export const googleAuthenticateThunk = createAsyncThunk(
 	"user/authenticate",
 	async (googleToken, { fulfillWithValue, rejectWithValue, dispatch }) => {
 		try {
-			const { data } = await googleAuthenticate(googleToken);
-			const { name, picture, email, hd } = data;
+			const googleResponse  = await googleAuthenticate(googleToken);
+
+			const { name, picture, email, hd } = googleResponse;
 
 			const status = await authService.authenticateGoogle({ name, picture, email, hd });
 			
@@ -45,15 +49,31 @@ export const googleAuthenticateThunk = createAsyncThunk(
 				dispatch(showAlert(alert))
 			}
 
-			const userResponse = await userService.get();
+			dispatch(fetchUserThunk());
+			dispatch(handleOpen())
+			return fulfillWithValue();
+		} 
+		catch (error) {
+			console.log(error)
+			alert.type = 'error';
+			alert.text = "Щось пішло не так! :("
+			dispatch(showAlert(alert));
+			return rejectWithValue(null);
+		}
+	}
+)
+
+export const fetchUserThunk = createAsyncThunk(
+	"user/fetchUser",
+	async(_, { fulfillWithValue, rejectWithValue, dispatch }, service = new UserService()) => {
+		try {
+			const userResponse = await service.get();
 
 			return fulfillWithValue(userResponse.data);
 		} 
 		catch (error) {
-			alert.type = 'error';
-			alert.text = "Щось пішло не так! :("
-			dispatch(showAlert(alert))
-			return rejectWithValue(null);
+			dispatch(showDefaultAlert());
+			return rejectWithValue(null)
 		}
 	}
 )
@@ -68,16 +88,25 @@ const userSlice = createSlice({
 		[googleAuthenticateThunk.pending]: (state) => {
 			state.loading = true
 		},
-		[googleAuthenticateThunk.fulfilled]: (state, action) => {
+		[googleAuthenticateThunk.fulfilled]: (state) => {
 			state.loading = false;
+		},
+		[googleAuthenticateThunk.rejected]: (state) => {
+			state.loading = false;
+		},
+		[fetchUserThunk.pending]: (state) => {
+			state.loading = true;
+		},
+		[fetchUserThunk.fulfilled]: (state, action) => {
+			state.data.id = action.payload.id;
 			state.data.fullName = action.payload.fullName;
 			state.data.avatar = action.payload.avatar;
 			state.data.status = action.payload.status;
 			state.data.course = action.payload.course;
 			state.data.facultet = action.payload.facultet;
-
+			state.loading = false;
 		},
-		[googleAuthenticateThunk.rejected]: (state) => {
+		[fetchUserThunk.rejected]: (state) => {
 			state.loading = false;
 		}
 	}
@@ -86,5 +115,7 @@ const userSlice = createSlice({
 export const selectIsAuthorized = (state) => state.user.autorized;
 
 export const selectUserData = (state) => state.user.data;
+
+export const selectUserLoading = (state) => state.user.loading;
 
 export default userSlice.reducer;

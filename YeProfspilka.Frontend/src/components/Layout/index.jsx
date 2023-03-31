@@ -4,6 +4,8 @@ import { useMediaQuery } from 'react-responsive'
 import { selectAlertState } from '../../features/alertSlice'
 import { fetchDiscounts } from '../../features/discountSlice'
 import { handleOpen, selectLoginState } from '../../features/loginSlice'
+import { fetchUserThunk } from '../../features/userSlice'
+import { Token } from '../../services/TokenService'
 import Alert from '../Alert'
 import RegistrationForm from '../RegistrationForm'
 import SimpleModal from '../SimpleModal'
@@ -16,6 +18,9 @@ const Layout = ({ children }) => {
 
 	useEffect(() => {
 		dispatch(fetchDiscounts())
+		if (Token.get()) {
+			dispatch(fetchUserThunk());
+		}
 	}, [])
 
 	const handleClose = () => {

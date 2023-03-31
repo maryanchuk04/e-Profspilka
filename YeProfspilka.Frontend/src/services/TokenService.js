@@ -1,3 +1,4 @@
+
 const TOKEN_KEY = "token";
 
 export const Token = {
@@ -6,5 +7,8 @@ export const Token = {
 	},
 	get: () => {
 		return localStorage.getItem(TOKEN_KEY);
+	},
+	remove: () => {
+		localStorage.removeItem(TOKEN_KEY);
 	}
 }

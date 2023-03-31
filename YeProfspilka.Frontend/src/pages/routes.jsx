@@ -1,8 +1,10 @@
 import React from "react"
 import PageWrapper from "../components/PageWrapper";
+import ProtectedRoute from "../components/ProtectedRoute";
 import Main from "./Main";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
+import { authorizeProtection } from "./routesProtection";
 
 const routes = [
 	{
@@ -11,7 +13,11 @@ const routes = [
 	},
 	{
 		path: "/profile",
-		element: <PageWrapper element={<Profile />} />
+		element: <PageWrapper element={
+			<ProtectedRoute protectWhen={authorizeProtection}>
+				<Profile />
+			</ProtectedRoute>
+		} />
 	},
 	{
 		path: "*",

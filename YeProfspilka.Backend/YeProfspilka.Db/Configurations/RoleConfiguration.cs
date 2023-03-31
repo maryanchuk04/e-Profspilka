@@ -17,9 +17,5 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 			new Role { Id = Core.Enumerations.Role.MemberProfspilka, Name = "MemberProfspilka" },
 			new Role { Id = Core.Enumerations.Role.HeadOfUnit, Name = "HeadOfUnit" },
 		});
-
-		builder.HasKey(r => r.Id);
-		builder.Property(r => r.Id).ValueGeneratedNever();
-		builder.Property(r => r.Name).IsRequired().HasMaxLength(30);
 	}
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import DiscountCard from '../../components/DiscountCard'
-import { MemberStatus } from '../../utils/memberStatus';
+import { MemberStatus } from '../../types/memberStatus';
 
 const DiscountsList = ({ status, discounts }) => {
 	const availableDiscounts = discounts.filter(x => x.isBlocked === false);
@@ -59,6 +59,11 @@ const DiscountsList = ({ status, discounts }) => {
 	return (
 		<div className='bg-[#E6E6E6] px-12 w-3/4 py-8 rounded-standart max-h-[900px] overflow-y-auto'>
 			{renderStatus()}
+			{discounts && (
+				<div>
+					<h2>У вас ще немає знижок!</h2>
+				</div>
+			)}
 		</div>
 	)
 }

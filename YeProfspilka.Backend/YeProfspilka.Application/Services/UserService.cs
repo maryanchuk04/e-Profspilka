@@ -24,6 +24,7 @@ public class UserService : IUserServices
 		var userId = _securityContext.GetCurrentUserId();
 
 		var user = await _dbContext.Users
+			.Include(x => x.Image)
 			.Include(x => x.UserRoles)
 			.ThenInclude(x => x.Role)
 			.FirstOrDefaultAsync(x => x.Id == userId);

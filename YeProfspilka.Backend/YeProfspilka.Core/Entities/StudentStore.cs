@@ -8,5 +8,9 @@ public class StudentStore : BaseEntity
 
 	public string Email { get; set; }
 
+	public string Facultet { get; set; }
+
+	public int Course { get; set; }
+
 	public bool IsPaidDues { get; set; }
 }

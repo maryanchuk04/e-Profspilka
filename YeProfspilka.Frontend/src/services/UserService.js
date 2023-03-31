@@ -1,9 +1,13 @@
-import { api } from "./config/axios.config"
+import { ApiService } from "./config/ApiService";
 
 export class UserService {
 	#url = "/user"
+	
+	constructor() {
+		this.api = new ApiService();
+	}
 
 	async get() {
-		return await api.get(this.#url);
+		return await this.api.get(this.#url);
 	}
 }
