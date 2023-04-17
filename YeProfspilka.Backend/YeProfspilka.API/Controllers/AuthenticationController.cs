@@ -67,7 +67,7 @@ public class AuthenticationController : ControllerBase
 		{
 			if (googleViewModel.Hd != _configuration.DomainEmail)
 			{
-				return BadRequest("Ви не можете зареєструватися під даним емейлом! Оберіть емейл вашого закладу!");
+				return BadRequest(new ErrorResponseModel("Ви не можете зареєструватися під даним емейлом! Оберіть емейл вашого закладу!"));
 			}
 
 			if (await _userServices.UserIsExist(googleViewModel.Email))

@@ -54,7 +54,7 @@ export const googleAuthenticateThunk = createAsyncThunk(
 			return fulfillWithValue();
 		} 
 		catch (error) {
-			console.log(error)
+			
 			alert.type = 'error';
 			alert.text = "Щось пішло не так! :("
 			dispatch(showAlert(alert));

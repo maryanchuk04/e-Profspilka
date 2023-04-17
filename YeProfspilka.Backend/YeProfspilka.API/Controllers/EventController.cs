@@ -39,6 +39,7 @@ public class EventController : ControllerBase
 	}
 
 	[HttpGet]
+	[AllowAnonymous]
 	public async Task<IActionResult> Get()
 	{
 		try
@@ -52,6 +53,7 @@ public class EventController : ControllerBase
 	}
 
 	[HttpGet("{id}")]
+	[AllowAnonymous]
 	public async Task<IActionResult> Get(Guid id)
 	{
 		try
