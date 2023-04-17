@@ -11,6 +11,7 @@ import Partners from './components/Partners'
 import Socials from './components/Socials'
 import TypicalQuestions from './components/TypicalQuestions'
 import Container from '../../components/Container'
+import { fetchQuestions } from '../../features/questionsSlice'
 
 const Main = () => {
 	const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Main = () => {
 		dispatch(fetchEvents());
 		dispatch(fetchAdvantages());
 		dispatch(fetchPartners());
+		dispatch(fetchQuestions());
 	}, [])
 
 	return (

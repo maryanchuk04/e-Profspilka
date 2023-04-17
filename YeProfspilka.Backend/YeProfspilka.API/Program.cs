@@ -34,6 +34,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IStudentStoreService, StudentStoreService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IPartnersService, PartnersService>();
 
 // App configuration
 var appConfig = new AppConfiguration();
