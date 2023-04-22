@@ -21,6 +21,7 @@ const Main = () => {
 		dispatch(fetchAdvantages());
 		dispatch(fetchPartners());
 		dispatch(fetchQuestions());
+		dispatch(fetchAdvantages());
 	}, [])
 
 	return (

@@ -11,8 +11,8 @@ const Partners = () => {
 			<h1 className='mb-12 max-sm:text-center'>Наші партнери</h1>
 			<Carousel>
 				{
-					partners.map((item, index) => (
-						<PartnerCard key={`${partners.title}/${index}`} partner={item} />
+					partners.map((item) => (
+						<PartnerCard key={item.id} partner={item} />
 					))
 				}
 			</Carousel>

@@ -9,7 +9,9 @@ export const fetchPartners = createAsyncThunk(
 	'partners/fetchPartners',
 	async (_, { fulfillWithValue }, service = new PartnersService()) => {
 		try {
-			return fulfillWithValue(service.getPartners());
+			const { data } = await service.getPartners();
+
+			return fulfillWithValue(data);
 		} catch (error) {
 			console.log(error);
 		}

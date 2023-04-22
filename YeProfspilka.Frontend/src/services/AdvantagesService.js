@@ -1,9 +1,10 @@
-import { advantagesMock } from "../utils/mocks"
+import { ApiService } from "./config/ApiService";
 
 export class AdvantagesService {
-	#advantagesUrl = "/advantages"
+	#service = new ApiService()
+	#advantagesUrl = "/advantage";
 
 	getAdvantages() {
-		return advantagesMock;
+		return this.#service.get(this.#advantagesUrl);
 	}
 }

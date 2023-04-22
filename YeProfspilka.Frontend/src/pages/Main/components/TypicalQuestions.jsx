@@ -13,7 +13,7 @@ const TipicalQuestions = () => {
 				<div>
 					{
 						questions.map((item) => (
-							<Accordion key={item.title} title={item.questionText} details={item.answer} />
+							<Accordion key={item.id} title={item.questionText} details={item.answer} />
 						))
 					}
 				</div>

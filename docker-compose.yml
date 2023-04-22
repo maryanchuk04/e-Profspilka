@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./YeProfspilka.Frontend
+    ports:
+      - "3001:3000"
+
+  admin:
+    build: ./YeProfspilka.Admin
+    ports:
+      - "4200:4200"
+
+  backend:
+    build: ./YeProfspilka.Backend
+    ports:
+      - "5005"
+
+  nginx:
+    build: ./Nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - admin
+      - backend
+  

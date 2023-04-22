@@ -38,14 +38,14 @@ public class PartnersController : ControllerBase
 	{
 		try
 		{
-			await _partnersService.CreateAsync(new PartnerDto
+			var res = await _partnersService.CreateAsync(new PartnerDto
 			{
 				SubText = partnerViewModel.SubText,
 				SubTextLink = partnerViewModel.SubTextLink,
-				Image = partnerViewModel.ImageUrl,
+				Image = partnerViewModel.Image,
 				MainText = partnerViewModel.MainText
 			});
-			return Ok();
+			return Ok(res);
 		}
 		catch (Exception e)
 		{
@@ -67,7 +67,7 @@ public class PartnersController : ControllerBase
 	}
 
 	[HttpDelete("{id}")]
-	[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
+	//[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
 	public async Task<IActionResult> Delete(Guid id)
 	{
 		try

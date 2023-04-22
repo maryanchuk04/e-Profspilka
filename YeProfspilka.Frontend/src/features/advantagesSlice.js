@@ -9,7 +9,9 @@ export const fetchAdvantages = createAsyncThunk(
 	'advantages/fetchAdvantages',
 	async (_, { fulfillWithValue, rejectWithValue }, api = new AdvantagesService()) => {
 		try {
-			return fulfillWithValue(api.getAdvantages());
+			const { data } = await api.getAdvantages();
+
+			return fulfillWithValue(data);
 		} catch (error) {
 			return rejectWithValue(undefined);
 		}

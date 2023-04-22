@@ -1,7 +1,10 @@
-import { partnersMock } from "../utils/mocks";
+import { ApiService } from "./config/ApiService";
 
 export class PartnersService {
-	getPartners() {
-		return partnersMock;
+	#url = '/partners';
+	#service = new ApiService();
+
+	async getPartners() {
+		return await this.#service.get(this.#url);
 	}
 }

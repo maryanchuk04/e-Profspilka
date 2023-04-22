@@ -22,11 +22,11 @@ const Advantages = () => {
 						{
 							isSmMedia ? (
 								advantages.slice(smCount).map((item) => (
-									<AdvantagesCard key={item.tag} advantages={item} />
+									<AdvantagesCard key={item.id} advantages={item} />
 								))
 							) : (
 								advantages.map((item) => (
-									<AdvantagesCard key={item.tag} advantages={item} />
+									<AdvantagesCard key={item.id} advantages={item} />
 								))
 							)
 
