@@ -1,0 +1,24 @@
+<ng-container *ngIf="(loading$ | async); else elseTemplate">
+	<app-loader></app-loader>
+</ng-container>
+<ng-template #elseTemplate>
+	<app-moderation-header (handleAdd)="handleOpenModal()"></app-moderation-header>
+	<div class="h-fit w-full pt-10">
+		<app-question *ngFor="let item of questions$ | async" [question]="item"></app-question>
+	</div>
+	<app-modal *ngIf="modal" (close)="handleCloseModal()">
+		<div class="w-[600px] h-96">
+			<div class="w-11/12 mx-auto">
+				<h1 class="text-2xl text-center my-4">Створіть нове питання!</h1>
+				<hr>
+				<app-text-field placeholder="Введіть саме питання..." class="my-3" classStyles="my-5"
+					[(value)]="question"></app-text-field>
+				<textarea placeholder="Введіть відповідь на питання..." [(ngModel)]="answer"
+					class="text-xl mt-2 w-full border px-2 py-1 focus-visible:outline-none border-black rounded-standart"
+					rows="4"></textarea>
+				<app-button (onClick)="create()" classStyles="my-5"
+					[disabled]="!question || !answer">Створити</app-button>
+			</div>
+		</div>
+	</app-modal>
+</ng-template>

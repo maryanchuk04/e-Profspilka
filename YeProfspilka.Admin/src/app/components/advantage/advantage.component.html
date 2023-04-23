@@ -1,0 +1,7 @@
+<div class="flex-1 shadow-xl h-full p-4 rounded-standart relative">
+	<h2 class="font-bold text- text-black/60">{{ advantage.mainText }}</h2>
+	<hr class="my-2">
+	<p class="text-lg pr-5">{{ advantage.subText }}</p>
+	<app-icon-button icon="fa-solid fa-trash text-red-500" className="absolute bottom-2 right-2"
+		(handleClick)="delete()"></app-icon-button>
+</div>

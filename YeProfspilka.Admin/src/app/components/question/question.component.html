@@ -1,0 +1,37 @@
+<div class="shadow-xl rounded-standart p-5">
+	<ng-container *ngIf="!isEdit; else editTemplate">
+		<div class="relative">
+			<h1 class="font-bold text-2xl">{{question.questionText}}</h1>
+			<app-icon-button class="absolute top-3 right-3" icon="fa-solid fa-pen-to-square"
+				(handleClick)="changeMode()"></app-icon-button>
+		</div>
+		<div>
+			<h3 class="text-xl mt-2">{{question.answer}}</h3>
+		</div>
+	</ng-container>
+	<ng-template #editTemplate>
+		<div class="relative">
+			<div class="relative">
+				<div class="w-11/12 mt-4">
+					<app-text-field [(value)]="questionText" classStyles="h-10" placeholder="Введіть питання..."
+						[defaultValue]="questionText"></app-text-field>
+				</div>
+				<app-icon-button class="absolute top-3 right-3"
+					[icon]="!isEdit ? 'fa-solid fa-pen-to-square' : 'fa-solid fa-xmark'"
+					(handleClick)="changeMode()"></app-icon-button>
+			</div>
+			<app-icon-button class="absolute bottom-14 right-3" icon="fa-solid fa-trash text-red-500"
+				(handleClick)="delete()"></app-icon-button>
+			<app-icon-button class="absolute bottom-3 right-3" icon="fa-solid fa-check text-lime-500"
+				(handleClick)="save()"></app-icon-button>
+			<div>
+				<div class="w-11/12 mt-2">
+					<textarea
+						class="text-xl mt-2 w-full border px-2 py-1 focus-visible:outline-none border-black rounded-standart"
+						rows="4" [(ngModel)]="answer" [defaultValue]="answer"></textarea>
+				</div>
+			</div>
+		</div>
+
+	</ng-template>
+</div>

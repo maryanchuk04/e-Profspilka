@@ -1,0 +1,39 @@
+<div class="shadow-xl first:mt-3 mb-3 p-2 px-4 rounded-standart flex items-center justify-between">
+	<h3 class="text-xl">{{partner.mainText}}</h3>
+	<div>
+		<app-icon-button (handleClick)="handleModal(true)" icon="fas fa-info"></app-icon-button>
+		<app-icon-button icon="fas fa-trash-can text-red-500" (handleClick)="detele()"></app-icon-button>
+	</div>
+
+	<app-modal *ngIf="open" (close)="cancel()">
+		<div class="w-[600px] h-fit p-5">
+			<h1 class="text-center text-xl font-bold mb-2">Змініть данні про "{{partner.mainText}}"</h1>
+			<hr>
+			<app-text-field [(value)]="mainText" classStyles="my-2"></app-text-field>
+			<app-text-field [(value)]="subText" classStyles="mb-2"></app-text-field>
+			<app-text-field [(value)]="subTextLink" classStyles="mb-2"></app-text-field>
+			<ng-container *ngIf="image !== ''; else elseTemplate">
+				<div class="w-full h-64 p-4 relative border border-black rounded-standart mb-2">
+					<img class="w-full h-full object-contain" [src]="image" [alt]="partner.mainText">
+					<app-icon-button (handleClick)="removeImage()"
+						className="absolute bottom-3 left-1/2 transform -translate-x-1/2"
+						icon="fa-solid fa-xmark text-white text-xl"></app-icon-button>
+				</div>
+			</ng-container>
+			<ng-template #elseTemplate>
+				<div appDragDrop (fileDrop)="handleFileDrop($event)"
+					class="opacity-50 text-center w-full h-64 p-4 grid mb-2 place-items-center border border-black rounded-standart">
+					<div>
+						<p class="text-xl">Перетягніть сюди зображення...</p>
+						<i class="fa-solid fa-image text-3xl"></i>
+					</div>
+				</div>
+			</ng-template>
+			<div class="flex w-full mt-4 justify-around">
+				<app-button (onClick)="cancel()" type="secondary"
+					classStyles="text-black w-fit px-4 bg-transparent border-black border">Скасувати</app-button>
+				<app-button (onClick)="submit()" classStyles="w-fit px-4">Зберегти</app-button>
+			</div>
+		</div>
+	</app-modal>
+</div>

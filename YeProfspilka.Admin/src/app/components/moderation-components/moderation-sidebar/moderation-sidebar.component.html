@@ -1,0 +1,11 @@
+<div class="w-full h-full border-r-2">
+	<ul class="w-11/12 mx-auto pt-4 flex flex-col">
+		<a *ngFor="let item of links"
+			routerLinkActive="w-full bg-black/10 cursor-pointer rounded-standart text-black shadow-md"
+			[routerLink]="item.link"
+			class="px-4 py-2 text-2xl duration-300 hover:bg-black/10 hover:rounded-standart rounded-standart mb-2">
+
+			{{item.name}}
+		</a>
+	</ul>
+</div>

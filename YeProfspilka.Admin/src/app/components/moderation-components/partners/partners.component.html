@@ -1,0 +1,38 @@
+<ng-container *ngIf="(loading$ | async); else elseTemplate">
+	<app-loader></app-loader>
+</ng-container>
+<ng-template #elseTemplate>
+	<app-moderation-header (handleAdd)="handleOpen(true)"></app-moderation-header>
+	<!-- fragment -->
+	<app-partner *ngFor="let item of partners$ | async" [partner]="item"></app-partner>
+	<!-- modal -->
+	<app-modal *ngIf="open" (close)="handleOpen(false)">
+		<div class="w-[600px] h-fit p-3">
+			<h1 class="text-2xl text-center">Додати нового партнера!</h1>
+			<app-text-field [(value)]="mainText" placeholder="Головний текст" classStyles="my-2"></app-text-field>
+			<app-text-field [(value)]="subText" placeholder="Допоміжний текст" classStyles="mb-2"></app-text-field>
+			<app-text-field [(value)]="subTestLink" placeholder="Посилання на допоміжному тексті"
+				classStyles="mb-2"></app-text-field>
+			<div appDragDrop (fileDrop)="handleFileDrop($event)"
+				class="w-full h-64 border border-black rounded-standart grid place-items-center mb-2">
+				<ng-container *ngIf="!file; else elseTemplate">
+					<div class="opacity-50 text-center">
+						<p class="text-xl">Перетягніть сюди зображення...</p>
+						<i class="fa-solid fa-image text-3xl"></i>
+					</div>
+				</ng-container>
+				<ng-template #elseTemplate>
+					<ng-container *ngIf="image === ''; else elseTemplateImage">
+						<app-loader></app-loader>
+					</ng-container>
+					<ng-template #elseTemplateImage>
+						<div class="w-full h-64 p-4">
+							<img class="w-full h-full object-contain" [src]="image" [alt]="file.name">
+						</div>
+					</ng-template>
+				</ng-template>
+			</div>
+			<app-button (onClick)="submit()">Створити!</app-button>
+		</div>
+	</app-modal>
+</ng-template>
