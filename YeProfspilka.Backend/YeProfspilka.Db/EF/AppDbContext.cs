@@ -16,7 +16,6 @@ public class AppDbContext : DbContext
 		modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 	}
 
-
 	public DbSet<User> Users { get; set; }
 
 	public DbSet<UserRole> UserRoles { get; set; }

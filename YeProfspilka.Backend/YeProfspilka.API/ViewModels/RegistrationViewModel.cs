@@ -1,4 +1,4 @@
-namespace YeProfspilka.Backend;
+namespace YeProfspilka.Backend.ViewModels;
 
 public class RegistrationViewModel
 {

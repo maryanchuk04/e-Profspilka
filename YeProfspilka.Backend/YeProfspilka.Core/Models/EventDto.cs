@@ -1,3 +1,5 @@
+using YeProfspilka.Core.Enumerations;
+
 namespace YeProfspilka.Core.Models;
 
 public class EventDto
@@ -10,5 +12,9 @@ public class EventDto
 
 	public DateTime? Date { get; set; }
 
-	public IEnumerable<string> ImagesUrl { get; set; }
+	public Status Status { get; set; }
+
+	public bool IsPassed { get; set; }
+
+	public IEnumerable<string> Images { get; set; }
 }

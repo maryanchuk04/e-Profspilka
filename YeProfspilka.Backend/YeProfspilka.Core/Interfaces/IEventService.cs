@@ -8,7 +8,7 @@ public interface IEventService
 
 	Task Delete(Guid id);
 
-	Task Update(EventDto eventDto);
+	Task<EventDto> Update(EventDto eventDto);
 
 	Task<IEnumerable<EventDto>> Get();
 

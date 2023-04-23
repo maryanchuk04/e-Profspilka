@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using YeProfspilka.Core.Entities;
+using YeProfspilka.Core.Enumerations;
 using YeProfspilka.Core.Exceptions;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
@@ -26,11 +27,12 @@ public class EventService : IEventService
 			Id = Guid.NewGuid(),
 			Date = DateTime.Now,
 			Title = eventDto.Title,
-			Desctiption = eventDto.Description,
+			Status = Status.Draft,
+			Description = eventDto.Description,
 			EventImages = new List<EventImage>()
 		};
 
-		foreach (var image in eventDto.ImagesUrl)
+		foreach (var image in eventDto.Images)
 		{
 			newEvent.EventImages.Add(new EventImage()
 			{
@@ -56,11 +58,15 @@ public class EventService : IEventService
 		}
 
 		_dbContext.Events.Remove(ev);
+		await _dbContext.SaveChangesAsync();
 	}
 
-	public async Task Update(EventDto eventDto)
+	public async Task<EventDto> Update(EventDto eventDto)
 	{
-		var ev = await _dbContext.Events.FirstOrDefaultAsync(x => x.Id == eventDto.Id);
+		var ev = await _dbContext.Events
+			.Include(x => x.EventImages)
+			.ThenInclude(x => x.Image)
+			.FirstOrDefaultAsync(x => x.Id == eventDto.Id);
 
 		if (ev == null)
 		{
@@ -68,10 +74,11 @@ public class EventService : IEventService
 		}
 
 		ev.Date = eventDto.Date ?? DateTime.Now;
-		ev.Desctiption = eventDto.Description;
+		ev.Description = eventDto.Description;
 		ev.Title = eventDto.Title;
+		ev.EventImages.Clear();
 
-		foreach (var url in eventDto.ImagesUrl)
+		foreach (var url in eventDto.Images.Distinct())
 		{
 			ev.EventImages.Add(new EventImage()
 			{
@@ -82,6 +89,8 @@ public class EventService : IEventService
 
 		_dbContext.Events.Update(ev);
 		await _dbContext.SaveChangesAsync();
+
+		return _mapper.Map<EventDto>(ev);
 	}
 
 	public async Task<IEnumerable<EventDto>> Get()

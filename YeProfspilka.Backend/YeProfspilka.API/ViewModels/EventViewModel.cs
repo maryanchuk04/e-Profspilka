@@ -8,5 +8,5 @@ public class EventViewModel
 
 	public DateTime? Date { get; set; }
 
-	public IEnumerable<string> ImagesUrl { get; set; }
+	public IEnumerable<string> Images { get; set; }
 }

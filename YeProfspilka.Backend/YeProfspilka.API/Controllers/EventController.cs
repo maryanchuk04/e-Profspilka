@@ -11,7 +11,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("event")]
-[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
+//[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
 public class EventController : ControllerBase
 {
 	private readonly IEventService _eventService;
@@ -77,6 +77,23 @@ public class EventController : ControllerBase
 		{
 			await _eventService.Delete(id);
 			return NoContent();
+		}
+		catch (NotFoundException e)
+		{
+			return NotFound(new ErrorResponseModel(e.Message));
+		}
+		catch (Exception e)
+		{
+			return BadRequest(new ErrorResponseModel(e.Message));
+		}
+	}
+
+	[HttpPut]
+	public async Task<IActionResult> Update(EventDto eventDto)
+	{
+		try
+		{
+			return Ok(await _eventService.Update(eventDto));
 		}
 		catch (NotFoundException e)
 		{
