@@ -1,7 +1,6 @@
-import { catchError } from 'rxjs';
-
 import { Injectable } from '@angular/core';
 
+import { Role } from '../models/roles';
 import { User } from '../models/User';
 import { RestService } from './rest.service';
 
@@ -18,5 +17,13 @@ export class UserService {
 
 	getCurrentUserWithToken(token: string) {
 		return this.service.getWithToken(this.url, token);
+	}
+
+	updateUserRole(id: string, role: Role) {
+		return this.service.put(`${this.url}/role`, { id, role: +role } as User);
+	}
+
+	getUsers() {
+		return this.service.getAll(`${this.url}/all`);
 	}
 }

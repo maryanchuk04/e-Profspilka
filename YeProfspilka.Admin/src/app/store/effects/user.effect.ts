@@ -1,5 +1,6 @@
 import { exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
+import { StudentStoreService } from 'src/app/services/student-store.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,8 +11,8 @@ import { Store } from '@ngrx/store';
 
 import { showAlert } from '../actions/alert.action';
 import {
-    fetchCurrentUser, fetchCurrentUserSuccess, googleLoginUser, googleLoginUserSuccess,
-    loginUserSuccess
+    fetchAllUsers, fetchCurrentUser, fetchCurrentUserSuccess, fetchUsers, fetchUsersSuccess,
+    googleLoginUser, googleLoginUserSuccess, loginUserSuccess, updateUserRole, updateUserRoleSuccess
 } from '../actions/user.action';
 import { AppState } from '../AppState';
 import { AlertType } from '../reducers/alert.reducer';
@@ -24,7 +25,8 @@ export class UserEffect {
 		private authService: AuthenticateService,
 		private userService: UserService,
 		private tokenService: TokenService,
-		private router: Router
+		private router: Router,
+		private studentStore: StudentStoreService
 	) { }
 
 	authUser$ = createEffect(() =>
@@ -74,4 +76,45 @@ export class UserEffect {
 			),
 		),
 	);
+
+	updateUserRole$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(updateUserRole),
+			exhaustMap(({ body }) => this.userService.updateUserRole(body.id, body.role)
+				.pipe(
+					map((user) => updateUserRoleSuccess({ user }))
+				)
+			)
+		)
+	)
+
+	fetchUsers$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(fetchUsers),
+			exhaustMap(() =>
+				this.userService
+					.getUsers()
+					.pipe(
+						map((users) =>
+							fetchUsersSuccess({ users }),
+						),
+					),
+			),
+		)
+	)
+
+	fetchAllUsers$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(fetchAllUsers),
+			exhaustMap(() =>
+				this.studentStore
+					.getAll()
+					.pipe(
+						map((users) =>
+							fetchUsersSuccess({ users }),
+						),
+					),
+			),
+		)
+	)
 }

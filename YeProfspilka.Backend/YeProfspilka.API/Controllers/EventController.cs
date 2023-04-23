@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YeProfspilka.Backend.Policies;
 using YeProfspilka.Backend.ViewModels;
 using YeProfspilka.Core.Exceptions;
 using YeProfspilka.Core.Interfaces;

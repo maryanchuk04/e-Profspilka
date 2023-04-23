@@ -55,4 +55,12 @@ export class RestService<T> {
 			})
 		});
 	}
+
+	postForm(url: string, formData: FormData): Observable<T> {
+		return this.http.post<T>(`${this.baseURL}/${url}`, formData, {
+			headers: new HttpHeaders({
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			})
+		});
+	}
 }

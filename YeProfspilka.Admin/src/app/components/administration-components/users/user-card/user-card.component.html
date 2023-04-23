@@ -1,0 +1,22 @@
+<div class="h-full w-full">
+	<h1 class="text-2xl text-center font-bold">Картка користувача №{{user.id}}</h1>
+	<div class="w-full grid place-items-center my-2">
+		<div class="w-52 h-52">
+			<img [src]="user.avatar" class="rounded-full h-full w-full" alt="">
+		</div>
+	</div>
+	<app-container>
+		<h2 class="text-xl font-bold mb-2 mt-2">ПІБ: {{user.fullName}}</h2>
+		<h3 class="text-xl mb-3">Email: {{user.email}}</h3>
+		<select id="role" name="role" [(ngModel)]="role"
+			class="p-2 w-full rounded-standart text-xl  border border-black mb-2">
+			<option value="0">Не верифікований</option>
+			<option value="1">Студент</option>
+			<option value="2">Член профспілки</option>
+			<option value="3">Модератор</option>
+			<option value="4">Голова підрозділу</option>
+			<option value="5">Адмін</option>
+		</select>
+		<app-button (onClick)="submit()">Зберегти</app-button>
+	</app-container>
+</div>

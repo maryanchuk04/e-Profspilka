@@ -1,4 +1,5 @@
 import { GoogleUserInfo } from 'src/app/models/GoogleUserInfo';
+import { Role } from 'src/app/models/roles';
 import { User } from 'src/app/models/User';
 
 import { createAction, props } from '@ngrx/store';
@@ -24,3 +25,25 @@ export const fetchCurrentUserSuccess = createAction(
 	'[USER] Get current user Success',
 	props<{ user: User }>(),
 );
+
+export const updateUserRole = createAction(
+	'[USER] Update user role',
+	props<{ body: { id: string, role: Role } }>()
+);
+
+export const updateUserRoleSuccess = createAction(
+	'[USER] Update user role success',
+	props<{ user: User }>()
+);
+
+export const fetchUsers = createAction(
+	'[USER] fetch users'
+);
+
+export const fetchUsersSuccess = createAction(
+	'[USER] fetch users success',
+	props<{ users: User[] }>()
+)
+export const fetchAllUsers = createAction(
+	'[USER] fetch all users',
+)

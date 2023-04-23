@@ -45,7 +45,6 @@ export class DragDropDirective {
 		evt.stopPropagation();
 		const input = document.createElement('input');
 		input.type = 'file';
-		input.accept = 'image/*'; // замініть на тип файлів, які ви плануєте дозволити завантажувати
 		input.style.display = 'none';
 		input.addEventListener('change', (event: any) => {
 			const files = event.target.files;

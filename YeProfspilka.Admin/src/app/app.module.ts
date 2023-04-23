@@ -15,6 +15,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+    DashboardComponent
+} from './components/administration-components/dashboard/dashboard.component';
+import {
+    SettingsComponent
+} from './components/administration-components/settings/settings.component';
+import {
+    UsersTableComponent
+} from './components/administration-components/users/users-table/users-table.component';
+import { UsersComponent } from './components/administration-components/users/users.component';
 import { AdvantageComponent } from './components/advantage/advantage.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
@@ -23,6 +33,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import {
     AdvantagesComponent
 } from './components/moderation-components/advantages/advantages.component';
+import {
+    EventUpdateComponent
+} from './components/moderation-components/event-update/event-update.component';
 import { EventsComponent } from './components/moderation-components/events/events.component';
 import {
     ModerationSidebarComponent
@@ -55,10 +68,7 @@ import { GoogleButtonComponent } from './ui/google-button/google-button.componen
 import { IconButtonComponent } from './ui/icon-button/icon-button.component';
 import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
-import { EventUpdateComponent } from './components/moderation-components/event-update/event-update.component';
-import { DashboardComponent } from './components/administration-components/dashboard/dashboard.component';
-import { UsersComponent } from './components/administration-components/users/users.component';
-import { SettingsComponent } from './components/administration-components/settings/settings.component';
+import { UserCardComponent } from './components/administration-components/users/user-card/user-card.component';
 
 @NgModule({
 	declarations: [
@@ -90,10 +100,12 @@ import { SettingsComponent } from './components/administration-components/settin
 		PartnerComponent,
 		DragDropDirective,
 		EditorComponent,
-  EventUpdateComponent,
-  DashboardComponent,
-  UsersComponent,
-  SettingsComponent
+		EventUpdateComponent,
+		DashboardComponent,
+		UsersComponent,
+		SettingsComponent,
+		UsersTableComponent,
+  UserCardComponent,
 	],
 	imports: [
 		BrowserModule,

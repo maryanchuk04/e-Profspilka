@@ -1,8 +1,11 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using YeProfspilka.Core.Entities;
+using YeProfspilka.Core.Exceptions;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
 using YeProfspilka.Db.EF;
+using Role = YeProfspilka.Core.Enumerations.Role;
 
 namespace YeProfspilka.Application.Services;
 
@@ -36,7 +39,7 @@ public class UserService : IUserServices
 	{
 		var users = await _dbContext.Users
 			.Include(x => x.UserRoles)
-			.ThenInclude(x=>x.User)
+			.Include(x => x.Image)
 			.ToListAsync();
 
 		return _mapper.Map<IEnumerable<UserDto>>(users);
@@ -45,5 +48,54 @@ public class UserService : IUserServices
 	public async Task<bool> UserIsExist(string email)
 	{
 		return await _dbContext.Users.AnyAsync(x => x.Email == email);
+	}
+
+	public async Task<UserDto> UpdateUserRole(Guid id, Role role)
+	{
+		var user = await _dbContext.Users
+			.Include(x => x.UserRoles)
+			.ThenInclude(x => x.Role)
+			.FirstOrDefaultAsync(x => x.Id == id);
+
+		if (user is null)
+		{
+			throw new NotFoundException(nameof(User), id);
+		}
+
+		if (user.UserRoles.Select(x => x.RoleId).Contains(role))
+		{
+			return _mapper.Map<UserDto>(user);
+		}
+
+		if (role == Role.NotVerified)
+		{
+			user.UserRoles.Clear();
+			user.UserRoles.Add(new UserRole
+			{
+				RoleId = Role.NotVerified
+			});
+
+			_dbContext.Users.Update(user);
+			await _dbContext.SaveChangesAsync();
+
+			return _mapper.Map<UserDto>(user);
+		}
+
+		if (user.UserRoles.Select(x => x.RoleId).Contains(Role.NotVerified))
+		{
+			var notVerified =
+				await _dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.RoleId == Role.NotVerified);
+			user.UserRoles.Remove(notVerified);
+		}
+
+		user.UserRoles.Add(new UserRole
+		{
+			RoleId = role
+		});
+
+		_dbContext.Users.Update(user);
+		await _dbContext.SaveChangesAsync();
+
+		return _mapper.Map<UserDto>(user);
 	}
 }

@@ -1,15 +1,41 @@
+import { catchError, Observable } from 'rxjs';
+import { UploadFileResults } from 'src/app/models/UploadFileResults';
+import { User } from 'src/app/models/User';
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
+import { StudentStoreService } from 'src/app/services/student-store.service';
+import AppState from 'src/app/store';
+import { fetchAllUsers, fetchUsers } from 'src/app/store/actions/user.action';
+import { selectUserLoading } from 'src/app/store/selectors/user.selector';
+
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+	selector: 'app-users',
+	templateUrl: './users.component.html',
 })
 export class UsersComponent implements OnInit {
+	loading$: Observable<boolean>;
+	open: boolean = false;
+	file: File | null = null;
+	result: UploadFileResults | null = null;
 
-  constructor() { }
+	constructor(private store: Store<AppState>, private studentStore: StudentStoreService) { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this.store.dispatch(fetchAllUsers())
+		this.loading$ = this.store.select(selectUserLoading);
+	}
 
+	handleOpen(value: boolean = false) {
+		this.open = value;
+	}
+
+	uploadFile(file: File) {
+		this.file = file;
+		this.studentStore.uploadUsers({ file: this.file, isOverrideMethod: true })
+			.subscribe(res => {
+				this.result = res;
+			})
+	}
 }

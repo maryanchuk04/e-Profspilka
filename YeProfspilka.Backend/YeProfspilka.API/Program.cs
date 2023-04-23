@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IStudentStoreService, StudentStoreService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IPartnersService, PartnersService>();
 builder.Services.AddScoped<IAdvantageService, AdvantageService>();
+
 
 // App configuration
 var appConfig = new AppConfiguration();

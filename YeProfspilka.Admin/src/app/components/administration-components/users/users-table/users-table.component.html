@@ -1,0 +1,60 @@
+<div class="mb-4 my-3">
+	<input
+		class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+		id="searchInput" type="text" placeholder="Знайти користувача..." [(ngModel)]="searchText">
+</div>
+<div class="border text-lg w-fit p-2 rounded-standart">
+	<label for="isActive" class="mr-2">Тільки Активні</label>
+	<input type="checkbox" name="isActive" class="scale-110" (change)="isActiveChange($event)" />
+</div>
+<ng-container *ngIf="(loading$ | async); else elseTemplate">
+	<div class="h-96">
+		<app-loader></app-loader>
+	</div>
+</ng-container>
+<ng-template #elseTemplate>
+	<table class="table-auto w-full shadow-lg">
+		<thead>
+			<tr class="border-b">
+				<th class="px-4 py-2">Повне ім`я</th>
+				<th class="px-4 py-2">Електронний адрес</th>
+				<th class="px-4 py-2">Роль</th>
+				<th class="px-4 py-2">Аватар</th>
+				<th class="px-0"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let user of pagedUsers; let i = index" class="text-center">
+				<td class="border-b px-2 py-1">{{ user.fullName }}</td>
+				<td class="border-b px-2 py-1">{{ user.email }}</td>
+				<td class="border-b px-2 py-1">{{ roleResolve(user.role) }}</td>
+				<td class="border-b px-2 py-1 flex"><img class="h-10 w-10 rounded-full mx-auto" src="{{ user.avatar }}"
+						alt="{{ user.fullName }}'s avatar"></td>
+				<td class="border-b pl-1">
+					<app-icon-button *ngIf="user.role !== null" (handleClick)="handleEdit(true, user.id)"
+						icon="fas fa-pen"></app-icon-button>
+					<app-icon-button icon="fas fa-trash text-red-500"></app-icon-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="my-4 flex justify-between">
+		<button
+			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 disabled:bg-black/10 px-4 rounded focus:outline-none focus:shadow-outline"
+			[disabled]="currentPage === 1" (click)="previousPage()">
+			Попередня
+		</button>
+		<button
+			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+			[disabled]="currentPage === totalPages" (click)="nextPage()">
+			Наступна
+		</button>
+	</div>
+	<app-modal *ngIf="isEdit" (close)="handleEdit(false)">
+		<div class="w-[400px] h-fit p-4 relative">
+			<app-user-card [user]="activeUser" (close)="handleEdit(false)"></app-user-card>
+			<app-icon-button icon="fas fa-xmark" className="absolute top-3 right-3"
+				(handleClick)="handleEdit(false)"></app-icon-button>
+		</div>
+	</app-modal>
+</ng-template>
