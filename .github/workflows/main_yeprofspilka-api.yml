@@ -24,11 +24,11 @@ jobs:
 
       - name: Build with dotnet
         run: |
-          cd StudCity.Backend
+          cd YeProfspilka.Backend
           dotnet build --configuration Release
 
       - name: dotnet publish
-        run:  cd StudCity.Backend && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run:  cd YeProfspilka.Backend && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
