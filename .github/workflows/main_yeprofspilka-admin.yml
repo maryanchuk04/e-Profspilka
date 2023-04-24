@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: angular-app
-          path: YeProfspilka.Admin/dist/
+          path: YeProfspilka.Admin/dist/ye-profspilka.admin
 
   deploy:
     runs-on: ubuntu-latest
