@@ -5,6 +5,7 @@ import Main from "./Main";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
 import { authorizeProtection } from "./routesProtection";
+import ExternalRedirect from "./ExternalRedirect";
 
 const routes = [
 	{
@@ -23,6 +24,10 @@ const routes = [
 		path: "*",
 		element: <PageWrapper element={<NotFound />} withFooter={false} />
 	},
+	{
+		path: "/admin",
+		element: <ExternalRedirect />
+	}
 ]
 
 export default routes;

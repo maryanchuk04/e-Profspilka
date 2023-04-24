@@ -1,22 +1,22 @@
 import { Route, Routes } from '@angular/router';
 
 import {
-    DashboardComponent
+	DashboardComponent
 } from '../components/administration-components/dashboard/dashboard.component';
 import {
-    SettingsComponent
+	SettingsComponent
 } from '../components/administration-components/settings/settings.component';
 import { UsersComponent } from '../components/administration-components/users/users.component';
 import {
-    AdvantagesComponent
+	AdvantagesComponent
 } from '../components/moderation-components/advantages/advantages.component';
 import {
-    EventUpdateComponent
+	EventUpdateComponent
 } from '../components/moderation-components/event-update/event-update.component';
 import { EventsComponent } from '../components/moderation-components/events/events.component';
 import { PartnersComponent } from '../components/moderation-components/partners/partners.component';
 import {
-    QuestionsComponent
+	QuestionsComponent
 } from '../components/moderation-components/questions/questions.component';
 import { AuthGuardService } from '../guards/auth-guard.service';
 import { AdministratorPageComponent } from './administrator-page/administrator-page.component';

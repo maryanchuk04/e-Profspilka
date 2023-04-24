@@ -4,11 +4,11 @@
 
 export const environment = {
 	production: false,
-	apiUrl: 'https://localhost:7162',
+	apiUrl: 'https://yeprofspilka-api.azurewebsites.net/',
 	googleId:
 		'361271152420-l9ggnenveihf9u1a9q91b2uj8qsgfec6.apps.googleusercontent.com',
 	imgbbKey: "4b76823349508cfe6987b62ea7b72eb8",
-	clientUrl: "http://localhost:3000"
+	clientUrl: "https://yeprofspilka.azurewebsites.net/"
 };
 
 /*

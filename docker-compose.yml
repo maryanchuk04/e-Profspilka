@@ -1,28 +1,64 @@
-version: "3"
+version: "3.5"
 
 services:
-  frontend:
-    build: ./YeProfspilka.Frontend
+  react-app:
+    container_name: react-app
+    hostname: react
+    depends_on:
+      - backend
+    build:
+      context: ./YeProfspilka.Frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - './react-app:/react-app'
+    # command: bash -c "npm start"
     ports:
-      - "3001:3000"
+      - "3000:3000"
+    networks:
+      services-network:
+        aliases:
+          - react-app
 
-  admin:
-    build: ./YeProfspilka.Admin
+  angular-app:
+    container_name: angular-app
+    hostname: angular
+    depends_on:
+      - backend
+    build:
+      context: ./YeProfspilka.Admin
+      dockerfile: ./Dockerfile
+    volumes:
+      - './angular-app:/angular-app'
+    # command: bash -c "ng serve --host 0.0.0.0"
     ports:
       - "4200:4200"
+    networks:
+      services-network:
+        aliases:
+          - angular-app
+
+  nginx:
+    build:
+      context: ./Nginx
+      dockerfile: ./Dockerfile
+    container_name: nginx
+    depends_on:
+      - react-app
+      - angular-app
+      - backend
+    links:
+      - react-app:react-network
+      - angular-app:angular-network
+    ports:
+      - "80:80"
+    restart: on-failure:5
 
   backend:
     build: ./YeProfspilka.Backend
     ports:
-      - "5005"
+      - "5001:5000"
 
-  nginx:
-    build: ./Nginx
-    container_name: nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - admin
-      - backend
-  
+networks:
+  services-network:
+    name: services-network
+    driver: bridge
