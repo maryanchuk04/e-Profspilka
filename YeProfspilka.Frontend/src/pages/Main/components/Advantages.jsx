@@ -12,7 +12,7 @@ const Advantages = () => {
 	const advantages = useSelector(selectAdvantages);
 
 	return (
-		<div className='mt-12'>
+		(advantages && advantages.length > 0) && <div className='mt-12'>
 			<div id="advantages" className='relative bg-primary w-full left-0 text-white mt-3 py-6 z-0'>
 				<Container >
 					<div className='w-32 h-32 bg-[#D3D3D3]/30 absolute top-[10%] right-[10%] rounded-full z-10'></div>

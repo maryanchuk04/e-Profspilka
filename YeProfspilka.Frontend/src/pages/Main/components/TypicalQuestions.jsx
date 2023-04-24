@@ -7,7 +7,7 @@ const TipicalQuestions = () => {
 	const questions = useSelector(selectQuestions);
 
 	return (
-		questions && questions.length > 0 && (
+		(questions && questions.length > 0) && (
 			<div id='questions' className='my-16'>
 				<h1 className='mb-12 max-sm:text-center'>Типові запитання</h1>
 				<div>
