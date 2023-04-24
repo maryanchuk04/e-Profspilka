@@ -19,20 +19,19 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '18.x'
+          node-version: '16.x'
 
       - name: npm install, build, and test
         run: |
-          cd YeProfspilka.Frontend
-          rm -rf node_modules/
           npm install
-          npm run build      
+          npm run build --if-present
+          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: YeProfspilka.Frontend/build/
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,5 +52,5 @@ jobs:
         with:
           app-name: 'yeprofspilka'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D1227535A55C47CEB83808BF48735067 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAA6A415086245D196B05BDC44496D8D }}
           package: .
