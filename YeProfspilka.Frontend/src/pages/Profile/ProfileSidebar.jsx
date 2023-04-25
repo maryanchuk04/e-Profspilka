@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../features/userSlice';
 import Avatar from '../../components/Avatar';
 import { MemberStatus } from '../../types/memberStatus';
 import Field from './Field';
 import UserStatus from './UserStatus';
 
-const ProfileSidebar = ({ user }) => {
-	const { fullName, facultet, course, status, avatar } = user;
+const ProfileSidebar = () => {
+	const user = useSelector(selectUserData);
+	const { fullName, facultet, course, status, avatar, role } = user;
+
+	useEffect(() => { console.log(user) })
 
 	return (
 		<div className='w-1/4 relative'>
@@ -17,7 +22,7 @@ const ProfileSidebar = ({ user }) => {
 			<Field label="П.І.Б:" text={fullName} />
 			<Field label="Місце навчання:" text={facultet || "Невідомо"} />
 			<Field label="Курс:" text={course || "Невідомо"} />
-			<Field label="Статус:" text={status === MemberStatus.STUDENT || status === MemberStatus.MEMBER_PROFSPILKA ? "Верифікований" : "НЕ Верифікований"} />
+			<Field label="Статус:" text={role === MemberStatus.Student || role === MemberStatus.MemberProfspilka ? "Верифікований" : "НЕ Верифікований"} />
 		</div>
 	)
 }

@@ -25,13 +25,13 @@ jobs:
         run: |
           cd YeProfspilka.Admin
           npm install
-          npm run build --if-present
+          npm run build --prod --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: angular-app
-          path: YeProfspilka.Admin/dist/ye-profspilka.admin
+          path: ./YeProfspilka.Admin/dist/ye-profspilka.admin
 
   deploy:
     runs-on: ubuntu-latest

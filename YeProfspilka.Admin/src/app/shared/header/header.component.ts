@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import AppState from 'src/app/store';
 import { selectUserData } from 'src/app/store/selectors/user.selector';
+
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
 	links = [
 		{
 			name: 'Модераційна',
-			link: '/moderation',
+			link: '/moderation/events',
 		},
 		{
 			name: 'Адміністрування',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
 		},
 	];
 	user$: Observable<User>;
-	constructor(private store: Store<AppState>) {}
+	constructor(private store: Store<AppState>) { }
 
 	ngOnInit(): void {
 		this.user$ = this.store.select(selectUserData);

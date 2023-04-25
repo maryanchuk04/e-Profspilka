@@ -16,8 +16,8 @@ const Footer = () => {
 				<div className='flex flex-col text-white/75 max-sm:my-6'>
 					<h2 className='mb-6 text-white'>Посилання</h2>
 					<Link className='mb-5' to='/'>Головна</Link>
-					<Link className='mb-5' to='/'>Події</Link>
-					<Link className='mb-5' to='/'>Особистий кабінет</Link>
+					<Link className='mb-5' to='/events'>Події</Link>
+					<Link className='mb-5' to='/profile'>Особистий кабінет</Link>
 				</div>
 				<div className='flex flex-col text-white/75'>
 					<h2 className='mb-6 text-white'>Контакти</h2>

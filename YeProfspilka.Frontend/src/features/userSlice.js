@@ -17,6 +17,8 @@ const initialState = {
 		course: 2,
 		status: MemberStatus.NOT_VERIFICATED,
 		avatar: "",
+		role: MemberStatus.NotVerified,
+		email: '',
 	}
 }
 
@@ -33,16 +35,16 @@ export const googleAuthenticateThunk = createAsyncThunk(
 	"user/authenticate",
 	async (googleToken, { fulfillWithValue, rejectWithValue, dispatch }) => {
 		try {
-			const googleResponse  = await googleAuthenticate(googleToken);
+			const googleResponse = await googleAuthenticate(googleToken);
 
 			const { name, picture, email, hd } = googleResponse;
 
 			const status = await authService.authenticateGoogle({ name, picture, email, hd });
-			
-			if (status === HttpStatusCode.Created ) {
+
+			if (status === HttpStatusCode.Created) {
 				alert.text = "Ваш аккаунт було успішно створено!"
 				dispatch(showAlert(alert))
-			} 
+			}
 
 			if (status === HttpStatusCode.Ok) {
 				alert.text = "З поверненням!"
@@ -52,9 +54,9 @@ export const googleAuthenticateThunk = createAsyncThunk(
 			dispatch(fetchUserThunk());
 			dispatch(handleOpen())
 			return fulfillWithValue();
-		} 
+		}
 		catch (error) {
-			
+
 			alert.type = 'error';
 			alert.text = "Щось пішло не так! :("
 			dispatch(showAlert(alert));
@@ -65,12 +67,12 @@ export const googleAuthenticateThunk = createAsyncThunk(
 
 export const fetchUserThunk = createAsyncThunk(
 	"user/fetchUser",
-	async(_, { fulfillWithValue, rejectWithValue, dispatch }, service = new UserService()) => {
+	async (_, { fulfillWithValue, rejectWithValue, dispatch }, service = new UserService()) => {
 		try {
 			const userResponse = await service.get();
 
 			return fulfillWithValue(userResponse.data);
-		} 
+		}
 		catch (error) {
 			dispatch(showDefaultAlert());
 			return rejectWithValue(null)
@@ -83,7 +85,7 @@ const userSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 
-	}, 
+	},
 	extraReducers: {
 		[googleAuthenticateThunk.pending]: (state) => {
 			state.loading = true
@@ -98,12 +100,7 @@ const userSlice = createSlice({
 			state.loading = true;
 		},
 		[fetchUserThunk.fulfilled]: (state, action) => {
-			state.data.id = action.payload.id;
-			state.data.fullName = action.payload.fullName;
-			state.data.avatar = action.payload.avatar;
-			state.data.status = action.payload.status;
-			state.data.course = action.payload.course;
-			state.data.facultet = action.payload.facultet;
+			state.data = action.payload;
 			state.loading = false;
 		},
 		[fetchUserThunk.rejected]: (state) => {

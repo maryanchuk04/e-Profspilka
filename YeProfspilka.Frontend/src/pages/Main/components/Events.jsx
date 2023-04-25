@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import EventCard from '../../../components/EventCard';
 import { selectEvents } from '../../../features/eventsSlice';
 import Button from '../../../ui/Buttons/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Events = () => {
+	const navigate = useNavigate();
 	const events = useSelector(selectEvents)
 
 	return (
@@ -18,7 +20,7 @@ const Events = () => {
 				}
 			</div>
 			<div className='w-80 max-sm:w-full'>
-				<Button>
+				<Button onClick={() => navigate('/events')}>
 					<div className='flex items-center justify-between px-3'>
 						<p>Всі події</p>
 						<span className='text-2xl'>&#8599;</span>

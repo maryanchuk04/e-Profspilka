@@ -1,5 +1,8 @@
 export const MemberStatus = {
-	STUDENT: 0,
-	MEMBER_PROFSPILKA: 1,
-	NOT_VERIFICATED: 2
+	NotVerified: 0,
+	Student: 1,
+	MemberProfspilka: 2,
+	Moderator: 3,
+	HeadOfUnit: 4,
+	Admin: 5,
 }

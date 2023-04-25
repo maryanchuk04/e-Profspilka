@@ -6,6 +6,8 @@ import NotFound from "./NotFound";
 import Profile from "./Profile";
 import { authorizeProtection } from "./routesProtection";
 import ExternalRedirect from "./ExternalRedirect";
+import Events from "./Events";
+import Event from "./Event";
 
 const routes = [
 	{
@@ -21,12 +23,20 @@ const routes = [
 		} />
 	},
 	{
+		path: "/events",
+		element: <PageWrapper element={<Events />} withFooter={true} />
+	},
+	{
 		path: "*",
 		element: <PageWrapper element={<NotFound />} withFooter={false} />
 	},
 	{
 		path: "/admin",
 		element: <ExternalRedirect />
+	},
+	{
+		path: "/event/:id",
+		element: <PageWrapper element={<Event />} />
 	}
 ]
 
