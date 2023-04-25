@@ -23,15 +23,15 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd YeProfspilka.Admin
           npm install
           npm run build --if-present
+          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: angular-app
-          path: YeProfspilka.Admin/dist/
+          name: node-app
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: angular-app
+          name: node-app
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'yeprofspilka-admin'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1247E73CF64047BF9609BF434F1586A1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_88267FBE00B349949BDF075D050B9BBA }}
           package: .
