@@ -23,10 +23,10 @@ export const moderationsLinks: Link[] = [
 ]
 
 export const administratorLinks: Link[] = [
-	{
-		name: "Панель адміністратора",
-		link: 'dashboard'
-	},
+	// {
+	// 	name: "Панель адміністратора",
+	// 	link: 'dashboard'
+	// },
 	{
 		name: 'Знижки',
 		link: 'discounts'
@@ -35,8 +35,8 @@ export const administratorLinks: Link[] = [
 		name: 'Користувачі',
 		link: 'users'
 	},
-	{
-		name: 'Налаштування',
-		link: 'settings'
-	},
+	// {
+	// 	name: 'Налаштування',
+	// 	link: 'settings'
+	// },
 ]

@@ -9,7 +9,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("user")]
-[Authorize(Policy = PolicyNames.StudentPolicyName)]
+//[Authorize(Policy = PolicyNames.AllRolesPolicyName)]
 public class UserController : ControllerBase
 {
 	private readonly IUserServices _userServices;

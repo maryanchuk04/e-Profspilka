@@ -21,7 +21,9 @@ import { PartnersComponent } from '../components/moderation-components/partners/
 import {
     QuestionsComponent
 } from '../components/moderation-components/questions/questions.component';
+import { AdminGuardService } from '../guards/admin-guard.service';
 import { AuthGuardService } from '../guards/auth-guard.service';
+import { ModeratorGuardService } from '../guards/moderator-guard.service';
 import { AdministratorPageComponent } from './administrator-page/administrator-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -82,13 +84,13 @@ export const routes: Routes = [
 	{
 		path: 'moderation',
 		component: ModerationPageComponent,
-		canActivate: [AuthGuardService],
+		canActivate: [AuthGuardService, ModeratorGuardService],
 		children: moderationsRoutes
 	},
 	{
 		path: 'administration',
 		component: AdministratorPageComponent,
-		canActivate: [AuthGuardService],
+		canActivate: [AuthGuardService, AdminGuardService],
 		children: administrationsRoutes
 	},
 	{

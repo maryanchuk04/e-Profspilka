@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 		},
 		{
 			name: 'Адміністрування',
-			link: '/administration',
+			link: '/administration/discounts',
 		},
 	];
 	user$: Observable<User>;

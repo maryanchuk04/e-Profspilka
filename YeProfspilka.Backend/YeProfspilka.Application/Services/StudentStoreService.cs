@@ -103,7 +103,7 @@ public class StudentStoreService : IStudentStoreService
 					Course = matchingUser.Course ?? 1,
 					Facultet = matchingUser.Facultet ?? "",
 					Email = matchingUser.Email,
-					Role = matchingUser.UserRoles.Select(x => x.RoleId).First()
+					Role = RoleResolver(matchingUser.UserRoles)
 				});
 			}
 			else
@@ -172,5 +172,21 @@ public class StudentStoreService : IStudentStoreService
 		await _dbContext.SaveChangesAsync();
 
 		return (newUsers, updatedUsers);
+	}
+
+	private Role RoleResolver(IEnumerable<UserRole> userRoles)
+	{
+		var userRolesEnum = userRoles.Select(x => x.RoleId).ToList();
+
+		if (userRolesEnum.Contains(Role.Admin))
+			return Role.Admin;
+
+		if (userRolesEnum.Contains(Role.Moderator))
+			return Role.Moderator;
+
+		if (userRolesEnum.Contains(Role.MemberProfspilka))
+			return Role.MemberProfspilka;
+
+		return userRolesEnum.Contains(Role.Student) ? Role.Student : Role.NotVerified;
 	}
 }

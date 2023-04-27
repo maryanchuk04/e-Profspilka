@@ -89,6 +89,8 @@ builder.Services
 			policy.RequireRole(PolicyNames.ModeratorRole));
 		options.AddPolicy(PolicyNames.HeadOfUnitPolicyName, policy =>
 			policy.RequireRole(PolicyNames.HeadOfUnitRole));
+		options.AddPolicy(PolicyNames.AllRolesPolicyName, policy =>
+			policy.RequireRole(PolicyNames.AllRoles));
 		options.AddPolicy(PolicyNames.ModeratorAndAdminPolicyName, policy =>
 			policy.Requirements.Add(new RoleRequirement(PolicyNames.ModeratorAndAdminRole)));
 	})

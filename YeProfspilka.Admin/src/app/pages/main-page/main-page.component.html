@@ -1,2 +1,19 @@
 <app-header></app-header>
-main page
+<div class="w-full border-t h-[calc(100vh-4rem)]">
+	<ng-container *ngIf="isAdminOrModerator; else elseTemplate">
+		<div class="grid place-items-center h-full">
+			<h1 class="text-center text-3xl font-bold">Ласкаво просимо вас назад!<br /> Давайте почнемо працювати.</h1>
+		</div>
+	</ng-container>
+	<ng-template #elseTemplate>
+		<div class="grid place-items-center h-full">
+			<div>
+				<h1 class="text-center text-3xl mb-8">
+					У вас немає доступу до адмін панелі!
+				</h1>
+				<app-button classStyles="px-4" (onClick)="handleNavigate()">На основний сайт!</app-button>
+			</div>
+		</div>
+	</ng-template>
+
+</div>

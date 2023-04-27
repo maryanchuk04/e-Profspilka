@@ -17,6 +17,8 @@ public class PolicyNames
 
 	public const string ModeratorAndAdminPolicyName = "ModeratorAndAdminPolicy";
 
+	public const string AllRolesPolicyName = "ModeratorAndAdminAndStudentPolicy";
+
 	// Roles
 	public const string AdminRole = "Admin";
 
@@ -31,4 +33,6 @@ public class PolicyNames
 	public const string HeadOfUnitRole = "HeadOfUnit";
 
 	public const string ModeratorAndAdminRole = "ModeratorAndAdmin";
+
+	public const string AllRoles = "ModeratorAndAdminAndStudent";
 }
