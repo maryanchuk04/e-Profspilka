@@ -35,7 +35,7 @@ const routes = [
 		element: <ExternalRedirect />
 	},
 	{
-		path: "/event/:id",
+		path: "/events/:id",
 		element: <PageWrapper element={<Event />} />
 	}
 ]

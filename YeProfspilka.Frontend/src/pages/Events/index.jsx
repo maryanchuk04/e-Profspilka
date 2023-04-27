@@ -2,9 +2,12 @@ import React from 'react'
 // import { useSelector } from 'react-redux'
 // import { selectEvents } from '../../features/eventsSlice'
 import Container from '../../components/Container'
+import EventCard from '../../components/EventCard';
+import { useSelector } from 'react-redux';
+import { selectEvents } from '../../features/eventsSlice';
 
 const Events = () => {
-	const events = [];
+	const events = useSelector(selectEvents);
 
 	return (
 		events.length === 0 ? (
@@ -17,7 +20,10 @@ const Events = () => {
 			</div>
 		) : (
 			<Container>
-				{/* TODO Events block */}
+				<h1 className='my-4 uppercase text-black/60'>#Події та новини профспілки</h1>
+				<div className='grid grid-cols-4 gap-3 max-lg:grid-cols-2 max-sm:grid-cols-1'>
+					{events.map((item) => <EventCard key={item.id} event={item} />)}
+				</div>
 			</Container>
 		)
 

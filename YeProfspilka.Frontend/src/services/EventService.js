@@ -1,19 +1,18 @@
-import { eventsMock } from "../utils/mocks";
 // import { api } from "./config/axios.config";
 import { ApiService } from "./config/ApiService";
 
 export class EventService {
-	#eventUrl = '/events';
+	#eventUrl = '/event';
 
 	constructor() {
 		this.api = new ApiService();
 	}
 
-	getEvents() {
-		return eventsMock;
+	async getEvents() {
+		return await this.api.get(this.#eventUrl);
 	}
 
-	getEventById(id) {
-		return this.api.get(`${this.#eventUrl}/${id}`);
+	async getEventById(id) {
+		return await this.api.get(`${this.#eventUrl}/${id}`);
 	}
 }
