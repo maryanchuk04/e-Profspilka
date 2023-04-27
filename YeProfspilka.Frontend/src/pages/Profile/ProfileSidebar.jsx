@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../../features/userSlice';
 import Avatar from '../../components/Avatar';
@@ -12,8 +12,6 @@ const ProfileSidebar = () => {
 	const user = useSelector(selectUserData);
 	const { fullName, facultet, course, avatar, role } = user;
 
-	useEffect(() => { console.log(user) })
-
 	return (
 		!media ? (
 			<div className='w-1/4 relative'>
@@ -25,7 +23,11 @@ const ProfileSidebar = () => {
 				<Field label="П.І.Б:" text={fullName} />
 				<Field label="Місце навчання:" text={facultet || "Невідомо"} />
 				<Field label="Курс:" text={course || "Невідомо"} />
-				<Field label="Статус:" text={role === MemberStatus.Student || role === MemberStatus.MemberProfspilka ? "Верифікований" : "НЕ Верифікований"} />
+				<Field label="Статус:" text={role === MemberStatus.Student
+					|| role === MemberStatus.MemberProfspilka
+					|| role === MemberStatus.Admin
+					|| role === MemberStatus.Moderator
+					? "Верифікований" : "НЕ Верифікований"} />
 			</div>
 		) : (
 			<div className='bg-[#F1E5C4] rounded-standart p-4'>
@@ -39,7 +41,10 @@ const ProfileSidebar = () => {
 						<h1 className='text-xl'>{fullName}</h1>
 					</div>
 				</div>
-				<Field label="Статус:" text={role === MemberStatus.Student || role === MemberStatus.MemberProfspilka ? "Верифікований" : "НЕ Верифікований"} />
+				<Field label="Статус:" text={role === MemberStatus.Student
+					|| role === MemberStatus.MemberProfspilka
+					|| role === MemberStatus.Admin
+					|| role === MemberStatus.Moderator ? "Верифікований" : "НЕ Верифікований"} />
 			</div>
 		)
 	)

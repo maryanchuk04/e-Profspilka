@@ -1,6 +1,4 @@
 import React from 'react'
-// import { useSelector } from 'react-redux'
-// import { selectEvents } from '../../features/eventsSlice'
 import Container from '../../components/Container'
 import EventCard from '../../components/EventCard';
 import { useSelector } from 'react-redux';
