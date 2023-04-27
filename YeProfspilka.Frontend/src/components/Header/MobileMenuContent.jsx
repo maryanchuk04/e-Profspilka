@@ -2,9 +2,12 @@ import React from 'react'
 import { HashLink as Link } from 'react-router-hash-link';
 import Button from '../../ui/Buttons/Button';
 import PrimaryButton from '../../ui/Buttons/PrimaryButton';
+import Avatar from '../Avatar';
+import { useNavigate } from 'react-router-dom';
+import { Token } from '../../services/TokenService';
 
-
-const MobileMenuContent = ({ setHeaderState, handleClose }) => {
+const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
+	const navigate = useNavigate();
 	const links = [
 		{
 			name: "Події",
@@ -28,6 +31,11 @@ const MobileMenuContent = ({ setHeaderState, handleClose }) => {
 		}
 	];
 
+	const handleNavigate = () => {
+		navigate('/profile');
+		handleClose();
+	}
+
 	const MenuItem = ({ item }) => {
 		return (
 			<Link onClick={handleClose} to={item.link} className='text-white border-b-2 mb-6 border-white flex justify-between items-center'>
@@ -48,11 +56,20 @@ const MobileMenuContent = ({ setHeaderState, handleClose }) => {
 					))
 				}
 			</ul>
-			<div>
-				<Button className='bg-white border-0 mb-3' onClick={() => setHeaderState(1)}>Увійти</Button>
-				<PrimaryButton className='border-white text-white border-2 mb-5' onClick={() => setHeaderState(1)}>Зареєструватись</PrimaryButton>
-			</div>
-		</div>
+			{
+				Token.get() ? (
+					<div onClick={() => handleNavigate()} className='flex items-center mb-12 border border-white rounded-standart px-2 py-2'>
+						<p className='text-white'>{user.fullName}</p>
+						<Avatar src={user.avatar} className='w-20 h-20' />
+					</div>
+				) : (
+					<div>
+						<Button className='bg-white border-0 mb-3' onClick={() => setHeaderState(1)}>Увійти</Button>
+						<PrimaryButton className='border-white text-white border-2 mb-5' onClick={() => setHeaderState(1)}>Зареєструватись</PrimaryButton>
+					</div >
+				)
+			}
+		</div >
 	)
 }
 

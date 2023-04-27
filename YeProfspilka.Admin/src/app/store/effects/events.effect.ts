@@ -37,7 +37,7 @@ export class EventsEffect {
 						),
 					),
 			),
-			tap(() => showAlert({ alert: { autoClose: true, type: AlertType.Success, message: "Ваші данні успішно збережено", open: true } as Alert }))
+			// tap(() => showAlert({ alert: { autoClose: true, type: AlertType.Success, message: "Ваші данні успішно збережено", open: true } as Alert }))
 		)
 	)
 

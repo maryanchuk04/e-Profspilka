@@ -1,12 +1,12 @@
 import React from 'react'
 
-const UserStatus = ({ status }) => {
+const UserStatus = ({ status, className = '' }) => {
 	const defaultStyles = "relative rounded-standart font-bold border-2 h-12 w-12 grid place-items-center group/item";
-	const helperStyles = "absolute invisible -top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/item:visible text-center p-3 rounded-standart w-72 text-white bg-primary"
+	const helperStyles = "absolute invisible -top-10 max-xl:left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/item:visible text-center p-3 rounded-standart w-72 text-white bg-primary"
 	switch (status) {
 		//студент
-		case 0: return (
-			<div className={`${defaultStyles} border-primary text-primary`}>
+		case 1: return (
+			<div className={`${defaultStyles} border-primary text-primary  ${className}`}>
 				С
 				<div className={helperStyles}>
 					<p className='text-sm'>
@@ -17,8 +17,8 @@ const UserStatus = ({ status }) => {
 			</div>
 		)
 		// Член профіспілки
-		case 1: return (
-			<div className={`${defaultStyles} border-primary text-primary`}>
+		case 2: return (
+			<div className={`${defaultStyles} border-primary text-primary  ${className}`}>
 				Ч
 				<div className={helperStyles}>
 					<p className='text-sm'>Вас верифіковано як
@@ -27,8 +27,8 @@ const UserStatus = ({ status }) => {
 			</div>
 		)
 		// Не верифікований
-		case 2: return (
-			<div className={`${defaultStyles} border-red-600 text-red-600`}>
+		case 0: return (
+			<div className={`${defaultStyles} border-red-600 text-red-600  ${className}`}>
 				Н
 				<div className={`${helperStyles} bg-red-600`}>
 					<p className='text-sm'>

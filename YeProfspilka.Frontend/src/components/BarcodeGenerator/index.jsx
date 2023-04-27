@@ -1,10 +1,11 @@
 import React from 'react'
 import Barcode from 'react-barcode';
 
-const BarcodeGenerator = ({ value, disabled }) => {
 
+const BarcodeGenerator = ({ value, disabled }) => {
 	const options = {
 		value: value,
+		displayValue: false,
 		background: "transparent",
 	}
 

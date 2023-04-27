@@ -58,7 +58,6 @@ public class AuthenticationService : IAuthenticationService
 
 		await _context.Users.AddAsync(user);
 		await _context.SaveChangesAsync();
-		// TODO Send message on email
 
 		return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
 	}

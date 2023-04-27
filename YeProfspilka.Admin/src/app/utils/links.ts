@@ -28,6 +28,10 @@ export const administratorLinks: Link[] = [
 		link: 'dashboard'
 	},
 	{
+		name: 'Знижки',
+		link: 'discounts'
+	},
+	{
 		name: 'Користувачі',
 		link: 'users'
 	},

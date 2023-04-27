@@ -1,9 +1,11 @@
-import { discountsMock } from "../utils/mocks";
+import { ApiService } from './config/ApiService';
 
 export class DiscountService {
 	#apiUrl = "/discount";
-
-	getAll() {
-		return discountsMock;
+	constructor() {
+		this.service = new ApiService();
+	}
+	async getAll() {
+		return await this.service.get(this.#apiUrl);
 	}
 }

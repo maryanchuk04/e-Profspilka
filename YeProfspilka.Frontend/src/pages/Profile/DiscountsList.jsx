@@ -1,14 +1,21 @@
 import React from 'react'
 import DiscountCard from '../../components/DiscountCard'
 import { MemberStatus } from '../../types/memberStatus';
+import { useSelector } from 'react-redux';
+import { selectDiscounts, selectDiscountsLoading } from '../../features/discountSlice';
+import Loader from '../../components/Loader';
+// import { useMediaQuery } from 'react-responsive';
 
-const DiscountsList = ({ status, discounts }) => {
-	const availableDiscounts = discounts.filter(x => x.isBlocked === false);
-	const notAvailableDiscounts = discounts.filter(x => x.isBlocked === true);
+const DiscountsList = ({ status }) => {
+	const discounts = useSelector(selectDiscounts);
+	const loading = useSelector(selectDiscountsLoading);
+	// const media = useMediaQuery({ maxWidth: "450px" });
 
 	const renderStatus = () => {
+		const availableDiscounts = discounts.filter(x => x.isOpen === true);
+		const notAvailableDiscounts = discounts.filter(x => x.isOpen === false);
 		switch (status) {
-			case MemberStatus.STUDENT: return (
+			case MemberStatus.Student: return (
 				<div>
 					<h2>Персональні знижки</h2>
 					{
@@ -31,12 +38,12 @@ const DiscountsList = ({ status, discounts }) => {
 					}
 				</div>
 			)
-			case MemberStatus.MEMBER_PROFSPILKA: return (
+			case MemberStatus.MemberProfspilka: return (
 				discounts.map((item) => (
-					<DiscountCard key={item.code} discount={item} />
+					<DiscountCard key={item} discount={item} />
 				))
 			)
-			case MemberStatus.NOT_VERIFICATED: return (
+			case MemberStatus.NotVerified: return (
 				<div className='w-full h-full relative'>
 					<div className=''>
 						{
@@ -57,9 +64,9 @@ const DiscountsList = ({ status, discounts }) => {
 	}
 
 	return (
-		<div className='bg-[#E6E6E6] px-12 w-3/4 py-8 rounded-standart max-h-[900px] overflow-y-auto'>
-			{renderStatus()}
-			{discounts && (
+		<div className='bg-[#E6E6E6] max-md:px-3 px-12 max-md:w-full w-3/4 py-8 rounded-standart max-h-[900px] overflow-y-auto '>
+			{loading ? <Loader /> : renderStatus()}
+			{!discounts && (
 				<div>
 					<h2>У вас ще немає знижок!</h2>
 				</div>

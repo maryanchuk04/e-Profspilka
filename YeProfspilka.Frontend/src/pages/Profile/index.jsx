@@ -5,12 +5,10 @@ import { fetchUserThunk, selectUserData, selectUserLoading } from '../../feature
 import ProfileSidebar from './ProfileSidebar'
 import DiscountsList from './DiscountsList'
 import Loader from '../../components/Loader'
-import { selectDiscounts } from '../../features/discountSlice'
 
 const Profile = () => {
 	const loading = useSelector(selectUserLoading);
 	const user = useSelector(selectUserData);
-	const discounts = useSelector(selectDiscounts);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -24,9 +22,9 @@ const Profile = () => {
 			<Container>
 				<p>#кабінет</p>
 				<h1 className='my-4 mb-6'>Особистий кабінет</h1>
-				<div className='flex gap-6'>
+				<div className='flex gap-6 max-md:flex-col'>
 					<ProfileSidebar user={user} />
-					<DiscountsList status={user.status} discounts={discounts} />
+					<DiscountsList status={user.role} />
 				</div>
 			</Container>
 		)

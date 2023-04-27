@@ -37,6 +37,7 @@ builder.Services.AddScoped<IStudentStoreService, StudentStoreService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IPartnersService, PartnersService>();
 builder.Services.AddScoped<IAdvantageService, AdvantageService>();
+builder.Services.AddScoped<IDiscountService, DiscountService>();
 
 
 // App configuration

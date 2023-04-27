@@ -69,6 +69,7 @@ import { IconButtonComponent } from './ui/icon-button/icon-button.component';
 import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
 import { UserCardComponent } from './components/administration-components/users/user-card/user-card.component';
+import { DiscountsComponent } from './components/administration-components/discounts/discounts.component';
 
 @NgModule({
 	declarations: [
@@ -106,6 +107,7 @@ import { UserCardComponent } from './components/administration-components/users/
 		SettingsComponent,
 		UsersTableComponent,
   UserCardComponent,
+  DiscountsComponent,
 	],
 	imports: [
 		BrowserModule,

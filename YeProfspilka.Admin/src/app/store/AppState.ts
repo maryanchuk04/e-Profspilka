@@ -1,5 +1,6 @@
 import { AdvantagesState } from './reducers/advantage.reducer';
 import { AlertState } from './reducers/alert.reducer';
+import { DiscountsState } from './reducers/discounts.reducer';
 import { EventsState } from './reducers/events.reducer';
 import { PartnersState } from './reducers/partners.reducer';
 import { QuestionState } from './reducers/question.reducer';
@@ -11,5 +12,6 @@ export interface AppState {
 	question: QuestionState;
 	partners: PartnersState;
 	advantages: AdvantagesState;
-	events: EventsState
+	events: EventsState;
+	discounts: DiscountsState;
 }
