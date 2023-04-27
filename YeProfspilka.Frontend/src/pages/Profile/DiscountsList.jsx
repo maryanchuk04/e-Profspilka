@@ -60,6 +60,11 @@ const DiscountsList = ({ status }) => {
 					</div>
 				</div>
 			)
+			default: return (
+				discounts.map((item) => (
+					<DiscountCard key={item} discount={item} />
+				))
+			)
 		}
 	}
 
