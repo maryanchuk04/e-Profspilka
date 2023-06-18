@@ -14,15 +14,15 @@ export class HeaderComponent implements OnInit {
 	links = [
 		{
 			name: 'Модераційна',
-			link: '/moderation/events',
+			link: '/moderation/',
 		},
 		{
 			name: 'Адміністрування',
-			link: '/administration/discounts',
+			link: '/administration/',
 		},
 	];
 	user$: Observable<User>;
-	constructor(private store: Store<AppState>) { }
+	constructor(private store: Store<AppState>) {}
 
 	ngOnInit(): void {
 		this.user$ = this.store.select(selectUserData);

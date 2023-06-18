@@ -53,7 +53,7 @@ public class EventController : ControllerBase
 
 	[HttpGet("{id}")]
 	[AllowAnonymous]
-	public async Task<IActionResult> Get(Guid id)
+	public async Task<ActionResult<IEnumerable<EventDto>>> Get(Guid id)
 	{
 		try
 		{

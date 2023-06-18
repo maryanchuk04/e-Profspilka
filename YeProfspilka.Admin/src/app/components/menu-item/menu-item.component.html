@@ -1,0 +1,13 @@
+<li class="w-full border-b">
+	<a
+		[routerLink]="menuItem.url"
+		routerLinkActive="bg-black/10"
+		class="w-full flex items-center text-black/70 h-14 text-xl cursor-pointer hover:bg-black/5 duration-150"
+		[ngClass]="{ 'justify-start pl-4': isTextVisible, 'justify-center': !isTextVisible }"
+	>
+		<i [ngClass]="menuItem.icon"></i>
+		<span [hidden]="!isTextVisible" [ngClass]="{ 'ml-3': isTextVisible }">{{
+			menuItem.title
+		}}</span>
+	</a>
+</li>

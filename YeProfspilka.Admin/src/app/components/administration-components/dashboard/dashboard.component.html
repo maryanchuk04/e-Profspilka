@@ -1,3 +1,18 @@
 <div class="">
-	dashboadrd
+	<h1 class="text-xl text-black/50">Головна панель</h1>
+	<div class="flex">
+		<ng-container [ngTemplateOutlet]="users"></ng-container>
+	</div>
 </div>
+
+<ng-template #users>
+	<section class="rounded-standart border p-2">
+		<header class="flex items-center">
+			<span>
+				<i class="fas fa-users mr-2"></i>
+			</span>
+			<h3>Користувачі</h3>
+		</header>
+		<div></div>
+	</section>
+</ng-template>

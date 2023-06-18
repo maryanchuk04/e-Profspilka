@@ -1,42 +1,52 @@
+import { IconMenuItem, MenuItem } from '../models/ui-models/MenuItem';
+
 export interface Link {
 	name: string;
 	link: string;
 }
 
-export const moderationsLinks: Link[] = [
+export const moderationsLinks: IconMenuItem[] = [
 	{
-		name: 'Події',
-		link: 'events',
+		title: 'Події',
+		url: 'events',
+		icon: 'fas fa-calendar-plus',
 	},
 	{
-		name: 'Переваги',
-		link: 'advantages',
+		title: 'Переваги',
+		url: 'advantages',
+		icon: 'fa-solid fa-plus',
 	},
 	{
-		name: 'Питання',
-		link: 'questions',
+		title: 'Питання',
+		url: 'questions',
+		icon: 'fas fa-question',
 	},
 	{
-		name: 'Партнери',
-		link: 'partners',
+		title: 'Партнери',
+		url: 'partners',
+		icon: 'fa-solid fa-handshake',
 	},
-]
+];
 
-export const administratorLinks: Link[] = [
-	// {
-	// 	name: "Панель адміністратора",
-	// 	link: 'dashboard'
-	// },
+export const administratorLinks: IconMenuItem[] = [
 	{
-		name: 'Знижки',
-		link: 'discounts'
+		title: 'Панель адміністратора',
+		url: 'dashboard',
+		icon: 'fas fa-tachometer-alt',
 	},
 	{
-		name: 'Користувачі',
-		link: 'users'
+		title: 'Знижки',
+		url: 'discounts',
+		icon: 'fas fa-percent',
 	},
-	// {
-	// 	name: 'Налаштування',
-	// 	link: 'settings'
-	// },
-]
+	{
+		title: 'Користувачі',
+		url: 'users',
+		icon: 'fas fa-users',
+	},
+	{
+		title: 'Налаштування',
+		url: 'settings',
+		icon: 'fas fa-cog',
+	},
+];

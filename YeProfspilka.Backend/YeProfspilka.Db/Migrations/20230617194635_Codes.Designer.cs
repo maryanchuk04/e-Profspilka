@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YeProfspilka.Db.EF;
 
@@ -11,9 +12,10 @@ using YeProfspilka.Db.EF;
 namespace YeProfspilka.Db.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230617194635_Codes")]
+    partial class Codes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,6 +50,7 @@ namespace YeProfspilka.Db.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CodeWord")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -71,14 +74,8 @@ namespace YeProfspilka.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ActivateTimeUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("Code")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeactivateTimeUtc")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("DiscountId")
                         .HasColumnType("uniqueidentifier");
@@ -86,14 +83,9 @@ namespace YeProfspilka.Db.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DiscountId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("DiscountCodes");
                 });
@@ -390,15 +382,7 @@ namespace YeProfspilka.Db.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YeProfspilka.Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Discount");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YeProfspilka.Core.Entities.EventImage", b =>

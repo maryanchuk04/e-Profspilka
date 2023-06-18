@@ -41,4 +41,6 @@ public class AppDbContext : DbContext
 	public DbSet<Advantage> Advantage { get; set; }
 
 	public DbSet<Discount> Discounts { get; set; }
+
+	public DbSet<DiscountCode> DiscountCodes { get; set; }
 }

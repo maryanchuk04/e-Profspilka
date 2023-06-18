@@ -20,5 +20,6 @@
 		"titleBar.border": "#0f52ba",
 		"titleBar.inactiveBackground": "#0f52ba99",
 		"titleBar.inactiveForeground": "#e7e7e799"
-	}
+	},
+	"dotnet.defaultSolution": "YeProfspilka.Backend/YeProfspilka.Backend.sln"
 }

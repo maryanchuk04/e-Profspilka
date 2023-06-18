@@ -70,6 +70,8 @@ import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
 import { UserCardComponent } from './components/administration-components/users/user-card/user-card.component';
 import { DiscountsComponent } from './components/administration-components/discounts/discounts.component';
+import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
 	declarations: [
@@ -108,6 +110,8 @@ import { DiscountsComponent } from './components/administration-components/disco
 		UsersTableComponent,
   UserCardComponent,
   DiscountsComponent,
+  MenuItemComponent,
+  SidenavComponent,
 	],
 	imports: [
 		BrowserModule,

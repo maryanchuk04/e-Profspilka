@@ -1,4 +1,3 @@
-<ul class="flex flex-col h-full border-r-2 max-w-md py-2 px-3 w-fit">
-	<a *ngFor="let item of links" class="text-xl my-3 p-3 rounded-standart duration-300 hover:bg-black/5"
-		[routerLink]="item.link" routerLinkActive="bg-black/10 shadow-xl ">{{item.name}}</a>
+<ul class="h-full border-r-2 w-fit">
+	<app-sidenav [menu]="links"></app-sidenav>
 </ul>

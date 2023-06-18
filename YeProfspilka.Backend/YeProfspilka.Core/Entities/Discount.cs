@@ -6,7 +6,7 @@ public class Discount : BaseEntity
 {
     public string Name { get; set; }
 
-    public string CodeWord { get; set; }
+    public string? CodeWord { get; set; }
 
     public string? Description { get; set; }
 

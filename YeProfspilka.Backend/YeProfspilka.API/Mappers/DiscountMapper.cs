@@ -10,5 +10,7 @@ public class DiscountMapper : Profile
     {
         CreateMap<DiscountDto, Discount>();
         CreateMap<Discount, DiscountDto>();
+        CreateMap<DiscountCode, DiscountCodeDto>();
+        CreateMap<DiscountCodeDto, DiscountCode>();
     }
 }

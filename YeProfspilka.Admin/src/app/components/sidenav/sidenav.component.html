@@ -1,0 +1,18 @@
+<div
+	[ngClass]="{ 'w-16': !isExpanded, 'w-64': isExpanded }"
+	class="flex flex-col justify-between h-full items-center"
+>
+	<ul class="w-full">
+		<app-menu-item
+			*ngFor="let item of menu"
+			[menuItem]="item"
+			[isTextVisible]="isExpanded"
+		></app-menu-item>
+	</ul>
+	<div (click)="toggleExpansion()" class="mb-4 text-left">
+		<i
+			class="text-2xl cursor-pointer fa-light fa-angles-right font-extrabold"
+			[ngClass]="{ 'rotate-180': isExpanded }"
+		></i>
+	</div>
+</div>

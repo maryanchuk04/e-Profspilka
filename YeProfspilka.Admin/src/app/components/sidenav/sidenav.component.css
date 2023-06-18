@@ -1,0 +1,13 @@
+.w-16 {
+	width: 4rem;
+	transition: width 0.3s ease-in-out;
+}
+
+.w-64 {
+	width: 16rem;
+	transition: width 0.3s ease-in-out;
+}
+
+.text-xl-closed {
+	display: none;
+}

@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YeProfspilka.Backend.Policies;
 using YeProfspilka.Backend.ViewModels;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;

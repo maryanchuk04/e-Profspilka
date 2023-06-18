@@ -1,4 +1,6 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Backend.ViewModels;
 using YeProfspilka.Core.Exceptions;
 using YeProfspilka.Core.Interfaces;
@@ -11,14 +13,30 @@ namespace YeProfspilka.Backend.Controllers;
 public class DiscountController : ControllerBase
 {
     private readonly IDiscountService _discountService;
+    private readonly IMediator _mediator;
 
-    public DiscountController(IDiscountService discountService)
+    public DiscountController(IDiscountService discountService, IMediator mediator)
     {
         _discountService = discountService;
+        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await _discountService.GetAsync();
+
+    [HttpGet]
+    [Route("search")]
+    public async Task<ActionResult<IEnumerable<DiscountDto>>> SearchAsync([FromQuery] string searchWord)
+    {
+        try
+        {
+            return Ok(await _mediator.Send(new SearchDiscountCommand(searchWord)));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(Guid id)

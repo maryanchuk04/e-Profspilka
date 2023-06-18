@@ -41,7 +41,7 @@ public class EventService : IEventService
 			});
 		}
 
-		var entry  = await _dbContext.Events.AddAsync(newEvent);
+		var entry = await _dbContext.Events.AddAsync(newEvent);
 		await _dbContext.SaveChangesAsync();
 
 		eventDto.Id = entry.Entity.Id;
@@ -95,7 +95,7 @@ public class EventService : IEventService
 
 	public async Task<IEnumerable<EventDto>> Get()
 	{
-		var listEvents =  await _dbContext.Events
+		var listEvents = await _dbContext.Events
 			.Include(x => x.EventImages)
 			.ThenInclude(x => x.Image)
 			.ToListAsync();
@@ -113,7 +113,7 @@ public class EventService : IEventService
 		var ev = await _dbContext.Events
 			.Include(x => x.EventImages)
 			.ThenInclude(x => x.Image)
-			.FirstOrDefaultAsync(x => x.Id == id);
+			.SingleOrDefaultAsync(x => x.Id == id);
 
 		if (ev == null)
 		{

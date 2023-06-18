@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Application.Configurations;
 using YeProfspilka.Db.EF;
 using YeProfspilka.Application.Services;
@@ -39,6 +40,8 @@ builder.Services.AddScoped<IPartnersService, PartnersService>();
 builder.Services.AddScoped<IAdvantageService, AdvantageService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 
+builder.Services.AddMediatR(cfg =>
+	cfg.RegisterServicesFromAssemblyContaining<GenerateDiscountCodeCommand>());
 
 // App configuration
 var appConfig = new AppConfiguration();
