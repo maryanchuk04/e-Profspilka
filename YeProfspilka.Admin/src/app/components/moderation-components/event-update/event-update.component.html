@@ -9,39 +9,50 @@
 				Повернутись до всіх
 			</app-button>
 			<div class="flex gap-2">
-				<app-button type="secondary" (onClick)="handleModal(true)"><i class="fas fa-images"></i></app-button>
-				<app-button type="primary" (onClick)="submit()" classStyles="px-4">Зберегти</app-button>
+				<app-button type="secondary" (onClick)="handleModal(true)"
+					><i class="fas fa-images"></i
+				></app-button>
+				<app-button type="primary" (onClick)="submit()" classStyles="px-4"
+					>Зберегти</app-button
+				>
 			</div>
-
 		</div>
 
 		<div class="mt-3">
 			<div class="flex items-center text-2xl font-bold text-black/50 uppercase">
 				#<input
 					class="text-2xl font-bold text-black/50 uppercase border-0 w-full cursor-text focus-visible:outline-black focus-visible:outline rounded-standart py-1 px-0.5"
-					[(ngModel)]="event.title" />
+					[(ngModel)]="event.title"
+				/>
 			</div>
-
 		</div>
-		<div class="border border-black my-5 p-4 rounded-standart">
+		<div class="border my-5 p-4 rounded-standart">
 			<app-editor [(value)]="event.description"></app-editor>
 		</div>
 		<div class="w-full grid grid-cols-3 gap-6 my-10">
-			<div *ngFor="let item of event.images" class=" h-80 col-span-1 relative">
-				<img [src]="item" [alt]="item" class="h-full w-full">
-				<app-icon-button icon="fas fa-trash"
+			<div *ngFor="let item of event.images" class="h-80 col-span-1 relative">
+				<img [src]="item" [alt]="item" class="h-full w-full" />
+				<app-icon-button
+					icon="fas fa-trash"
 					className="absolute top-3 right-3 text-red-600 bg-white/30 hover:bg-white/60"
-					(handleClick)="deleteImage(item)"></app-icon-button>
+					(handleClick)="deleteImage(item)"
+				></app-icon-button>
 			</div>
 		</div>
 		<app-modal *ngIf="open" (close)="handleModal(false)">
 			<div class="w-[600px] h-fit p-4 flex flex-col relative">
-				<app-icon-button className="absolute top-3 right-3" icon="fas fa-xmark"
-					(handleClick)="handleModal(false)"></app-icon-button>
+				<app-icon-button
+					className="absolute top-3 right-3"
+					icon="fas fa-xmark"
+					(handleClick)="handleModal(false)"
+				></app-icon-button>
 				<h1 class="text-center text-2xl font-bold">Завантажте фото 🌄</h1>
 				<div class="w-[420px] mx-auto">
-					<div appDragDrop (fileDrop)="uploadFile($event)"
-						class="w-full my-3 m-auto rounded-standart h-52 grid place-items-center cursor-pointer border">
+					<div
+						appDragDrop
+						(fileDrop)="uploadFile($event)"
+						class="w-full my-3 m-auto rounded-standart h-52 grid place-items-center cursor-pointer border"
+					>
 						<ng-container *ngIf="image === null; else elseTemplate">
 							<div class="opacity-50 text-center">
 								<p class="text-xl">Перетягніть сюди зображення...</p>
@@ -50,9 +61,12 @@
 						</ng-container>
 						<ng-template #elseTemplate>
 							<div class="w-full h-52">
-								<img class="w-full h-full object-cover" [src]="image" alt="uploaded-image">
+								<img
+									class="w-full h-full object-cover"
+									[src]="image"
+									alt="uploaded-image"
+								/>
 							</div>
-
 						</ng-template>
 					</div>
 					<app-button [disabled]="!image" (onClick)="addImage()">Додати</app-button>

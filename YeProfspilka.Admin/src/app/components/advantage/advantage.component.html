@@ -1,7 +1,30 @@
-<div class="flex-1 shadow-xl h-full p-4 rounded-standart relative">
-	<h2 class="font-bold text- text-black/60">{{ advantage.mainText }}</h2>
-	<hr class="my-2">
+<div class="flex-1 border h-full p-4 rounded-standart relative group">
+	<h2 class="font-bold text- text-black/60">#{{ advantage.mainText }}</h2>
+	<hr class="my-2" />
 	<p class="text-lg pr-5">{{ advantage.subText }}</p>
-	<app-icon-button icon="fa-solid fa-trash text-red-500" className="absolute bottom-2 right-2"
-		(handleClick)="delete()"></app-icon-button>
+	<app-icon-button
+		icon="fa-solid fa-trash text-red-500"
+		className="absolute bottom-2 right-2"
+		(handleClick)="delete()"
+	></app-icon-button>
+
+	<app-icon-button
+		icon="fa-solid fa-pencil text-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+		className="absolute top-2 right-2"
+		(handleClick)="edit()"
+	></app-icon-button>
 </div>
+
+<ng-container *ngIf="isEditOpen">
+	<app-modal (close)="closeEdit()">
+		<div class="min-w-[400px] p-4">
+			<h2 class="text-2xl">Редагування переваги</h2>
+			<hr class="my-4" />
+			<div class="my-2">
+				<app-text-field classStyles="mb-2" [(value)]="adv.mainText"></app-text-field>
+				<app-text-field [(value)]="adv.subText"></app-text-field>
+			</div>
+			<app-button [disabled]="disabled" (onClick)="updateAdvantage()">Зберегти</app-button>
+		</div>
+	</app-modal>
+</ng-container>

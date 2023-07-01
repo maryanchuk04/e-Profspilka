@@ -1,4 +1,4 @@
-<ng-container *ngIf="(loading$ | async); else elseTemplate">
+<ng-container *ngIf="loading$ | async; else elseTemplate">
 	<app-loader></app-loader>
 </ng-container>
 <ng-template #elseTemplate>
@@ -6,7 +6,7 @@
 	<app-moderation-header (handleAdd)="handleModal(true)"></app-moderation-header>
 	<!-- body -->
 	<div class="grid grid-cols-3 gap-5 mt-5">
-		<app-advantage *ngFor="let item of advantages$ | async" [advantage]='item'></app-advantage>
+		<app-advantage *ngFor="let item of advantages$ | async" [advantage]="item"></app-advantage>
 	</div>
 	<!-- modal -->
 	<ng-container *ngIf="open">
@@ -14,17 +14,27 @@
 			<div class="w-[600px] h-fit">
 				<div class="w-11/12 mx-auto">
 					<h1 class="text-2xl text-center my-4">Створіть нове питання!</h1>
-					<hr>
-					<app-text-field placeholder="Введіть тег/перевагу (# не потрібно писати)" class="my-3"
-						classStyles="my-5" [(value)]="mainText"></app-text-field>
-					<textarea placeholder="Введіть опис" [(ngModel)]="subText"
-						class="text-xl mt-2 w-full border px-2 py-1 focus-visible:outline-none border-black rounded-standart"
-						rows="4"></textarea>
-					<app-button (onClick)="submit()" classStyles="my-5"
-						[disabled]="!mainText || !subText">Створити</app-button>
+					<hr />
+					<app-text-field
+						placeholder="Введіть тег/перевагу (# не потрібно писати)"
+						class="my-3"
+						classStyles="my-5"
+						[(value)]="mainText"
+					></app-text-field>
+					<textarea
+						placeholder="Введіть опис"
+						[(ngModel)]="subText"
+						class="text-xl mt-2 w-full border px-2 py-1 focus-visible:outline-none rounded-standart"
+						rows="4"
+					></textarea>
+					<app-button
+						(onClick)="submit()"
+						classStyles="my-5"
+						[disabled]="!mainText || !subText"
+						>Створити</app-button
+					>
 				</div>
 			</div>
 		</app-modal>
 	</ng-container>
-
 </ng-template>

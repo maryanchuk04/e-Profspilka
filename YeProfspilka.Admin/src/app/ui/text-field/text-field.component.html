@@ -1,4 +1,11 @@
-<input [type]="type"
-	[ngClass]="['w-full h-12 border border-black text-xl rounded-standart focus-visible:outline-none px-3', classStyles]"
-	[placeholder]="placeholder" [defaultValue]="this.defaultValue" [(ngModel)]="value"
-	(ngModelChange)="valueChange.emit(value)">
+<input
+	[type]="type"
+	[ngClass]="[
+		'w-full h-12 border text-xl rounded-standart focus-visible:outline-none px-3',
+		classStyles
+	]"
+	[placeholder]="placeholder"
+	[defaultValue]="this.defaultValue"
+	[(ngModel)]="value"
+	(ngModelChange)="valueChange.emit(value)"
+/>

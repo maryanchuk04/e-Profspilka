@@ -11,7 +11,7 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Db.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(YeProfspilkaContext))]
     [Migration("20230426204425_Discount_Service")]
     partial class Discount_Service
     {

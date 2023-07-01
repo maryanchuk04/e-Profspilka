@@ -10,10 +10,10 @@ namespace YeProfspilka.Application.Services;
 
 public class QuestionService : IQuestionService
 {
-	private readonly AppDbContext _dbContext;
+	private readonly YeProfspilkaContext _dbContext;
 	private readonly IMapper _mapper;
 
-	public QuestionService(AppDbContext dbContext, IMapper mapper)
+	public QuestionService(YeProfspilkaContext dbContext, IMapper mapper)
 	{
 		_dbContext = dbContext;
 		_mapper = mapper;

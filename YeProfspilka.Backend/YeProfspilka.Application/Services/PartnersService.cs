@@ -10,10 +10,10 @@ namespace YeProfspilka.Application.Services;
 
 public class PartnersService : IPartnersService
 {
-	private readonly AppDbContext _db;
+	private readonly YeProfspilkaContext _db;
 	private readonly IMapper _mapper;
 
-	public PartnersService(AppDbContext db, IMapper mapper)
+	public PartnersService(YeProfspilkaContext db, IMapper mapper)
 	{
 		_db = db;
 		_mapper = mapper;

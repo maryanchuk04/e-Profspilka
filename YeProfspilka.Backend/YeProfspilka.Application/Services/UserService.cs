@@ -11,11 +11,11 @@ namespace YeProfspilka.Application.Services;
 
 public class UserService : IUserServices
 {
-	private readonly AppDbContext _dbContext;
+	private readonly YeProfspilkaContext _dbContext;
 	private readonly ISecurityContext _securityContext;
 	private readonly IMapper _mapper;
 
-	public UserService(AppDbContext dbContext, ISecurityContext securityContext, IMapper mapper)
+	public UserService(YeProfspilkaContext dbContext, ISecurityContext securityContext, IMapper mapper)
 	{
 		_dbContext = dbContext;
 		_securityContext = securityContext;

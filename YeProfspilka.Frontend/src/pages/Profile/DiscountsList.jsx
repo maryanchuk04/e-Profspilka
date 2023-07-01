@@ -73,21 +73,16 @@ const DiscountsList = ({ status }) => {
 	};
 
 	return (
-		<div className='bg-[#E6E6E6] max-md:px-3 px-12 max-md:w-full w-3/4 py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
-			{loading ? (
-				<Loader />
-			) : (
-				<div>
-					<TextField placeholder='Пошук...' onChange={handleChange} />
-					{renderStatus()}
-				</div>
-			)}
-
-			{!discounts && (
-				<div>
-					<h2>У вас ще немає знижок!</h2>
-				</div>
-			)}
+		<div className='w-full'>
+			<TextField placeholder='Пошук...' onChange={handleChange} />
+			<div className='bg-[#E6E6E6] max-md:px-3 px-12 max-md:w-full w-full py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
+				{loading ? <Loader /> : <div>{renderStatus()}</div>}
+				{!discounts && (
+					<div>
+						<h2>У вас ще немає знижок!</h2>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

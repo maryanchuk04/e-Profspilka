@@ -1,3 +1,7 @@
 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-<ngx-editor [editor]="editor" [(ngModel)]="value" [placeholder]="placeholder"
-	(ngModelChange)="valueChange.emit(value)"></ngx-editor>
+<ngx-editor
+	[editor]="editor"
+	[(ngModel)]="value"
+	[placeholder]="placeholder"
+	(ngModelChange)="valueChange.emit(value)"
+></ngx-editor>

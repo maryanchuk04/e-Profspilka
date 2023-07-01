@@ -11,10 +11,10 @@ namespace YeProfspilka.Application.Services;
 
 public class EventService : IEventService
 {
-	private readonly AppDbContext _dbContext;
+	private readonly YeProfspilkaContext _dbContext;
 	private readonly IMapper _mapper;
 
-	public EventService(AppDbContext dbContext, IMapper mapper)
+	public EventService(YeProfspilkaContext dbContext, IMapper mapper)
 	{
 		_dbContext = dbContext;
 		_mapper = mapper;

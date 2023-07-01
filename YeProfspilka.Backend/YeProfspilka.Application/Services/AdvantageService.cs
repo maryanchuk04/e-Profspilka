@@ -11,9 +11,9 @@ namespace YeProfspilka.Application.Services;
 public class AdvantageService : IAdvantageService
 {
     private readonly IMapper _mapper;
-    private readonly AppDbContext _dbContext;
+    private readonly YeProfspilkaContext _dbContext;
 
-    public AdvantageService(IMapper mapper, AppDbContext dbContext)
+    public AdvantageService(IMapper mapper, YeProfspilkaContext dbContext)
     {
         _mapper = mapper;
         _dbContext = dbContext;

@@ -8,8 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 	encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
-	@Input() value: string = "";
-	@Input() placeholder: string = "";
+	@Input() value: string = '';
+	@Input() placeholder: string = '';
 	editor: Editor;
 	@Output() valueChange = new EventEmitter<string>();
 
@@ -31,7 +31,4 @@ export class EditorComponent implements OnInit {
 	ngOnDestroy(): void {
 		this.editor.destroy();
 	}
-
 }
-
-

@@ -21,16 +21,16 @@ public class GenerateDiscountCodeCommand : IRequest<DiscountCodeDto>
 
 public class GenerateDiscountCodeCommandHandler : IRequestHandler<GenerateDiscountCodeCommand, DiscountCodeDto>
 {
-    private readonly AppDbContext _db;
+    private readonly YeProfspilkaContext _db;
     private readonly IMapper _mapper;
     private readonly ISecurityContext _securityContext;
 
     public GenerateDiscountCodeCommandHandler(
-        AppDbContext db,
+        YeProfspilkaContext db,
         IMapper mapper,
         ISecurityContext securityContext)
     {
-        _db = db ?? throw new ArgumentException(nameof(AppDbContext));
+        _db = db ?? throw new ArgumentException(nameof(YeProfspilkaContext));
         _mapper = mapper ?? throw new ArgumentException(nameof(IMapper));
         _securityContext = securityContext;
     }

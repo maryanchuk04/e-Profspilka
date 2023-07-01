@@ -10,7 +10,7 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Db.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(YeProfspilkaContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

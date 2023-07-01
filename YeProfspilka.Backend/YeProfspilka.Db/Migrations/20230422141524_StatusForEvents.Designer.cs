@@ -11,7 +11,7 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Db.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(YeProfspilkaContext))]
     [Migration("20230422141524_StatusForEvents")]
     partial class StatusForEvents
     {

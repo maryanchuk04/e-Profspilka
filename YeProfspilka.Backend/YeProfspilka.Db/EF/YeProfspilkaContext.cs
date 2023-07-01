@@ -4,9 +4,9 @@ using YeProfspilka.Core.Entities;
 
 namespace YeProfspilka.Db.EF;
 
-public class AppDbContext : DbContext
+public class YeProfspilkaContext : DbContext
 {
-	public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
+	public YeProfspilkaContext(DbContextOptions<YeProfspilkaContext> contextOptions)
 		: base(contextOptions)
 	{ }
 

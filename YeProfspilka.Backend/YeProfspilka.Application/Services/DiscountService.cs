@@ -10,10 +10,10 @@ namespace YeProfspilka.Application.Services;
 
 public class DiscountService : IDiscountService
 {
-    private readonly AppDbContext _db;
+    private readonly YeProfspilkaContext _db;
     private readonly IMapper _mapper;
 
-    public DiscountService(AppDbContext db, IMapper mapper)
+    public DiscountService(YeProfspilkaContext db, IMapper mapper)
     {
         _db = db;
         _mapper = mapper;

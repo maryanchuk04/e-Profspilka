@@ -17,9 +17,9 @@ public class SearchDiscountCommand : IRequest<IEnumerable<DiscountDto>>
 
 public class SearchDiscountCommandHandler : IRequestHandler<SearchDiscountCommand, IEnumerable<DiscountDto>>
 {
-    private readonly AppDbContext _db;
+    private readonly YeProfspilkaContext _db;
 
-    public SearchDiscountCommandHandler(AppDbContext db)
+    public SearchDiscountCommandHandler(YeProfspilkaContext db)
     {
         _db = db;
     }

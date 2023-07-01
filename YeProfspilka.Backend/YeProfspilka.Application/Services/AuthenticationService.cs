@@ -10,11 +10,11 @@ namespace YeProfspilka.Application.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
-	private readonly AppDbContext _context;
+	private readonly YeProfspilkaContext _context;
 	private readonly IStudentStoreService _studentStore;
 	private readonly ITokenService _tokenService;
 
-	public AuthenticationService(AppDbContext context, IStudentStoreService studentStore, ITokenService tokenService)
+	public AuthenticationService(YeProfspilkaContext context, IStudentStoreService studentStore, ITokenService tokenService)
 	{
 		_context = context;
 		_studentStore = studentStore;

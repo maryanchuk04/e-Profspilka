@@ -21,9 +21,9 @@ public class VerifyDiscountCodeCommand : IRequest<bool>
 
 public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCodeCommand, bool>
 {
-    private readonly AppDbContext _db;
+    private readonly YeProfspilkaContext _db;
 
-    public VerifyDiscountCodeCommandHandler(AppDbContext db)
+    public VerifyDiscountCodeCommandHandler(YeProfspilkaContext db)
     {
         _db = db;
     }
