@@ -1,0 +1,17 @@
+<span class="relative w-auto">
+	<div
+		class="rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/10 transition-colors duration-300"
+		(mouseover)="showTooltip = true"
+		(mouseleave)="showTooltip = false"
+	>
+		<i class="fa-regular fa-circle-question"></i>
+	</div>
+	<div
+		*ngIf="showTooltip"
+		class="absolute top-full z-50 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded text-sm w-auto min-w-[150px]"
+	>
+		<div class="inline-flex items-center whitespace-pre-wrap justify-center">
+			{{ tooltipText }}
+		</div>
+	</div>
+</span>

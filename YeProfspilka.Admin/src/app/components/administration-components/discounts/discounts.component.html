@@ -1,7 +1,7 @@
-<ng-container *ngIf="loading$ | async; else elseTemplate">
+<ng-container *ngIf="loading$ | async; else discountsTemplate">
 	<app-loader></app-loader>
 </ng-container>
-<ng-template #elseTemplate>
+<ng-template #discountsTemplate>
 	<ng-container *ngIf="discounts$ | async as discounts">
 		<ng-container *ngIf="discounts.length === 0; else discountsBody">
 			<ng-container [ngTemplateOutlet]="empty"></ng-container>

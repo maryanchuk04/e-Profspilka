@@ -6,12 +6,15 @@
 	h1 {
 		@apply font-ukraine font-extrabold text-3xl;
 	}
+
 	h2 {
 		@apply text-2xl font-ukraine font-bold;
 	}
+
 	h3 {
 		@apply text-lg font-ukraine font-bold;
 	}
+
 	* {
 		font-family: "e-Ukraine";
 	}
@@ -31,7 +34,7 @@
 
 @font-face {
 	font-family: "e-Ukraine";
-	font-weight: 300 ;
+	font-weight: 300;
 	src: url('../public/fonts/e-Ukraine/e-Ukraine-Light.otf') format('otf');
 }
 
@@ -68,4 +71,9 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+p:empty {
+	min-height: 1em;
+	/* Встановлюємо мінімальну висоту для порожніх <p> тегів */
 }

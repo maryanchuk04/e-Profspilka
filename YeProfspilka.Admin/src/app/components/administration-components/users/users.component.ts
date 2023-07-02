@@ -8,6 +8,7 @@ import { fetchAllUsers, fetchUsers } from 'src/app/store/actions/user.action';
 import { selectUserLoading } from 'src/app/store/selectors/user.selector';
 
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -20,22 +21,27 @@ export class UsersComponent implements OnInit {
 	file: File | null = null;
 	result: UploadFileResults | null = null;
 
-	constructor(private store: Store<AppState>, private studentStore: StudentStoreService) { }
+	constructor(
+		private store: Store<AppState>,
+		private studentStore: StudentStoreService,
+		private router: Router
+	) {}
 
 	ngOnInit(): void {
-		this.store.dispatch(fetchAllUsers())
+		this.store.dispatch(fetchAllUsers());
 		this.loading$ = this.store.select(selectUserLoading);
 	}
 
 	handleOpen(value: boolean = false) {
-		this.open = value;
+		this.router.navigate(['administration/users-manager-panel']);
 	}
 
 	uploadFile(file: File) {
 		this.file = file;
-		this.studentStore.uploadUsers({ file: this.file, isOverrideMethod: true })
-			.subscribe(res => {
+		this.studentStore
+			.uploadUsers({ file: this.file, isOverrideMethod: true })
+			.subscribe((res) => {
 				this.result = res;
-			})
+			});
 	}
 }

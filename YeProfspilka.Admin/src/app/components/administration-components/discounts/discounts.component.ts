@@ -2,10 +2,13 @@ import { Observable } from 'rxjs';
 import { Discount } from 'src/app/models/Discount';
 import AppState from 'src/app/store';
 import {
-    createDiscount, deleteDiscount, fetchDiscounts
+	createDiscount,
+	deleteDiscount,
+	fetchDiscounts,
 } from 'src/app/store/actions/discounts.actions';
 import {
-    selectDiscountsData, selectDiscountsLoading
+	selectDiscountsData,
+	selectDiscountsLoading,
 } from 'src/app/store/selectors/discounts.selector';
 
 import { Component, OnInit } from '@angular/core';
@@ -25,14 +28,12 @@ export class DiscountsComponent implements OnInit {
 	isOpen: boolean | null = null;
 	description: string = '';
 
-	constructor(private store: Store<AppState>) { }
+	constructor(private store: Store<AppState>) {}
 
 	ngOnInit(): void {
 		this.store.dispatch(fetchDiscounts());
 		this.discounts$ = this.store.select(selectDiscountsData);
 		this.loading$ = this.store.select(selectDiscountsLoading);
-
-		this.discounts$.subscribe(x => console.log(x));
 	}
 
 	handleModal(value: boolean = false) {
@@ -48,14 +49,16 @@ export class DiscountsComponent implements OnInit {
 	}
 
 	handleSubmit() {
-		this.store.dispatch(createDiscount({
-			discount: {
-				name: this.name,
-				codeWord: this.codeWord,
-				isOpen: Boolean(+this.isOpen),
-				description: this.description
-			} as Discount
-		}))
+		this.store.dispatch(
+			createDiscount({
+				discount: {
+					name: this.name,
+					codeWord: this.codeWord,
+					isOpen: Boolean(+this.isOpen),
+					description: this.description,
+				} as Discount,
+			})
+		);
 
 		this.closeAndReset();
 	}

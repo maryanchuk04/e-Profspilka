@@ -1,12 +1,12 @@
-import { Observable, Subscription } from 'rxjs';
-import { Event } from 'src/app/models/Event';
-import { FileUploaderService } from 'src/app/services/file-uploader.service';
+import { Observable, Subscription, } from 'rxjs';
+import { Event, } from 'src/app/models/Event';
+import { FileUploaderService, } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
-import { createEvent, fetchEvents } from 'src/app/store/actions/events.action';
-import { selectEventsData, selectEventsLoading } from 'src/app/store/selectors/events.selector';
+import { createEvent, fetchEvents, } from 'src/app/store/actions/events.action';
+import { selectEventsData, selectEventsLoading, } from 'src/app/store/selectors/events.selector';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Store, } from '@ngrx/store';
 
 @Component({
 	selector: 'app-events',
@@ -47,7 +47,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 	}
 
 	submit() {
-		console.log(this.editor)
 		this.store.dispatch(createEvent({
 			event: {
 				title: this.title,

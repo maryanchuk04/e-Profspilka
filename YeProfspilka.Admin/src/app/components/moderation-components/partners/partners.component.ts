@@ -4,7 +4,8 @@ import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
 import { createPartner, fetchPartners } from 'src/app/store/actions/partners.action';
 import {
-    selectPartnersData, selectPartnersLoading
+	selectPartnersData,
+	selectPartnersLoading,
 } from 'src/app/store/selectors/partners.selector';
 
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ import { Store } from '@ngrx/store';
 })
 export class PartnersComponent implements OnInit {
 	open: boolean = false;
+
 	// Form data
 	mainText: string = '';
 	subText: string = '';
@@ -24,9 +26,9 @@ export class PartnersComponent implements OnInit {
 	file: File | null = null;
 
 	loading$: Observable<boolean>;
-	partners$: Observable<Partner[]>
+	partners$: Observable<Partner[]>;
 
-	constructor(private store: Store<AppState>, private uploadService: FileUploaderService) { }
+	constructor(private store: Store<AppState>, private uploadService: FileUploaderService) {}
 
 	ngOnInit(): void {
 		this.store.dispatch(fetchPartners());
@@ -40,7 +42,7 @@ export class PartnersComponent implements OnInit {
 
 	handleFileDrop(file: File) {
 		this.file = file;
-		this.uploadService.uploadImage(file).subscribe(url => {
+		this.uploadService.uploadImage(file).subscribe((url) => {
 			this.image = url;
 		});
 	}
@@ -50,10 +52,16 @@ export class PartnersComponent implements OnInit {
 			mainText: this.mainText,
 			subText: this.subText,
 			subTextLink: this.subTestLink,
-			image: this.image
+			image: this.image,
 		} as Partner;
 
 		this.store.dispatch(createPartner({ partner }));
 		this.handleOpen(false);
+
+		this.file = null;
+		this.image = '';
+		this.mainText = '';
+		this.subTestLink = '';
+		this.subText = '';
 	}
 }

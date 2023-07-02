@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
 import { catchError, EMPTY } from 'rxjs';
+
+import { Injectable } from '@angular/core';
+
 import { AuthenticateModel } from '../models/AuhenticateModel';
 import { GoogleUserInfo } from '../models/GoogleUserInfo';
 import { RestService } from './rest.service';
@@ -9,12 +11,10 @@ import { RestService } from './rest.service';
 })
 export class AuthenticateService {
 	url: string = 'authenticate';
-	constructor(private service: RestService<AuthenticateModel>) { }
+	constructor(private service: RestService<AuthenticateModel>) {}
 
 	authenticate(authData: { email: string; password: string }) {
-		this.service.post(this.url, authData).subscribe((resp) => {
-			console.log(resp);
-		});
+		this.service.post(this.url, authData);
 	}
 
 	authenticateGoogle(googleAuthModel: GoogleUserInfo) {
@@ -22,7 +22,7 @@ export class AuthenticateService {
 			catchError((err) => {
 				console.log(err);
 				return EMPTY;
-			}),
+			})
 		);
 	}
 }

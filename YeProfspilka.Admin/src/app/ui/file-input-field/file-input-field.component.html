@@ -1,0 +1,15 @@
+<fieldset [formGroup]="formGroup">
+	<div class="relative w-full z-0">
+		<label for="fileInput" class="cursor-pointer"></label>
+		<input type="text" [formControlName]="controlName" />
+		<div
+			class="bg-gray-200 w-full hover:bg-gray-300 duration-150 text-gray-700 py-2 px-4 rounded-standart"
+		>
+			<span *ngIf="!selectedFile">{{ placeholder }}</span>
+			<span *ngIf="selectedFile" class="w-full mr-10 overflow-hidden text-ellipsis">{{
+				selectedFile.name
+			}}</span>
+			<span class="absolute right-4"><i class="fa-solid fa-file"></i></span>
+		</div>
+	</div>
+</fieldset>

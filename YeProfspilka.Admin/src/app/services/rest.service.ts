@@ -15,7 +15,7 @@ export class RestService<T> {
 		Authorization: `Bearer ${localStorage.getItem('token')}`,
 	});
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) {}
 
 	getOne(url: string): Observable<T> {
 		return this.http.get<T>(`${this.baseURL}/${url}`, {
@@ -52,7 +52,7 @@ export class RestService<T> {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${bearer}`,
-			})
+			}),
 		});
 	}
 
@@ -60,7 +60,7 @@ export class RestService<T> {
 		return this.http.post<T>(`${this.baseURL}/${url}`, formData, {
 			headers: new HttpHeaders({
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			})
+			}),
 		});
 	}
 }

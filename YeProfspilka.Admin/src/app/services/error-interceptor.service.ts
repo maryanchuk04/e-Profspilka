@@ -1,15 +1,15 @@
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { throwError, } from 'rxjs';
+import { catchError, } from 'rxjs/operators';
 
 import {
-    HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode
+	HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable, } from '@angular/core';
+import { Store, } from '@ngrx/store';
 
 import AppState from '../store';
-import { showAlert } from '../store/actions/alert.action';
-import { AlertType } from '../store/reducers/alert.reducer';
+import { showAlert, } from '../store/actions/alert.action';
+import { AlertType, } from '../store/reducers/alert.reducer';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -19,10 +19,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
 				let errorMessage = '';
-				console.log(error);
 				if (error.error instanceof ErrorEvent) {
 					errorMessage = `Помилка: ${error.error.message}`;
-					console.log(errorMessage);
 				} else {
 					// серверна помилка
 					errorMessage = `Код помилки: ${error.status}\nПовідомлення: ${error.message}`;

@@ -46,8 +46,6 @@ const DiscountsList = ({ status }) => {
 						))}
 					</div>
 				);
-			case MemberStatus.MemberProfspilka:
-				return discounts.map((item) => <DiscountCard key={item} discount={item} />);
 			case MemberStatus.NotVerified:
 				return (
 					<div className='w-full h-full relative'>
@@ -63,6 +61,8 @@ const DiscountsList = ({ status }) => {
 						</div>
 					</div>
 				);
+			case MemberStatus.MemberProfspilka:
+				return discounts.map((item) => <DiscountCard key={item} discount={item} />);
 			default:
 				return discounts.map((item) => <DiscountCard key={item.id} discount={item} />);
 		}
@@ -73,8 +73,11 @@ const DiscountsList = ({ status }) => {
 	};
 
 	return (
-		<div className='w-full'>
-			<TextField placeholder='Пошук...' onChange={handleChange} />
+		<div className='w-full flex flex-col items-end'>
+			<div className='flex justify-end mb-4 w-80 max-md:w-full'>
+				<TextField placeholder='Пошук...' onChange={handleChange} />
+			</div>
+
 			<div className='bg-[#E6E6E6] max-md:px-3 px-12 max-md:w-full w-full py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
 				{loading ? <Loader /> : <div>{renderStatus()}</div>}
 				{!discounts && (
