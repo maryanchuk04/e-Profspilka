@@ -11,7 +11,6 @@ export class GoogleButtonComponent implements OnInit {
 	ngOnInit(): void {}
 
 	click() {
-		console.log('work');
 		this.handleClick.emit();
 	}
 }

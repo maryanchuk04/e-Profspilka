@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectDiscounts, selectDiscountsLoading } from '../../features/discountSlice';
 import Loader from '../../components/Loader';
 import { useMediaQuery } from 'react-responsive';
-import TextField from '../../ui/Fields/TextField';
+// import TextField from '../../ui/Fields/TextField';
 
 const DiscountsList = ({ status }) => {
 	const discounts = useSelector(selectDiscounts);
@@ -68,17 +68,13 @@ const DiscountsList = ({ status }) => {
 		}
 	};
 
-	const handleChange = ({ target }) => {
-		console.log(target.value);
-	};
-
 	return (
 		<div className='w-full flex flex-col items-end'>
-			<div className='flex justify-end mb-4 w-80 max-md:w-full'>
+			{/* <div className='flex justify-end mb-4 w-80 max-md:w-full'>
 				<TextField placeholder='Пошук...' onChange={handleChange} />
-			</div>
+			</div> */}
 
-			<div className='bg-[#E6E6E6] max-md:px-3 px-12 max-md:w-full w-full py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
+			<div className='lg:bg-[#E6E6E6] max-md:py-0  max-md:px-0 px-12 max-md:w-full w-full py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
 				{loading ? <Loader /> : <div>{renderStatus()}</div>}
 				{!discounts && (
 					<div>
