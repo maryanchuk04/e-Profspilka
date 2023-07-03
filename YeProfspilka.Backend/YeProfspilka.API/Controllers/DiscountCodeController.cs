@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Core.Exceptions;
@@ -7,7 +8,8 @@ using YeProfspilka.Core.Models;
 namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/{discountId:guid}")]
+[Authorize]
 public class DiscountCodeController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,7 +19,7 @@ public class DiscountCodeController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("{discountId:guid}")]
+    [HttpGet]
     public async Task<ActionResult<DiscountCodeDto>> GenerateDiscountCode(Guid discountId)
     {
         try
@@ -36,7 +38,7 @@ public class DiscountCodeController : ControllerBase
         }
     }
 
-    [HttpGet("{discountId:guid}/{discountCodeId:guid}")]
+    [HttpGet("{discountCodeId:guid}")]
     public async Task<ActionResult<DiscountCodeDto>> ValidateDiscountCode(Guid discountId, Guid discountCodeId)
     {
         try

@@ -32,7 +32,7 @@ public class GenerateDiscountCodeCommandHandler : IRequestHandler<GenerateDiscou
     {
         _db = db ?? throw new ArgumentException(nameof(YeProfspilkaContext));
         _mapper = mapper ?? throw new ArgumentException(nameof(IMapper));
-        _securityContext = securityContext;
+        _securityContext = securityContext ?? throw new ArgumentException(nameof(ArgumentException));
     }
 
     public async Task<DiscountCodeDto> Handle(GenerateDiscountCodeCommand request, CancellationToken cancellationToken)
