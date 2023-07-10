@@ -1,11 +1,25 @@
-<input
-	[type]="type"
-	[ngClass]="[
-		'w-full h-12 border text-xl rounded-standart focus-visible:outline-none px-3',
-		classStyles
-	]"
-	[placeholder]="placeholder"
-	[defaultValue]="this.defaultValue"
-	[(ngModel)]="value"
-	(ngModelChange)="valueChange.emit(value)"
-/>
+<ng-container *ngIf="!controllName; else reactiveFormInput">
+	<input
+		[type]="type"
+		[ngClass]="[
+			'w-full h-12 border text-xl rounded-standart focus-visible:outline-none px-3',
+			classStyles
+		]"
+		[placeholder]="placeholder"
+		[defaultValue]="this.defaultValue"
+		[(ngModel)]="value"
+		(ngModelChange)="valueChange.emit(value)"
+	/>
+</ng-container>
+<ng-template #reactiveFormInput>
+	<ng-container [formGroup]="form">
+		<input
+			[type]="type"
+			[ngClass]="[
+				'w-full h-12 border text-xl rounded-standart focus-visible:outline-none px-3',
+				classStyles
+			]"
+			[formControlName]="controllName"
+		/>
+	</ng-container>
+</ng-template>

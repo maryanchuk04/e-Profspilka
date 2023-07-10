@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
 	selector: 'app-text-field',
@@ -10,9 +11,16 @@ export class TextFieldComponent implements OnInit {
 	@Input() placeholder: string = '';
 	@Input() value: string = '';
 	@Input() defaultValue: string = '';
+	@Input() controllName: string | null = null;
 	@Output() valueChange = new EventEmitter<string>();
 
-	constructor() {}
+	form: FormGroup | null = null;
 
-	ngOnInit(): void {}
+	constructor(private formGroupDirective: FormGroupDirective) {}
+
+	ngOnInit(): void {
+		if (this.controllName) {
+			this.form = this.formGroupDirective?.control;
+		}
+	}
 }

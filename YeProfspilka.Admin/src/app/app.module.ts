@@ -66,6 +66,8 @@ import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
 import { FileInputFieldComponent } from './ui/file-input-field/file-input-field.component';
 import { ImportReportComponent } from './components/administration-components/import-report/import-report.component';
+import { CreateDiscountComponent } from './components/administration-components/create-discount/create-discount.component';
+import { MainDiscountsComponent } from './components/administration-components/main-discounts/main-discounts.component';
 
 @NgModule({
 	declarations: [
@@ -113,6 +115,8 @@ import { ImportReportComponent } from './components/administration-components/im
 		FeedbackComponent,
   FileInputFieldComponent,
   ImportReportComponent,
+  CreateDiscountComponent,
+  MainDiscountsComponent,
 	],
 	imports: [
 		BrowserModule,

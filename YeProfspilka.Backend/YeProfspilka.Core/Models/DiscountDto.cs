@@ -1,3 +1,5 @@
+using YeProfspilka.Core.Enumerations;
+
 namespace YeProfspilka.Core.Models;
 
 public class DiscountDto
@@ -6,9 +8,15 @@ public class DiscountDto
 
 	public string Name { get; set; }
 
+	public bool? WithBarCode { get; set; }
+
+	public bool? WithQrCode { get; set; }
+
+	public string? BarCodeImage { get; set; }
+
 	public string? CodeWord { get; set; }
 
 	public string? Description { get; set; }
 
-	public bool IsOpen { get; set; }
+	public DiscountType DiscountType { get; set; }
 }

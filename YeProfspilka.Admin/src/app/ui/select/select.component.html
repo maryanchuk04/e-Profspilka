@@ -1,29 +1,23 @@
-<ng-container [formGroup]="formGroup">
-	<div class="relative inline-block w-full">
-		<select
-			[formControlName]="controlName"
-			class="form-control w-full appearance-none bg-gray-200 border border-gray-200 hover:bg-gray-300 duration-150 text-gray-700 py-2 px-4 pr-8 rounded-standart leading-tight focus:outline-none"
-		>
-			<option disabled selected>{{ placeholder }}</option>
-			<option *ngFor="let option of options" [value]="option.value">
-				{{ option.label }}
-			</option>
-		</select>
-		<div
-			class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-		>
-			<svg
-				class="fill-current h-4 w-4"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-			>
-				<path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-				<path
-					fill-rule="evenodd"
-					d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm14 0a6 6 0 10-12 0 6 6 0 0012 0z"
-					clip-rule="evenodd"
-				/>
-			</svg>
-		</div>
+<form [formGroup]="form" class="relative inline-block w-full">
+	<select
+		[formControlName]="controlName"
+		(change)="handleChange($event)"
+		class="form-control w-full appearance-none bg-gray-200 border border-gray-200 hover:bg-gray-300 duration-150 text-gray-700 py-2 px-4 pr-8 rounded-standart leading-tight focus:outline-none"
+	>
+		<option *ngFor="let option of options" [value]="option.value">
+			{{ option.label }}
+		</option>
+	</select>
+	<div
+		class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+	>
+		<svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+			<path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+			<path
+				fill-rule="evenodd"
+				d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm14 0a6 6 0 10-12 0 6 6 0 0012 0z"
+				clip-rule="evenodd"
+			/>
+		</svg>
 	</div>
-</ng-container>
+</form>

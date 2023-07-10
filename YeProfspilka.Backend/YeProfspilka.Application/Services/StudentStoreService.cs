@@ -45,7 +45,7 @@ public class StudentStoreService : IStudentStoreService
 						Email = worksheet.Cells[row, 2].Value.ToString() ?? string.Empty,
 						Facultet = worksheet.Cells[row, 3].Value.ToString() ?? string.Empty,
 						Course = int.Parse(worksheet.Cells[row, 4].Value.ToString() ?? "1"),
-						IsPaidDues = bool.Parse(worksheet.Cells[row, 5].Value.ToString() ?? "0"),
+						IsMemberProf = bool.Parse(worksheet.Cells[row, 5].Value.ToString() ?? "0"),
 					});
 				}
 			}
@@ -69,7 +69,7 @@ public class StudentStoreService : IStudentStoreService
 			throw new NotFoundException(nameof(User), user.Email);
 		}
 
-		if (stud.IsPaidDues)
+		if (stud.IsMemberProf)
 		{
 			user.UserRoles.Add(new UserRole
 			{
@@ -142,7 +142,7 @@ public class StudentStoreService : IStudentStoreService
 					existingUser.Course = incomingStudent.Course;
 					existingUser.Facultet = incomingStudent.Facultet;
 					existingUser.FullName = incomingStudent.FullName;
-					existingUser.IsPaidDues = incomingStudent.IsPaidDues;
+					existingUser.IsMemberProf = incomingStudent.IsMemberProf;
 					_dbContext.StudentsStore.Update(existingUser);
 					updatedUsers++;
 				}

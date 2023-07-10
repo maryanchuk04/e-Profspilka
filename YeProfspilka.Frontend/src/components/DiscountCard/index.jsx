@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserData } from '../../features/userSlice';
 import QrcodeGenerator from '../QrcodeGenerator';
-import { useMediaQuery } from 'react-responsive';
 import SimpleModal from '../SimpleModal';
 import Button from '../../ui/Buttons/Button';
 import Loader from '../Loader';
@@ -11,45 +8,53 @@ import { DiscountService } from '../../services/DiscountService';
 
 const service = new DiscountService();
 
-const DiscountCard = ({ discount, blocked = false, disabled = false }) => {
-	const { email } = useSelector(selectUserData);
-	const { name, codeWord } = discount;
-	const isMobile = useMediaQuery({ maxWidth: '450px' });
+const DiscountCard = ({ discount, blocked = false }) => {
+	const { name, withBarCode, withQrCode } = discount;
 	const [isOpen, setIsOpen] = React.useState(false);
 
 	const toggleModal = () => {
-		if (isMobile) {
-			setIsOpen(!isOpen);
-		}
+		setIsOpen(!isOpen);
 	};
 
 	return (
 		<div
-			className={`relative rounded h-72 max-md:h-fit my-5 py-3 ${
+			className={`relative rounded-standart  my-5 h-22 py-3 items-center ${
 				blocked ? 'bg-[#C1C1C1]' : 'bg-[#9AE19D]'
 			}`}
-			onClick={toggleModal}
 		>
-			<div className='w-3/4 mx-auto max-md:w-full'>
-				{!isMobile && (
-					<div className='w-full flex justify-center items-center '>
-						<QrcodeGenerator size={150} value={`${email}/${codeWord}`} />
-					</div>
-				)}
-				<p className='text-bold text-xl text-center mb-4'>{name}</p>
-				<p className='text-center text-black/50 w-1/2 mx-auto max-md:hidden'>
-					Щоб використати знижку проскануйте цей штрих код біля каси в клубі
-				</p>
-			</div>
-			{disabled && (
-				<div className='w-full h-full absolute top-0 left-0 backdrop-blur-sm'></div>
-			)}
-			{isMobile && (
-				<div className='w-9/12 mx-auto'>
-					<Button>Використати</Button>
-					{isOpen && <DiscountCardModal discount={discount} close={toggleModal} />}
+			<div className='w-11/12 flex justify-between items-center mx-auto'>
+				<div>
+					<p className='text-bold text-lg flex justify-between mb-0 items-center'>
+						{name}
+					</p>
+					<span className='text-black/60 max-sm:text-xs font-light'>
+						{withQrCode && !withBarCode && 'Ця знижка доступна тільки по QR коду'}
+						{withBarCode && !withQrCode && 'Ця знижка доступна тільки по Штрих коду'}
+						{withBarCode &&
+							withQrCode &&
+							'Цю знижку можна сканувати буль яким способом'}
+					</span>
 				</div>
-			)}
+
+				<div className=' flex justify-between gap-2'>
+					{!blocked && (
+						<React.Fragment>
+							{withQrCode && (
+								<Button onClick={toggleModal} className='!h-12 !w-12 text-2xl px-3'>
+									<i className='text-2xl fa-regular fa-qrcode'></i>
+								</Button>
+							)}
+							{withBarCode && (
+								<Button className='!h-12 !w-12 px-2'>
+									<i className='text-2xl fa-solid fa-barcode-read'></i>
+								</Button>
+							)}
+						</React.Fragment>
+					)}
+				</div>
+				{isOpen && <DiscountCardModal discount={discount} close={toggleModal} />}
+			</div>
+			{}
 		</div>
 	);
 };
@@ -75,18 +80,18 @@ const DiscountCardModal = ({ discount, close }) => {
 	};
 
 	return (
-		<SimpleModal className='w-[320px] h-fit'>
+		<SimpleModal className='w-[320px] !h-fit'>
 			<div>
 				<p>#знижка</p>
 				<h2>{discount.name}</h2>
 				<p className=' text-ellipsis overflow-hidden'>{discount.description}</p>
 				<div className='my-8 w-full '>
 					{loading ? (
-						<div className='grid place-items-center min-h-[300px]'>
+						<div className='grid place-items-center min-h-[300px] h-fit'>
 							<Loader />
 						</div>
 					) : (
-						<div className='grid place-items-center'>
+						<div className='grid place-items-center h-fit'>
 							<div className='mb-3'>
 								<QrcodeGenerator size={250} value={qrCodeValue} />
 							</div>

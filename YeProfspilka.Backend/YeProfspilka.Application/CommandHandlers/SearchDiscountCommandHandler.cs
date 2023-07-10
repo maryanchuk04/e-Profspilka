@@ -33,9 +33,11 @@ public class SearchDiscountCommandHandler : IRequestHandler<SearchDiscountComman
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    CodeWord = x.CodeWord,
+                    WithBarCode = x.WithBarCode,
+                    WithQrCode = x.WithQrCode,
+                    BarCodeImage = x.BarCodeImage == null ? null : x.BarCodeImage.ImageUrl,
                     Description = x.Description,
-                    IsOpen = x.IsOpen
+                    DiscountType = x.DiscountType,
                 })
                 .ToListAsync(cancellationToken);
         }
@@ -46,9 +48,11 @@ public class SearchDiscountCommandHandler : IRequestHandler<SearchDiscountComman
             {
                 Id = x.Id,
                 Name = x.Name,
-                CodeWord = x.CodeWord,
+                WithBarCode = x.WithBarCode,
+                WithQrCode = x.WithQrCode,
+                BarCodeImage = x.BarCodeImage == null ? null : x.BarCodeImage.ImageUrl,
                 Description = x.Description,
-                IsOpen = x.IsOpen
+                DiscountType = x.DiscountType,
             })
             .ToListAsync(cancellationToken);
 

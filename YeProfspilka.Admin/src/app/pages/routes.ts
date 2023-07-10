@@ -1,7 +1,9 @@
 import { Route, Routes } from '@angular/router';
 
+import { CreateDiscountComponent } from '../components/administration-components/create-discount/create-discount.component';
 import { DashboardComponent } from '../components/administration-components/dashboard/dashboard.component';
 import { DiscountsComponent } from '../components/administration-components/discounts/discounts.component';
+import { MainDiscountsComponent } from '../components/administration-components/main-discounts/main-discounts.component';
 import { SettingsComponent } from '../components/administration-components/settings/settings.component';
 import { UsersManagerPanelComponent } from '../components/administration-components/users-manager-panel/users-manager-panel.component';
 import { UsersComponent } from '../components/administration-components/users/users.component';
@@ -34,6 +36,10 @@ export const administrationsRoutes: Routes = [
 	{
 		component: DiscountsComponent,
 		path: 'discounts',
+		children: [
+			{ path: '', component: MainDiscountsComponent },
+			{ path: 'create', component: CreateDiscountComponent },
+		],
 	},
 	{
 		component: UsersManagerPanelComponent,

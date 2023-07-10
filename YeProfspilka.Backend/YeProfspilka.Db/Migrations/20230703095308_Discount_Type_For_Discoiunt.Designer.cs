@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YeProfspilka.Db.EF;
 
@@ -11,9 +12,10 @@ using YeProfspilka.Db.EF;
 namespace YeProfspilka.Db.Migrations
 {
     [DbContext(typeof(YeProfspilkaContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703095308_Discount_Type_For_Discoiunt")]
+    partial class Discount_Type_For_Discoiunt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,8 @@ namespace YeProfspilka.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BarCodeImageId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CodeWord")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -60,15 +62,7 @@ namespace YeProfspilka.Db.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("WithBarCode")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("WithQrCode")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("BarCodeImageId");
 
                     b.ToTable("Discounts");
                 });
@@ -388,15 +382,6 @@ namespace YeProfspilka.Db.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserTokens");
-                });
-
-            modelBuilder.Entity("YeProfspilka.Core.Entities.Discount", b =>
-                {
-                    b.HasOne("YeProfspilka.Core.Entities.Image", "BarCodeImage")
-                        .WithMany()
-                        .HasForeignKey("BarCodeImageId");
-
-                    b.Navigation("BarCodeImage");
                 });
 
             modelBuilder.Entity("YeProfspilka.Core.Entities.DiscountCode", b =>

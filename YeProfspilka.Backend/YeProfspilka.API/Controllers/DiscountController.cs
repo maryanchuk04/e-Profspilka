@@ -64,7 +64,7 @@ public class DiscountController : ControllerBase
             {
                 CodeWord = model.CodeWord,
                 Description = model.Description,
-                IsOpen = model.IsOpen,
+                DiscountType = model.DiscountType,
                 Name = model.Name
             });
 
@@ -91,7 +91,7 @@ public class DiscountController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
         try

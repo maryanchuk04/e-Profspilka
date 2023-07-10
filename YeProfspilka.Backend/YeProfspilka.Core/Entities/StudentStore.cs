@@ -12,5 +12,5 @@ public class StudentStore : BaseEntity
 
 	public int Course { get; set; }
 
-	public bool IsPaidDues { get; set; }
+	public bool IsMemberProf { get; set; }
 }

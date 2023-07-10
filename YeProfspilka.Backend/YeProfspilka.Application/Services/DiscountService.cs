@@ -24,8 +24,10 @@ public class DiscountService : IDiscountService
         var entry = await _db.Discounts.AddAsync(new Discount
         {
             Description = discountDto.Description,
-            CodeWord = discountDto.CodeWord,
-            IsOpen = discountDto.IsOpen,
+            WithBarCode = discountDto.WithBarCode,
+            WithQrCode = discountDto.WithQrCode,
+            BarCodeImage = discountDto.BarCodeImage != null ? new Image(discountDto.BarCodeImage) : null,
+            DiscountType = discountDto.DiscountType,
             Name = discountDto.Name
         });
 
@@ -46,8 +48,21 @@ public class DiscountService : IDiscountService
 
         entity.Description = discountDto.Description;
         entity.Name = discountDto.Name;
-        entity.CodeWord = discountDto.CodeWord;
-        entity.IsOpen = discountDto.IsOpen;
+        entity.WithBarCode = discountDto.WithBarCode;
+        entity.WithQrCode = discountDto.WithQrCode;
+        if (discountDto.BarCodeImage != null)
+        {
+            if (entity.BarCodeImage != null)
+            {
+                entity.BarCodeImage.ImageUrl = discountDto.BarCodeImage;
+            }
+            else
+            {
+                entity.BarCodeImage = new Image(discountDto.BarCodeImage);
+            }
+        }
+
+        entity.DiscountType = discountDto.DiscountType;
 
         _db.Discounts.Update(entity);
         await _db.SaveChangesAsync();

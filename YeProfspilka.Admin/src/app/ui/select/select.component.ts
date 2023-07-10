@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { FormGroup, FormGroupDirective, } from '@angular/forms';
+import { Option } from 'src/app/models/ui-models/Option';
+
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
 	selector: 'app-select',
@@ -7,16 +9,21 @@ import { FormGroup, FormGroupDirective, } from '@angular/forms';
 	styleUrls: ['./select.component.css'],
 })
 export class SelectComponent implements OnInit {
-	@Input() placeholder: string;
-	@Input() options: any[] = [];
+	@Input() options: Option[] = [];
 
-	@Input() controlName: string = '';
+	@Input() controlName: string;
 
-	formGroup: FormGroup;
+	@Output() onChange = new EventEmitter();
+
+	form: FormGroup;
 
 	constructor(private rootFormGroup: FormGroupDirective) {}
 
 	ngOnInit(): void {
-		this.formGroup = this.rootFormGroup?.control;
+		this.form = this.rootFormGroup?.control;
+	}
+
+	handleChange(event: any) {
+		this.onChange.emit(event.target.value);
 	}
 }
