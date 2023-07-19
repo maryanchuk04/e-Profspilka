@@ -8,7 +8,6 @@ using YeProfspilka.Core.Models;
 namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
-[Route("[controller]/{discountId:guid}")]
 [Authorize]
 public class DiscountCodeController : ControllerBase
 {
@@ -20,6 +19,7 @@ public class DiscountCodeController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{discountId:guid}")]
     public async Task<ActionResult<DiscountCodeDto>> GenerateDiscountCode(Guid discountId)
     {
         try

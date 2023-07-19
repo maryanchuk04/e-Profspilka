@@ -3,7 +3,7 @@
 	<form [formGroup]="createDiscountForm" (ngSubmit)="create()" class="max-w-xl mt-8">
 		<div class="mb-4">
 			<label for="name" class="block mb-1">Назва</label>
-			<app-text-field type="text" controllName="name"></app-text-field>
+			<app-text-field type="text" controlName="name"></app-text-field>
 			<div
 				*ngIf="
 					createDiscountForm.get('name').errors &&

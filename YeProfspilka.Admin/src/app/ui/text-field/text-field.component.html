@@ -1,4 +1,4 @@
-<ng-container *ngIf="!controllName; else reactiveFormInput">
+<ng-container *ngIf="!controlName; else reactiveFormInput">
 	<input
 		[type]="type"
 		[ngClass]="[
@@ -19,7 +19,7 @@
 				'w-full h-12 border text-xl rounded-standart focus-visible:outline-none px-3',
 				classStyles
 			]"
-			[formControlName]="controllName"
+			[formControlName]="controlName"
 		/>
 	</ng-container>
 </ng-template>
