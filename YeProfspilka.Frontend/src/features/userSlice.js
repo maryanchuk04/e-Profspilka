@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AuthenticateService } from "../services/AuthenticateService";
-import { googleAuthenticate } from "../services/GoogleAuth";
-import { UserService } from "../services/UserService";
-import { MemberStatus } from "../types/memberStatus";
-import { showAlert, showDefaultAlert } from "./alertSlice";
-import { HttpStatusCode } from "axios";
-import { AlertType } from "../types/alertTypes";
-import { handleOpen } from "./loginSlice";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AuthenticateService } from '../services/AuthenticateService';
+import { googleAuthenticate } from '../services/GoogleAuth';
+import { UserService } from '../services/UserService';
+import { MemberStatus } from '../types/memberStatus';
+import { showAlert, showDefaultAlert } from './alertSlice';
+import { HttpStatusCode } from 'axios';
+import { AlertType } from '../types/alertTypes';
+import { handleOpen } from './loginSlice';
+import { Token } from '../services/TokenService';
 
 const initialState = {
 	loading: false,
@@ -16,79 +17,89 @@ const initialState = {
 		facultet: null,
 		course: 2,
 		status: MemberStatus.NOT_VERIFICATED,
-		avatar: "",
+		avatar: '',
 		role: MemberStatus.NotVerified,
 		email: '',
-	}
-}
+	},
+};
 
 const authService = new AuthenticateService();
 
 const alert = {
 	open: true,
-	text: "",
+	text: '',
 	type: AlertType.SUCCESS,
-	duration: 4000
-}
+	duration: 4000,
+};
 
 export const googleAuthenticateThunk = createAsyncThunk(
-	"user/authenticate",
+	'user/authenticate',
 	async (googleToken, { fulfillWithValue, rejectWithValue, dispatch }) => {
 		try {
 			const googleResponse = await googleAuthenticate(googleToken);
 
 			const { name, picture, email, hd } = googleResponse;
+			let status = null;
+			try {
+				status = await authService.authenticateGoogle({ name, picture, email, hd });
+			} catch (error) {
+				if (Token.get()) {
+					Token.remove();
 
-			const status = await authService.authenticateGoogle({ name, picture, email, hd });
+					setTimeout(async () => {
+						status = await authService.authenticateGoogle({ name, picture, email, hd });
+					}, 300);
+				}
+			} finally {
+				if (status === null) {
+					// eslint-disable-next-line no-unsafe-finally
+					throw Error('');
+				}
+			}
 
 			if (status === HttpStatusCode.Created) {
-				alert.text = "Ваш аккаунт було успішно створено!"
-				dispatch(showAlert(alert))
+				alert.text = 'Ваш аккаунт було успішно створено!';
+				dispatch(showAlert(alert));
 			}
 
 			if (status === HttpStatusCode.Ok) {
-				alert.text = "З поверненням!"
-				dispatch(showAlert(alert))
+				alert.text = 'З поверненням!';
+				dispatch(showAlert(alert));
 			}
 
 			dispatch(fetchUserThunk());
-			dispatch(handleOpen())
+			dispatch(handleOpen());
 			return fulfillWithValue();
-		}
-		catch (error) {
-
+		} catch (error) {
 			alert.type = 'error';
-			alert.text = "Щось пішло не так! :("
+			alert.text = 'Щось пішло не так! :(';
 			dispatch(showAlert(alert));
 			return rejectWithValue(null);
 		}
 	}
-)
+);
 
 export const fetchUserThunk = createAsyncThunk(
-	"user/fetchUser",
+	'user/fetchUser',
 	async (_, { fulfillWithValue, rejectWithValue, dispatch }, service = new UserService()) => {
 		try {
 			const userResponse = await service.get();
 
 			return fulfillWithValue(userResponse.data);
-		}
-		catch (error) {
+		} catch (error) {
 			dispatch(showDefaultAlert());
-			return rejectWithValue(null)
+			return rejectWithValue(null);
 		}
 	}
-)
+);
 
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
-	reducers: {
-
-	},
+	reducers: {},
 	extraReducers: {
 		[googleAuthenticateThunk.pending]: (state) => {
-			state.loading = true
+			state.loading = true;
 		},
 		[googleAuthenticateThunk.fulfilled]: (state) => {
 			state.loading = false;
@@ -105,9 +116,9 @@ const userSlice = createSlice({
 		},
 		[fetchUserThunk.rejected]: (state) => {
 			state.loading = false;
-		}
-	}
-})
+		},
+	},
+});
 
 export const selectIsAuthorized = (state) => state.user.autorized;
 

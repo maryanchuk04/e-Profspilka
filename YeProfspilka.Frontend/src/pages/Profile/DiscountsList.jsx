@@ -44,16 +44,10 @@ const DiscountsList = ({ status }) => {
 	};
 
 	return (
-		<div className='w-full flex flex-col items-end'>
+		<div className='w-full flex flex-col'>
+			<h2 className='mb-6 max-sm:mb-3'>#Персональні знижки</h2>
 			<div className='lg:bg-[#E6E6E6] max-md:py-0  max-md:px-0 px-12 max-md:w-full w-full py-8 rounded-standart max-h-[900px] overflow-y-auto xs:max-h-[300px] xl:max-h-[600px]'>
-				{loading ? (
-					<Loader />
-				) : (
-					<div>
-						<h2>Персональні знижки</h2>
-						{renderDiscounts()}
-					</div>
-				)}
+				{loading ? <Loader /> : <div>{renderDiscounts()}</div>}
 				{!discounts && (
 					<div>
 						<h2>У вас ще немає знижок!</h2>

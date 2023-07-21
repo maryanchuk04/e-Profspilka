@@ -43,6 +43,4 @@ public class YeProfspilkaContext : DbContext
     public DbSet<Discount> Discounts { get; set; }
 
     public DbSet<DiscountCode> DiscountCodes { get; set; }
-
-    public DbSet<Site> MyProperty { get; set; }
 }

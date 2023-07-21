@@ -22,7 +22,7 @@ public class SiteSettingsController : ControllerBase
     {
         try
         {
-
+            return Ok();
         }
         catch (Exception e)
         {

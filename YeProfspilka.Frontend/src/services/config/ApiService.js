@@ -1,32 +1,22 @@
-import axios from 'axios';
 import { Token } from '../TokenService';
+import api from './axios.config';
 
 export class ApiService {
-	constructor() {
-		this.axios = axios.create({
-			baseURL: process.env.REACT_APP_API_URL,
-			withCredentials: true,
-			headers: {
-				Authorization: `Bearer ${Token.get() || ''}`,
-			},
-		});
-	}
-
 	post(url, data) {
-		return this.axios.post(url, data);
+		return api.post(url, data);
 	}
 
 	get(url) {
-		return this.axios.get(url, {
+		return api.get(url, {
 			Authorization: `Bearer ${Token.get() || ''}`,
 		});
 	}
 
 	put(url, data) {
-		return this.axios.put(url, data);
+		return api.put(url, data);
 	}
 
 	delete(url) {
-		return this.axios.delete(url);
+		return api.delete(url);
 	}
 }

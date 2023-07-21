@@ -1,26 +1,32 @@
-import { ApiService } from "./config/ApiService";
-import { Token } from "./TokenService";
+import { ApiService } from './config/ApiService';
+import { Token } from './TokenService';
 
 export class AuthenticateService {
-	#url = "/authenticate"
+	#url = '/authenticate';
 	api = new ApiService();
 
 	async authenticateGoogle({ name, picture, email, hd }) {
 		try {
 			const { status, data } = await this.api.post(`${this.#url}/google`, {
-				fullName: name, 
+				fullName: name,
 				avatar: picture,
 				email,
-				hd
+				hd,
 			});
-			
+
 			if (data.token) {
 				Token.set(data.token);
 				return status;
 			}
-		}
-		catch (err) {
+		} catch (err) {
 			throw Error(err);
-		} 
+		}
+	}
+
+	logout() {
+		this.api.post(`${this.#url}/logout`).then(() => {
+			Token.remove();
+			window.location = '/';
+		});
 	}
 }

@@ -9,6 +9,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Authorize]
+[Route("discountcode")]
 public class DiscountCodeController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -38,19 +39,14 @@ public class DiscountCodeController : ControllerBase
         }
     }
 
-    [HttpGet("{discountCodeId:guid}")]
+    [HttpGet("{discountId}/{discountCodeId:guid}")]
     public async Task<ActionResult<DiscountCodeDto>> ValidateDiscountCode(Guid discountId, Guid discountCodeId)
     {
         try
         {
-            var isValid = await _mediator.Send(new VerifyDiscountCodeCommand(discountId, discountCodeId));
+            var result = await _mediator.Send(new VerifyDiscountCodeCommand(discountId, discountCodeId));
 
-            if (!isValid)
-            {
-                return BadRequest();
-            }
-
-            return Ok(isValid);
+            return Ok(result);
         }
         catch (NotFoundException)
         {

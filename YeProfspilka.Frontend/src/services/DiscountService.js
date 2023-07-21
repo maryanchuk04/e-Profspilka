@@ -1,4 +1,5 @@
 import { ApiService } from './config/ApiService';
+import api from './config/axios.config';
 
 export class DiscountService {
 	#apiUrl = '/discount';
@@ -15,3 +16,13 @@ export class DiscountService {
 		return await this.service.get(`discountcode/${discountId}`);
 	}
 }
+
+export const verifyDiscount = async (discountId, discountCodeId) => {
+	try {
+		const { data } = await api.get(`/discountcode/${discountId}/${discountCodeId}`);
+
+		return data;
+	} catch (error) {
+		throw Error(error);
+	}
+};

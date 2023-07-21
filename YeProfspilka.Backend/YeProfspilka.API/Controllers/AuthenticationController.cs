@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YeProfspilka.Application.Configurations;
 using YeProfspilka.Backend.Extension;
@@ -9,6 +10,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("authenticate")]
+[AllowAnonymous]
 public class AuthenticationController : ControllerBase
 {
 	private readonly IAuthenticationService _authenticationService;
@@ -89,5 +91,12 @@ public class AuthenticationController : ControllerBase
 		{
 			return BadRequest(new ErrorResponseModel(e.Message));
 		}
+	}
+
+	[HttpPost("logout")]
+	public IActionResult Logout()
+	{
+		HttpContext.DeleteRefreshToken();
+		return Ok();
 	}
 }

@@ -6,6 +6,7 @@ import { MemberStatus } from '../../types/memberStatus';
 import Field from './Field';
 import UserStatus from './UserStatus';
 import { useMediaQuery } from 'react-responsive';
+import Button from '../../ui/Buttons/Button';
 
 const ProfileSidebar = () => {
 	// max-w-lg
@@ -17,6 +18,10 @@ const ProfileSidebar = () => {
 	const handleOpen = () => {
 		setIsOpen(!isOpen);
 	};
+
+	// const logOut = () => {
+
+	// }
 
 	return !media ? (
 		<div className='w-1/4 relative'>
@@ -41,6 +46,7 @@ const ProfileSidebar = () => {
 						: 'НЕ Верифікований'
 				}
 			/>
+			<Button>Вийти з профілю</Button>
 		</div>
 	) : (
 		<div className='bg-[#F1E5C4] rounded-standart p-4' onClick={handleOpen}>
@@ -72,6 +78,7 @@ const ProfileSidebar = () => {
 					/>
 					<Field label='Місце навчання:' text={facultet || 'Невідомо'} />
 					<Field label='Курс:' text={course || 'Невідомо'} />
+					<Button>Вийти з профілю</Button>
 				</div>
 			)}
 		</div>
