@@ -28,16 +28,16 @@ const Layout = ({ children }) => {
 	}
 
 	return (
-		<div className='relative min-h-screen h-full'>
-			{children}
-			{
-				!isMobile && open && <SimpleModal handleClose={handleClose} >
-					<RegistrationForm />
-				</SimpleModal>
-			}
-			{alert.open && <Alert text={alert.text} type={alert.type} duration={alert.duration} />}
-		</div>
-	)
+        <div className='relative min-h-screen h-full'>
+            {children}
+            {!isMobile && open && (
+                <SimpleModal className='!h-fit !w-[30rem]' handleClose={handleClose}>
+                    <RegistrationForm />
+                </SimpleModal>
+            )}
+            {alert.open && <Alert text={alert.text} type={alert.type} duration={alert.duration} />}
+        </div>
+    );
 }
 
 export default Layout

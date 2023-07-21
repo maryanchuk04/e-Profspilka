@@ -1,35 +1,24 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { handleOpen } from '../../features/loginSlice'
-import GoogleButton from '../../ui/Buttons/GoogleButton'
-import PrimaryButton from '../../ui/Buttons/PrimaryButton'
-import TextField from '../../ui/Fields/TextField'
+import React from 'react';
+import GoogleButton from '../../ui/Buttons/GoogleButton';
 
-const RegistrationForm = ({ className = "" }) => {
-	const dispatch = useDispatch();
+const RegistrationForm = ({ className = '' }) => {
+    return (
+        <div className={`my-3 w-full h-full flex flex-col justify-center ${className}`}>
+            <h1 className='text-center w-full xs:text-xl sm:text-2xl md:text-3xl'>
+                Увійти в особистий аккаунт
+                <br /> єПрофспілки
+            </h1>
+            <div className='mt-6 mb-6 flex flex-col gap-4 relative'>
+                <div>
 
-	const handleClick = () => {
-		dispatch(handleOpen())
-	}
-	return (
-		<div className={`my-3 w-full h-full flex flex-col justify-center ${className}`}>
-			<h1 className='text-center w-full xs:text-xl sm:text-2xl md:text-3xl'>Зареєструватись<br /> в єПрофспілці</h1>
-			<div className='mt-12 mb-6 flex flex-col gap-4'>
-				<div className='w-full relative'>
-					<TextField placeholder="Корп.пошта" className='xl:pr-40 xs:pr-20 max-sm:text-xs' />
-					<p className='absolute text-black/25 xs:max-sm:text-xs top-1/2 -right-10 transform -translate-x-1/2 -translate-y-1/2'>@chnu.edu.ua</p>
-				</div>
-				<TextField placeholder="Пароль" type='password' />
-				<PrimaryButton onClick={handleClick}>Зареєструватись</PrimaryButton>
-				<p className='mb-4 text-black/50 font-ukraine text-center'>Ми не передаємо ваші дані третім особам</p>
-				<div>
-					<p className='text-center'>Увійти за один клік</p>
-					<GoogleButton />
-				</div>
-			</div>
+                    <GoogleButton className='z-50' />
+                    <p className='mt-4 font-normal text-xs text-center text-black/50'>
+                        Авторизація здійснюється за допомогою корпоративного облікового запису
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-		</div>
-	)
-}
-
-export default RegistrationForm
+export default RegistrationForm;

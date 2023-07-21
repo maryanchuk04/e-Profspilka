@@ -20,21 +20,24 @@ const Socials = () => {
 	]
 
 	return (
-		<div id='socials' className='my-32'>
-			<h1 className='my-12 max-sm:text-center'>Ми в соц мережах</h1>
-			<div className='flex flex-wrap my-5 justify-between gap-10 max-sm:flex-col'>
-				{
-					socials.map((item) => (
-						<a href={item.link} target='_blanck' key={item.text} className="cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center">
-							<i className={`${item.icon} text-4xl mr-4`}></i>
-							<p className='text-xl'>{item.text}</p>
-						</a>
-					))
-				}
-			</div>
-		</div>
-
-	)
+        <div id='socials' className='my-32'>
+            <h1 className='my-12 max-sm:text-center'>Ми в соц мережах</h1>
+            <div className='flex flex-wrap my-5 justify-between gap-10 max-sm:flex-col'>
+                {socials.map((item, index) => (
+                    <a
+                        href={item.link}
+                        target='_blank'
+                        key={index}
+                        className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center'
+                        rel='noreferrer'
+                    >
+                        <i className={`${item.icon} text-4xl mr-4`}></i>
+                        <p className='text-xl'>{item.text}</p>
+                    </a>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Socials

@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import Button from '../../ui/Buttons/Button';
-import PrimaryButton from '../../ui/Buttons/PrimaryButton';
+//	import PrimaryButton from '../../ui/Buttons/PrimaryButton';
 import Avatar from '../Avatar';
 import { useNavigate } from 'react-router-dom';
 import { Token } from '../../services/TokenService';
@@ -70,12 +70,12 @@ const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
 					<Button className='bg-white border-0 mb-3' onClick={() => setHeaderState(1)}>
 						Увійти
 					</Button>
-					<PrimaryButton
+					{/* <PrimaryButton
 						className='border-white text-white border-2 mb-5'
 						onClick={() => setHeaderState(1)}
 					>
 						Зареєструватись
-					</PrimaryButton>
+					</PrimaryButton> */}
 				</div>
 			)}
 		</div>

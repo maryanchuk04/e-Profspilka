@@ -8,8 +8,8 @@ using YeProfspilka.Core.Models;
 namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
-[Authorize]
-[Route("discountcode")]
+[AllowAnonymous]
+[Route("discount")]
 public class DiscountCodeController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -39,11 +39,16 @@ public class DiscountCodeController : ControllerBase
         }
     }
 
-    [HttpGet("{discountId}/{discountCodeId:guid}")]
+    [HttpGet("verify/{discountId:guid}/{discountCodeId:guid}")]
     public async Task<ActionResult<DiscountCodeDto>> ValidateDiscountCode(Guid discountId, Guid discountCodeId)
     {
         try
         {
+            if (discountId == default || discountCodeId == default)
+            {
+                return BadRequest(new ErrorResponseModel("Incorrect data!"));
+            }
+
             var result = await _mediator.Send(new VerifyDiscountCodeCommand(discountId, discountCodeId));
 
             return Ok(result);

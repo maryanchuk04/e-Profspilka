@@ -24,9 +24,6 @@ export class AuthenticateService {
 	}
 
 	logout() {
-		this.api.post(`${this.#url}/logout`).then(() => {
-			Token.remove();
-			window.location = '/';
-		});
+		return this.api.post(`${this.#url}/logout`);
 	}
 }

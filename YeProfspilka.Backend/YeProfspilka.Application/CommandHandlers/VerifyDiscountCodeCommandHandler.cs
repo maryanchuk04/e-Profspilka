@@ -14,11 +14,11 @@ public class VerifyDiscountCodeCommand : IRequest<VerifyDiscountResult>
     public VerifyDiscountCodeCommand(Guid discountId, Guid discountCodeId)
     {
         DiscountId = discountId;
-        DiscountCodeId = discountCodeId;
+        DiscountCode = discountCodeId;
     }
 
     public Guid DiscountId { get; set; }
-    public Guid DiscountCodeId { get; set; }
+    public Guid DiscountCode { get; set; }
 }
 
 
@@ -39,13 +39,13 @@ public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCo
             .Include(x => x.Discount)
             .Include(x => x.User)
             .ThenInclude(x => x.Image)
-            .FirstOrDefaultAsync(x => x.Id == request.DiscountCodeId
+            .FirstOrDefaultAsync(x => x.Code == request.DiscountCode
                                       && x.DiscountId == request.DiscountId,
                 cancellationToken);
 
         if (discountCode == null)
         {
-            throw new NotFoundException(nameof(DiscountCode), request.DiscountCodeId);
+            throw new NotFoundException(nameof(DiscountCode), request.DiscountCode);
         }
 
         if (!discountCode.IsActive)
@@ -60,17 +60,17 @@ public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCo
 
             await _db.SaveChangesAsync(cancellationToken);
 
-            return new VerifyDiscountResult { IsSuccess = false };
+            return new VerifyDiscountResult
+            {
+                IsSuccess = true,
+                Discount = _mapper.Map<DiscountDto>(discountCode.Discount),
+                Email = discountCode.User?.Email,
+                FullName = discountCode.User?.FullName,
+                Image = discountCode.User?.Image.ImageUrl,
+            }; ;
         }
 
-        return new VerifyDiscountResult
-        {
-            IsSuccess = true,
-            Discount = _mapper.Map<DiscountDto>(discountCode.Discount),
-            Email = discountCode.User?.Email,
-            FullName = discountCode.User?.FullName,
-            Image = discountCode.User?.Image.ImageUrl,
-        };
+        return new VerifyDiscountResult { IsSuccess = false };
     }
 
     private async Task CheckDiscountType(Discount discount)

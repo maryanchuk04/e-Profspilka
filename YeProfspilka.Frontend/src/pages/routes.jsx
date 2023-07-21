@@ -44,7 +44,7 @@ const routes = [
 		element: <PageWrapper element={<Event />} />,
 	},
 	{
-		path: '/verify-discount/:discountId',
+		path: '/verify-discount/:discountId/:discountCodeId',
 		element: <PageWrapper element={<VerifyDiscount />} />,
 	},
 ];
