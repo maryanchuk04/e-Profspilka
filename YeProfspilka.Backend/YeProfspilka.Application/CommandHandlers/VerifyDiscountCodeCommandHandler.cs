@@ -77,7 +77,8 @@ public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCo
     {
         if (discount.DiscountType == DiscountType.OneTimeForAll)
         {
-
+            // TODO: Finalize with this!
+            // if this onetime discount, it must be hide for this user
         }
     }
 }

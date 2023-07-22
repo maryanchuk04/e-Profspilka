@@ -1,0 +1,11 @@
+<button [disabled]="loading" (click)="click()" class="{{ styles() }} {{ classStyles }}">
+    <ng-container *ngIf="!loading; else loadingSpinner">
+        <ng-content></ng-content>
+    </ng-container>
+</button>
+
+<ng-template #loadingSpinner>
+    <div class="flex items-center justify-center">
+        <app-loader className="!h-8 !w-8"></app-loader>
+    </div>
+</ng-template>

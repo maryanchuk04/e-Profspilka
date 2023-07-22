@@ -1,40 +1,48 @@
-<div class="h-full overflow-y-auto">
-	<div class="flex justify-between">
-		<h1 class="w-full text-2xl font-bold text-black/60">#Користувачі</h1>
-		<app-button (onClick)="handleOpen(true)" type="secondary" classStyles="px-4 w-fit flex items-center">
-			<i class="fas fa-file-import mr-2"></i>
-			<p>Додати</p>
-		</app-button>
-	</div>
-	<app-users-table></app-users-table>
+<div class="">
+    <div class="flex justify-between">
+        <h1 class="w-full text-2xl font-bold text-black/60">#Користувачі</h1>
+        <div class="flex align-items-center">
+            <app-spinner-button type="secondary" [loading]=""
+                classStyles="px-2 mr-2 min-w-20" (onClick)="export()">Експортувати</app-spinner-button>
+            <app-button (onClick)="handleOpen(true)" type="primary" classStyles="px-4 w-fit flex items-center">
+                <i class="fas fa-file-import mr-2"></i>
+                <p>Додати</p>
+            </app-button>
+        </div>
+    </div>
+    <app-users-table></app-users-table>
 </div>
+
 <app-modal *ngIf="open" (close)="handleOpen(false)">
-	<div class="w-[500px] h-fit p-4">
-		<h1 class="text-center text-2xl font-bold mb-3">Завантаження користувачів</h1>
-		<div appDragDrop (fileDrop)="uploadFile($event)"
-			class="grid rounded-standart cursor-pointer my-2 border place-items-center font-xl h-40">
-			<ng-container *ngIf="file === null; else elseTemplate">
-				<div class="h-full grid place-items-center opacity-50 text-2xl text-center">
-					<h2>Завантажте свій excel файл з користувачами</h2>
-					<i class="fa-solid fa-file-excel"></i>
-				</div>
-			</ng-container>
-			<ng-template #elseTemplate>
-				<ng-container *ngIf="result === null; else results">
-					<app-loader></app-loader>
-				</ng-container>
-				<ng-template #results>
-					<div class="grid place-items-center">
-						<h2 class="text-center">Файл успішно завантажено</h2>
-					</div>
-				</ng-template>
-			</ng-template>
-			<div class="w-full text-center" *ngIf="result !== null">
-				<p>{{result.message}}</p>
-				<p>Всього було в файлі {{result.count}}. Оновлено користувачів {{result.updatedUsers}}, нових
-					користувачів {{result.newUsers}}</p>
-			</div>
-		</div>
-		<app-button [disabled]="result === null">Готово!</app-button>
-	</div>
+    <div class="w-[500px] h-fit p-4">
+        <h1 class="text-center text-2xl font-bold mb-3">Завантаження користувачів</h1>
+        <div appDragDrop (fileDrop)="uploadFile($event)"
+            class="grid rounded-standart cursor-pointer my-2 border place-items-center font-xl h-40">
+            <ng-container *ngIf="file === null; else elseTemplate">
+                <div class="h-full grid place-items-center opacity-50 text-2xl text-center">
+                    <h2>Завантажте свій excel файл з користувачами</h2>
+                    <i class="fa-solid fa-file-excel"></i>
+                </div>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <ng-container *ngIf="result === null; else results">
+                    <app-loader></app-loader>
+                </ng-container>
+                <ng-template #results>
+                    <div class="grid place-items-center">
+                        <h2 class="text-center">Файл успішно завантажено</h2>
+                    </div>
+                </ng-template>
+            </ng-template>
+            <div class="w-full text-center" *ngIf="result !== null">
+                <p>{{ result.message }}</p>
+                <p>
+                    Всього було в файлі {{ result.count }}. Оновлено користувачів {{ result.updatedUsers }}, нових
+                    користувачів
+                    {{ result.newUsers }}
+                </p>
+            </div>
+        </div>
+        <app-button [disabled]="result === null">Готово!</app-button>
+    </div>
 </app-modal>
