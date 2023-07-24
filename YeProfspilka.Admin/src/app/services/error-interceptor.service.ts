@@ -1,73 +1,35 @@
-import { throwError, } from 'rxjs';
-import { catchError, } from 'rxjs/operators';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import {
-	HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode,
-} from '@angular/common/http';
-import { Injectable, } from '@angular/core';
-import { Store, } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import AppState from '../store';
-import { showAlert, } from '../store/actions/alert.action';
-import { AlertType, } from '../store/reducers/alert.reducer';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-	constructor(private store: Store<AppState>) { }
+    constructor(private store: Store<AppState>, private toastr: ToastrService) {}
 
-	intercept(request: HttpRequest<any>, next: HttpHandler) {
-		return next.handle(request).pipe(
-			catchError((error: HttpErrorResponse) => {
-				let errorMessage = '';
-				if (error.error instanceof ErrorEvent) {
-					errorMessage = `Помилка: ${error.error.message}`;
-				} else {
-					// серверна помилка
-					errorMessage = `Код помилки: ${error.status}\nПовідомлення: ${error.message}`;
-					if (error.status === HttpStatusCode.Forbidden) {
-						this.store.dispatch(
-							showAlert({
-								alert: {
-									type: AlertType.Error,
-									autoClose: true,
-									message:
-										'У вас немає доступу, щоб виконати цю дію!',
-									duration: 4000,
-									open: true,
-								},
-							}),
-						);
-						return throwError(errorMessage);
-					}
-					if (error.error) {
-						this.store.dispatch(
-							showAlert({
-								alert: {
-									type: AlertType.Error,
-									autoClose: true,
-									message: error.error.message,
-									duration: 4000,
-									open: true,
-								},
-							}),
-						);
-					} else {
-						this.store.dispatch(
-							showAlert({
-								alert: {
-									type: AlertType.Error,
-									autoClose: true,
-									message: "Щось пішло не так!",
-									duration: 4000,
-									open: true,
-								},
-							}),
-						);
-					}
-				}
-				console.error(errorMessage);
-				return throwError(errorMessage);
-			}),
-		);
-	}
+    intercept(request: HttpRequest<any>, next: HttpHandler) {
+        return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+                let errorMessage = '';
+                if (error.error instanceof ErrorEvent) {
+                    errorMessage = `Error: ${error.error.message}`;
+                } else {
+                    // Server Error
+                    errorMessage = `Error Code: ${error.status}\Message: ${error.message}`;
+                    if (error.status === HttpStatusCode.Forbidden) {
+                        this.toastr.error('У вас немає доступу щоб виконати цю дію!');
+                        return throwError(errorMessage);
+                    } else {
+                        this.toastr.error('Щось пішло не так!');
+                    }
+                }
+                return throwError(errorMessage);
+            })
+        );
+    }
 }

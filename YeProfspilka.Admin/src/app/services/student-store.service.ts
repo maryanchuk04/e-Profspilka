@@ -2,9 +2,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable, switchMap } from 'rxjs';
 
 import { UploadFileResults } from '../models/UploadFileResults';
+import { User } from '../models/User';
 import { DownloadService } from './download.service';
 import { RestService } from './rest.service';
 
@@ -29,17 +30,18 @@ export class StudentStoreService {
         return this.service.getAll(this.url);
     }
 
-    exportUsers(): void {
-        this.http
+    exportUsers(): Observable<void> {
+        return this.http
             .get<HttpResponse<Blob>>(`${this.service.baseURL}/${this.url}/export`, { observe: 'response', responseType: 'blob' as 'json' })
-            .subscribe({
-                next: (response) => {
+            .pipe(
+                map((response) => {
                     this.downloadService.getDownload(response as unknown as HttpResponse<Blob>);
                     this.toastrService.success('Всіх користувачів було експортовано!');
-                },
-                error: () => {
+                }),
+                catchError(() => {
                     this.toastrService.error('Помилка при експорті користувачів!');
-                },
-            });
+                    return EMPTY;
+                })
+            );
     }
 }

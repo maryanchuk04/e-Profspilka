@@ -16,6 +16,6 @@ export const roleResolver = (role: Role): string => {
 		case Role.NotVerified: return 'Не верифікований';
 		case Role.HeadOfUnit: return 'Голова підрозділу';
 		default:
-			return "Юзер не активований"
+			return 'Не активований';
 	}
 }

@@ -1,10 +1,10 @@
-using System.Reflection;
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.Text;
 using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Application.Configurations;
 using YeProfspilka.Application.Services;
@@ -38,6 +38,7 @@ public static class ServicesExtensions
         services.AddScoped<IPartnersService, PartnersService>();
         services.AddScoped<IAdvantageService, AdvantageService>();
         services.AddScoped<IDiscountService, DiscountService>();
+        services.AddScoped<IRoleService, RoleService>();
 
         // Add AutoMapper
         services.AddAutoMapper(typeof(EventsMapper).GetTypeInfo().Assembly);

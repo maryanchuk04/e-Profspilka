@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxEditorModule } from 'ngx-editor';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from 'src/environments/environment';
@@ -70,6 +71,7 @@ import { QuestionTooltipComponent } from './ui/question-tooltip/question-tooltip
 import { SelectComponent } from './ui/select/select.component';
 import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
+import { MainComponent } from './components/administration-components/users/main/main.component';
 
 @NgModule({
     declarations: [
@@ -120,6 +122,7 @@ import { options } from './utils/editorOptions';
         CreateDiscountComponent,
         MainDiscountsComponent,
         SpinnerButtonComponent,
+        MainComponent,
     ],
     imports: [
         BrowserModule,
@@ -141,6 +144,7 @@ import { options } from './utils/editorOptions';
         FormsModule,
         BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(),
+        NgxPaginationModule,
     ],
     providers: [
         {

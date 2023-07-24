@@ -81,4 +81,19 @@ public class StudentStoreController : ControllerBase
             return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
+
+    [HttpGet("user/{id}")]
+    public async Task<ActionResult<UserMatchingStoreModel>> GetUser(Guid id)
+    {
+        try
+        {
+            var matchingUser = await _mediator.Send(new GetStudentUserByIdCommand(id));
+
+            return Ok(matchingUser);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
 }

@@ -1,46 +1,43 @@
-import { EMPTY } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import { EMPTY, Subject, takeUntil } from 'rxjs';
+
 import { GoogleUserInfo } from 'src/app/models/GoogleUserInfo';
 import AppState from 'src/app/store';
 import { googleLoginUser } from 'src/app/store/actions/user.action';
 
-import {
-    GoogleLoginProvider, SocialAuthService, SocialUser
-} from '@abacritt/angularx-social-login';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
-	selector: 'app-login-page',
-	templateUrl: './login-page.component.html',
+    selector: 'app-login-page',
+    templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent implements OnInit {
-	socialUser!: SocialUser;
-	constructor(
-		private socialAuthService: SocialAuthService,
-		private store: Store<AppState>,
-		private router: Router,
-	) { }
+export class LoginPageComponent implements OnInit, OnDestroy {
+    socialUser!: SocialUser;
+    destroy$: Subject<void>;
+    constructor(private socialAuthService: SocialAuthService, private store: Store<AppState>, private router: Router) {}
 
-	ngOnInit(): void {
-		this.socialAuthService.authState.subscribe((user) => {
-			this.socialUser = user;
-			console.log(this.socialUser);
-			const googleModel: GoogleUserInfo = {
-				fullName: this.socialUser.name,
-				avatar: this.socialUser.photoUrl,
-				email: this.socialUser.email,
-				hd: this.socialUser.email.substring(
-					this.socialUser.email.lastIndexOf('@') + 1,
-				),
-			};
-			this.store.dispatch(googleLoginUser({ googleModel }));
-		});
-	}
+    ngOnInit(): void {
+        this.socialAuthService.authState.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+            this.socialUser = user;
+            const googleModel: GoogleUserInfo = {
+                fullName: this.socialUser.name,
+                avatar: this.socialUser.photoUrl,
+                email: this.socialUser.email,
+                hd: this.socialUser.email.substring(this.socialUser.email.lastIndexOf('@') + 1),
+            };
+            this.store.dispatch(googleLoginUser({ googleModel }));
+        });
+    }
 
-	loginGoogle() {
-		this.socialAuthService
-			.signIn(GoogleLoginProvider.PROVIDER_ID)
-			.then(() => EMPTY);
-	}
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    loginGoogle() {
+        this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(() => EMPTY);
+    }
 }
