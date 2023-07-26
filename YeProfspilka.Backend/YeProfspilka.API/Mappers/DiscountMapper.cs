@@ -9,7 +9,8 @@ public class DiscountMapper : Profile
     public DiscountMapper()
     {
         CreateMap<DiscountDto, Discount>();
-        CreateMap<Discount, DiscountDto>();
+        CreateMap<Discount, DiscountDto>()
+            .ForMember(x => x.BarCodeImage, opts => opts.MapFrom(x => x.BarCodeImage.ImageUrl ?? null));
         CreateMap<DiscountCode, DiscountCodeDto>();
         CreateMap<DiscountCodeDto, DiscountCode>();
     }

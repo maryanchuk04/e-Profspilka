@@ -97,6 +97,8 @@ public class DiscountService : IDiscountService
 
     public async Task<IEnumerable<DiscountDto>> GetAsync()
     {
-        return _mapper.Map<IEnumerable<DiscountDto>>(await _db.Discounts.ToListAsync());
+        return _mapper.Map<IEnumerable<DiscountDto>>(await _db.Discounts
+            .Include(x => x.BarCodeImage)
+            .ToListAsync());
     }
 }

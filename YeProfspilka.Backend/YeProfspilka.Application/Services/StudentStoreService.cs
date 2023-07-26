@@ -79,6 +79,9 @@ public class StudentStoreService : IStudentStoreService
                 UserId = user.Id
             });
         }
+
+        user.Course = stud.Course;
+        user.Facultet = stud.FullName;
     }
 
     public async Task<IEnumerable<UserMatchingStoreModel>> GetAllUsers()
