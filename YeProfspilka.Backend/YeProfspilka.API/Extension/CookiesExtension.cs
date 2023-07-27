@@ -11,14 +11,15 @@ public static class CookieExtension
 			HttpOnly = true,
 			Expires = DateTime.Now.AddDays(7),
 			Secure = true,
+			SameSite = SameSiteMode.None,
 		};
 
-		context.Response.Cookies.Delete("refreshToken");
-		context.Response.Cookies.Append("refreshToken", model.RefreshToken, cookieOptions);
+		//context.Response.Cookies.Delete("yeProfspilkaRefreshToken");
+		context.Response.Cookies.Append("yeProfspilkaRefreshToken", model.RefreshToken, cookieOptions);
 	}
 
 	public static void DeleteRefreshToken(this HttpContext context)
 	{
-		context.Response.Cookies.Delete("refreshToken");
+		context.Response.Cookies.Delete("yeProfspilkaRefreshToken");
 	}
 }

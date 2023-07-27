@@ -36,7 +36,7 @@ public class AuthenticationController : ControllerBase
         try
         {
             var authenticateResponseModel = await _authenticationService.Authenticate(emailViewModel.Email);
-            _logger.LogInformation("Successful Google Authenticate user with Email: {email}", emailViewModel.Email);
+            _logger.LogInformation("Successful Google Authenticate user with Email: {Email}", emailViewModel.Email);
             HttpContext.SetTokenCookie(authenticateResponseModel);
 
             return Ok(new

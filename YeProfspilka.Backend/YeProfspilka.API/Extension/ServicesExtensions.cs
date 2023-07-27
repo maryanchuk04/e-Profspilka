@@ -111,6 +111,7 @@ public static class ServicesExtensions
                 Description = "Bearer Authentication with JWT Token",
                 Type = SecuritySchemeType.Http,
             });
+
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
