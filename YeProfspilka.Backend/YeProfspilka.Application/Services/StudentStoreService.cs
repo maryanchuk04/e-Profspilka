@@ -64,12 +64,8 @@ public class StudentStoreService : IStudentStoreService
 
     public async Task MappingUser(User user)
     {
-        var stud = await _dbContext.StudentsStore.FirstOrDefaultAsync(x => x.Email == user.Email);
-
-        if (stud == null)
-        {
-            throw new NotFoundException(nameof(User), user.Email);
-        }
+        var stud = await _dbContext.StudentsStore.FirstOrDefaultAsync(x => x.Email == user.Email)
+            ?? throw new NotFoundException(nameof(User), user.Email);
 
         if (stud.IsMemberProf)
         {
@@ -81,7 +77,7 @@ public class StudentStoreService : IStudentStoreService
         }
 
         user.Course = stud.Course;
-        user.Facultet = stud.FullName;
+        user.Facultet = stud.Facultet;
     }
 
     public async Task<IEnumerable<UserMatchingStoreModel>> GetAllUsers()
