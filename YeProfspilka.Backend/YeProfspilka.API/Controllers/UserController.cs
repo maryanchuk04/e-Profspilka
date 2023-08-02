@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YeProfspilka.Backend.Policies;
 using YeProfspilka.Backend.ViewModels;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
@@ -7,7 +9,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("user")]
-//[Authorize(Policy = PolicyNames.AllRolesPolicyName)]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
@@ -34,6 +36,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> GetUsers() => Ok(await _userServices.GetUsers());
 
     [HttpPut("role")]
+    [AllowAnonymous]
     public async Task<IActionResult> UpdateUserRole([FromBody] RoleViewModel roleViewModel)
     {
         try

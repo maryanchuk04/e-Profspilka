@@ -1,7 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Application.Configurations;
 using YeProfspilka.Backend.Extension;
+using YeProfspilka.Backend.Utils;
 using YeProfspilka.Backend.ViewModels;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
@@ -16,18 +19,20 @@ public class AuthenticationController : ControllerBase
     private readonly IAuthenticationService _authenticationService;
     private readonly IUserServices _userServices;
     private readonly AppConfiguration _configuration;
+    private readonly IMediator _mediator;
     private readonly ILogger<AuthenticationController> _logger;
 
     public AuthenticationController(
         IAuthenticationService authenticationService,
         IUserServices userServices,
         AppConfiguration configuration,
-        ILogger<AuthenticationController> logger)
+        ILogger<AuthenticationController> logger, IMediator mediator)
     {
         _authenticationService = authenticationService;
         _userServices = userServices;
         _configuration = configuration;
         _logger = logger;
+        _mediator = mediator;
     }
 
     [HttpPost]
@@ -43,20 +48,6 @@ public class AuthenticationController : ControllerBase
             {
                 Token = authenticateResponseModel.JwtToken
             });
-        }
-        catch (Exception e)
-        {
-            return BadRequest(new ErrorResponseModel(e.Message));
-        }
-    }
-
-    [NonAction]
-    [HttpPost]
-    private async Task<IActionResult> Login()
-    {
-        try
-        {
-            return Ok();
         }
         catch (Exception e)
         {
@@ -89,6 +80,34 @@ public class AuthenticationController : ControllerBase
             return StatusCode(StatusCodes.Status201Created, new
             {
                 Token = authenticateResponseModel.JwtToken
+            });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult> RefreshToken()
+    {
+        try
+        {
+            var refreshToken = Request.Cookies[CookieConstants.RefreshTokenKey];
+
+            if (refreshToken is null)
+            {
+                Logout();
+                _logger.LogWarning("Refresh token incorrect. Execute logout");
+                return BadRequest(new ErrorResponseModel("Refresh token is incorrect"));
+            }
+
+            var result = await _mediator.Send(new RefreshTokenCommand(refreshToken));
+            HttpContext.SetTokenCookie(result);
+
+            return Ok(new
+            {
+                Token = result.JwtToken
             });
         }
         catch (Exception e)

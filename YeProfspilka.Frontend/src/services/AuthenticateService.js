@@ -13,7 +13,6 @@ export class AuthenticateService {
 				email,
 				hd,
 			});
-			console.log(response);
 
 			if (response.data.token) {
 				Token.set(response.data.token);

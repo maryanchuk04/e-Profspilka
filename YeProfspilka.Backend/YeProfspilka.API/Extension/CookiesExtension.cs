@@ -1,3 +1,4 @@
+using YeProfspilka.Backend.Utils;
 using YeProfspilka.Core.Models;
 
 namespace YeProfspilka.Backend.Extension;
@@ -15,11 +16,11 @@ public static class CookieExtension
 		};
 
 		//context.Response.Cookies.Delete("yeProfspilkaRefreshToken");
-		context.Response.Cookies.Append("yeProfspilkaRefreshToken", model.RefreshToken, cookieOptions);
+		context.Response.Cookies.Append(CookieConstants.RefreshTokenKey, model.RefreshToken, cookieOptions);
 	}
 
 	public static void DeleteRefreshToken(this HttpContext context)
 	{
-		context.Response.Cookies.Delete("yeProfspilkaRefreshToken");
+		context.Response.Cookies.Delete(CookieConstants.RefreshTokenKey);
 	}
 }
