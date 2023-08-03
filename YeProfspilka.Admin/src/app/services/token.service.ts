@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { TOKEN_KEY } from '../utils/constants';
 
 @Injectable({
@@ -13,5 +14,9 @@ export class TokenService {
 
 	set(token: string): void {
 		localStorage.setItem(TOKEN_KEY, token);
+	}
+
+	remove(): void {
+		localStorage.removeItem(TOKEN_KEY);
 	}
 }
