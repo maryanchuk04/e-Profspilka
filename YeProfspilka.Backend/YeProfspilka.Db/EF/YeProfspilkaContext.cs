@@ -16,6 +16,11 @@ public class YeProfspilkaContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.EnableSensitiveDataLogging(false);
+    }
+
     public DbSet<User> Users { get; set; }
 
     public DbSet<UserRole> UserRoles { get; set; }
