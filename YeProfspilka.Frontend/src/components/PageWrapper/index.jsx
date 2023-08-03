@@ -8,7 +8,7 @@ import { fetchPartners } from '../../features/partnersSlice';
 import { fetchQuestions } from '../../features/questionsSlice';
 import { fetchAdvantages } from '../../features/advantagesSlice';
 import Loader from '../Loader';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, ScrollRestoration } from 'react-router-dom';
 
 const PageWrapper = ({ element, withFooter = true }) => {
 	const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const PageWrapper = ({ element, withFooter = true }) => {
 					<Header />
 					{element}
 					{withFooter && <Footer />}
+					<ScrollRestoration />
 				</React.Fragment>
 			)}
 		</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import AdvantagesCard from '../../../components/AdvantagesCard';
@@ -8,8 +8,15 @@ import PrimaryButton from '../../../ui/Buttons/PrimaryButton';
 
 const Advantages = () => {
 	const smCount = 4;
+	const [count, setCount] = useState(smCount);
+
 	const isSmMedia = useMediaQuery({ maxWidth: '480px' });
 	const advantages = useSelector(selectAdvantages);
+
+	const moreAdvantages = () => {
+		if (count === smCount) setCount(advantages.data?.length);
+		else setCount(smCount);
+	};
 
 	return (
 		advantages &&
@@ -30,18 +37,22 @@ const Advantages = () => {
 						<div className='relative flex flex-wrap gap-12 w-full justify-between my-10 z-20'>
 							{isSmMedia
 								? advantages
-										.slice(smCount)
+										.slice(count)
 										.map((item) => (
 											<AdvantagesCard key={item.id} advantages={item} />
 										))
 								: advantages.map((item) => (
 										<AdvantagesCard key={item.id} advantages={item} />
-								))}
+										// eslint-disable-next-line no-mixed-spaces-and-tabs
+								  ))}
 						</div>
 						{isSmMedia && (
-							<PrimaryButton className='border border-white'>
+							<PrimaryButton
+								className='border !border-white !text-white'
+								onClick={moreAdvantages}
+							>
 								<div className='relative'>
-									Переглянути Всі
+									{count === smCount ? 'Переглянути Всі' : 'Згорнути'}
 									<span className='absolute right-3 text-2xl top-1/2 left-1/2 transform  -translate-y-1/2'>
 										&#8599;
 									</span>

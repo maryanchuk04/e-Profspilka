@@ -14,7 +14,7 @@ function App() {
 				<RouterProvider router={router} />
 			</Layout>
 		</GoogleOAuthProvider>
-	)
+	);
 }
 
 export default App;
