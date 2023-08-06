@@ -9,6 +9,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("question")]
+[Authorize]
 public class QuestionController : ControllerBase
 {
 	private readonly IQuestionService _questionService;
@@ -65,7 +66,6 @@ public class QuestionController : ControllerBase
 	}
 
 	[HttpDelete("{id}")]
-	[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
 	public async Task<IActionResult> Delete(Guid id)
 	{
 		try
