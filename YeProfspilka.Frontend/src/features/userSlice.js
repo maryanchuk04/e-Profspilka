@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthenticateService } from '../services/AuthenticateService';
 import { googleDataProvider } from '../services/GoogleAuth';
-import { UserService } from '../services/UserService';
+import { getUser } from '../services/UserService';
 import { MemberStatus } from '../types/memberStatus';
 import { showAlert, showDefaultAlert } from './alertSlice';
 import { HttpStatusCode } from 'axios';
@@ -30,7 +30,6 @@ const alert = {
 	type: AlertType.SUCCESS,
 	duration: 4000,
 };
-const service = new UserService();
 
 export const googleAuthenticateThunk = createAsyncThunk(
 	'user/authenticate',
@@ -56,9 +55,7 @@ export const googleAuthenticateThunk = createAsyncThunk(
 				dispatch(showAlert(alert));
 			}
 
-			setTimeout(() => {
-				dispatch(fetchUserThunk(data.token));
-			}, 1000);
+			dispatch(fetchUserThunk(data.token));
 
 			dispatch(handleOpen());
 			return fulfillWithValue();
@@ -75,7 +72,7 @@ export const fetchUserThunk = createAsyncThunk(
 	'user/fetchUser',
 	async (token, { fulfillWithValue, rejectWithValue, dispatch }) => {
 		try {
-			const userResponse = await service.get(token ?? null);
+			const userResponse = await getUser(token);
 
 			return fulfillWithValue(userResponse.data);
 		} catch (error) {

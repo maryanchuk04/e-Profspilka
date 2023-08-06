@@ -20,11 +20,12 @@ export class ApiService {
 		return res;
 	}
 
-	async get(url) {
-		const call = async () => {
-			return await api.get(url, {
-				Authorization: `Bearer ${Token.get() || ''}`,
-				withCredentials: true,
+	async get(url, token = null) {
+		const call = () => {
+			return api.get(url, {
+				headers: {
+					Authorization: `Bearer ${token ?? Token.get() ?? ''}`,
+				},
 			});
 		};
 

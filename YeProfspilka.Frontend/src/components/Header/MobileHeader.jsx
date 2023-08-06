@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Hamburger from './Hamburger';
 import Container from '../Container';
 import MobileMenuContent from './MobileMenuContent';
@@ -12,6 +12,12 @@ const MobileHeader = () => {
 	const [headerState, setHeaderState] = useState(0);
 	const user = useSelector(selectUserData);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) {
+			setHeaderState(0);
+		}
+	}, [user]);
 
 	const handleClick = () => {
 		setMenuOpen(!menuOpen);

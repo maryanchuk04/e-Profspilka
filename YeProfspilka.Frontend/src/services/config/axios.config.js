@@ -11,18 +11,4 @@ const axiosInstance = axios.create({
 	},
 });
 
-// axiosInstance.interceptors.response.use(
-// 	(response) => {
-// 		// Any status code that lie within the range of 2xx cause this function to trigger
-// 		// Do something with response data
-// 		return response;
-// 	},
-// 	(error) => {
-// 		if (error.response?.data?.message === USER_NOT_FOUND) {
-// 			Token.remove();
-// 		}
-// 		return Promise.reject(error);
-// 	}
-// );
-
 export default axiosInstance;
