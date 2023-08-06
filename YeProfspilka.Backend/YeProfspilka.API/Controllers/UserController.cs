@@ -35,14 +35,17 @@ public class UserController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetUsers() => Ok(await _userServices.GetUsers());
 
-    [HttpPut("role")]
-    [AllowAnonymous]
-    public async Task<IActionResult> UpdateUserRole([FromBody] RoleViewModel roleViewModel)
+    [HttpPut]
+    [Authorize]
+    public async Task<IActionResult> UpdateUser([FromBody] UserMatchingStoreModel userMatchingStoreModel)
     {
         try
         {
-            var (id, role) = roleViewModel;
-            return Ok(await _userServices.UpdateUserRole(id, role));
+            return Ok(await _userServices.UpdateUser(
+                userMatchingStoreModel.Id.Value,
+                userMatchingStoreModel.Facultet,
+                userMatchingStoreModel.Course.Value,
+                userMatchingStoreModel.Role.Value));
         }
         catch (Exception e)
         {

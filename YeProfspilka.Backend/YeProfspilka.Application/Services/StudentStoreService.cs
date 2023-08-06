@@ -67,6 +67,8 @@ public class StudentStoreService : IStudentStoreService
         var stud = await _dbContext.StudentsStore.FirstOrDefaultAsync(x => x.Email == user.Email)
             ?? throw new NotFoundException(nameof(User), user.Email);
 
+        stud.FullName = user.FullName;
+
         if (stud.IsMemberProf)
         {
             user.UserRoles.Add(new UserRole
@@ -83,10 +85,12 @@ public class StudentStoreService : IStudentStoreService
     public async Task<IEnumerable<UserMatchingStoreModel>> GetAllUsers()
     {
         var storeUsers = await _dbContext.StudentsStore.ToListAsync();
+
         var activeUsers = await _dbContext.Users
             .Include(x => x.Image)
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
+            .AsSplitQuery()
             .ToListAsync();
 
         var finalArray = new List<UserMatchingStoreModel>();

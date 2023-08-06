@@ -1,28 +1,24 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
+import { FormGroup, } from '@angular/forms';
 
 @Component({
 	selector: 'app-file-input-field',
 	templateUrl: './file-input-field.component.html',
 })
-export class FileInputFieldComponent implements OnInit {
-	@Input() placeholder: string;
+export class FileInputFieldComponent {
+	@Input() formGroup: FormGroup;
 	@Input() controlName: string;
+	@Input() placeholder: string;
+	@Output() getFile: EventEmitter<File> = new EventEmitter();
+	selectedFile: File | null = null;
 
-	formGroup: FormGroup;
-	selectedFile: File;
-
-	constructor(private rootFormGroup: FormGroupDirective) {}
-
-	ngOnInit(): void {
-		this.formGroup = this.rootFormGroup.control;
-		setTimeout(() => {
-			this.formGroup.get(this.controlName).updateValueAndValidity();
-		});
-	}
-
-	onFileSelected(event: any) {
-		const file = event.target.files[0];
-		this.selectedFile = file;
+	onFileSelected(event: Event): void {
+		const inputElement = event.target as HTMLInputElement;
+		if (inputElement?.files?.length) {
+			this.selectedFile = inputElement.files[0];
+			this.getFile.emit(this.selectedFile);
+		} else {
+			this.selectedFile = null;
+		}
 	}
 }

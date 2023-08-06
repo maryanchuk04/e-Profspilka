@@ -26,7 +26,7 @@ export class RoleComponent implements OnInit {
 			case 5:
 				return 'Адмін';
 			default:
-				return null;
+				return 'Не Активований';
 		}
 	}
 }

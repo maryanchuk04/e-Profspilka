@@ -14,9 +14,9 @@ public class UserMatchingStoreModel
 
     public string? Facultet { get; set; }
 
-    public bool IsMemberProf { get; set; }
+    public bool? IsMemberProf { get; set; }
 
-    public int Course { get; set; }
+    public int? Course { get; set; }
 
     public Role? Role { get; set; }
 }

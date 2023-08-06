@@ -1,25 +1,23 @@
-import { Validators } from 'ngx-editor';
-import { ImportType } from 'src/app/models/ImportType';
+import { ToastrService, } from 'ngx-toastr';
+import { pipe, Subject, takeUntil, } from 'rxjs';
+import { ImportType, } from 'src/app/models/ImportType';
+import { StudentStoreService, } from 'src/app/services/student-store.service';
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 
 const importOptions = [
 	{
 		label: 'Додати',
 		value: ImportType.Add,
+		disabled: true,
 		description: 'Додає до існуючих користувачів нових (якщо вже такий існує, то ігнорує)',
 	},
 	{
 		label: 'Замінити',
 		value: ImportType.Replace,
+		disabled: false,
 		description: 'Замінює всіх існуючих користувачів на користувачів з файлу',
-	},
-	{
-		label: 'З`єднати',
-		value: ImportType.Merge,
-		description:
-			'Додає до всіх існуючих нових, якщо є такий вже то оновлює його данні (тільки ті що пусті)',
 	},
 ];
 
@@ -27,22 +25,50 @@ const importOptions = [
 	selector: 'app-users-manager-panel',
 	templateUrl: './users-manager-panel.component.html',
 })
-export class UsersManagerPanelComponent implements OnInit {
+export class UsersManagerPanelComponent implements OnInit, OnDestroy {
 	form: FormGroup;
 	importOptions = importOptions;
+	file: File;
+	destroy$: Subject<void> = new Subject();
 
-	constructor(private formBuilder: FormBuilder) {
+	constructor(
+		private formBuilder: FormBuilder,
+		private toastrService: ToastrService,
+		private studentStoreService: StudentStoreService
+	) {}
+
+	ngOnInit(): void {
 		this.form = this.formBuilder.group({
-			importType: ['', Validators.required],
-			importFile: [null],
-			changeCourse: [false],
+			file: new FormControl(null, Validators.required),
+			importType: new FormControl(ImportType.Replace, Validators.required),
 		});
 	}
 
-	ngOnInit(): void {}
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.unsubscribe();
+	}
 
 	uploadFile() {
-		console.log(this.form);
+		if (this.form.valid) {
+			console.log(this.form.value);
+			this.studentStoreService
+				.uploadUsers(this.file, this.form.value.importType)
+				.pipe(takeUntil(this.destroy$))
+				.subscribe({
+					next: (result) => {
+						this.toastrService.success('Імпорт пройшов успішно');
+					},
+					error: () => {
+						this.toastrService.error('Щось пішло не по плану :(');
+					},
+				});
+		}
+	}
+
+	handleChange(file: File) {
+		console.log(file);
+		this.file = file;
 	}
 
 	get selectedImportTypeDescription() {

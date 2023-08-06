@@ -1,14 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-
-import { Role, roleResolver } from 'src/app/models/roles';
-import { User } from 'src/app/models/User';
+import { Observable, Subscription, } from 'rxjs';
+import { Role, roleResolver, } from 'src/app/models/roles';
+import { User, } from 'src/app/models/User';
 import AppState from 'src/app/store';
-import { fetchAllUsers, fetchUsers } from 'src/app/store/actions/user.action';
-import { selectUserLoading, selectUsers } from 'src/app/store/selectors/user.selector';
+import { fetchAllUsers, fetchUsers, } from 'src/app/store/actions/user.action';
+import { selectUserLoading, selectUsers, } from 'src/app/store/selectors/user.selector';
+
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Router, } from '@angular/router';
+import { Store, } from '@ngrx/store';
 
 @Component({
     selector: 'app-users-table',
@@ -30,7 +29,6 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.loading$ = this.store.select(selectUserLoading);
         this.subscription = this.store.select(selectUsers).subscribe((x) => {
-            console.log(x);
             this.users = x;
         });
     }
@@ -75,7 +73,6 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     }
 
     navigateToUser(id: string) {
-        console.log(id);
         this.router.navigate(['administration/users', id]);
     }
 

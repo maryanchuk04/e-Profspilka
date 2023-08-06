@@ -11,5 +11,5 @@ public interface IUserServices
 
 	Task<bool> UserIsExist(string email);
 
-	Task<UserDto> UpdateUserRole(Guid id, Role role);
+	Task<UserDto> UpdateUser(Guid id, string facultet, int course, Role role);
 }

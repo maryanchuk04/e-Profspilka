@@ -9,7 +9,7 @@
 			налаштування, зверніть увагу на них. Це може полегшити вам роботу."
 		></app-feedback>
 	</div>
-	<div class="flex">
+	<div class="flex ml-4">
 		<form [formGroup]="form" class="text-xl w-96" (ngSubmit)="uploadFile()">
 			<div class="flex flex-col">
 				<label>Виберіть тип імпорту:</label>
@@ -26,32 +26,29 @@
 					{{ selectedImportTypeDescription }}</span
 				>
 			</div>
-			<div class="my-4">
-				<div class="flex">
-					<label>Змінити курс: </label>
-					<app-question-tooltip
-						tooltipText="Якщо ви обираєте цей параметр, для всіх користувачів буде збільшено курс на 1"
-					></app-question-tooltip>
-				</div>
-				<input type="checkbox" class="h-6 w-6 ml-10" formControlName="changeCourse" />
-			</div>
 			<div class="w-auto">
 				<label>Виберіть файл який хочете завантажити:</label>
 				<div class="block ml-10 mt-2">
 					<app-file-input-field
+						(getFile)="handleChange($event)"
+						[formGroup]="form"
 						placeholder="Виберіть файл"
-						[controlName]="'importFile'"
+						controlName="file"
 					></app-file-input-field>
 				</div>
 			</div>
-			<app-button type="secondary" [disabled]="" classStyles="w-auto px-4 my-6"
+			<app-button
+				type="secondary"
+				(onClick)="uploadFile()"
+				[disabled]="!form.valid"
+				classStyles="w-auto px-4 my-6"
 				>Завантажити</app-button
 			>
 		</form>
-		<div
+		<!-- <div
 			class="ml-40 bg-gray-100 text-gray-700 min-h-min border-gray-700 border rounded-standart px-8 py-4 w-96"
 		>
 			<app-import-report></app-import-report>
-		</div>
+		</div> -->
 	</div>
 </div>

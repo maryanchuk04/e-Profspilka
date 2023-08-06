@@ -7,9 +7,11 @@ using System.Reflection;
 using System.Text;
 using YeProfspilka.Application.CommandHandlers;
 using YeProfspilka.Application.Configurations;
+using YeProfspilka.Application.Factories;
 using YeProfspilka.Application.Services;
 using YeProfspilka.Backend.Mappers;
 using YeProfspilka.Backend.Policies;
+using YeProfspilka.Core;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Db.EF;
 
@@ -38,6 +40,8 @@ public static class ServicesExtensions
         services.AddScoped<IPartnersService, PartnersService>();
         services.AddScoped<IAdvantageService, AdvantageService>();
         services.AddScoped<IDiscountService, DiscountService>();
+        services.AddScoped<IStudentsReader, StudentsReader>();
+        services.AddScoped<IImportCommandFactory, ImportCommandFactory>();
         services.AddScoped<IRoleService, RoleService>();
 
         // Add AutoMapper

@@ -1,8 +1,7 @@
-import { Validators } from 'ngx-editor';
-import { DiscountTypeOptions } from 'src/app/models/DiscountType';
+import { DiscountTypeOptions, } from 'src/app/models/DiscountType';
 
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators, } from '@angular/forms';
 
 @Component({
 	selector: 'app-create-discount',

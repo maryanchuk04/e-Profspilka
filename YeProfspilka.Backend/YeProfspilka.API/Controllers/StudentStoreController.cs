@@ -1,6 +1,8 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YeProfspilka.Application.CommandHandlers;
+using YeProfspilka.Application.Factories;
 using YeProfspilka.Core.Interfaces;
 using YeProfspilka.Core.Models;
 
@@ -14,15 +16,51 @@ public class StudentStoreController : ControllerBase
     private readonly IStudentStoreService _studentStore;
     private readonly IMediator _mediator;
     private readonly ILogger<StudentStoreController> _logger;
+    private readonly IImportCommandFactory _importCommandFactory;
 
     public StudentStoreController(
         IStudentStoreService studentStore,
         IMediator mediator,
-        ILogger<StudentStoreController> logger)
+        ILogger<StudentStoreController> logger,
+        IImportCommandFactory importCommandFactory)
     {
         _studentStore = studentStore;
         _mediator = mediator;
         _logger = logger;
+        _importCommandFactory = importCommandFactory;
+    }
+
+    [HttpPost("upload")]
+    [Authorize]
+    public async Task<ActionResult> UploadUsers(IFormFile file, [FromQuery] string importType = "replace")
+    {
+        try
+        {
+            if (file.Length == 0)
+            {
+                return BadRequest(new ErrorResponseModel("Помилка файл пустий!"));
+            }
+
+            var filePath = Path.GetTempFileName();
+            await using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var importCommand = _importCommandFactory.Create(importType, filePath);
+
+            if (importCommand is null)
+            {
+                return BadRequest(new ErrorResponseModel("Неіснуючий тип імпорту"));
+            }
+
+            return Ok(await _mediator.Send(importCommand));
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
     }
 
     [HttpPost]
@@ -62,8 +100,8 @@ public class StudentStoreController : ControllerBase
         }
     }
 
-    // Protect with Admin Role
     [HttpGet("export")]
+    [Authorize]
     public async Task<ActionResult<byte[]>> ExportUsers()
     {
         try

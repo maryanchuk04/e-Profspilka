@@ -1,22 +1,59 @@
-<!-- <div class="h-full w-full">
-	<h1 class="text-2xl text-center font-bold">Картка користувача №{{user.id}}</h1>
-	<div class="w-full grid place-items-center my-2">
-		<div class="w-52 h-52">
-			<img [src]="user.avatar" class="rounded-full h-full w-full" alt="">
+<ng-container *ngIf="user === null; else content">
+	<app-loader></app-loader>
+</ng-container>
+<ng-template #content>
+	<app-button (onClick)="goBack()" classStyles="mb-4" type="secondary"
+		><i class="fas fa-angle-left mr-4"></i>До усіх користувачів</app-button
+	>
+	<div class="group relative p-6 border w-fit rounded-standart">
+		<h1 class="font-bold text-black/50 mb-3">#Картка користувача</h1>
+		<h2 class="font-bold mb-2">ПІБ: {{ user.fullName }}</h2>
+		<h3 class="mb-2">Id: {{ user.id }}</h3>
+		<img [src]="user.avatar" class="w-52 h-52 mx-auto rounded-standart" />
+		<div class="my-2">
+			<app-role [role]="user.role"></app-role>
 		</div>
+
+		<ng-container *ngIf="!isEditMode; else editMode">
+			<h3 class="mt-2 mb-2">Факультет: {{ user.facultet ?? 'Невідомо' }}</h3>
+			<h3 class="mb-2">Курс: {{ user.course ?? 'Невідомо' }}</h3>
+		</ng-container>
+		<ng-template #editMode>
+			<form [formGroup]="form" (ngSubmit)="submit()">
+				<input
+					class="w-full h-12 border mb-2 text-xl rounded-standart focus-visible:outline-none px-3"
+					formControlName="facultet"
+					placeholder="Факультет"
+				/>
+				<input
+					formControlName="course"
+					type="number"
+					class="w-full h-12 border mb-2 text-xl rounded-standart focus-visible:outline-none px-3"
+					placeholder="Курс"
+				/>
+				<select
+					id="role"
+					name="role"
+					formControlName="role"
+					class="p-2 w-full rounded-standart text-xl border mb-2"
+				>
+					<option value="0">Не верифікований</option>
+					<option value="1">Студент</option>
+					<option value="2">Член профспілки</option>
+					<option value="3">Модератор</option>
+					<option value="4">Голова підрозділу</option>
+					<option value="5">Адмін</option>
+				</select>
+				<app-button [disabled]="!form.touched || !form.valid">Зберегти</app-button>
+			</form>
+		</ng-template>
+
+		<app-icon-button
+			(handleClick)="edit()"
+			icon="opacity-0 group-hover:opacity-100 transition-opacity {{
+				isEditMode ? 'fas fa-xmark' : 'fas fa-pen'
+			}}"
+			className="absolute top-4 right-4"
+		></app-icon-button>
 	</div>
-	<app-container>
-		<h2 class="text-xl font-bold mb-2 mt-2">ПІБ: {{user.fullName}}</h2>
-		<h3 class="text-xl mb-3">Email: {{user.email}}</h3>
-		<select id="role" name="role" [(ngModel)]="role"
-			class="p-2 w-full rounded-standart text-xl  border border-black mb-2">
-			<option value="0">Не верифікований</option>
-			<option value="1">Студент</option>
-			<option value="2">Член профспілки</option>
-			<option value="3">Модератор</option>
-			<option value="4">Голова підрозділу</option>
-			<option value="5">Адмін</option>
-		</select>
-		<app-button (onClick)="submit()">Зберегти</app-button>
-	</app-container>
-</div> -->
+</ng-template>

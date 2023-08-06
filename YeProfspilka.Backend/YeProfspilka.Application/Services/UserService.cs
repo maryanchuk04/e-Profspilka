@@ -50,7 +50,7 @@ public class UserService : IUserServices
         return await _dbContext.Users.AnyAsync(x => x.Email == email);
     }
 
-    public async Task<UserDto> UpdateUserRole(Guid id, Role role)
+    public async Task<UserDto> UpdateUser(Guid id, string facultet, int course, Role role)
     {
         var user = await _dbContext.Users
             .Include(x => x.UserRoles)
@@ -62,10 +62,22 @@ public class UserService : IUserServices
             throw new NotFoundException(nameof(User), id);
         }
 
+        user.Facultet = facultet;
+        user.Course = course;
+
+        var student = await _dbContext.StudentsStore.SingleAsync(x => x.Email == user.Email);
+
+        student.Course = course;
+        student.Facultet = facultet;
+
+
         if (user.UserRoles.Select(x => x.RoleId).Contains(role))
         {
+            await _dbContext.SaveChangesAsync();
             return _mapper.Map<UserDto>(user);
         }
+
+
 
         if (role == Role.NotVerified)
         {
@@ -76,6 +88,8 @@ public class UserService : IUserServices
             });
 
             _dbContext.Users.Update(user);
+            _dbContext.StudentsStore.Update(student);
+
             await _dbContext.SaveChangesAsync();
 
             return _mapper.Map<UserDto>(user);
@@ -94,6 +108,8 @@ public class UserService : IUserServices
         });
 
         _dbContext.Users.Update(user);
+        _dbContext.StudentsStore.Update(student);
+
         await _dbContext.SaveChangesAsync();
 
         return _mapper.Map<UserDto>(user);

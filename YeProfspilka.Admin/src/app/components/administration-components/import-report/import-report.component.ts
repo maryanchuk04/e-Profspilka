@@ -15,11 +15,14 @@ export class ImportReportComponent implements OnInit {
 		lastImportDate: '20.12.2012',
 		replacedUsers: 12,
 		lastImportFileName: 'Test file.xlsx',
-		lastImportIsChangeCourseSelected: false,
-		lastImportType: ImportType.Merge,
+		lastImportType: ImportType.Add,
 	};
 
 	constructor() {}
 
 	ngOnInit(): void {}
+
+	type(importType: ImportType) {
+		
+	}
 }

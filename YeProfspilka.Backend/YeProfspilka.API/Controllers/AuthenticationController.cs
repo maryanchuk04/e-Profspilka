@@ -72,6 +72,7 @@ public class AuthenticationController : ControllerBase
 
             var authenticateResponseModel = await _authenticationService
                 .Registration(googleViewModel.Email, googleViewModel.FullName, googleViewModel.Avatar);
+
             _logger.LogInformation("Successful registration new user with Email: {email}", googleViewModel.Email);
 
             HttpContext.SetTokenCookie(authenticateResponseModel);
