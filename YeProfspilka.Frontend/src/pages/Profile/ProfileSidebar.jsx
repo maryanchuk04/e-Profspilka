@@ -5,7 +5,7 @@ import Avatar from '../../components/Avatar';
 import { MemberStatus } from '../../types/memberStatus';
 import Field from './Field';
 import { useNavigate } from 'react-router-dom';
-// import UserStatus from './UserStatus';
+
 import { useMediaQuery } from 'react-responsive';
 import Button from '../../ui/Buttons/Button';
 import { AuthenticateService } from '../../services/AuthenticateService';
@@ -48,9 +48,6 @@ const ProfileSidebar = () => {
 		<div className='w-1/4 relative'>
 			<div className='flex justify-between'>
 				<Avatar src={avatar} className='h-56 w-56' />
-				{/* <div className=''>
-                    <UserStatus status={role} />
-                </div> */}
 			</div>
 
 			<Field label='П.І.Б:' text={fullName} />
@@ -71,16 +68,16 @@ const ProfileSidebar = () => {
 			<Button onClick={logOut}>Вийти з профілю</Button>
 		</div>
 	) : (
-		<div className='bg-[#F1E5C4] flex flex-col rounded-standart p-4 pb-1' onClick={handleOpen}>
-			<div className='flex justify-between items-center'>
+		<div
+			className='bg-[#F1E5C4] flex flex-col rounded-standart max-sm:p-2 p-4 pb-1'
+			onClick={handleOpen}
+		>
+			<div className='flex justify-between items-center mb-2'>
 				<Avatar
 					className='h-auto w-full mr-2 max-sm:max-w-[5rem] max-lg:max-w-[8rem]'
 					src={avatar}
 				/>
 				<div className='w-3/4 relative'>
-					{/* <div className=' -top-2 right-2 absolute'>
-						<UserStatus status={role} />
-					</div> */}
 					<p className='mt-3'>П.І.Б</p>
 					<h1 className='text-lg'>{fullName}</h1>
 				</div>

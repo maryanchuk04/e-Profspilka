@@ -5,6 +5,7 @@ import Button from '../../ui/Buttons/Button';
 import Loader from '../Loader';
 import Timer from './Timer';
 import { DiscountService } from '../../services/DiscountService';
+import { useMediaQuery } from 'react-responsive';
 
 const service = new DiscountService();
 
@@ -90,6 +91,7 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 	const [loading, setLoading] = React.useState(true);
 	const [isTimerStarted, setIsTimerStarted] = useState(true);
 	const [qrCodeValue, setQrCodeValue] = useState('');
+	const isSmScreen = useMediaQuery({ maxWidth: '475px' });
 
 	useEffect(() => {
 		if (isQrDiscount) {
@@ -114,21 +116,26 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 	};
 
 	return (
-		<SimpleModal className='w-[320px] !h-fit'>
+		<SimpleModal className='w-[320px] !h-fit max-h-[80vh]'>
 			<div>
 				<p>#знижка</p>
 				<h2>{discount.name}</h2>
-				<p className=' text-ellipsis overflow-hidden'>{discount.description}</p>
-				<div className='my-8 w-full '>
+				{discount.description.length < 100 && (
+					<p className=' text-ellipsis overflow-hidden'>{discount.description}</p>
+				)}
+				<div className='my-8 w-full max-xs:!my-4'>
 					{loading ? (
-						<div className='grid place-items-center min-h-[300px] h-fit'>
+						<div className='grid place-items-center sm:min-h-[300px] h-fit'>
 							<Loader />
 						</div>
 					) : (
 						<div className='grid place-items-center h-fit'>
 							{isQrDiscount ? (
 								<div className='mb-3'>
-									<QrcodeGenerator size={250} value={qrCodeValue} />
+									<QrcodeGenerator
+										size={isSmScreen ? 200 : 250}
+										value={qrCodeValue}
+									/>
 								</div>
 							) : (
 								<React.Fragment>
@@ -136,7 +143,11 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 										<img
 											src={discount.barCodeImage}
 											alt=''
-											className='h-[250px] w-[350px]'
+											className={
+												isSmScreen
+													? 'h-[150px] w-[250px]'
+													: 'h-[250px] w-[350px]'
+											}
 										/>
 									</div>
 								</React.Fragment>
