@@ -16,7 +16,7 @@ export class AuthenticateService {
 
 			if (response.data.token) {
 				Token.set(response.data.token);
-				return response.status;
+				return { data: response.data, status: response.status };
 			}
 		} catch (err) {
 			throw Error(err);

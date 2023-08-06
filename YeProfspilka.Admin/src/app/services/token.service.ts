@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, } from '@angular/core';
 
-import { TOKEN_KEY } from '../utils/constants';
+import { TOKEN_KEY, } from '../utils/constants';
 
 @Injectable({
 	providedIn: 'root',
@@ -20,3 +20,4 @@ export class TokenService {
 		localStorage.removeItem(TOKEN_KEY);
 	}
 }
+   

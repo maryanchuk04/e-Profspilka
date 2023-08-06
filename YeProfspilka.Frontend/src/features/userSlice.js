@@ -39,7 +39,12 @@ export const googleAuthenticateThunk = createAsyncThunk(
 			const googleResponse = await googleDataProvider(googleToken);
 
 			const { name, picture, email, hd } = googleResponse;
-			const status = await authService.authenticateGoogle({ name, picture, email, hd });
+			const { data, status } = await authService.authenticateGoogle({
+				name,
+				picture,
+				email,
+				hd,
+			});
 
 			if (status === HttpStatusCode.Created) {
 				alert.text = 'Ваш аккаунт було успішно створено!';
@@ -52,7 +57,7 @@ export const googleAuthenticateThunk = createAsyncThunk(
 			}
 
 			setTimeout(() => {
-				dispatch(fetchUserThunk());
+				dispatch(fetchUserThunk(data.token));
 			}, 1000);
 
 			dispatch(handleOpen());
@@ -68,9 +73,9 @@ export const googleAuthenticateThunk = createAsyncThunk(
 
 export const fetchUserThunk = createAsyncThunk(
 	'user/fetchUser',
-	async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
+	async (token, { fulfillWithValue, rejectWithValue, dispatch }) => {
 		try {
-			const userResponse = await service.get();
+			const userResponse = await service.get(token ?? null);
 
 			return fulfillWithValue(userResponse.data);
 		} catch (error) {

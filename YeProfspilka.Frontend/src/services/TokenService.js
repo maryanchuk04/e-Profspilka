@@ -1,8 +1,8 @@
-
-const TOKEN_KEY = "token";
+const TOKEN_KEY = 'token';
 
 export const Token = {
 	set: (token) => {
+		localStorage.removeItem(TOKEN_KEY);
 		localStorage.setItem(TOKEN_KEY, token);
 	},
 	get: () => {
@@ -10,5 +10,5 @@ export const Token = {
 	},
 	remove: () => {
 		localStorage.removeItem(TOKEN_KEY);
-	}
-}
+	},
+};
