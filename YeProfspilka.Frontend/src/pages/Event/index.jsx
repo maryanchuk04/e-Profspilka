@@ -21,10 +21,10 @@ const Event = () => {
 		<Loader />
 	) : (
 		<Container className='min-h-[40vh]'>
-			<h1 className='text-black/60 mb-4 uppercase' onClick={() => navigate('/events')}>
+			<h1 className='text-black/60 uppercase m-0 p-0' onClick={() => navigate('/events')}>
 				#Новини та події
 			</h1>
-			<h2 className='w-1/2'>{event.title}</h2>
+			<h2 className='w-1/2 my-4'>{event.title}</h2>
 			<div className='grid grid-cols-3 gap-4 my-4  max-lg:grid-cols-2 max-sm:grid-cols-1'>
 				{event.images.map((image) => (
 					<div key={image} className='h-96'>

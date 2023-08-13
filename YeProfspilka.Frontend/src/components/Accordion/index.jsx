@@ -9,16 +9,18 @@ const Accordion = ({ title, details }) => {
 
 	return (
 		<div
-			className='p-8 duration-200 pr-16 relative border border-standart border-black rounded-standart my-8 max-sm:p-4'
+			className='p-6 duration-200 border border-standart border-black rounded-standart my-8 max-sm:p-4'
 			onClick={toggle}
 		>
-			<h2 className='max-sm:pr-16'>{title}</h2>
-			{open && <p className='mt-8'>{details}</p>}
-			<i
-				className={`${
-					open && 'rotate-180'
-				} fas fa-angle-down duration-300 absolute top-8 right-8 text-3xl`}
-			></i>
+			<h2 className='text-xl relative w-full'>
+				{title}
+				<i
+					className={`${
+						open && 'rotate-180'
+					} fas fa-angle-down duration-300 text-3xl absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2`}
+				></i>
+			</h2>
+			{open && <p className='mt-8 pr-12'>{details}</p>}
 		</div>
 	);
 };
