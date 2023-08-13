@@ -56,13 +56,15 @@ public class DiscountController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync(DiscountViewModel model)
+    public async Task<IActionResult> CreateAsync(CreateDiscountViewModel model)
     {
         try
         {
-            var result = await _discountService.CreateAsync(new DiscountDto()
+            var result = await _discountService.CreateAsync(new DiscountDto
             {
-                CodeWord = model.CodeWord,
+                WithBarCode = model.WithBarCode,
+                WithQrCode = model.WithQrCode,
+                BarCodeImage = model.BarCodeImage,
                 Description = model.Description,
                 DiscountType = model.DiscountType,
                 Name = model.Name

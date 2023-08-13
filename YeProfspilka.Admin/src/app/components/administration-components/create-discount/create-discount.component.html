@@ -3,7 +3,7 @@
 	<form [formGroup]="createDiscountForm" (ngSubmit)="create()" class="max-w-xl mt-8">
 		<div class="mb-4">
 			<label for="name" class="block mb-1">Назва</label>
-			<app-text-field type="text" controlName="name"></app-text-field>
+			<app-form-text-field type="text" controlName="name"></app-form-text-field>
 			<div
 				*ngIf="
 					createDiscountForm.get('name').errors &&
@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="mb-4">
-			<label for="description" class="block mb-1">Опис</label>s
+			<label for="description" class="block mb-1">Опис</label>
 			<textarea
 				id="description"
 				class="w-full border text-xl rounded-standart focus-visible:outline-none py-1 px-3"
@@ -89,6 +89,8 @@
 			<app-file-input-field
 				controlName="barCodeImage"
 				placeholder="Виберіть фото штрихкоду"
+				[formGroup]="createDiscountForm"
+				(getFile)="handleFileChange($event)"
 			></app-file-input-field>
 		</div>
 		<app-button [disabled]="createDiscountForm.touched && !createDiscountForm.valid"

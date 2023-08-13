@@ -21,20 +21,9 @@
 						<header class="flex items-center py-2 border-b justify-between">
 							<h1 class="text-xl font-bold text-black/60 pr-6">{{ item.name }}</h1>
 							<div class="flex items-center">
-								<h3
-									class="w-fit p-2"
-									[ngClass]="
-										item.isOpen
-											? 'border-primary rounded-standart border-2 text-primary'
-											: 'border-green-600 rounded-standart border-2 text-green-600'
-									"
-								>
-									{{
-										item.isOpen
-											? 'Відкрита для всіх студентів'
-											: 'Відкрита тільки для членів профспілки'
-									}}
-								</h3>
+								<app-discount-type
+									[discoutType]="item.discountType"
+								></app-discount-type>
 								<app-icon-button
 									(handleClick)="delete(item.id)"
 									icon="fas fa-trash text-red-500"

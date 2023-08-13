@@ -32,6 +32,15 @@ const ProfileSidebar = () => {
 		});
 	};
 
+	const checkUserVerificated = (role) => {
+		return (
+			role === MemberStatus.Student ||
+			role === MemberStatus.MemberProfspilka ||
+			role === MemberStatus.Admin ||
+			role === MemberStatus.Moderator
+		);
+	};
+
 	const checkUserStatus = (status) => {
 		switch (status) {
 			case 1:
@@ -56,20 +65,13 @@ const ProfileSidebar = () => {
 			<Field label='Курс:' text={course || 'Невідомо'} />
 			<Field
 				label='Статус:'
-				text={
-					role === MemberStatus.Student ||
-					role === MemberStatus.MemberProfspilka ||
-					role === MemberStatus.Admin ||
-					role === MemberStatus.Moderator
-						? 'Верифікований'
-						: 'НЕ Верифікований'
-				}
+				text={checkUserVerificated(role) ? 'Верифікований' : 'НЕ Верифікований'}
 			/>
 			<Button onClick={logOut}>Вийти з профілю</Button>
 		</div>
 	) : (
 		<div
-			className='bg-[#F1E5C4] flex flex-col rounded-standart max-sm:p-2 p-4 pb-1'
+			className={`${checkUserVerificated(role) ? 'bg-[#F1E5C4]' : 'bg-[#b2b2b2]' }  flex flex-col rounded-standart max-sm:p-2 p-4 pb-1`}
 			onClick={handleOpen}
 		>
 			<div className='flex justify-between items-center mb-2'>
@@ -91,14 +93,7 @@ const ProfileSidebar = () => {
 				<div>
 					<Field
 						label='Статус:'
-						text={
-							role === MemberStatus.Student ||
-							role === MemberStatus.MemberProfspilka ||
-							role === MemberStatus.Admin ||
-							role === MemberStatus.Moderator
-								? 'Верифікований'
-								: 'НЕ Верифікований'
-						}
+						text={checkUserVerificated(role) ? 'Верифікований' : 'НЕ Верифікований'}
 					/>
 					{role !== 0 && <Field label='Роль' text={checkUserStatus(role)} />}
 					<Field label='Місце навчання:' text={facultet || 'Невідомо'} />

@@ -1,7 +1,11 @@
+import { DiscountType, } from './DiscountType';
+
 export interface Discount {
 	id: string;
 	name: string;
 	description: string;
-	codeWord: string;
-	isOpen: boolean;
+	discountType: DiscountType;
+	withQrCode: boolean;
+	withBarCode: boolean;
+	barCodeImage: string;
 }

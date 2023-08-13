@@ -21,15 +21,21 @@ public class DiscountService : IDiscountService
 
     public async Task<DiscountDto> CreateAsync(DiscountDto discountDto)
     {
-        var entry = await _db.Discounts.AddAsync(new Discount
+        var discount = new Discount
         {
             Description = discountDto.Description,
             WithBarCode = discountDto.WithBarCode,
             WithQrCode = discountDto.WithQrCode,
-            BarCodeImage = discountDto.BarCodeImage != null ? new Image(discountDto.BarCodeImage) : null,
             DiscountType = discountDto.DiscountType,
             Name = discountDto.Name
-        });
+        };
+
+        if (discountDto.BarCodeImage is not null)
+        {
+            discount.BarCodeImage = new Image(discountDto.BarCodeImage);
+        }
+
+        var entry = await _db.Discounts.AddAsync(discount);
 
         await _db.SaveChangesAsync();
 
@@ -97,8 +103,9 @@ public class DiscountService : IDiscountService
 
     public async Task<IEnumerable<DiscountDto>> GetAsync()
     {
-        return _mapper.Map<IEnumerable<DiscountDto>>(await _db.Discounts
-            .Include(x => x.BarCodeImage)
-            .ToListAsync());
+        return _mapper.Map<IEnumerable<DiscountDto>>(
+            await _db.Discounts
+                .Include(x => x.BarCodeImage)
+                .ToListAsync());
     }
 }

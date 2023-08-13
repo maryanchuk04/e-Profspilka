@@ -5,7 +5,7 @@ import Circles from '../Circles';
 import Container from '../Container';
 
 const Footer = () => {
-	const media = useMediaQuery({ maxWidth: '450px' });
+	const media = useMediaQuery({ maxWidth: '768px' });
 
 	return (
 		<div className='bg-[#212121] pt-6 mt-12 h-fit'>

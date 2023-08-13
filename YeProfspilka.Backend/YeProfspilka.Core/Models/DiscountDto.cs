@@ -14,8 +14,6 @@ public class DiscountDto
 
 	public string? BarCodeImage { get; set; }
 
-	public string? CodeWord { get; set; }
-
 	public string? Description { get; set; }
 
 	public DiscountType DiscountType { get; set; }

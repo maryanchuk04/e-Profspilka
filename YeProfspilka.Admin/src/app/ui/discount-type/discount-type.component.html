@@ -1,0 +1,8 @@
+<span [ngSwitch]="discoutType" class="text-lg text-primary">
+	<h3 *ngSwitchCase="DiscountType.AvailableForAll">Доступна для всіх</h3>
+	<h3 *ngSwitchCase="DiscountType.AvailableForMemberOfProf">Тільки для членів профспілки</h3>
+	<h3 *ngSwitchCase="DiscountType.OneTimeForFirstCourse">Одноразова для Першого курсу</h3>
+	<h3 *ngSwitchCase="DiscountType.OneTimeForMemberOfProf">Одноразова для профспілки</h3>
+	<h3 *ngSwitchCase="DiscountType.OneTimeForAll">Одноразова для всіх</h3>
+	<h3 *ngSwitchDefault>Доступна для всіх</h3>
+</span>

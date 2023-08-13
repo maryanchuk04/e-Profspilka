@@ -73,6 +73,19 @@ public class UserService : IUserServices
 
         if (user.UserRoles.Select(x => x.RoleId).Contains(role))
         {
+            var roles = user.UserRoles.Select(x => x.RoleId).ToList();
+            // Sort list by value of enum
+            roles.Sort();
+            var maxRole = roles.Max();
+
+            if(role < maxRole)
+            {
+                for (var i = roles.IndexOf(maxRole); i < roles.Count; i++)
+                {
+                    user.UserRoles.Remove(user.UserRoles.Single(x => x.RoleId == roles[i]));
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<UserDto>(user);
         }
