@@ -71,7 +71,9 @@ const ProfileSidebar = () => {
 		</div>
 	) : (
 		<div
-			className={`${checkUserVerificated(role) ? 'bg-[#F1E5C4]' : 'bg-[#b2b2b2]' }  flex flex-col rounded-standart max-sm:p-2 p-4 pb-1`}
+			className={`${
+				checkUserVerificated(role) ? 'bg-[#F1E5C4]' : 'bg-[#b2b2b2]'
+			}  flex flex-col rounded-standart max-sm:p-2 p-4 pb-1`}
 			onClick={handleOpen}
 		>
 			<div className='flex justify-between items-center mb-2'>

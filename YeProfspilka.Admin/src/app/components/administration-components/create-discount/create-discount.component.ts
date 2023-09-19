@@ -1,15 +1,15 @@
-import { ToastrService, } from 'ngx-toastr';
-import { catchError, EMPTY, map, mergeMap, Subject, switchMap, takeUntil, } from 'rxjs';
-import { Discount, } from 'src/app/models/Discount';
-import { DiscountTypeOptions, } from 'src/app/models/DiscountType';
-import { FileUploaderService, } from 'src/app/services/file-uploader.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, EMPTY, map, mergeMap, Subject, switchMap, takeUntil } from 'rxjs';
+import { Discount } from 'src/app/models/Discount';
+import { DiscountTypeOptions } from 'src/app/models/DiscountType';
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
-import { createDiscount, } from 'src/app/store/actions/discounts.actions';
+import { createDiscount } from 'src/app/store/actions/discounts.actions';
 
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { Router, } from '@angular/router';
-import { Store, } from '@ngrx/store';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-create-discount',

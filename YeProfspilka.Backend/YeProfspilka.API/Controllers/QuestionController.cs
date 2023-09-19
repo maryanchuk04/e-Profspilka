@@ -9,7 +9,6 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("question")]
-[Authorize]
 public class QuestionController : ControllerBase
 {
 	private readonly IQuestionService _questionService;
@@ -33,8 +32,7 @@ public class QuestionController : ControllerBase
 	}
 
 	[HttpPost]
-	// TODO Uncomment this lines
-	//[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
+	[Authorize]
 	public async Task<IActionResult> CreateQuestion([FromBody] QuestionViewModel questionViewModel)
 	{
 		try
@@ -53,6 +51,7 @@ public class QuestionController : ControllerBase
 	}
 
 	[HttpPut]
+	[Authorize]
 	public async Task<IActionResult> Update(QuestionDto questionDto)
 	{
 		try
@@ -66,6 +65,7 @@ public class QuestionController : ControllerBase
 	}
 
 	[HttpDelete("{id}")]
+	[Authorize]
 	public async Task<IActionResult> Delete(Guid id)
 	{
 		try
