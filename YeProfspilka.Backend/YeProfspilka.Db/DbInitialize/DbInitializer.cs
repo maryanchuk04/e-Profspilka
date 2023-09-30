@@ -120,6 +120,7 @@ public static class DbInitializer
             Email = "marianchuk.maksym@chnu.edu.ua",
             Facultet = "ФМІ",
             FullName = "Максим Васильович Мар'янчук",
+            Image = new Image(string.Empty),
             UserRoles = new List<UserRole>
             {
                 new()
@@ -132,6 +133,14 @@ public static class DbInitializer
                     UserId = adminId,
                     RoleId = Role.Student,
                 }
+            },
+            Student = new Student()
+            {
+                FullName = "Максим Васильович Мар'янчук",
+                IsMemberProf = true,
+                Course = 4,
+                Email = "marianchuk.maksym@chnu.edu.ua",
+                Facultet = "Мат Фак",
             }
         };
 

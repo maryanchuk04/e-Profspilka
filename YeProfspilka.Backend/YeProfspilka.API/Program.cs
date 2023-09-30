@@ -3,7 +3,6 @@ using YeProfspilka.Db.EF;
 using YeProfspilka.Backend.Extension;
 using YeProfspilka.Db.DbInitialize;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureServices(builder.Configuration);

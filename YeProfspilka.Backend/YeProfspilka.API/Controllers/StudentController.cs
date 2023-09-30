@@ -9,19 +9,19 @@ using YeProfspilka.Core.Models;
 namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
-[Route("student-store")]
-public class StudentStoreController : ControllerBase
+[Route("student")]
+public class StudentController : ControllerBase
 {
     private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     private readonly IStudentStoreService _studentStore;
     private readonly IMediator _mediator;
-    private readonly ILogger<StudentStoreController> _logger;
+    private readonly ILogger<StudentController> _logger;
     private readonly IImportCommandFactory _importCommandFactory;
 
-    public StudentStoreController(
+    public StudentController(
         IStudentStoreService studentStore,
         IMediator mediator,
-        ILogger<StudentStoreController> logger,
+        ILogger<StudentController> logger,
         IImportCommandFactory importCommandFactory)
     {
         _studentStore = studentStore;
@@ -79,7 +79,9 @@ public class StudentStoreController : ControllerBase
                 await file.CopyToAsync(stream);
             }
 
-            return Ok(await _studentStore.UploadUsers(filePath, true));
+            var command = new UploadStudentsCommand(filePath);
+
+            return Ok(await _mediator.Send(command));
         }
         catch (Exception e)
         {
@@ -120,7 +122,7 @@ public class StudentStoreController : ControllerBase
         }
     }
 
-    [HttpGet("user/{id}")]
+    [HttpGet("user/{id:guid}")]
     public async Task<ActionResult<UserMatchingStoreModel>> GetUser(Guid id)
     {
         try

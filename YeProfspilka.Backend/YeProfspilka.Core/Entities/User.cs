@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using YeProfspilka.Core.Entities.Base;
 
 namespace YeProfspilka.Core.Entities;
@@ -17,4 +18,9 @@ public class User : BaseEntity
 	public ICollection<UserRole> UserRoles { get; set; }
 
 	public ICollection<UserToken> UserTokens { get; set; }
+
+	public Guid? StudentId { get; set; }
+
+	[ForeignKey("StudentId")]
+	public Student Student { get; set; }
 }
