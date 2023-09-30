@@ -1,10 +1,10 @@
-import { Observable, } from 'rxjs';
-import { environment, } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-import { HttpClient, HttpHeaders, } from '@angular/common/http';
-import { Injectable, } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { TokenService, } from './token.service';
+import { TokenService } from './token.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,6 +16,7 @@ export class RestService<T> {
 
 	getOne(url: string): Observable<T> {
 		return this.http.get<T>(`${this.baseURL}/${url}`, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${this.token.get()}`,
@@ -25,6 +26,7 @@ export class RestService<T> {
 
 	getAll(url: string): Observable<T[]> {
 		return this.http.get<T[]>(`${this.baseURL}/${url}`, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${this.token.get()}`,
@@ -32,8 +34,9 @@ export class RestService<T> {
 		});
 	}
 
-	post(url: string, data: any): Observable<T> {
+	post(url: string, data?: any): Observable<T> {
 		return this.http.post<T>(`${this.baseURL}/${url}`, data, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${this.token.get()}`,
@@ -52,6 +55,7 @@ export class RestService<T> {
 
 	put(url: string, body: T): Observable<T> {
 		return this.http.put<T>(`${this.baseURL}/${url}`, body, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${this.token.get()}`,
@@ -61,6 +65,7 @@ export class RestService<T> {
 
 	getWithToken(url: string, bearer: string) {
 		return this.http.get<any>(`${this.baseURL}/${url}`, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${bearer}`,
@@ -70,6 +75,7 @@ export class RestService<T> {
 
 	postForm(url: string, formData: FormData): Observable<T> {
 		return this.http.post<T>(`${this.baseURL}/${url}`, formData, {
+			withCredentials: true,
 			headers: new HttpHeaders({
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			}),

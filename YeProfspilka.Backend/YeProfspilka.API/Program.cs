@@ -39,20 +39,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-	var services = scope.ServiceProvider;
-
-	try
-	{
-		var dbContext = services.GetRequiredService<YeProfspilkaContext>();
-		dbContext.Database.Migrate();
-		DbInitializer.Seed(dbContext);
-	}
-	catch (Exception ex)
-	{
-		app.Logger.LogError(ex, "An error occurred while seeding the database");
-	}
-}
+// Uncomment if need to do DB Update
+// using (var scope = app.Services.CreateScope())
+// {
+// 	var services = scope.ServiceProvider;
+//
+// 	try
+// 	{
+// 		var dbContext = services.GetRequiredService<YeProfspilkaContext>();
+// 		dbContext.Database.Migrate();
+// 		DbInitializer.Seed(dbContext);
+// 	}
+// 	catch (Exception ex)
+// 	{
+// 		app.Logger.LogError(ex, "An error occurred while seeding the database");
+// 	}
+// }
 
 app.Run();

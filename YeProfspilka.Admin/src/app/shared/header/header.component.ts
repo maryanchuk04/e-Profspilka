@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
+import { AuthenticateService } from 'src/app/services/authenticate.service';
 import AppState from 'src/app/store';
 import { selectUserData } from 'src/app/store/selectors/user.selector';
 
@@ -22,9 +23,13 @@ export class HeaderComponent implements OnInit {
 		},
 	];
 	user$: Observable<User>;
-	constructor(private store: Store<AppState>) {}
+	constructor(private store: Store<AppState>, private authService: AuthenticateService) {}
 
 	ngOnInit(): void {
 		this.user$ = this.store.select(selectUserData);
+	}
+
+	logout() {
+		this.authService.logout();
 	}
 }

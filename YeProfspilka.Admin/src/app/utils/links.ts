@@ -29,11 +29,11 @@ export const moderationsLinks: IconMenuItem[] = [
 ];
 
 export const administratorLinks: IconMenuItem[] = [
-	{
-		title: 'Панель адміністратора',
-		url: 'dashboard',
-		icon: 'fas fa-tachometer-alt',
-	},
+	// {
+	// 	title: 'Панель адміністратора',
+	// 	url: 'dashboard',
+	// 	icon: 'fas fa-tachometer-alt',
+	// },
 	{
 		title: 'Знижки',
 		url: 'discounts',
@@ -44,9 +44,9 @@ export const administratorLinks: IconMenuItem[] = [
 		url: 'users',
 		icon: 'fas fa-users',
 	},
-	{
-		title: 'Налаштування',
-		url: 'settings',
-		icon: 'fas fa-cog',
-	},
+	// {
+	// 	title: 'Налаштування',
+	// 	url: 'settings',
+	// 	icon: 'fas fa-cog',
+	// },
 ];

@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
-import { RestService } from './rest.service';
-import { Advantage } from '../models/Advantage';
 import { Observable } from 'rxjs';
 
+import { Injectable } from '@angular/core';
+
+import { Advantage } from '../models/Advantage';
+import { RestService } from './rest.service';
+
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class AdvantageService {
-	private url = "advantage";
+	private url = 'advantage';
 
-	constructor(private service: RestService<Advantage>) { }
+	constructor(private service: RestService<Advantage>) {}
 
 	get(): Observable<Advantage[]> {
 		return this.service.getAll(this.url);
