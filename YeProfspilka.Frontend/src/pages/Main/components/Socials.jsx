@@ -27,7 +27,7 @@ const Socials = () => {
 					<a
 						href={item.link}
 						target='_blank'
-						key={item.link}
+						key={index}
 						className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center'
 						rel='noreferrer'
 					>
