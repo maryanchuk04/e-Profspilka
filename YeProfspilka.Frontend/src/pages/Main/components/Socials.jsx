@@ -10,7 +10,7 @@ const Socials = () => {
 		{
 			icon: 'fa-brands fa-facebook',
 			text: 'facebook',
-			link: 'https://www.instagram.com/studprofkom.cv.ua/',
+			link: 'https://www.facebook.com/studprofkom.cv.ua/',
 		},
 		{
 			icon: 'fab fa-telegram',
@@ -27,7 +27,7 @@ const Socials = () => {
 					<a
 						href={item.link}
 						target='_blank'
-						key={index}
+						key={item.link}
 						className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center'
 						rel='noreferrer'
 					>
