@@ -27,15 +27,14 @@ const PageWrapper = ({ element, withFooter = true }) => {
 			.then(() => {
 				setLoading(false);
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch(() => {
 				setLoading(false);
 				navigate('/not-found');
 			});
 	}, []);
 
 	return (
-		<div className='h-full'>
+		<div className='min-h-screen flex flex-col justify-between'>
 			{loading ? (
 				<div className='h-screen grid place-items-center'>
 					<Loader />

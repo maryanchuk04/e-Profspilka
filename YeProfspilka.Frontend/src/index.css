@@ -18,6 +18,7 @@
 	* {
 		font-family: "e-Ukraine";
 	}
+
 }
 
 
@@ -76,4 +77,14 @@ code {
 p:empty {
 	min-height: 1em;
 	/* Встановлюємо мінімальну висоту для порожніх <p> тегів */
+}
+
+
+div.no-tailwind {
+	all: unset;
+}
+
+.no-tailwind a {
+	color: #0026F3;
+	text-decoration: underline;
 }

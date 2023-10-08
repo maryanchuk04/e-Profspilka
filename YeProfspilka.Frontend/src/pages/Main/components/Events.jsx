@@ -13,7 +13,7 @@ const Events = () => {
 		events &&
 		events.length > 0 && (
 			<div id='events' className='w-full my-4'>
-				<h1 className='my-12 max-sm:text-center'>Проведені події</h1>
+				<h1 className='my-12 max-sm:text-center'>Актуальні новини</h1>
 				<div className='flex w-full flex-wrap gap-2 justify-between my-6'>
 					{events.map((event) => (
 						<EventCard key={event.id} event={event} />

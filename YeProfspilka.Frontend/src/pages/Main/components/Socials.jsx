@@ -17,6 +17,11 @@ const Socials = () => {
 			text: 'telegram',
 			link: 'https://t.me/studprofkom_cv_ua',
 		},
+		{
+			icon: 'fab fa-youtube',
+			text: 'youtube',
+			link: 'https://www.youtube.com/@line5581',
+		},
 	];
 
 	return (

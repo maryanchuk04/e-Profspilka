@@ -31,15 +31,34 @@ const Footer = () => {
 				</div>
 				<div className='flex flex-col text-white/75'>
 					<h2 className='mb-6 text-white'>Контакти</h2>
-					<a className='mb-5' href='https://goo.gl/maps/gpTMvQajC4KMmBPs9'>
+					<a
+						className='mb-5'
+						href='https://goo.gl/maps/gpTMvQajC4KMmBPs9'
+						target='_blank'
+						rel='noreferrer'
+					>
 						<i className='fas fa-house mr-2'></i>58022, Україна, м. Чернівці,
 						<br /> вул. Небесної сотні 4в.
 					</a>
 					<a className='mb-5' href='tel:+380372584857'>
 						<i className='fas fa-phone mr-2'></i>+38 (0372) 509437
 					</a>
-					<a className='mb-5' href='mailto:prokfqvkndsa@gmail.com'>
-						<i className='fas fa-envelope mr-2'></i>studprofkom@chnu.edu.ua
+					<a
+						className='mb-5'
+						href='mailto:prokfqvkndsa@gmail.com'
+						target='_blank'
+						rel='noreferrer'
+					>
+						<i className='fas fa-envelope mr-2'></i>
+						studprofkom@chnu.edu.ua
+					</a>
+					<a
+						className='mb-5'
+						href='https://telegra.ph/Korisn%D1%96-stor%D1%96nki-ta-kanali-dlya-student%D1%96v-CHNU-07-20'
+						target='_blank'
+						rel='noreferrer'
+					>
+						<i className='fas fa-link mr-2'></i>Корисні посилання
 					</a>
 				</div>
 				{!media && <Circles className='scale-50' />}
