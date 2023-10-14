@@ -25,6 +25,11 @@
 									[discoutType]="item.discountType"
 								></app-discount-type>
 								<app-icon-button
+									(handleClick)="navigateToNext(item.id)"
+									icon="fas fa-pen"
+									className=""
+								></app-icon-button>
+								<app-icon-button
 									(handleClick)="delete(item.id)"
 									icon="fas fa-trash text-red-500"
 									className=""
@@ -32,7 +37,7 @@
 							</div>
 						</header>
 						<h5 class="mt-4 text-xl text-black/50">Опис:</h5>
-						<p class="text-lg mt-2">{{ item.description }}</p>
+						<div class="text-lg mt-2" [innerHTML]="item.description"></div>
 					</div>
 				</div>
 			</div>

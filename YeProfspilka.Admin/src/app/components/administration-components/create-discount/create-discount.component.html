@@ -1,100 +1,106 @@
 <div>
-	<h2 class="font-bold text-black/50">#Створіть нову знижку</h2>
-	<form [formGroup]="createDiscountForm" (ngSubmit)="create()" class="max-w-xl mt-8">
-		<div class="mb-4">
-			<label for="name" class="block mb-1">Назва</label>
-			<app-form-text-field type="text" controlName="name"></app-form-text-field>
-			<div
-				*ngIf="
-					createDiscountForm.get('name').errors &&
-					(createDiscountForm.get('name').dirty || createDiscountForm.get('name').touched)
-				"
-				class="text-red-500 mt-1"
-			>
-				<div *ngIf="createDiscountForm.get('name').errors.required">
-					Поле "Назва" є обов'язковим
-				</div>
-				<div *ngIf="createDiscountForm.get('name').errors.maxlength">
-					Назва повинна містити не більше 100 символів
-				</div>
-			</div>
-		</div>
-
-		<div class="mb-4">
-			<label for="description" class="block mb-1">Опис</label>
-			<textarea
-				id="description"
-				class="w-full border text-xl rounded-standart focus-visible:outline-none py-1 px-3"
-				rows="5"
-				formControlName="description"
-			></textarea>
-			<div
-				*ngIf="
-					createDiscountForm.get('description').errors &&
-					(createDiscountForm.get('description').dirty ||
-						createDiscountForm.get('description').touched)
-				"
-				class="text-red-500 mt-1"
-			>
-				<div *ngIf="createDiscountForm.get('description').errors.required">
-					Поле "Опис" є обов'язковим
-				</div>
-				<div *ngIf="createDiscountForm.get('description').errors.maxlength">
-					Опис повинен містити не більше 300 символів
+	<ng-container *ngIf="loading; else form">
+		<app-loader></app-loader>
+	</ng-container>
+	<ng-template #form>
+		<h2 class="font-bold text-black/50">#Створіть нову знижку</h2>
+		<form [formGroup]="createDiscountForm" (ngSubmit)="create()" class="max-w-xl mt-8">
+			<div class="mb-4">
+				<label for="name" class="block mb-1">Назва</label>
+				<app-form-text-field type="text" controlName="name"></app-form-text-field>
+				<div
+					*ngIf="
+						createDiscountForm.get('name').errors &&
+						(createDiscountForm.get('name').dirty ||
+							createDiscountForm.get('name').touched)
+					"
+					class="text-red-500 mt-1"
+				>
+					<div *ngIf="createDiscountForm.get('name').errors.required">
+						Поле "Назва" є обов'язковим
+					</div>
+					<div *ngIf="createDiscountForm.get('name').errors.maxlength">
+						Назва повинна містити не більше 100 символів
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="mb-4">
-			<label for="discountType" class="block mb-1">Тип знижки</label>
-			<app-select
-				[options]="options"
-				controlName="discountType"
-				(onChange)="handleSelectChange($event)"
-			></app-select>
-			<div
-				*ngIf="
-					createDiscountForm.get('discountType').errors &&
-					(createDiscountForm.get('discountType').dirty ||
-						createDiscountForm.get('discountType').touched)
-				"
-				class="text-red-500 mt-1"
-			>
-				<div *ngIf="createDiscountForm.get('discountType').errors.required">
-					Поле "Тип знижки" є обов'язковим
+			<div class="mb-4">
+				<label for="description" class="block mb-1">Опис</label>
+				<app-editor
+					id="description"
+					[mode]="'simple'"
+					rows="5"
+					[controlName]="'description'"
+				></app-editor>
+				<div
+					*ngIf="
+						createDiscountForm.get('description').errors &&
+						(createDiscountForm.get('description').dirty ||
+							createDiscountForm.get('description').touched)
+					"
+					class="text-red-500 mt-1"
+				>
+					<div *ngIf="createDiscountForm.get('description').errors.required">
+						Поле "Опис" є обов'язковим
+					</div>
+					<div *ngIf="createDiscountForm.get('description').errors.maxlength">
+						Опис повинен містити не більше 300 символів
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="mb-4">
-			<div class="flex relative items-center">
-				<label class="block mb-1">QR-код</label>
-				<app-question-tooltip
-					tooltipText="QR код буде генеруватись автоматично для кожного користувача"
-				></app-question-tooltip>
+			<div class="mb-4">
+				<label for="discountType" class="block mb-1">Тип знижки</label>
+				<app-select
+					[options]="options"
+					controlName="discountType"
+					(onChange)="handleSelectChange($event)"
+				></app-select>
+				<div
+					*ngIf="
+						createDiscountForm.get('discountType').errors &&
+						(createDiscountForm.get('discountType').dirty ||
+							createDiscountForm.get('discountType').touched)
+					"
+					class="text-red-500 mt-1"
+				>
+					<div *ngIf="createDiscountForm.get('discountType').errors.required">
+						Поле "Тип знижки" є обов'язковим
+					</div>
+				</div>
 			</div>
 
-			<input type="checkbox" class="mr-1" formControlName="withQrCode" />
-			<span>З використанням QR-коду</span>
-		</div>
+			<div class="mb-4">
+				<div class="flex relative items-center">
+					<label class="block mb-1">QR-код</label>
+					<app-question-tooltip
+						tooltipText="QR код буде генеруватись автоматично для кожного користувача"
+					></app-question-tooltip>
+				</div>
 
-		<div class="mb-4">
-			<label class="block mb-1">Штрих-код</label>
-			<input type="checkbox" class="mr-1" formControlName="withBarCode" />
-			<span>З використанням штрих-коду</span>
-		</div>
+				<input type="checkbox" class="mr-1" formControlName="withQrCode" />
+				<span>З використанням QR-коду</span>
+			</div>
 
-		<div class="mb-4" [hidden]="this.createDiscountForm.get('withBarCode').value !== true">
-			<label for="barCodeImage" class="block mb-1">Зображення штрих-коду</label>
-			<app-file-input-field
-				controlName="barCodeImage"
-				placeholder="Виберіть фото штрихкоду"
-				[formGroup]="createDiscountForm"
-				(getFile)="handleFileChange($event)"
-			></app-file-input-field>
-		</div>
-		<app-button [disabled]="createDiscountForm.touched && !createDiscountForm.valid"
-			>Створити</app-button
-		>
-	</form>
+			<div class="mb-4">
+				<label class="block mb-1">Штрих-код</label>
+				<input type="checkbox" class="mr-1" formControlName="withBarCode" />
+				<span>З використанням штрих-коду</span>
+			</div>
+
+			<div class="mb-4" [hidden]="this.createDiscountForm.get('withBarCode').value !== true">
+				<label for="barCodeImage" class="block mb-1">Зображення штрих-коду</label>
+				<app-file-input-field
+					controlName="barCodeImage"
+					placeholder="Виберіть фото штрихкоду"
+					[formGroup]="createDiscountForm"
+					(getFile)="handleFileChange($event)"
+				></app-file-input-field>
+			</div>
+			<app-button [disabled]="createDiscountForm.touched && !createDiscountForm.valid">{{
+				discount ? 'Зберегти' : 'Створити'
+			}}</app-button>
+		</form>
+	</ng-template>
 </div>

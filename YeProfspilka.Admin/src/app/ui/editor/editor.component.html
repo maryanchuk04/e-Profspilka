@@ -1,7 +1,24 @@
-<ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-<ngx-editor
-	[editor]="editor"
-	[(ngModel)]="value"
-	[placeholder]="placeholder"
-	(ngModelChange)="valueChange.emit(value)"
-></ngx-editor>
+<ng-container [formGroup]="form" *ngIf="controlName; else binder">
+	<ngx-editor-menu
+		[editor]="editor"
+		[toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"
+	></ngx-editor-menu>
+	<ngx-editor
+		[editor]="editor"
+		[formControlName]="controlName"
+		[placeholder]="placeholder"
+		(ngModelChange)="valueChange.emit(value)"
+	></ngx-editor>
+</ng-container>
+<ng-template #binder
+	><ngx-editor-menu
+		[editor]="editor"
+		[toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"
+	></ngx-editor-menu>
+	<ngx-editor
+		[editor]="editor"
+		[(ngModel)]="value"
+		[placeholder]="placeholder"
+		(ngModelChange)="valueChange.emit(value)"
+	></ngx-editor
+></ng-template>

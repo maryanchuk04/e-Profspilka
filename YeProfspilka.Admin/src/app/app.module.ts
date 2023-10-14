@@ -102,6 +102,7 @@ import { QuestionTooltipComponent, } from './ui/question-tooltip/question-toolti
 import { SelectComponent, } from './ui/select/select.component';
 import { TextFieldComponent, } from './ui/text-field/text-field.component';
 import { options, } from './utils/editorOptions';
+import { UpdateDiscountComponent } from './components/administration-components/update-discount/update-discount.component';
 
 @NgModule({
 	declarations: [
@@ -155,6 +156,7 @@ import { options, } from './utils/editorOptions';
 		MainComponent,
 		FormTextFieldComponent,
 		DiscountTypeComponent,
+  UpdateDiscountComponent,
 	],
 	imports: [
 		BrowserModule,

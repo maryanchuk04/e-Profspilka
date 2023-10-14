@@ -1,6 +1,8 @@
-<div class="w-full h-screen top-0 left-0  fixed bg-black/20 backdrop-blur-sm z-30 grid place-items-center"
-	(click)="handleClose()">
-	<div class="h-fit w-fit bg-white rounded-standart" (click)="onEvent($event)">
+<div
+	class="w-full h-screen top-0 left-0 fixed bg-black/20 backdrop-blur-sm z-30 grid place-items-center"
+	(click)="handleClose()"
+>
+	<div class="h-fit w-fit bg-white rounded-standart  {{ className }}" (click)="onEvent($event)">
 		<ng-content></ng-content>
 	</div>
 </div>
