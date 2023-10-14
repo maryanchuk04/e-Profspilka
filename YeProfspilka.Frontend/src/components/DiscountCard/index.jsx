@@ -13,6 +13,7 @@ const DiscountCard = ({ discount, blocked = false }) => {
 	const { name, withBarCode, withQrCode } = discount;
 	const [isQrCodeModalOpen, setQrCodeModalOpen] = React.useState(false);
 	const [isBarCodeOpen, setIsBarCodeOpen] = useState(false);
+	const [isInfoModalOpen, setIsInfoOpen] = useState(false);
 
 	const toggleQrCodeModal = () => {
 		setIsBarCodeOpen(false);
@@ -21,6 +22,12 @@ const DiscountCard = ({ discount, blocked = false }) => {
 
 	const toggleBarCodeModal = () => {
 		setIsBarCodeOpen(!isBarCodeOpen);
+	};
+
+	const toggleInfoModal = () => {
+		setIsBarCodeOpen(false);
+		setQrCodeModalOpen(false);
+		setIsInfoOpen(!isInfoModalOpen);
 	};
 
 	return (
@@ -55,6 +62,9 @@ const DiscountCard = ({ discount, blocked = false }) => {
 				<div className=' flex justify-between gap-2'>
 					{!blocked && (
 						<React.Fragment>
+							<Button onClick={toggleInfoModal} className='!h-12 !w-12 text-2xl px-3'>
+								<i className='text-2xl fas fa-info'></i>
+							</Button>
 							{withQrCode && (
 								<Button
 									onClick={toggleQrCodeModal}
@@ -80,6 +90,9 @@ const DiscountCard = ({ discount, blocked = false }) => {
 						close={toggleBarCodeModal}
 						isQrDiscount={false}
 					/>
+				)}
+				{isInfoModalOpen && (
+					<DiscountInfoModal close={toggleInfoModal} discount={discount} />
 				)}
 			</div>
 			{}
@@ -121,7 +134,10 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 				<p>#знижка</p>
 				<h2>{discount.name}</h2>
 				{discount.description.length < 100 && (
-					<p className=' text-ellipsis overflow-hidden'>{discount.description}</p>
+					<div
+						className='text-ellipsis overflow-hidden'
+						dangerouslySetInnerHTML={{ __html: discount?.description }}
+					></div>
 				)}
 				<div className='my-8 w-full max-xs:!my-4'>
 					{loading ? (
@@ -167,5 +183,16 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 		</SimpleModal>
 	);
 };
+
+const DiscountInfoModal = ({ discount, close }) => (
+	<SimpleModal className='w-[320px] !h-fit max-h-[80vh] editor'>
+		<h2>{discount.name}</h2>
+		<hr className='my-4' />
+		<div className='my-4' dangerouslySetInnerHTML={{ __html: discount?.description }}></div>
+		<Button className='bg-primary' onClick={close}>
+			Закрити
+		</Button>
+	</SimpleModal>
+);
 
 export default DiscountCard;

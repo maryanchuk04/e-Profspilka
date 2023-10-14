@@ -9,7 +9,7 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [AllowAnonymous]
-[Route("discount")]
+[Route("discount/code")]
 public class DiscountCodeController : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -2,27 +2,27 @@ import { ApiService } from './config/ApiService';
 import api from './config/axios.config';
 
 export class DiscountService {
-    #apiUrl = '/discount';
+	#apiUrl = '/discount/code';
 
-    constructor() {
-        this.service = new ApiService();
-    }
+	constructor() {
+		this.service = new ApiService();
+	}
 
-    async getAll() {
-        return await this.service.get(this.#apiUrl);
-    }
+	async getAll() {
+		return await this.service.get('/discount');
+	}
 
-    async getQrCode(discountId) {
-        return await this.service.get(`discount/${discountId}`);
-    }
+	async getQrCode(discountId) {
+		return await this.service.get(`discount/code/${discountId}`);
+	}
 }
 
 export const verifyDiscount = async (discountId, discountCodeId) => {
-    try {
-        const { data } = await api.get(`discount/verify/${discountId}/${discountCodeId}`);
+	try {
+		const { data } = await api.get(`discount/code/verify/${discountId}/${discountCodeId}`);
 
-        return data;
-    } catch (error) {
-        throw Error(error);
-    }
+		return data;
+	} catch (error) {
+		throw Error(error);
+	}
 };

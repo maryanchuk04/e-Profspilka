@@ -84,6 +84,11 @@ div.no-tailwind {
 	all: unset;
 }
 
+.editor a {
+	color: #0026F3;
+	text-decoration: underline;
+}
+
 .no-tailwind a {
 	color: #0026F3;
 	text-decoration: underline;
