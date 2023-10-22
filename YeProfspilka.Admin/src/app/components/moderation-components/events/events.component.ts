@@ -1,12 +1,12 @@
-import { Observable, Subscription, } from 'rxjs';
-import { Event, } from 'src/app/models/Event';
-import { FileUploaderService, } from 'src/app/services/file-uploader.service';
+import { Observable, Subscription } from 'rxjs';
+import { Event } from 'src/app/models/Event';
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
-import { createEvent, fetchEvents, } from 'src/app/store/actions/events.action';
-import { selectEventsData, selectEventsLoading, } from 'src/app/store/selectors/events.selector';
+import { createEvent, fetchEvents } from 'src/app/store/actions/events.action';
+import { selectEventsData, selectEventsLoading } from 'src/app/store/selectors/events.selector';
 
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { Store, } from '@ngrx/store';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-events',
@@ -22,8 +22,9 @@ export class EventsComponent implements OnInit, OnDestroy {
 	images: string[] = [];
 	title: string = '';
 	date: string = '';
+	shortDescription: string = '';
 
-	constructor(private store: Store<AppState>, private uploader: FileUploaderService) { }
+	constructor(private store: Store<AppState>, private uploader: FileUploaderService) {}
 
 	ngOnInit(): void {
 		this.store.dispatch(fetchEvents());
@@ -41,20 +42,23 @@ export class EventsComponent implements OnInit, OnDestroy {
 	}
 
 	uploadFile(file: File) {
-		this.subscription = this.uploader.uploadImage(file).subscribe(res => {
+		this.subscription = this.uploader.uploadImage(file).subscribe((res) => {
 			this.images.push(res);
 		});
 	}
 
 	submit() {
-		this.store.dispatch(createEvent({
-			event: {
-				title: this.title,
-				images: this.images,
-				description: this.editor,
-				date: this.date,
-			} as Event
-		}))
+		this.store.dispatch(
+			createEvent({
+				event: {
+					title: this.title,
+					images: this.images,
+					description: this.editor,
+					date: this.date,
+					shortDescription: this.shortDescription,
+				} as Event,
+			})
+		);
 		this.resetAndClose();
 	}
 
@@ -67,5 +71,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 		this.images = [];
 		this.title = '';
 		this.date = '';
+		this.shortDescription = '';
 	}
 }

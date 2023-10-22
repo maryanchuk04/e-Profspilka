@@ -1,13 +1,19 @@
-import { ToastrService, } from 'ngx-toastr';
-import { catchError, EMPTY, exhaustMap, map, mergeMap, of, } from 'rxjs';
-import { QuestionService, } from 'src/app/services/question.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, EMPTY, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
+import { QuestionService } from 'src/app/services/question.service';
 
-import { Injectable, } from '@angular/core';
-import { Actions, createEffect, ofType, } from '@ngrx/effects';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import {
-	createQuestion, createQuestionSuccess, deleteQuestion, deleteQuestionSuccess, fetchQuestions,
-	fetchQuestionsSuccess, updateQuestion, updateQuestionSuccess,
+	createQuestion,
+	createQuestionSuccess,
+	deleteQuestion,
+	deleteQuestionSuccess,
+	fetchQuestions,
+	fetchQuestionsSuccess,
+	updateQuestion,
+	updateQuestionSuccess,
 } from '../actions/questions.action';
 
 @Injectable()
@@ -32,14 +38,14 @@ export class QuestionEffect {
 	createQuestion$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(createQuestion),
-			mergeMap(({ question }) =>
+			switchMap(({ question }) =>
 				this.questionService
 					.create({
 						answer: question.answer,
 						questionText: question.questionText,
 					})
 					.pipe(
-						map(() => {
+						map((question) => {
 							this.toastrService.success('Питання успішно створено!');
 							return createQuestionSuccess({ question });
 						}),

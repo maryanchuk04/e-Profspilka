@@ -16,5 +16,7 @@ public class EventDto
 
 	public bool IsPassed { get; set; }
 
+	public string ShortDescription { get; set; }
+
 	public IEnumerable<string> Images { get; set; }
 }

@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Question } from '../models/Question';
-import { RestService } from './rest.service';
+import { Observable, } from 'rxjs';
+
+import { Injectable, } from '@angular/core';
+
+import { Question, } from '../models/Question';
+import { RestService, } from './rest.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,10 +21,7 @@ export class QuestionService {
 		return this.service.delete(`${this.url}/${id}`);
 	}
 
-	create(question: {
-		questionText: string;
-		answer: string;
-	}): Observable<any> {
+	create(question: { questionText: string; answer: string }): Observable<Question> {
 		return this.service.post(this.url, question);
 	}
 

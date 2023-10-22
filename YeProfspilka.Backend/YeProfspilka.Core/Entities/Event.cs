@@ -14,4 +14,6 @@ public class Event : BaseEntity
 	public ICollection<EventImage> EventImages { get; set; }
 
 	public string Description { get; set; }
+
+	public string ShortDescription { get; set; }
 }

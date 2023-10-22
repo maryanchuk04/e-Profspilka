@@ -37,12 +37,12 @@ public class QuestionController : ControllerBase
 	{
 		try
 		{
-			await _questionService.CreateAsync(new QuestionDto
+			var res = await _questionService.CreateAsync(new QuestionDto
 			{
 				Answer = questionViewModel.Answer,
 				QuestionText = questionViewModel.QuestionText
 			});
-			return Ok();
+			return Ok(res);
 		}
 		catch (Exception e)
 		{

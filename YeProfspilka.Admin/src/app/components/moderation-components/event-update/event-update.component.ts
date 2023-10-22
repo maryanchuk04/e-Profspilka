@@ -1,18 +1,17 @@
-import { Subscription } from 'rxjs';
-import { Event } from 'src/app/models/Event';
-import { EventsService } from 'src/app/services/events.service';
-import { FileUploaderService } from 'src/app/services/file-uploader.service';
+import { first, Subject, Subscription, } from 'rxjs';
+import { Event, } from 'src/app/models/Event';
+import { EventsService, } from 'src/app/services/events.service';
+import { FileUploaderService, } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
-import { updateEvent } from 'src/app/store/actions/events.action';
+import { updateEvent, } from 'src/app/store/actions/events.action';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { Store, } from '@ngrx/store';
 
 @Component({
 	selector: 'app-event-update',
 	templateUrl: './event-update.component.html',
-
 })
 export class EventUpdateComponent implements OnInit, OnDestroy {
 	subscription: Subscription = new Subscription();
@@ -21,21 +20,26 @@ export class EventUpdateComponent implements OnInit, OnDestroy {
 	open: boolean = false;
 	image: string | null = null;
 
+	destroy$ = new Subject<void>();
+
 	constructor(
 		private route: ActivatedRoute,
 		private service: EventsService,
 		private router: Router,
 		private store: Store<AppState>,
 		private uploader: FileUploaderService
-	) { }
+	) {}
 
 	ngOnInit(): void {
-		this.subscription = this.route.params.subscribe(params =>
-			this.service.getById(params['id']).subscribe(x => {
-				this.event = x;
-				this.loading = false;
-			})
-		)
+		this.subscription = this.route.params.subscribe(({ id }) =>
+			this.service
+				.getById(id)
+				.pipe(first())
+				.subscribe((x) => {
+					this.event = x;
+					this.loading = false;
+				})
+		);
 	}
 
 	navigateBack() {
@@ -43,13 +47,14 @@ export class EventUpdateComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.subscription.unsubscribe();
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	deleteImage(image: string) {
 		this.event = {
 			...this.event,
-			images: this.event.images.filter(f => f !== image)
+			images: this.event.images.filter((f) => f !== image),
 		};
 	}
 
@@ -58,7 +63,7 @@ export class EventUpdateComponent implements OnInit, OnDestroy {
 	}
 
 	uploadFile(file: File) {
-		this.uploader.uploadImage(file).subscribe(res => {
+		this.uploader.uploadImage(file).subscribe((res) => {
 			this.image = res;
 		});
 	}

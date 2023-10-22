@@ -40,7 +40,6 @@ export class QuestionsComponent implements OnInit {
 	}
 
 	create() {
-		console.log(this.answer);
 		this.store.dispatch(
 			createQuestion({
 				question: {

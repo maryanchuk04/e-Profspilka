@@ -1,6 +1,14 @@
 import { Editor, Toolbar } from 'ngx-editor';
 
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Optional,
+	Output,
+	ViewEncapsulation,
+} from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
@@ -18,7 +26,7 @@ export class EditorComponent implements OnInit {
 
 	editor: Editor;
 	isDefaultToolbar = true;
-	form: FormGroup;
+	form: FormGroup = null;
 
 	toolbar: Toolbar = [
 		['bold', 'italic'],
@@ -40,10 +48,10 @@ export class EditorComponent implements OnInit {
 		['text_color', 'background_color'],
 	];
 
-	constructor(private rootForm: FormGroupDirective) {}
+	constructor(@Optional() private rootForm: FormGroupDirective) {}
 
 	ngOnInit(): void {
-		if (this.controlName) {
+		if (this.controlName !== null) {
 			this.form = this.rootForm?.control;
 		}
 

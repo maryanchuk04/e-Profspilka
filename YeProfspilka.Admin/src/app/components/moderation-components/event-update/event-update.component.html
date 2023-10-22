@@ -26,6 +26,10 @@
 				/>
 			</div>
 		</div>
+		<app-text-field
+			placeholder="Короткий опис"
+			[(ngModel)]="event.shortDescription"
+		></app-text-field>
 		<div class="border my-5 p-4 rounded-standart">
 			<app-editor [(value)]="event.description"></app-editor>
 		</div>

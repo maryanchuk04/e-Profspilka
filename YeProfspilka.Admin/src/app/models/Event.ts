@@ -8,4 +8,5 @@ export interface Event {
 	images: string[];
 	isPassed: boolean;
 	status: Status;
+	shortDescription: string;
 }

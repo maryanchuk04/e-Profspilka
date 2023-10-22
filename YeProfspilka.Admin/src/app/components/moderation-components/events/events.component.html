@@ -18,38 +18,51 @@
 			></app-icon-button>
 			<h1 class="text-center text-3xl mb-3 font-bold">Створити подію 🎉</h1>
 			<app-container>
-				<app-text-field [(value)]="title" placeholder="Заголовок"></app-text-field>
-				<app-text-field [(value)]="date" classStyles="mt-2" type="date"></app-text-field>
-				<div class="w-full h-96 flex flex-col my-5 border border-black rounded-standart">
+				<form>
+					<app-text-field [(value)]="title" placeholder="Заголовок"></app-text-field>
+					<app-text-field
+						[(value)]="date"
+						classStyles="mt-2"
+						type="date"
+					></app-text-field>
+					<app-text-field
+						placeholder="короткий текст"
+						[(value)]="shortDescription"
+						classStyles="mt-2"
+					></app-text-field>
 					<div
-						appDragDrop
-						(fileDrop)="uploadFile($event)"
-						class="w-1/2 m-auto rounded-standart h-44 grid place-items-center cursor-pointer border"
+						class="w-full h-96 flex flex-col my-5 border border-black rounded-standart"
 					>
-						<div class="opacity-50 text-center">
-							<p class="text-xl">Перетягніть сюди зображення...</p>
-							<i class="fa-solid fa-image text-3xl"></i>
+						<div
+							appDragDrop
+							(fileDrop)="uploadFile($event)"
+							class="w-1/2 m-auto rounded-standart h-44 grid place-items-center cursor-pointer border"
+						>
+							<div class="opacity-50 text-center">
+								<p class="text-xl">Перетягніть сюди зображення...</p>
+								<i class="fa-solid fa-image text-3xl"></i>
+							</div>
 						</div>
-					</div>
-					<div class="w-full overflow-x-auto py-3" *ngIf="images.length > 0">
-						<div class="w-fit flex gap-4">
-							<div class="w-52 h-40 relative" *ngFor="let image of images">
-								<img [src]="image" [alt]="image" class="w-full h-full" />
-								<app-icon-button
-									className="absolute top-2 right-2"
-									icon="text-red-500 fas fa-trash"
-								></app-icon-button>
+						<div class="w-full overflow-x-auto py-3" *ngIf="images.length > 0">
+							<div class="w-fit flex gap-4">
+								<div class="w-52 h-40 relative" *ngFor="let image of images">
+									<img [src]="image" [alt]="image" class="w-full h-full" />
+									<app-icon-button
+										className="absolute top-2 right-2"
+										icon="text-red-500 fas fa-trash"
+									></app-icon-button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="border border-black p-3 rounded-standart my-3">
-					<app-editor
-						placeholder="Введіть опис для події"
-						[(value)]="editor"
-					></app-editor>
-				</div>
-				<app-button [type]="'primary'" (onClick)="submit()">Створити</app-button>
+					<div class="border border-black p-3 rounded-standart my-3">
+						<app-editor
+							placeholder="Введіть опис для події"
+							[(value)]="editor"
+						></app-editor>
+					</div>
+					<app-button [type]="'primary'" (onClick)="submit()">Створити</app-button>
+				</form>
 			</app-container>
 		</div>
 	</app-modal>
