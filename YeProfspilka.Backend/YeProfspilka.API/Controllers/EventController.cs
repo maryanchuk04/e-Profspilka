@@ -15,11 +15,13 @@ public class EventController : ControllerBase
 {
 	private readonly IEventService _eventService;
 	private readonly IMapper _mapper;
+	private ILogger<EventController> _logger;
 
-	public EventController(IEventService eventService, IMapper mapper)
+	public EventController(IEventService eventService, IMapper mapper, ILogger<EventController> logger)
 	{
 		_eventService = eventService;
 		_mapper = mapper;
+		_logger = logger;
 	}
 
 	[HttpPost]

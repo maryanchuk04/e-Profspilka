@@ -59,7 +59,7 @@ export class EventUpdateComponent implements OnInit, OnDestroy {
 	}
 
 	submit() {
-		this.store.dispatch(updateEvent({ event: this.event }));
+		this.store.dispatch(updateEvent({ event: { ...this.event } }));
 	}
 
 	uploadFile(file: File) {

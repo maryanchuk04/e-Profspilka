@@ -76,6 +76,7 @@ public class EventService : IEventService
 		ev.Date = eventDto.Date ?? DateTime.Now;
 		ev.Description = eventDto.Description;
 		ev.Title = eventDto.Title;
+		ev.ShortDescription = eventDto.ShortDescription;
 		ev.EventImages.Clear();
 
 		foreach (var url in eventDto.Images.Distinct())
