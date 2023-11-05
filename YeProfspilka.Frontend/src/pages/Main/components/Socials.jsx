@@ -33,11 +33,11 @@ const Socials = () => {
 		<div id='socials' className='my-32'>
 			<h1 className='my-12 max-sm:text-center'>Ми в соц мережах</h1>
 			<div className='flex flex-wrap my-5 justify-between gap-10 max-sm:flex-col'>
-				{socials.map((item, index) => (
+				{socials.map((item) => (
 					<a
 						href={item.link}
 						target='_blank'
-						key={index}
+						key={item?.link}
 						className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center'
 						rel='noreferrer'
 					>

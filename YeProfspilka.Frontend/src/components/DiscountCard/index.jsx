@@ -185,13 +185,15 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 };
 
 const DiscountInfoModal = ({ discount, close }) => (
-	<SimpleModal className='w-[320px] !h-fit max-h-[80vh] editor'>
-		<h2>{discount.name}</h2>
-		<hr className='my-4' />
-		<div className='my-4' dangerouslySetInnerHTML={{ __html: discount?.description }}></div>
-		<Button className='bg-primary' onClick={close}>
-			Закрити
-		</Button>
+	<SimpleModal className='w-[320px] !h-fit max-h-[80vh] '>
+		<div className='editor'>
+			<h2>{discount.name}</h2>
+			<hr className='my-4' />
+			<div className='my-4' dangerouslySetInnerHTML={{ __html: discount?.description }}></div>
+			<Button className='bg-primary' onClick={close}>
+				Закрити
+			</Button>
+		</div>
 	</SimpleModal>
 );
 
