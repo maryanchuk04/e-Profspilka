@@ -22,6 +22,11 @@ const Socials = () => {
 			text: 'youtube',
 			link: 'https://www.youtube.com/@line5581',
 		},
+		{
+			icon: 'fab fa-tiktok',
+			text: 'tik tok',
+			link: 'https://www.tiktok.com/@fedkovych_students',
+		},
 	];
 
 	return (

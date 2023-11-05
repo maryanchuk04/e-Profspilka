@@ -54,7 +54,7 @@ const Footer = () => {
 					</a>
 					<a
 						className='mb-5'
-						href='https://telegra.ph/Korisn%D1%96-stor%D1%96nki-ta-kanali-dlya-student%D1%96v-CHNU-07-20'
+						href='https://telegra.ph/Korisn%D1%96-stor%D1%96nki-ta-kanali-dlya-student%D1%96v-CHNU-10-09'
 						target='_blank'
 						rel='noreferrer'
 					>

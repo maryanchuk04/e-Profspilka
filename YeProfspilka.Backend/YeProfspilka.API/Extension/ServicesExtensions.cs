@@ -24,8 +24,7 @@ public static class ServicesExtensions
         services.AddDbContextFactory<YeProfspilkaContext>(
             options => options.UseSqlServer(
                 configuration.GetConnectionString("ApplicationDbConnectionString"),
-                b => b.MigrationsAssembly("YeProfspilka.Db")),
-            ServiceLifetime.Scoped);
+                b => b.MigrationsAssembly("YeProfspilka.Db")));
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddScoped<IAuthenticationService, AuthenticationService>();

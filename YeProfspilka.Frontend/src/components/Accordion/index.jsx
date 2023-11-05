@@ -20,7 +20,15 @@ const Accordion = ({ title, details }) => {
 					} fas fa-angle-down duration-300 text-3xl absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2`}
 				></i>
 			</h2>
-			{open && <p className='mt-8 pr-12' dangerouslySetInnerHTML={{ __html: details }}></p>}
+			{open && (
+				<div className='mt-8 pr-12'>
+					<p
+						onClick={(e) => e.stopPropagation()}
+						className='editor'
+						dangerouslySetInnerHTML={{ __html: details }}
+					></p>
+				</div>
+			)}
 		</div>
 	);
 };
