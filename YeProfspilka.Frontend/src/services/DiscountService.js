@@ -15,6 +15,10 @@ export class DiscountService {
 	async getQrCode(discountId) {
 		return await this.service.get(`discount/code/${discountId}`);
 	}
+
+	async getSharedDiscounts() {
+		return await this.service.get(`discount/shared`);
+	}
 }
 
 export const verifyDiscount = async (discountId, discountCodeId) => {

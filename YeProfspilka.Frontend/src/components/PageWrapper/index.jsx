@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../Footer';
 import Header from '../Header';
 import { useDispatch } from 'react-redux';
-import { fetchDiscounts } from '../../features/discountSlice';
+import { fetchDiscounts, fetchSharedDiscounts } from '../../features/discountSlice';
 import { fetchEvents } from '../../features/eventsSlice';
 import { fetchPartners } from '../../features/partnersSlice';
 import { fetchQuestions } from '../../features/questionsSlice';
@@ -23,6 +23,7 @@ const PageWrapper = ({ element, withFooter = true }) => {
 			dispatch(fetchAdvantages()),
 			dispatch(fetchPartners()),
 			dispatch(fetchQuestions()),
+			dispatch(fetchSharedDiscounts()),
 		])
 			.then(() => {
 				setLoading(false);

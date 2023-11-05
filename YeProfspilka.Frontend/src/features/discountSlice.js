@@ -3,6 +3,8 @@ import { DiscountService } from '../services/DiscountService';
 
 const initialState = {
 	data: [],
+	sharedDiscounts: [],
+	sharedDiscountsLoading: false,
 	loading: false,
 };
 
@@ -11,6 +13,19 @@ export const fetchDiscounts = createAsyncThunk(
 	async (_, { fulfillWithValue, rejectWithValue }, service = new DiscountService()) => {
 		try {
 			const { data } = await service.getAll();
+			return fulfillWithValue(data);
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
+export const fetchSharedDiscounts = createAsyncThunk(
+	'discount/fetchSharedDiscounts',
+	async (_, { fulfillWithValue, rejectWithValue }, service = new DiscountService()) => {
+		try {
+			const { data } = await service.getSharedDiscounts();
+			console.log(data);
 			return fulfillWithValue(data);
 		} catch (error) {
 			return rejectWithValue(error);
@@ -30,11 +45,20 @@ export const discountSlice = createSlice({
 			state.data = action.payload;
 			state.loading = false;
 		},
+		[fetchSharedDiscounts.pending]: (state) => {
+			state.sharedDiscountsLoading = true;
+		},
+		[fetchSharedDiscounts.fulfilled]: (state, action) => {
+			state.sharedDiscounts = action.payload;
+			state.sharedDiscountsLoading = false;
+		},
 	},
 });
 
 export const selectDiscounts = (state) => state.discounts.data;
 
 export const selectDiscountsLoading = (state) => state.discounts.loading;
+
+export const selectSharedDiscounts = (state) => state.discounts.sharedDiscounts;
 
 export default discountSlice.reducer;

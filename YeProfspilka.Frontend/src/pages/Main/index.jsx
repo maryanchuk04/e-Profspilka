@@ -13,6 +13,7 @@ import TypicalQuestions from './components/TypicalQuestions';
 import Container from '../../components/Container';
 import { fetchQuestions } from '../../features/questionsSlice';
 import { fetchDiscounts } from '../../features/discountSlice';
+import SharedDiscounts from './components/SharedDiscounts';
 
 const Main = () => {
 	const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const Main = () => {
 			<Container>
 				<Landing />
 				<Events />
+				<SharedDiscounts />
 			</Container>
 			<Advantages />
 			<Container>

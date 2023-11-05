@@ -184,7 +184,7 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
 	);
 };
 
-const DiscountInfoModal = ({ discount, close }) => (
+export const DiscountInfoModal = ({ discount, close }) => (
 	<SimpleModal className='w-[320px] !h-fit max-h-[80vh] '>
 		<div className='editor'>
 			<h2>{discount.name}</h2>

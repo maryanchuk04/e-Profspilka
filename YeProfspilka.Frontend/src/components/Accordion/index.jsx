@@ -12,7 +12,7 @@ const Accordion = ({ title, details }) => {
 			className='p-6 duration-200 border border-standart border-black rounded-standart my-8 max-sm:p-4'
 			onClick={toggle}
 		>
-			<h2 className='text-xl relative w-full'>
+			<h2 className='text-xl relative w-full pr-8 max-sm:text-lg'>
 				{title}
 				<i
 					className={`${
@@ -25,6 +25,7 @@ const Accordion = ({ title, details }) => {
 					<p
 						onClick={(e) => e.stopPropagation()}
 						className='editor'
+						style={{ paddingRight: '30px' }}
 						dangerouslySetInnerHTML={{ __html: details }}
 					></p>
 				</div>
