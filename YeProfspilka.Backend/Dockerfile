@@ -7,7 +7,7 @@ WORKDIR /YeProfspilka.Backend
 
 COPY . .
 
-RUN dotnet restore "./YeProfspilka.Backend/YeProfspilka.API"
+RUN dotnet restore "./YeProfspilka.API/YeProfspilka.API.csproj"
 COPY . .
 WORKDIR "/YeProfspilka.Backend/YeProfspilka.API"
 RUN dotnet build "YeProfspilka.API.csproj" -c Release -o /app
