@@ -1,18 +1,21 @@
-FROM node:alpine
+FROM node:18 as build
 
-WORKDIR /reactapp
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /reactapp/node_modules/.bin:$PATH
+WORKDIR /app
 
-# install and cache app dependencies
-COPY package.json /reactapp/package.json
+COPY package*.json ./
 
-COPY . /reactapp/
-RUN cd /reactapp/
-RUN ls  -al
-EXPOSE 3000
-RUN npm install --silent
-RUN npm install react-scripts@5.0.1 -g --silent
+RUN npm install
 
-# start app
-CMD ["npm", "start"]
+COPY . .
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

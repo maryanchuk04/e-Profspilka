@@ -24,6 +24,19 @@ public class DiscountController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await _discountService.GetAsync();
 
+    [HttpGet("shared")]
+    public async Task<ActionResult<IEnumerable<DiscountDto>>> GetSharedDiscountsAsync()
+    {
+        try
+        {
+            return Ok(await _mediator.Send(new GetSharedDiscountCommand()));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
     [HttpGet]
     [Route("search")]
     public async Task<ActionResult<IEnumerable<DiscountDto>>> SearchAsync([FromQuery] string searchWord)
