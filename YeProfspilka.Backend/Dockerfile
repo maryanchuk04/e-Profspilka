@@ -3,11 +3,11 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR "/YeProfspilka.Backend"
+WORKDIR /YeProfspilka.Backend
 
 COPY . .
 
-RUN dotnet restore "./YeProfspilka.Backend/YeProfspilka.API/YeProfspilka.API.csproj"
+RUN dotnet restore "./YeProfspilka.Backend/YeProfspilka.API"
 COPY . .
 WORKDIR "/YeProfspilka.Backend/YeProfspilka.API"
 RUN dotnet build "YeProfspilka.API.csproj" -c Release -o /app
