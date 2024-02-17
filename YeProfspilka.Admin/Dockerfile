@@ -1,20 +1,21 @@
-# base image
-FROM node:16.15.1
+FROM node:18 as build
 
-WORKDIR /angularapp
+WORKDIR /app
 
-# install and cache app dependencies
-RUN ls
-COPY package.json /angularapp/package.json
-RUN npm -v
-RUN npm install -g @angular/cli@14.2.8
-RUN ng --help
-RUN npm install --force
+COPY package*.json ./
 
-# add app
-COPY . /angularapp
+RUN npm install
 
-RUN cd /angularapp
-EXPOSE 4200
-# start app
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+COPY . .
+
+RUN npm run build --prod
+
+FROM nginx:alpine
+
+COPY --from=build /app/dist/* /usr/share/nginx/html/
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
