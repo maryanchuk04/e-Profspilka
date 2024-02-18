@@ -33,7 +33,7 @@ function Update-Config {
 Write-Host ""
 Write-Host "Set Environment variables and settings 🏃‍♂️🌄"
 
-$settingsJsonPath = "YeProfspilka.Backend/YeProfspilka.API/appsettings.json"
+$settingsJsonPath = "./YeProfspilka.Backend/YeProfspilka.API/appsettings.json"
 
 Write-Host ""
 Write-Host "Db User: $DbUser"
