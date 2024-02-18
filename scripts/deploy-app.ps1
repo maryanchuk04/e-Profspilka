@@ -1,3 +1,8 @@
+param(
+    [string]$DbUser,
+    [string]$DbPassword
+)
+
 Write-Host "--------------------------------------------"
 Write-Host "🔥🔥🔥 Started deployment e - profspilka 🔥🔥🔥"
 Write-Host ""
@@ -9,6 +14,10 @@ git restore .
 
 # Pull latest changes from the Git repository
 git pull
+
+# Run the set-configuration.ps1 script with provided parameters
+$setConfigScript = "./scripts/set-secrets.ps1"
+& $DbUser $DbPassword
 
 # Build Docker images defined in the docker-compose.yml file
 docker compose build
