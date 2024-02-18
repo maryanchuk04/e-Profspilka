@@ -9,12 +9,12 @@ export class UserService {
 	constructor() {}
 
 	async get(token = null) {
-		return await api.get('api/user', token);
+		return await api.get('/user', token);
 	}
 }
 
 export const getUser = async (token = null) => {
-	return axiosInstance.get('api/user', {
+	return axiosInstance.get('/user', {
 		headers: {
 			Authorization: `Bearer ${token ?? Token.get()}`,
 		},

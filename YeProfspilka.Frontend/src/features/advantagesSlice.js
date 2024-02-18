@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AdvantagesService } from "../services/AdvantagesService";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AdvantagesService } from '../services/AdvantagesService';
 
 const initialState = {
 	data: [],
-}
+};
 
 export const fetchAdvantages = createAsyncThunk(
 	'advantages/fetchAdvantages',
@@ -16,19 +16,18 @@ export const fetchAdvantages = createAsyncThunk(
 			return rejectWithValue(undefined);
 		}
 	}
-)
+);
 
 const advantagesSlice = createSlice({
 	name: 'advantages',
 	initialState: initialState,
-	reducers: {
-	},
+	reducers: {},
 	extraReducers: {
 		[fetchAdvantages.fulfilled]: (state, action) => {
 			state.data = action.payload;
-		}
-	}
-})
+		},
+	},
+});
 
 export const selectAdvantages = (state) => state.advantages.data;
 
