@@ -16,7 +16,7 @@ services:
         build:
             context: ./YeProfspilka.Admin
         ports:
-            - '4200:4200'
+            - '4200:80'
 
     nginx:
         build:
