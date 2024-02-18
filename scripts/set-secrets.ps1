@@ -22,7 +22,7 @@ function Update-Config {
     Write-Host ""
     Write-Host "Updating backend configuration: $JsonFilePath"
     Write-Host ""
-    $connString = "Server=185.205.210.198:1433;Database=e-profspilka;user id = $User; password = $password;MultipleActiveResultSets=true;";
+    $connString = "Server=185.205.210.198;Database=e-profspilka;user id = $User; password = $password;MultipleActiveResultSets=true;";
 
     $jsonContent = Get-Content $JsonFilePath | ConvertFrom-Json
     $jsonContent.ConnectionStrings.ApplicationDbConnectionString = $connString
