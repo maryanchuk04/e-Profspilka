@@ -17,7 +17,7 @@ git pull
 
 # Run the set-configuration.ps1 script with provided parameters
 $setConfigScript = "./scripts/set-secrets.ps1"
-& $DbUser $DbPassword
+& $setConfigScript -DbUser $DbUser -DbPassword $DbPassword
 
 # Build Docker images defined in the docker-compose.yml file
 docker compose build
