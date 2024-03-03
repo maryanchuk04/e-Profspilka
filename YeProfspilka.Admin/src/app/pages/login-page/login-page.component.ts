@@ -1,16 +1,14 @@
-import { EMPTY, Subject, takeUntil } from 'rxjs';
-import { GoogleUserInfo } from 'src/app/models/GoogleUserInfo';
+import { EMPTY, Subject, takeUntil, } from 'rxjs';
+import { GoogleUserInfo, } from 'src/app/models/GoogleUserInfo';
 import AppState from 'src/app/store';
-import { googleLoginUser } from 'src/app/store/actions/user.action';
+import { googleLoginUser, } from 'src/app/store/actions/user.action';
 
 import {
-	GoogleLoginProvider,
-	SocialAuthService,
-	SocialUser,
+	GoogleLoginProvider, SocialAuthService, SocialUser,
 } from '@abacritt/angularx-social-login';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Router, } from '@angular/router';
+import { Store, } from '@ngrx/store';
 
 @Component({
 	selector: 'app-login-page',
