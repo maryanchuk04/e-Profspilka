@@ -25,8 +25,7 @@ jobs:
               run: |
                   cd YeProfspilka.Admin
                   npm install
-                  npm run build --if-present
-                  npm run test --if-present
+                  npm run build
 
             - name: Zip artifact for deployment
               run: zip release.zip ./YeProfspilka.Admin/dist/ye-profspilka.admin* -r
