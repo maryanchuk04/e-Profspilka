@@ -27,6 +27,9 @@ jobs:
                   npm install
                   npm run build
 
+            - name: Remove existing artifact
+              run: rm -f release.zip
+
             - name: Zip artifact for deployment
               run: zip -r release.zip ./YeProfspilka.Admin/dist/ye-profspilka.admin/*
 
