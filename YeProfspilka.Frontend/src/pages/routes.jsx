@@ -36,10 +36,6 @@ const routes = [
 		element: <PageWrapper element={<NotFound />} withFooter={false} />,
 	},
 	{
-		path: '/admin',
-		element: <ExternalRedirect />,
-	},
-	{
 		path: '/events/:id',
 		element: <PageWrapper element={<Event />} />,
 	},
