@@ -5,7 +5,6 @@ import Main from './Main';
 import NotFound from './NotFound';
 import Profile from './Profile';
 import { authorizeProtection } from './routesProtection';
-import ExternalRedirect from './ExternalRedirect';
 import Events from './Events';
 import Event from './Event';
 import VerifyDiscount from './VerifyDiscount';
