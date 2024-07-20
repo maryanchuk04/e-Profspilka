@@ -15,11 +15,11 @@ public class GenerateDiscountCodeCommand(Guid discountId) : IRequest<DiscountCod
 }
 
 public class GenerateDiscountCodeCommandHandler(
-    YeProfspilkaContext db,
+    EProfspilkaContext db,
     IMapper mapper,
     ISecurityContext securityContext) : IRequestHandler<GenerateDiscountCodeCommand, DiscountCodeDto>
 {
-    private readonly YeProfspilkaContext _db = db ?? throw new ArgumentException(nameof(YeProfspilkaContext));
+    private readonly EProfspilkaContext _db = db ?? throw new ArgumentException(nameof(EProfspilkaContext));
     private readonly IMapper _mapper = mapper ?? throw new ArgumentException(nameof(IMapper));
     private readonly ISecurityContext _securityContext = securityContext ?? throw new ArgumentException(nameof(ArgumentException));
 

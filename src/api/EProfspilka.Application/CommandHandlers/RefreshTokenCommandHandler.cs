@@ -13,7 +13,7 @@ public class RefreshTokenCommand(string refreshToken) : IRequest<AuthenticateRes
     public string RefreshToken { get; } = refreshToken;
 }
 
-public class RefreshTokenCommandHandler(YeProfspilkaContext db, ITokenService tokenService) : IRequestHandler<RefreshTokenCommand, AuthenticateResponseModel>
+public class RefreshTokenCommandHandler(EProfspilkaContext db, ITokenService tokenService) : IRequestHandler<RefreshTokenCommand, AuthenticateResponseModel>
 {
     public async Task<AuthenticateResponseModel> Handle(RefreshTokenCommand request,
         CancellationToken cancellationToken)

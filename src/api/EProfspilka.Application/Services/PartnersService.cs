@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EProfispilka.Application.Services;
 
-public class PartnersService(YeProfspilkaContext db, IMapper mapper) : IPartnersService
+public class PartnersService(EProfspilkaContext db, IMapper mapper) : IPartnersService
 {
     public async Task<PartnerDto> CreateAsync(PartnerDto partner)
     {

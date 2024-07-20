@@ -9,7 +9,7 @@ using Role = EProfspilka.Core.Enumerations.Role;
 
 namespace EProfispilka.Application.Services;
 
-public class UserService(YeProfspilkaContext dbContext, ISecurityContext securityContext, IMapper mapper) : IUserServices
+public class UserService(EProfspilkaContext dbContext, ISecurityContext securityContext, IMapper mapper) : IUserServices
 {
     public async Task<UserDto> GetCurrentUser()
     {

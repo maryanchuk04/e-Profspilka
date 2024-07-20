@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EProfispilka.Application.Services;
 
-public class QuestionService(YeProfspilkaContext dbContext, IMapper mapper) : IQuestionService
+public class QuestionService(EProfspilkaContext dbContext, IMapper mapper) : IQuestionService
 {
     public async Task<IEnumerable<QuestionDto>> GetAllAsync()
     {

@@ -10,7 +10,7 @@ public class SearchDiscountCommand(string searchWord) : IRequest<IEnumerable<Dis
     public string SearchWord { get; } = searchWord;
 }
 
-public class SearchDiscountCommandHandler(YeProfspilkaContext db) : IRequestHandler<SearchDiscountCommand, IEnumerable<DiscountDto>>
+public class SearchDiscountCommandHandler(EProfspilkaContext db) : IRequestHandler<SearchDiscountCommand, IEnumerable<DiscountDto>>
 {
     public async Task<IEnumerable<DiscountDto>> Handle(SearchDiscountCommand request, CancellationToken cancellationToken)
     {

@@ -19,7 +19,7 @@ public static class ServicesExtensions
 {
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContextFactory<YeProfspilkaContext>(
+        services.AddDbContextFactory<EProfspilkaContext>(
             options => options.UseSqlServer(
                 configuration.GetConnectionString("ApplicationDbConnectionString"),
                 b => b.MigrationsAssembly("YeProfspilka.Db")));

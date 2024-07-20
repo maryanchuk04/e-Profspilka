@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EProfispilka.Application.Services;
 
-public class AdvantageService(IMapper mapper, YeProfspilkaContext dbContext) : IAdvantageService
+public class AdvantageService(IMapper mapper, EProfspilkaContext dbContext) : IAdvantageService
 {
     public async Task<AdvantageDto> Update(AdvantageDto advantageDto)
     {

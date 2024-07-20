@@ -9,7 +9,7 @@ using Role = EProfspilka.Core.Enumerations.Role;
 
 namespace EProfispilka.Application.Services;
 
-public class StudentStoreService(YeProfspilkaContext dbContext, IRoleService roleService) : IStudentStoreService
+public class StudentStoreService(EProfspilkaContext dbContext, IRoleService roleService) : IStudentStoreService
 {
     private const string DefaultImage =
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";

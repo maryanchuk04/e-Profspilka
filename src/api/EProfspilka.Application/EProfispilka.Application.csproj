@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\YeProfspilka.Core\EProfspilka.Core.csproj" />
-      <ProjectReference Include="..\YeProfspilka.Db\EProfspilka.Db.csproj" />
+      <ProjectReference Include="..\EProfspilka.Core\EProfspilka.Core.csproj" />
+      <ProjectReference Include="..\EProfspilka.Db\EProfspilka.Db.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -41,7 +41,7 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        var dbContext = services.GetRequiredService<YeProfspilkaContext>();
+        var dbContext = services.GetRequiredService<EProfspilkaContext>();
         dbContext.Database.Migrate();
         DbInitializer.Seed(dbContext);
     }

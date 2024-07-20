@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EProfispilka.Application.Services;
 
-public class DiscountService(YeProfspilkaContext db, IMapper mapper) : IDiscountService
+public class DiscountService(EProfspilkaContext db, IMapper mapper) : IDiscountService
 {
     public async Task<DiscountDto> CreateAsync(DiscountDto discountDto)
     {

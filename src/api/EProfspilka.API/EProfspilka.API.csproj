@@ -21,8 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\YeProfspilka.Application\EProfispilka.Application.csproj" />
-      <ProjectReference Include="..\YeProfspilka.Db\EProfspilka.Db.csproj" />
+      <ProjectReference Include="..\EProfspilka.Application\EProfispilka.Application.csproj" />
+      <ProjectReference Include="..\EProfspilka.Db\EProfspilka.Db.csproj" />
     </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using Role = EProfspilka.Core.Enumerations.Role;
 
 namespace EProfispilka.Application.Services;
 
-public class AuthenticationService(YeProfspilkaContext context, IStudentStoreService studentStore, ITokenService tokenService) : IAuthenticationService
+public class AuthenticationService(EProfspilkaContext context, IStudentStoreService studentStore, ITokenService tokenService) : IAuthenticationService
 {
     public async Task<AuthenticateResponseModel> Authenticate(string email)
     {

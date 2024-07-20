@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EProfispilka.Application.Services;
 
-public class EventService(YeProfspilkaContext dbContext, IMapper mapper) : IEventService
+public class EventService(EProfspilkaContext dbContext, IMapper mapper) : IEventService
 {
     public async Task<EventDto> Create(EventDto eventDto)
     {

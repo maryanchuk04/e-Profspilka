@@ -10,7 +10,7 @@ public class GetSharedDiscountCommand : IRequest<IEnumerable<DiscountDto>>
 {
 }
 
-public class GetSharedDiscountsCommandHandler(YeProfspilkaContext db) : IRequestHandler<GetSharedDiscountCommand, IEnumerable<DiscountDto>>
+public class GetSharedDiscountsCommandHandler(EProfspilkaContext db) : IRequestHandler<GetSharedDiscountCommand, IEnumerable<DiscountDto>>
 {
     public async Task<IEnumerable<DiscountDto>> Handle(GetSharedDiscountCommand request, CancellationToken cancellationToken)
     {

@@ -8,7 +8,7 @@ public class GetSiteSettingsCommand : IRequest<SiteSettingsDto>
 {
 }
 
-public class GetSiteSettingsCommandHandler(YeProfspilkaContext db) : IRequestHandler<GetSiteSettingsCommand, SiteSettingsDto>
+public class GetSiteSettingsCommandHandler(EProfspilkaContext db) : IRequestHandler<GetSiteSettingsCommand, SiteSettingsDto>
 {
     public Task<SiteSettingsDto> Handle(GetSiteSettingsCommand request, CancellationToken cancellationToken)
     {

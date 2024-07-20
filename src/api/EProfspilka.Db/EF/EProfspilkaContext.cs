@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace EProfspilka.Db.EF;
 
-public class YeProfspilkaContext(DbContextOptions<YeProfspilkaContext> contextOptions) : DbContext(contextOptions)
+public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOptions) : DbContext(contextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

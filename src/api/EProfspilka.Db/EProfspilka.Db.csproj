@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\YeProfspilka.Core\EProfspilka.Core.csproj" />
+      <ProjectReference Include="..\EProfspilka.Core\EProfspilka.Core.csproj" />
     </ItemGroup>
 
 </Project>
