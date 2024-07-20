@@ -1,0 +1,57 @@
+name: CI Build all
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  dotNet-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: |
+        cd ${{ github.workspace }}/src/api
+        dotnet restore
+    - name: Build .NET
+      run: |
+        cd ${{ github.workspace }}/src/api
+        dotnet build --no-restore
+
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '21'
+    - name: Install dependencies
+      run: |
+        cd ${{ github.workspace }}/src/web
+        npm install
+
+    - name: Build User client app
+      run: |
+        cd ${{ github.workspace }}/src/web
+        npm run build
+
+  admin-panel-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        cd ${{ github.workspace }}/src/admin-panel
+        npm install
+
+    - name: Build Admin Panel
+      run: |
+        cd ${{ github.workspace }}/src/admin-panel
+        npm run build
