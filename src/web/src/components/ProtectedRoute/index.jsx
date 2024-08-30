@@ -1,14 +1,14 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children, protectWhen, redirectTo = "/" }) => {
-	const isDisabled = protectWhen();
+const ProtectedRoute = ({ children, protectWhen, redirectTo = '/' }) => {
+    const isDisabled = protectWhen();
 
-	if (isDisabled) {
-		return <Navigate to={redirectTo} />
-	}
+    if (isDisabled) {
+        return <Navigate to={redirectTo} />;
+    }
 
-	return children;
-}
+    return children;
+};
 
 export default ProtectedRoute;

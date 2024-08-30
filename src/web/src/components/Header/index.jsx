@@ -14,9 +14,9 @@ const Header = () => {
     const user = useSelector(selectUserData);
     const isMobile = useMediaQuery({ maxWidth: '450px' });
 
-    return isMobile ? (
-        <MobileHeader />
-    ) : (
+    if (isMobile) return <MobileHeader />;
+
+    return (
         <Container>
             <header className='flex items-center justify-between max-h-max py-5'>
                 <Link to='/' className='w-20 h-20'>

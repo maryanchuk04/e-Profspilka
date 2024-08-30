@@ -1,9 +1,9 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import Svg from '../../components/Svg'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import Svg from '../../components/Svg';
 // import Button from './Button'
-import { useGoogleLogin } from '@react-oauth/google'
-import { googleAuthenticateThunk } from '../../features/userSlice'
+import { useGoogleLogin } from '@react-oauth/google';
+import { googleAuthenticateThunk } from '../../features/userSlice';
 import PrimaryButton from './PrimaryButton';
 
 const GoogleButton = ({ className = '' }) => {
@@ -28,4 +28,4 @@ const GoogleButton = ({ className = '' }) => {
     );
 };
 
-export default GoogleButton
+export default GoogleButton;

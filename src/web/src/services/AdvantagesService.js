@@ -1,10 +1,10 @@
-import { ApiService } from "./config/ApiService";
+import { ApiService } from './config/ApiService';
 
 export class AdvantagesService {
-	#service = new ApiService()
-	#advantagesUrl = "/advantage";
+    #service = new ApiService();
+    #advantagesUrl = '/advantage';
 
-	getAdvantages() {
-		return this.#service.get(this.#advantagesUrl);
-	}
+    getAdvantages() {
+        return this.#service.get(this.#advantagesUrl);
+    }
 }

@@ -4,20 +4,20 @@ import { Token } from './TokenService';
 const api = new ApiService();
 
 export class UserService {
-	#url = '/user';
+    #url = '/user';
 
-	constructor() {}
+    constructor() {}
 
-	async get(token = null) {
-		return await api.get('/user', token);
-	}
+    async get(token = null) {
+        return await api.get('/user', token);
+    }
 }
 
 export const getUser = async (token = null) => {
-	return axiosInstance.get('/user', {
-		headers: {
-			Authorization: `Bearer ${token ?? Token.get()}`,
-		},
-		withCredentials: true,
-	});
+    return axiosInstance.get('/user', {
+        headers: {
+            Authorization: `Bearer ${token ?? Token.get()}`,
+        },
+        withCredentials: true,
+    });
 };

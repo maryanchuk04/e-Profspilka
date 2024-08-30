@@ -16,32 +16,32 @@ import { fetchDiscounts } from '../../features/discountSlice';
 import SharedDiscounts from './components/SharedDiscounts';
 
 const Main = () => {
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(fetchDiscounts());
-		dispatch(fetchEvents());
-		dispatch(fetchAdvantages());
-		dispatch(fetchPartners());
-		dispatch(fetchQuestions());
-	}, []);
+    useEffect(() => {
+        dispatch(fetchDiscounts());
+        dispatch(fetchEvents());
+        dispatch(fetchAdvantages());
+        dispatch(fetchPartners());
+        dispatch(fetchQuestions());
+    }, []);
 
-	return (
-		<div className='w-full'>
-			<Container>
-				<Landing />
-				<Events />
-				<SharedDiscounts />
-			</Container>
-			<Advantages />
-			<Container>
-				<Socials />
-				<Partners />
-				<Mark />
-				<TypicalQuestions />
-			</Container>
-		</div>
-	);
+    return (
+        <div className='w-full'>
+            <Container>
+                <Landing />
+                <Events />
+                <SharedDiscounts />
+            </Container>
+            <Advantages />
+            <Container>
+                <Socials />
+                <Partners />
+                <Mark />
+                <TypicalQuestions />
+            </Container>
+        </div>
+    );
 };
 
 export default Main;

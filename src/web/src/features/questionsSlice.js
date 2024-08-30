@@ -1,33 +1,32 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { QuestionsService } from "../services/QuestionsService";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { QuestionsService } from '../services/QuestionsService';
 
 const initialState = {
-	data: []
-}
+    data: [],
+};
 
 export const fetchQuestions = createAsyncThunk(
-	'questions/fetch',
-	async (_, { fulfillWithValue, rejectWithValue }, service = new QuestionsService()) => {
-		try {
-			const { data } = await service.get();
+    'questions/fetch',
+    async (_, { fulfillWithValue, rejectWithValue }, service = new QuestionsService()) => {
+        try {
+            const { data } = await service.get();
 
-			return fulfillWithValue(data);
-		} catch (error) {
-			return rejectWithValue(error);
-		}
-	}
-)
+            return fulfillWithValue(data);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const questionsSlice = createSlice({
-	name: 'questions',
-	initialState: initialState,
-	extraReducers: {
-		[fetchQuestions.fulfilled]: (state, { payload }) => {
-			state.data = payload;
-		}
-	}
-})
-// export const { fetchQuestions } = questionsSlice.actions
+    name: 'questions',
+    initialState: initialState,
+    extraReducers: {
+        [fetchQuestions.fulfilled]: (state, { payload }) => {
+            state.data = payload;
+        },
+    },
+});
 
 export const selectQuestions = (state) => state.questions.data;
 

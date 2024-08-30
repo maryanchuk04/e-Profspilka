@@ -1,10 +1,10 @@
-import { ApiService } from "./config/ApiService";
+import { ApiService } from './config/ApiService';
 
 export class PartnersService {
-	#url = '/partners';
-	#service = new ApiService();
+    #url = '/partners';
+    #service = new ApiService();
 
-	async getPartners() {
-		return await this.#service.get(this.#url);
-	}
+    async getPartners() {
+        return await this.#service.get(this.#url);
+    }
 }

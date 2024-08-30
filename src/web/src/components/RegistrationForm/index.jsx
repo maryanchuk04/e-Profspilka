@@ -10,7 +10,6 @@ const RegistrationForm = ({ className = '' }) => {
             </h1>
             <div className='mt-6 mb-6 flex flex-col gap-4 relative'>
                 <div>
-
                     <GoogleButton className='z-50' />
                     <p className='mt-4 font-normal text-xs text-center text-black/50'>
                         Авторизація здійснюється за допомогою корпоративного облікового запису

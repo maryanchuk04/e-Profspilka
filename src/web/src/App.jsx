@@ -8,17 +8,17 @@ const router = createBrowserRouter(routes);
 const googleClientId = process.env.REACT_APP_GOOGLE_API_KEY;
 
 function App() {
-	React.useEffect(() => {
-		document.body.style.height = `${window.innerHeight}px`;
-	}, []);
+    React.useEffect(() => {
+        document.body.style.height = `${window.innerHeight}px`;
+    }, []);
 
-	return (
-		<GoogleOAuthProvider clientId={googleClientId}>
-			<Layout>
-				<RouterProvider router={router} />
-			</Layout>
-		</GoogleOAuthProvider>
-	);
+    return (
+        <GoogleOAuthProvider clientId={googleClientId}>
+            <Layout>
+                <RouterProvider router={router} />
+            </Layout>
+        </GoogleOAuthProvider>
+    );
 }
 
 export default App;
