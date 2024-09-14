@@ -9,13 +9,11 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.HasData(
-        [
-            new() { Id = Core.Enumerations.Role.Student, Name = "Student" },
-            new() { Id = Core.Enumerations.Role.Admin, Name = "Admin" },
-            new() { Id = Core.Enumerations.Role.Moderator, Name = "Moderator" },
-            new() { Id = Core.Enumerations.Role.NotVerified, Name = "NotVerified" },
-            new() { Id = Core.Enumerations.Role.MemberProfspilka, Name = "MemberProfspilka" },
-            new() { Id = Core.Enumerations.Role.HeadOfUnit, Name = "HeadOfUnit" },
-        ]);
+            new Role { Id = Core.Enumerations.Role.Student, Name = "Student" },
+            new Role { Id = Core.Enumerations.Role.Admin, Name = "Admin" },
+            new Role { Id = Core.Enumerations.Role.Moderator, Name = "Moderator" },
+            new Role { Id = Core.Enumerations.Role.NotVerified, Name = "NotVerified" },
+            new Role { Id = Core.Enumerations.Role.MemberProfspilka, Name = "MemberProfspilka" },
+            new Role { Id = Core.Enumerations.Role.HeadOfUnit, Name = "HeadOfUnit" });
     }
 }
