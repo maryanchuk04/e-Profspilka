@@ -24,7 +24,7 @@ app.UseCors(x =>
     x.AllowAnyMethod()
         .AllowAnyHeader()
         .WithOrigins(builder.Configuration.GetSection("AllowedOrigins")
-            .Get<string[]>())
+            .Get<string[]>() ?? Array.Empty<string>())
         .AllowCredentials();
 });
 
@@ -35,20 +35,20 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
 
-    try
-    {
-        var dbContext = services.GetRequiredService<EProfspilkaContext>();
-        dbContext.Database.Migrate();
-        DbInitializer.Seed(dbContext);
-    }
-    catch (Exception ex)
-    {
-        app.Logger.LogError(ex, "An error occurred while seeding the database");
-    }
-}
+//     try
+//     {
+//         var dbContext = services.GetRequiredService<EProfspilkaContext>();
+//         dbContext.Database.Migrate();
+//         DbInitializer.Seed(dbContext);
+//     }
+//     catch (Exception ex)
+//     {
+//         app.Logger.LogError(ex, "An error occurred while seeding the database");
+//     }
+// }
 
-app.Run();
+await app.RunAsync();

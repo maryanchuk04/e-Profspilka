@@ -17,6 +17,7 @@
       <PackageReference Include="ExcelDataReader" Version="3.7.0" />
       <PackageReference Include="MediatR" Version="12.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
