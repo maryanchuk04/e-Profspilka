@@ -1,19 +1,19 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 as base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /api
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /YeProfspilka.Backend
 
 COPY . .
 
-RUN dotnet restore "./EProfspilka.API/EProfspilka.API.csproj"
+RUN dotnet restore "./YeProfspilka.API/YeProfspilka.API.csproj"
 COPY . .
-WORKDIR "/api/EProfspilka.API"
-RUN dotnet build "EProfspilka.API.csproj" -c Release -o /app
+WORKDIR "/YeProfspilka.Backend/YeProfspilka.API"
+RUN dotnet build "YeProfspilka.API.csproj" -c Release -o /app
 
 FROM build as publish
-RUN dotnet publish "EProfspilka.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "YeProfspilka.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
@@ -22,4 +22,4 @@ COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://*:5001
 
 EXPOSE 5001
-ENTRYPOINT ["dotnet", "EProfspilka.API.dll"]
+ENTRYPOINT ["dotnet", "YeProfspilka.API.dll"]
