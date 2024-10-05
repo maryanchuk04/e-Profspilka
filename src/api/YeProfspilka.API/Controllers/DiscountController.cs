@@ -10,26 +10,17 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("discount")]
-public class DiscountController : ControllerBase
+public class DiscountController(IDiscountService discountService, IMediator mediator) : ControllerBase
 {
-    private readonly IDiscountService _discountService;
-    private readonly IMediator _mediator;
-
-    public DiscountController(IDiscountService discountService, IMediator mediator)
-    {
-        _discountService = discountService;
-        _mediator = mediator;
-    }
-
     [HttpGet]
-    public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await _discountService.GetAsync();
+    public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await discountService.GetAsync();
 
     [HttpGet("shared")]
     public async Task<ActionResult<IEnumerable<DiscountDto>>> GetSharedDiscountsAsync()
     {
         try
         {
-            return Ok(await _mediator.Send(new GetSharedDiscountCommand()));
+            return Ok(await mediator.Send(new GetSharedDiscountCommand()));
         }
         catch (Exception e)
         {
@@ -43,7 +34,7 @@ public class DiscountController : ControllerBase
     {
         try
         {
-            return Ok(await _mediator.Send(new SearchDiscountCommand(searchWord)));
+            return Ok(await mediator.Send(new SearchDiscountCommand(searchWord)));
         }
         catch (Exception e)
         {
@@ -56,7 +47,7 @@ public class DiscountController : ControllerBase
     {
         try
         {
-            return Ok(await _discountService.GetByIdAsync(id));
+            return Ok(await discountService.GetByIdAsync(id));
         }
         catch (NotFoundException e)
         {
@@ -73,7 +64,7 @@ public class DiscountController : ControllerBase
     {
         try
         {
-            var result = await _discountService.CreateAsync(new DiscountDto
+            var result = await discountService.CreateAsync(new DiscountDto
             {
                 WithBarCode = model.WithBarCode,
                 WithQrCode = model.WithQrCode,
@@ -96,7 +87,7 @@ public class DiscountController : ControllerBase
     {
         try
         {
-            var result = await _discountService.UpdateAsync(discountDto);
+            var result = await discountService.UpdateAsync(discountDto);
 
             return Ok(result);
         }
@@ -111,7 +102,7 @@ public class DiscountController : ControllerBase
     {
         try
         {
-            await _discountService.DeleteAsync(id);
+            await discountService.DeleteAsync(id);
             return NoContent();
         }
         catch (Exception e)

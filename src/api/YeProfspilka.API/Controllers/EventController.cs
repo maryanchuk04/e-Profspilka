@@ -11,25 +11,17 @@ namespace YeProfspilka.Backend.Controllers;
 [ApiController]
 [Route("event")]
 //[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
-public class EventController : ControllerBase
+public class EventController(IEventService eventService, IMapper mapper, ILogger<EventController> logger)
+    : ControllerBase
 {
-	private readonly IEventService _eventService;
-	private readonly IMapper _mapper;
-	private ILogger<EventController> _logger;
+    private ILogger<EventController> _logger = logger;
 
-	public EventController(IEventService eventService, IMapper mapper, ILogger<EventController> logger)
-	{
-		_eventService = eventService;
-		_mapper = mapper;
-		_logger = logger;
-	}
-
-	[HttpPost]
+    [HttpPost]
 	public async Task<IActionResult> Create([FromBody] EventViewModel eventViewModel)
 	{
 		try
 		{
-			var eventDto = await _eventService.Create(_mapper.Map<EventDto>(eventViewModel));
+			var eventDto = await eventService.Create(mapper.Map<EventDto>(eventViewModel));
 
 			return StatusCode(StatusCodes.Status201Created, eventDto);
 		}
@@ -45,7 +37,7 @@ public class EventController : ControllerBase
 	{
 		try
 		{
-			return Ok(await _eventService.Get());
+			return Ok(await eventService.Get());
 		}
 		catch (Exception e)
 		{
@@ -59,7 +51,7 @@ public class EventController : ControllerBase
 	{
 		try
 		{
-			return Ok(await _eventService.Get(id));
+			return Ok(await eventService.Get(id));
 		}
 		catch (NotFoundException e)
 		{
@@ -76,7 +68,7 @@ public class EventController : ControllerBase
 	{
 		try
 		{
-			await _eventService.Delete(id);
+			await eventService.Delete(id);
 			return NoContent();
 		}
 		catch (NotFoundException e)
@@ -94,7 +86,7 @@ public class EventController : ControllerBase
 	{
 		try
 		{
-			return Ok(await _eventService.Update(eventDto));
+			return Ok(await eventService.Update(eventDto));
 		}
 		catch (NotFoundException e)
 		{

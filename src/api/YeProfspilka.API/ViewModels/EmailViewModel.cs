@@ -1,11 +1,6 @@
 namespace YeProfspilka.Backend.ViewModels;
 
-public class EmailViewModel
+public class EmailViewModel(string email)
 {
-	public EmailViewModel(string email)
-	{
-		Email = email;
-	}
-
-	public string Email { get; }
+    public string Email { get; } = email;
 }

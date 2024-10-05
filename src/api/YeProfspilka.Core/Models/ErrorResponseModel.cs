@@ -1,11 +1,6 @@
 namespace YeProfspilka.Core.Models;
 
-public class ErrorResponseModel
+public class ErrorResponseModel(string message)
 {
-	public string Message { get; set; }
-
-	public ErrorResponseModel(string message)
-	{
-		Message = message;
-	}
+	public string Message { get; set; } = message;
 }

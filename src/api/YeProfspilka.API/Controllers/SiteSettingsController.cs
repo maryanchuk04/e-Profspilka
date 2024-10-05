@@ -8,14 +8,9 @@ namespace YeProfspilka.Backend.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class SiteSettingsController : ControllerBase
+public class SiteSettingsController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public SiteSettingsController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    private readonly IMediator _mediator = mediator;
 
     [HttpGet]
     public async Task<ActionResult> GetSiteSettings()

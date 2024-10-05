@@ -9,21 +9,14 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("question")]
-public class QuestionController : ControllerBase
+public class QuestionController(IQuestionService questionService) : ControllerBase
 {
-	private readonly IQuestionService _questionService;
-
-	public QuestionController(IQuestionService questionService)
-	{
-		_questionService = questionService;
-	}
-
-	[HttpGet]
+    [HttpGet]
 	public async Task<IActionResult> GetQuestions()
 	{
 		try
 		{
-			return Ok(await _questionService.GetAllAsync());
+			return Ok(await questionService.GetAllAsync());
 		}
 		catch (Exception e)
 		{
@@ -37,7 +30,7 @@ public class QuestionController : ControllerBase
 	{
 		try
 		{
-			var res = await _questionService.CreateAsync(new QuestionDto
+			var res = await questionService.CreateAsync(new QuestionDto
 			{
 				Answer = questionViewModel.Answer,
 				QuestionText = questionViewModel.QuestionText
@@ -56,7 +49,7 @@ public class QuestionController : ControllerBase
 	{
 		try
 		{
-			return Ok(await _questionService.UpdateAsync(questionDto));
+			return Ok(await questionService.UpdateAsync(questionDto));
 		}
 		catch (Exception e)
 		{
@@ -70,7 +63,7 @@ public class QuestionController : ControllerBase
 	{
 		try
 		{
-			await _questionService.DeleteAsync(id);
+			await questionService.DeleteAsync(id);
 			return Ok();
 		}
 		catch (Exception e)

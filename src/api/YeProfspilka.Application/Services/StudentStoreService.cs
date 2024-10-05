@@ -9,23 +9,14 @@ using Role = YeProfspilka.Core.Enumerations.Role;
 
 namespace YeProfspilka.Application.Services;
 
-public class StudentStoreService : IStudentStoreService
+public class StudentStoreService(YeProfspilkaContext dbContext, IRoleService roleService) : IStudentStoreService
 {
-    private readonly YeProfspilkaContext _dbContext;
-    private readonly IRoleService _roleService;
-
     private const string DefaultImage =
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
 
-    public StudentStoreService(YeProfspilkaContext dbContext, IRoleService roleService)
-    {
-        _dbContext = dbContext;
-        _roleService = roleService;
-    }
-
     public async Task<bool> IsStudent(string email)
     {
-        return await _dbContext.StudentsStore.AnyAsync(x => x.Email == email);
+        return await dbContext.StudentsStore.AnyAsync(x => x.Email == email);
     }
 
     public async Task<UploadResultModel> UploadUsers(string filePath, bool isOverrideMethod)
@@ -52,7 +43,7 @@ public class StudentStoreService : IStudentStoreService
                 }
             }
             var (newUsers, updatedUsers) = await MappingUsers(students, isOverrideMethod);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             return new UploadResultModel(true, students.Count, "Дані завантажено успішно", newUsers, updatedUsers);
         }
@@ -64,7 +55,7 @@ public class StudentStoreService : IStudentStoreService
 
     public async Task MappingUser(User user)
     {
-        var stud = await _dbContext.StudentsStore.FirstOrDefaultAsync(x => x.Email == user.Email)
+        var stud = await dbContext.StudentsStore.FirstOrDefaultAsync(x => x.Email == user.Email)
             ?? throw new NotFoundException(nameof(User), user.Email);
 
         stud.FullName = user.FullName;
@@ -84,9 +75,9 @@ public class StudentStoreService : IStudentStoreService
 
     public async Task<IEnumerable<UserMatchingStoreModel>> GetAllUsers()
     {
-        var storeUsers = await _dbContext.StudentsStore.ToListAsync();
+        var storeUsers = await dbContext.StudentsStore.ToListAsync();
 
-        var activeUsers = await _dbContext.Users
+        var activeUsers = await dbContext.Users
             .Include(x => x.Image)
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
@@ -108,7 +99,7 @@ public class StudentStoreService : IStudentStoreService
                     Course = matchingUser.Course ?? 1,
                     Facultet = matchingUser.Facultet ?? "",
                     Email = matchingUser.Email,
-                    Role = _roleService.RoleResolver(matchingUser.UserRoles)
+                    Role = roleService.RoleResolver(matchingUser.UserRoles)
                 });
             }
             else
@@ -132,7 +123,7 @@ public class StudentStoreService : IStudentStoreService
         IEnumerable<StudentStore> incomingStudents,
         bool isOverrideMethod)
     {
-        var dbUsers = await _dbContext.StudentsStore.ToListAsync();
+        var dbUsers = await dbContext.StudentsStore.ToListAsync();
         var newUsers = 0;
         var updatedUsers = 0;
 
@@ -148,17 +139,17 @@ public class StudentStoreService : IStudentStoreService
                     existingUser.Facultet = incomingStudent.Facultet;
                     existingUser.FullName = incomingStudent.FullName;
                     existingUser.IsMemberProf = incomingStudent.IsMemberProf;
-                    _dbContext.StudentsStore.Update(existingUser);
+                    dbContext.StudentsStore.Update(existingUser);
                     updatedUsers++;
                 }
                 else
                 {
-                    await _dbContext.StudentsStore.AddAsync(incomingStudent);
+                    await dbContext.StudentsStore.AddAsync(incomingStudent);
                     newUsers++;
                 }
             }
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             return (newUsers, updatedUsers);
         }
@@ -170,11 +161,11 @@ public class StudentStoreService : IStudentStoreService
                 continue;
             }
 
-            await _dbContext.StudentsStore.AddAsync(incomingStudent);
+            await dbContext.StudentsStore.AddAsync(incomingStudent);
             newUsers++;
         }
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
         return (newUsers, updatedUsers);
     }

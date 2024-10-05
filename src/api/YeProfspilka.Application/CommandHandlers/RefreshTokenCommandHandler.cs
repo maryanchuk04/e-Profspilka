@@ -8,31 +8,18 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.CommandHandlers;
 
-public class RefreshTokenCommand : IRequest<AuthenticateResponseModel>
+public class RefreshTokenCommand(string refreshToken) : IRequest<AuthenticateResponseModel>
 {
-    public RefreshTokenCommand(string refreshToken)
-    {
-        RefreshToken = refreshToken;
-    }
-
-    public string RefreshToken { get; }
+    public string RefreshToken { get; } = refreshToken;
 }
 
-public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticateResponseModel>
+public class RefreshTokenCommandHandler(YeProfspilkaContext db, ITokenService tokenService)
+    : IRequestHandler<RefreshTokenCommand, AuthenticateResponseModel>
 {
-    private readonly YeProfspilkaContext _db;
-    private readonly ITokenService _tokenService;
-
-    public RefreshTokenCommandHandler(YeProfspilkaContext db, ITokenService tokenService)
-    {
-        _db = db;
-        _tokenService = tokenService;
-    }
-
     public async Task<AuthenticateResponseModel> Handle(RefreshTokenCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await _db.Users
+        var user = await db.Users
                        .Include(x => x.UserRoles)
                        .ThenInclude(x => x.Role)
                        .Include(x => x.UserTokens)
@@ -47,15 +34,15 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, A
             throw new RefreshTokenException("Token is expired");
         }
 
-        var newRefreshToken = _tokenService.GenerateRefreshToken();
+        var newRefreshToken = tokenService.GenerateRefreshToken();
         refreshToken.Revoked = DateTime.Now;
         refreshToken.ReplacedByToken = newRefreshToken.Token;
         newRefreshToken.UserId = user.Id;
-        await _db.UserTokens.AddAsync(newRefreshToken, cancellationToken);
-        await _db.SaveChangesAsync(cancellationToken);
+        await db.UserTokens.AddAsync(newRefreshToken, cancellationToken);
+        await db.SaveChangesAsync(cancellationToken);
 
         // Generate new JWT token
-        var jwt = _tokenService.GenerateAccessToken(user);
+        var jwt = tokenService.GenerateAccessToken(user);
 
         return new AuthenticateResponseModel(jwt, newRefreshToken.Token);
     }

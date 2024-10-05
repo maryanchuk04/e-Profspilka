@@ -10,21 +10,14 @@ namespace YeProfspilka.Backend.Controllers;
 [ApiController]
 [Route("user")]
 [Authorize]
-public class UserController : ControllerBase
+public class UserController(IUserServices userServices) : ControllerBase
 {
-    private readonly IUserServices _userServices;
-
-    public UserController(IUserServices userServices)
-    {
-        _userServices = userServices;
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetCurrentUser()
     {
         try
         {
-            return Ok(await _userServices.GetCurrentUser());
+            return Ok(await userServices.GetCurrentUser());
         }
         catch (Exception e)
         {
@@ -33,7 +26,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("all")]
-    public async Task<IActionResult> GetUsers() => Ok(await _userServices.GetUsers());
+    public async Task<IActionResult> GetUsers() => Ok(await userServices.GetUsers());
 
     [HttpPut]
     [Authorize]
@@ -41,7 +34,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(await _userServices.UpdateUser(
+            return Ok(await userServices.UpdateUser(
                 userMatchingStoreModel.Id.Value,
                 userMatchingStoreModel.Facultet,
                 userMatchingStoreModel.Course.Value,

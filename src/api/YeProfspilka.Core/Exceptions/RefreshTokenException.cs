@@ -1,6 +1,3 @@
 namespace YeProfspilka.Core.Exceptions;
 
-public class RefreshTokenException : Exception
-{
-    public RefreshTokenException(string message) : base(message) { }
-}
+public class RefreshTokenException(string message) : Exception(message);

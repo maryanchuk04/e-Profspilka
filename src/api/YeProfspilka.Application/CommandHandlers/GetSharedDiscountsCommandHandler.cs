@@ -10,18 +10,12 @@ public class GetSharedDiscountCommand : IRequest<IEnumerable<DiscountDto>>
 {
 }
 
-public class GetSharedDiscountsCommandHandler : IRequestHandler<GetSharedDiscountCommand, IEnumerable<DiscountDto>>
+public class GetSharedDiscountsCommandHandler(YeProfspilkaContext db)
+    : IRequestHandler<GetSharedDiscountCommand, IEnumerable<DiscountDto>>
 {
-    private readonly YeProfspilkaContext _db;
-
-    public GetSharedDiscountsCommandHandler(YeProfspilkaContext db)
-    {
-        _db = db;
-    }
-
     public async Task<IEnumerable<DiscountDto>> Handle(GetSharedDiscountCommand request, CancellationToken cancellationToken)
     {
-        return await _db.Discounts
+        return await db.Discounts
             .Where(d => d.DiscountType == DiscountType.AvailableForAll)
             .Select(x => new DiscountDto
             {

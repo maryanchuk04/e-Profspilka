@@ -14,34 +14,21 @@ namespace YeProfspilka.Backend.Controllers;
 [ApiController]
 [Route("authenticate")]
 [AllowAnonymous]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController(
+    IAuthenticationService authenticationService,
+    IUserServices userServices,
+    AppConfiguration configuration,
+    ILogger<AuthenticationController> logger,
+    IMediator mediator)
+    : ControllerBase
 {
-    private readonly IAuthenticationService _authenticationService;
-    private readonly IUserServices _userServices;
-    private readonly AppConfiguration _configuration;
-    private readonly IMediator _mediator;
-    private readonly ILogger<AuthenticationController> _logger;
-
-    public AuthenticationController(
-        IAuthenticationService authenticationService,
-        IUserServices userServices,
-        AppConfiguration configuration,
-        ILogger<AuthenticationController> logger, IMediator mediator)
-    {
-        _authenticationService = authenticationService;
-        _userServices = userServices;
-        _configuration = configuration;
-        _logger = logger;
-        _mediator = mediator;
-    }
-
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] EmailViewModel emailViewModel)
     {
         try
         {
-            var authenticateResponseModel = await _authenticationService.Authenticate(emailViewModel.Email);
-            _logger.LogInformation("Successful Google Authenticate user with Email: {Email}", emailViewModel.Email);
+            var authenticateResponseModel = await authenticationService.Authenticate(emailViewModel.Email);
+            logger.LogInformation("Successful Google Authenticate user with Email: {Email}", emailViewModel.Email);
             HttpContext.SetTokenCookie(authenticateResponseModel);
 
             return Ok(new
@@ -60,20 +47,20 @@ public class AuthenticationController : ControllerBase
     {
         try
         {
-            if (googleViewModel.Hd != _configuration.DomainEmail)
+            if (googleViewModel.Hd != configuration.DomainEmail)
             {
                 return BadRequest(new ErrorResponseModel("Ви не можете зареєструватися під даним емейлом! Оберіть емейл вашого закладу!"));
             }
 
-            if (await _userServices.UserIsExist(googleViewModel.Email))
+            if (await userServices.UserIsExist(googleViewModel.Email))
             {
                 return await Login(new EmailViewModel(googleViewModel.Email));
             }
 
-            var authenticateResponseModel = await _authenticationService
+            var authenticateResponseModel = await authenticationService
                 .Registration(googleViewModel.Email, googleViewModel.FullName, googleViewModel.Avatar);
 
-            _logger.LogInformation("Successful registration new user with Email: {email}", googleViewModel.Email);
+            logger.LogInformation("Successful registration new user with Email: {email}", googleViewModel.Email);
 
             HttpContext.SetTokenCookie(authenticateResponseModel);
 
@@ -99,11 +86,11 @@ public class AuthenticationController : ControllerBase
             if (refreshToken is null)
             {
                 Logout();
-                _logger.LogWarning("Refresh token incorrect. Execute logout");
+                logger.LogWarning("Refresh token incorrect. Execute logout");
                 return BadRequest(new ErrorResponseModel("Refresh token is incorrect"));
             }
 
-            var result = await _mediator.Send(new RefreshTokenCommand(refreshToken));
+            var result = await mediator.Send(new RefreshTokenCommand(refreshToken));
             HttpContext.SetTokenCookie(result);
 
             return Ok(new

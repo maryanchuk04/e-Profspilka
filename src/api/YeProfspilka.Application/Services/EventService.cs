@@ -9,18 +9,9 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.Services;
 
-public class EventService : IEventService
+public class EventService(YeProfspilkaContext dbContext, IMapper mapper) : IEventService
 {
-	private readonly YeProfspilkaContext _dbContext;
-	private readonly IMapper _mapper;
-
-	public EventService(YeProfspilkaContext dbContext, IMapper mapper)
-	{
-		_dbContext = dbContext;
-		_mapper = mapper;
-	}
-
-	public async Task<EventDto> Create(EventDto eventDto)
+    public async Task<EventDto> Create(EventDto eventDto)
 	{
 		var newEvent = new Event
 		{
@@ -41,8 +32,8 @@ public class EventService : IEventService
 			});
 		}
 
-		var entry = await _dbContext.Events.AddAsync(newEvent);
-		await _dbContext.SaveChangesAsync();
+		var entry = await dbContext.Events.AddAsync(newEvent);
+		await dbContext.SaveChangesAsync();
 
 		eventDto.Id = entry.Entity.Id;
 
@@ -51,19 +42,19 @@ public class EventService : IEventService
 
 	public async Task Delete(Guid id)
 	{
-		var ev = await _dbContext.Events.FirstOrDefaultAsync(x => x.Id == id);
+		var ev = await dbContext.Events.FirstOrDefaultAsync(x => x.Id == id);
 		if (ev == null)
 		{
 			throw new NotFoundException(nameof(Event), id);
 		}
 
-		_dbContext.Events.Remove(ev);
-		await _dbContext.SaveChangesAsync();
+		dbContext.Events.Remove(ev);
+		await dbContext.SaveChangesAsync();
 	}
 
 	public async Task<EventDto> Update(EventDto eventDto)
 	{
-		var ev = await _dbContext.Events
+		var ev = await dbContext.Events
 			.Include(x => x.EventImages)
 			.ThenInclude(x => x.Image)
 			.FirstOrDefaultAsync(x => x.Id == eventDto.Id);
@@ -88,30 +79,30 @@ public class EventService : IEventService
 			});
 		}
 
-		_dbContext.Events.Update(ev);
-		await _dbContext.SaveChangesAsync();
+		dbContext.Events.Update(ev);
+		await dbContext.SaveChangesAsync();
 
-		return _mapper.Map<EventDto>(ev);
+		return mapper.Map<EventDto>(ev);
 	}
 
 	public async Task<IEnumerable<EventDto>> Get()
 	{
-		var listEvents = await _dbContext.Events
+		var listEvents = await dbContext.Events
 			.Include(x => x.EventImages)
 			.ThenInclude(x => x.Image)
 			.ToListAsync();
 
-		return _mapper.Map<IEnumerable<EventDto>>(listEvents) ?? ArraySegment<EventDto>.Empty;
+		return mapper.Map<IEnumerable<EventDto>>(listEvents) ?? ArraySegment<EventDto>.Empty;
 	}
 
 	public async Task<EventDto> Get(Guid id)
 	{
-		return _mapper.Map<EventDto>(await GetEvent(id));
+		return mapper.Map<EventDto>(await GetEvent(id));
 	}
 
 	private async Task<Event> GetEvent(Guid id)
 	{
-		var ev = await _dbContext.Events
+		var ev = await dbContext.Events
 			.Include(x => x.EventImages)
 			.ThenInclude(x => x.Image)
 			.SingleOrDefaultAsync(x => x.Id == id);

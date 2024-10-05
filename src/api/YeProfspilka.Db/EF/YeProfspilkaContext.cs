@@ -4,12 +4,8 @@ using YeProfspilka.Core.Entities;
 
 namespace YeProfspilka.Db.EF;
 
-public class YeProfspilkaContext : DbContext
+public class YeProfspilkaContext(DbContextOptions<YeProfspilkaContext> contextOptions) : DbContext(contextOptions)
 {
-    public YeProfspilkaContext(DbContextOptions<YeProfspilkaContext> contextOptions)
-        : base(contextOptions)
-    { }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

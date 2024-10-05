@@ -9,50 +9,40 @@ using Role = YeProfspilka.Core.Enumerations.Role;
 
 namespace YeProfspilka.Application.Services;
 
-public class UserService : IUserServices
+public class UserService(YeProfspilkaContext dbContext, ISecurityContext securityContext, IMapper mapper)
+    : IUserServices
 {
-    private readonly YeProfspilkaContext _dbContext;
-    private readonly ISecurityContext _securityContext;
-    private readonly IMapper _mapper;
-
-    public UserService(YeProfspilkaContext dbContext, ISecurityContext securityContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _securityContext = securityContext;
-        _mapper = mapper;
-    }
-
     public async Task<UserDto> GetCurrentUser()
     {
-        var userId = _securityContext.GetCurrentUserId();
+        var userId = securityContext.GetCurrentUserId();
 
-        var user = await _dbContext.Users
+        var user = await dbContext.Users
             .Include(x => x.Image)
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
             .SingleOrDefaultAsync(x => x.Id == userId);
 
-        return _mapper.Map<UserDto>(user);
+        return mapper.Map<UserDto>(user);
     }
 
     public async Task<IEnumerable<UserDto>> GetUsers()
     {
-        var users = await _dbContext.Users
+        var users = await dbContext.Users
             .Include(x => x.UserRoles)
             .Include(x => x.Image)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<UserDto>>(users);
+        return mapper.Map<IEnumerable<UserDto>>(users);
     }
 
     public async Task<bool> UserIsExist(string email)
     {
-        return await _dbContext.Users.AnyAsync(x => x.Email == email);
+        return await dbContext.Users.AnyAsync(x => x.Email == email);
     }
 
     public async Task<UserDto> UpdateUser(Guid id, string facultet, int course, Role role)
     {
-        var user = await _dbContext.Users
+        var user = await dbContext.Users
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -65,7 +55,7 @@ public class UserService : IUserServices
         user.Facultet = facultet;
         user.Course = course;
 
-        var student = await _dbContext.StudentsStore.SingleAsync(x => x.Email == user.Email);
+        var student = await dbContext.StudentsStore.SingleAsync(x => x.Email == user.Email);
 
         student.Course = course;
         student.Facultet = facultet;
@@ -86,8 +76,8 @@ public class UserService : IUserServices
                 }
             }
 
-            await _dbContext.SaveChangesAsync();
-            return _mapper.Map<UserDto>(user);
+            await dbContext.SaveChangesAsync();
+            return mapper.Map<UserDto>(user);
         }
 
 
@@ -100,18 +90,18 @@ public class UserService : IUserServices
                 RoleId = Role.NotVerified
             });
 
-            _dbContext.Users.Update(user);
-            _dbContext.StudentsStore.Update(student);
+            dbContext.Users.Update(user);
+            dbContext.StudentsStore.Update(student);
 
-            await _dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
-            return _mapper.Map<UserDto>(user);
+            return mapper.Map<UserDto>(user);
         }
 
         if (user.UserRoles.Select(x => x.RoleId).Contains(Role.NotVerified))
         {
             var notVerified =
-                await _dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.RoleId == Role.NotVerified);
+                await dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.RoleId == Role.NotVerified);
             user.UserRoles.Remove(notVerified);
         }
 
@@ -120,11 +110,11 @@ public class UserService : IUserServices
             RoleId = role
         });
 
-        _dbContext.Users.Update(user);
-        _dbContext.StudentsStore.Update(student);
+        dbContext.Users.Update(user);
+        dbContext.StudentsStore.Update(student);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-        return _mapper.Map<UserDto>(user);
+        return mapper.Map<UserDto>(user);
     }
 }

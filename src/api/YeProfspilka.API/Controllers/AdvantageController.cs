@@ -6,24 +6,17 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("advantage")]
-public class AdvantageController : ControllerBase
+public class AdvantageController(IAdvantageService advantageService) : ControllerBase
 {
-    private readonly IAdvantageService _advantageService;
-
-    public AdvantageController(IAdvantageService advantageService)
-    {
-        _advantageService = advantageService;
-    }
-
     [HttpGet]
-    public async Task<AdvantageDto[]> GetAll() => await _advantageService.GetAll();
+    public async Task<AdvantageDto[]> GetAll() => await advantageService.GetAll();
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
         try
         {
-            return Ok(await _advantageService.GetById(id));
+            return Ok(await advantageService.GetById(id));
         }
         catch (Exception e)
         {
@@ -36,7 +29,7 @@ public class AdvantageController : ControllerBase
     {
         try
         {
-            return Ok(await _advantageService.Create(advantageDto));
+            return Ok(await advantageService.Create(advantageDto));
         }
         catch (Exception e)
         {
@@ -49,7 +42,7 @@ public class AdvantageController : ControllerBase
     {
         try
         {
-            return Ok(await _advantageService.Update(advantageDto));
+            return Ok(await advantageService.Update(advantageDto));
         }
         catch (Exception e)
         {
@@ -62,7 +55,7 @@ public class AdvantageController : ControllerBase
     {
         try
         {
-            await _advantageService.Delete(id);
+            await advantageService.Delete(id);
             return NoContent();
         }
         catch (Exception e)

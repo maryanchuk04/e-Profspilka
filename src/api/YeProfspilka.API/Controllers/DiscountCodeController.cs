@@ -10,22 +10,15 @@ namespace YeProfspilka.Backend.Controllers;
 [ApiController]
 [AllowAnonymous]
 [Route("discount/code")]
-public class DiscountCodeController : ControllerBase
+public class DiscountCodeController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public DiscountCodeController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     [HttpGet]
     [Route("{discountId:guid}")]
     public async Task<ActionResult<DiscountCodeDto>> GenerateDiscountCode(Guid discountId)
     {
         try
         {
-            var result = await _mediator.Send(new GenerateDiscountCodeCommand(discountId));
+            var result = await mediator.Send(new GenerateDiscountCodeCommand(discountId));
 
             return Ok(result);
         }
@@ -49,7 +42,7 @@ public class DiscountCodeController : ControllerBase
                 return BadRequest(new ErrorResponseModel("Incorrect data!"));
             }
 
-            var result = await _mediator.Send(new VerifyDiscountCodeCommand(discountId, discountCodeId));
+            var result = await mediator.Send(new VerifyDiscountCodeCommand(discountId, discountCodeId));
 
             return Ok(result);
         }

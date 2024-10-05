@@ -1,14 +1,8 @@
 namespace YeProfspilka.Core.Models;
 
-public class AuthenticateResponseModel
+public class AuthenticateResponseModel(string jwtToken, string refreshToken)
 {
-	public AuthenticateResponseModel(string jwtToken, string refreshToken)
-	{
-		JwtToken = jwtToken;
-		RefreshToken = refreshToken;
-	}
+    public string JwtToken { get; set; } = jwtToken;
 
-	public string JwtToken { get; set; }
-
-	public string RefreshToken { get; set; }
+    public string RefreshToken { get; set; } = refreshToken;
 }

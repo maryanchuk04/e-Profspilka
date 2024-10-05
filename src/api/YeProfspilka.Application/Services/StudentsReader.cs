@@ -6,15 +6,8 @@ using YeProfspilka.Core.Interfaces;
 
 namespace YeProfspilka.Application.Services;
 
-public class StudentsReader : IStudentsReader
+public class StudentsReader(ILogger<StudentsReader> logger) : IStudentsReader
 {
-    private readonly ILogger<StudentsReader> _logger;
-
-    public StudentsReader(ILogger<StudentsReader> logger)
-    {
-        _logger = logger;
-    }
-
     public List<StudentStore> Read(string filePath)
     {
         if (string.IsNullOrEmpty(filePath))
@@ -31,7 +24,7 @@ public class StudentsReader : IStudentsReader
             using var package = new ExcelPackage(fileInfo);
 
             var worksheet = package.Workbook.Worksheets[0];
-            _logger.LogInformation("File with path {FilePath} contain {CellsCount} cells count", filePath,
+            logger.LogInformation("File with path {FilePath} contain {CellsCount} cells count", filePath,
                 worksheet.Cells.Count() - 1);
 
             for (var row = 2; row <= worksheet.Dimension.End.Row; row++)
@@ -47,12 +40,12 @@ public class StudentsReader : IStudentsReader
                     IsMemberProf = BoolFileParser(worksheet.Cells[row, 5].Value.ToString() ?? "Ні"),
                 });
             }
-            _logger.LogInformation("Read {Count} students in file", students.Count);
+            logger.LogInformation("Read {Count} students in file", students.Count);
             return students;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error when Reading file");
+            logger.LogError(e, "Error when Reading file");
             throw new StudentsReadingException("Error when Reading file");
         }
     }

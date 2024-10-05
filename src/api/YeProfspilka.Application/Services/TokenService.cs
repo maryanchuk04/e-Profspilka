@@ -9,23 +9,16 @@ using YeProfspilka.Core.Interfaces;
 
 namespace YeProfspilka.Application.Services;
 
-public class TokenService : ITokenService
+public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
 {
-	private readonly JwtConfiguration _jwtConfiguration;
-
-	public TokenService(JwtConfiguration jwtConfiguration)
+    public string GenerateAccessToken(User user)
 	{
-		_jwtConfiguration = jwtConfiguration;
-	}
-
-	public string GenerateAccessToken(User user)
-	{
-		var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfiguration.Key));
+		var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Key));
 		var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 		var claims = GetClaims(user);
 		var token = new JwtSecurityToken(
-			_jwtConfiguration.Issuer,
-			_jwtConfiguration.Audience,
+			jwtConfiguration.Issuer,
+			jwtConfiguration.Audience,
 			claims,
 			expires: DateTime.Now.AddHours(6),
 			signingCredentials: credentials);

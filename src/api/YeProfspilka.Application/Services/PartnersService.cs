@@ -8,19 +8,11 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.Services;
 
-public class PartnersService : IPartnersService
+public class PartnersService(YeProfspilkaContext db, IMapper mapper) : IPartnersService
 {
-	private readonly YeProfspilkaContext _db;
-	private readonly IMapper _mapper;
-
-	public PartnersService(YeProfspilkaContext db, IMapper mapper)
+    public async Task<PartnerDto> CreateAsync(PartnerDto partner)
 	{
-		_db = db;
-		_mapper = mapper;
-	}
-	public async Task<PartnerDto> CreateAsync(PartnerDto partner)
-	{
-		var entry = await _db.AddAsync(new Partner
+		var entry = await db.AddAsync(new Partner
 		{
 			SubText = partner.SubText,
 			SubTextLink = partner.SubTextLink,
@@ -28,33 +20,33 @@ public class PartnersService : IPartnersService
 			Image = new Image(partner.Image)
 		});
 
-		await _db.SaveChangesAsync();
+		await db.SaveChangesAsync();
 
-		return _mapper.Map<PartnerDto>(entry.Entity);
+		return mapper.Map<PartnerDto>(entry.Entity);
 	}
 
 	public async Task DeleteAsync(Guid id)
 	{
-		var partner = _db.Partners.FirstOrDefault(x => x.Id == id);
+		var partner = db.Partners.FirstOrDefault(x => x.Id == id);
 
 		if (partner == null)
 		{
 			throw new NotFoundException(nameof(Partner), id);
 		}
 
-		_db.Partners.Remove(partner);
-		await _db.SaveChangesAsync();
+		db.Partners.Remove(partner);
+		await db.SaveChangesAsync();
 	}
 
 	public async Task<IEnumerable<PartnerDto>> GetAllAsync()
 	{
-		return _mapper.Map<IEnumerable<PartnerDto>>(
-			await _db.Partners.Include(x => x.Image).ToListAsync());
+		return mapper.Map<IEnumerable<PartnerDto>>(
+			await db.Partners.Include(x => x.Image).ToListAsync());
 	}
 
 	public async Task<PartnerDto> UpdateAsync(PartnerDto partner)
 	{
-		var entity = _db.Partners
+		var entity = db.Partners
 			.Include(x => x.Image)
 			.FirstOrDefault(x => x.Id == partner.Id);
 
@@ -68,9 +60,9 @@ public class PartnersService : IPartnersService
 		entity.SubText = partner.SubText;
 		entity.SubTextLink = partner.SubTextLink;
 
-		_db.Update(entity);
-		await _db.SaveChangesAsync();
+		db.Update(entity);
+		await db.SaveChangesAsync();
 
-		return _mapper.Map<PartnerDto>(partner);
+		return mapper.Map<PartnerDto>(partner);
 	}
 }

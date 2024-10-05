@@ -10,25 +10,14 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("student-store")]
-public class StudentStoreController : ControllerBase
+public class StudentStoreController(
+    IStudentStoreService studentStore,
+    IMediator mediator,
+    ILogger<StudentStoreController> logger,
+    IImportCommandFactory importCommandFactory)
+    : ControllerBase
 {
     private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    private readonly IStudentStoreService _studentStore;
-    private readonly IMediator _mediator;
-    private readonly ILogger<StudentStoreController> _logger;
-    private readonly IImportCommandFactory _importCommandFactory;
-
-    public StudentStoreController(
-        IStudentStoreService studentStore,
-        IMediator mediator,
-        ILogger<StudentStoreController> logger,
-        IImportCommandFactory importCommandFactory)
-    {
-        _studentStore = studentStore;
-        _mediator = mediator;
-        _logger = logger;
-        _importCommandFactory = importCommandFactory;
-    }
 
     [HttpPost("upload")]
     [Authorize]
@@ -47,14 +36,14 @@ public class StudentStoreController : ControllerBase
                 await file.CopyToAsync(stream);
             }
 
-            var importCommand = _importCommandFactory.Create(importType, filePath);
+            var importCommand = importCommandFactory.Create(importType, filePath);
 
             if (importCommand is null)
             {
                 return BadRequest(new ErrorResponseModel("Неіснуючий тип імпорту"));
             }
 
-            return Ok(await _mediator.Send(importCommand));
+            return Ok(await mediator.Send(importCommand));
 
         }
         catch (Exception e)
@@ -79,7 +68,7 @@ public class StudentStoreController : ControllerBase
                 await file.CopyToAsync(stream);
             }
 
-            return Ok(await _studentStore.UploadUsers(filePath, true));
+            return Ok(await studentStore.UploadUsers(filePath, true));
         }
         catch (Exception e)
         {
@@ -92,7 +81,7 @@ public class StudentStoreController : ControllerBase
     {
         try
         {
-            return Ok(await _studentStore.GetAllUsers());
+            return Ok(await studentStore.GetAllUsers());
         }
         catch (Exception e)
         {
@@ -107,8 +96,8 @@ public class StudentStoreController : ControllerBase
         try
         {
             const string fileName = "users";
-            var fileData = await _mediator.Send(new ExportStudentsCommand());
-            _logger.LogInformation("Successful created file with users");
+            var fileData = await mediator.Send(new ExportStudentsCommand());
+            logger.LogInformation("Successful created file with users");
 
             Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
 
@@ -125,7 +114,7 @@ public class StudentStoreController : ControllerBase
     {
         try
         {
-            var matchingUser = await _mediator.Send(new GetStudentUserByIdCommand(id));
+            var matchingUser = await mediator.Send(new GetStudentUserByIdCommand(id));
 
             return Ok(matchingUser);
         }

@@ -1,6 +1,3 @@
 namespace YeProfspilka.Core.Exceptions;
 
-public class StudentsReadingException : Exception
-{
-    public StudentsReadingException(string message) : base(message) { }
-}
+public class StudentsReadingException(string message) : Exception(message);

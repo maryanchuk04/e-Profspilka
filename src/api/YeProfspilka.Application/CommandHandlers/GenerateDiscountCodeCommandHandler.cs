@@ -9,31 +9,20 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.CommandHandlers;
 
-public class GenerateDiscountCodeCommand : IRequest<DiscountCodeDto>
+public class GenerateDiscountCodeCommand(Guid discountId) : IRequest<DiscountCodeDto>
 {
-    public GenerateDiscountCodeCommand(Guid discountId)
-    {
-        DiscountId = discountId;
-    }
-
-    public Guid DiscountId { get; set; }
+    public Guid DiscountId { get; set; } = discountId;
 }
 
-public class GenerateDiscountCodeCommandHandler : IRequestHandler<GenerateDiscountCodeCommand, DiscountCodeDto>
+public class GenerateDiscountCodeCommandHandler(
+    YeProfspilkaContext db,
+    IMapper mapper,
+    ISecurityContext securityContext)
+    : IRequestHandler<GenerateDiscountCodeCommand, DiscountCodeDto>
 {
-    private readonly YeProfspilkaContext _db;
-    private readonly IMapper _mapper;
-    private readonly ISecurityContext _securityContext;
-
-    public GenerateDiscountCodeCommandHandler(
-        YeProfspilkaContext db,
-        IMapper mapper,
-        ISecurityContext securityContext)
-    {
-        _db = db ?? throw new ArgumentException(nameof(YeProfspilkaContext));
-        _mapper = mapper ?? throw new ArgumentException(nameof(IMapper));
-        _securityContext = securityContext ?? throw new ArgumentException(nameof(ArgumentException));
-    }
+    private readonly YeProfspilkaContext _db = db ?? throw new ArgumentException(nameof(YeProfspilkaContext));
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentException(nameof(IMapper));
+    private readonly ISecurityContext _securityContext = securityContext ?? throw new ArgumentException(nameof(ArgumentException));
 
     public async Task<DiscountCodeDto> Handle(GenerateDiscountCodeCommand request, CancellationToken cancellationToken)
     {

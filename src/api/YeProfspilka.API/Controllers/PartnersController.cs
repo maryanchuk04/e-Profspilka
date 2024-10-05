@@ -7,21 +7,14 @@ namespace YeProfspilka.Backend.Controllers;
 
 [ApiController]
 [Route("partners")]
-public class PartnersController : ControllerBase
+public class PartnersController(IPartnersService partnersService) : ControllerBase
 {
-	private readonly IPartnersService _partnersService;
-
-	public PartnersController(IPartnersService partnersService)
-	{
-		_partnersService = partnersService;
-	}
-
-	[HttpGet]
+    [HttpGet]
 	public async Task<IActionResult> GetQuestions()
 	{
 		try
 		{
-			return Ok(await _partnersService.GetAllAsync());
+			return Ok(await partnersService.GetAllAsync());
 		}
 		catch (Exception e)
 		{
@@ -36,7 +29,7 @@ public class PartnersController : ControllerBase
 	{
 		try
 		{
-			var res = await _partnersService.CreateAsync(new PartnerDto
+			var res = await partnersService.CreateAsync(new PartnerDto
 			{
 				SubText = partnerViewModel.SubText,
 				SubTextLink = partnerViewModel.SubTextLink,
@@ -56,7 +49,7 @@ public class PartnersController : ControllerBase
 	{
 		try
 		{
-			return Ok(await _partnersService.UpdateAsync(partnerDto));
+			return Ok(await partnersService.UpdateAsync(partnerDto));
 		}
 		catch (Exception e)
 		{
@@ -70,7 +63,7 @@ public class PartnersController : ControllerBase
 	{
 		try
 		{
-			await _partnersService.DeleteAsync(id);
+			await partnersService.DeleteAsync(id);
 			return Ok();
 		}
 		catch (Exception e)

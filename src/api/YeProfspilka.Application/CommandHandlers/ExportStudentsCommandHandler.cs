@@ -10,24 +10,16 @@ public class ExportStudentsCommand : IRequest<byte[]>
 {
 }
 
-public class ExportStudentsCommandHandler : IRequestHandler<ExportStudentsCommand, byte[]>
+public class ExportStudentsCommandHandler(
+    YeProfspilkaContext db,
+    ILogger<ExportStudentsCommandHandler> logger)
+    : IRequestHandler<ExportStudentsCommand, byte[]>
 {
-    private readonly YeProfspilkaContext _db;
-    private readonly ILogger<ExportStudentsCommandHandler> _logger;
-
-    public ExportStudentsCommandHandler(
-        YeProfspilkaContext db,
-        ILogger<ExportStudentsCommandHandler> logger)
-    {
-        _db = db;
-        _logger = logger;
-    }
-
     public async Task<byte[]> Handle(ExportStudentsCommand request, CancellationToken cancellationToken)
     {
-        var users = await _db.StudentsStore.ToListAsync(cancellationToken);
+        var users = await db.StudentsStore.ToListAsync(cancellationToken);
 
-        _logger.LogInformation("Was found {count} users in StudentStore table", users.Count);
+        logger.LogInformation("Was found {count} users in StudentStore table", users.Count);
 
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         using var package = new ExcelPackage();
@@ -54,7 +46,7 @@ public class ExportStudentsCommandHandler : IRequestHandler<ExportStudentsComman
             worksheet.Cells[row, 5].Value = student.IsMemberProf ? "Так" : "Ні";
         }
 
-        _logger.LogInformation("Finished creation bytes array for xlsx file");
+        logger.LogInformation("Finished creation bytes array for xlsx file");
 
         return package.GetAsByteArray();
     }

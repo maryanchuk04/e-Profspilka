@@ -9,33 +9,19 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.CommandHandlers;
 
-public class VerifyDiscountCodeCommand : IRequest<VerifyDiscountResult>
+public class VerifyDiscountCodeCommand(Guid discountId, Guid discountCodeId) : IRequest<VerifyDiscountResult>
 {
-    public VerifyDiscountCodeCommand(Guid discountId, Guid discountCodeId)
-    {
-        DiscountId = discountId;
-        DiscountCode = discountCodeId;
-    }
-
-    public Guid DiscountId { get; set; }
-    public Guid DiscountCode { get; set; }
+    public Guid DiscountId { get; set; } = discountId;
+    public Guid DiscountCode { get; set; } = discountCodeId;
 }
 
 
-public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCodeCommand, VerifyDiscountResult>
+public class VerifyDiscountCodeCommandHandler(YeProfspilkaContext db, IMapper mapper)
+    : IRequestHandler<VerifyDiscountCodeCommand, VerifyDiscountResult>
 {
-    private readonly YeProfspilkaContext _db;
-    private readonly IMapper _mapper;
-
-    public VerifyDiscountCodeCommandHandler(YeProfspilkaContext db, IMapper mapper)
-    {
-        _db = db;
-        _mapper = mapper;
-    }
-
     public async Task<VerifyDiscountResult> Handle(VerifyDiscountCodeCommand request, CancellationToken cancellationToken)
     {
-        var discountCode = await _db.DiscountCodes
+        var discountCode = await db.DiscountCodes
             .Include(x => x.Discount)
             .Include(x => x.User)
             .ThenInclude(x => x.Image)
@@ -58,12 +44,12 @@ public class VerifyDiscountCodeCommandHandler : IRequestHandler<VerifyDiscountCo
         {
             discountCode.IsActive = false;
 
-            await _db.SaveChangesAsync(cancellationToken);
+            await db.SaveChangesAsync(cancellationToken);
 
             return new VerifyDiscountResult
             {
                 IsSuccess = true,
-                Discount = _mapper.Map<DiscountDto>(discountCode.Discount),
+                Discount = mapper.Map<DiscountDto>(discountCode.Discount),
                 Email = discountCode.User?.Email,
                 FullName = discountCode.User?.FullName,
                 Image = discountCode.User?.Image.ImageUrl,

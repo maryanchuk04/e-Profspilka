@@ -8,38 +8,29 @@ using YeProfspilka.Db.EF;
 
 namespace YeProfspilka.Application.Services;
 
-public class QuestionService : IQuestionService
+public class QuestionService(YeProfspilkaContext dbContext, IMapper mapper) : IQuestionService
 {
-	private readonly YeProfspilkaContext _dbContext;
-	private readonly IMapper _mapper;
-
-	public QuestionService(YeProfspilkaContext dbContext, IMapper mapper)
+    public async Task<IEnumerable<QuestionDto>> GetAllAsync()
 	{
-		_dbContext = dbContext;
-		_mapper = mapper;
-	}
-
-	public async Task<IEnumerable<QuestionDto>> GetAllAsync()
-	{
-		return _mapper.Map<IEnumerable<QuestionDto>>(await _dbContext.Questions.ToListAsync());
+		return mapper.Map<IEnumerable<QuestionDto>>(await dbContext.Questions.ToListAsync());
 	}
 
 	public async Task<QuestionDto> CreateAsync(QuestionDto questionDto)
 	{
-		var entity = await _dbContext.Questions.AddAsync(new Question()
+		var entity = await dbContext.Questions.AddAsync(new Question()
 		{
 			QuestionText = questionDto.QuestionText,
 			Answer = questionDto.Answer
 		});
 
-		await _dbContext.SaveChangesAsync();
+		await dbContext.SaveChangesAsync();
 
-		return _mapper.Map<QuestionDto>(entity.Entity);
+		return mapper.Map<QuestionDto>(entity.Entity);
 	}
 
 	public async Task<QuestionDto> UpdateAsync(QuestionDto questionDto)
 	{
-		var entity = await _dbContext.Questions.FirstOrDefaultAsync(x => x.Id == questionDto.Id);
+		var entity = await dbContext.Questions.FirstOrDefaultAsync(x => x.Id == questionDto.Id);
 
 		if (entity == null)
 		{
@@ -49,22 +40,22 @@ public class QuestionService : IQuestionService
 		entity.Answer = questionDto.Answer;
 		entity.QuestionText = questionDto.QuestionText;
 
-		_dbContext.Update(entity);
-		await _dbContext.SaveChangesAsync();
+		dbContext.Update(entity);
+		await dbContext.SaveChangesAsync();
 
-		return _mapper.Map<QuestionDto>(entity);
+		return mapper.Map<QuestionDto>(entity);
 	}
 
 	public async Task DeleteAsync(Guid id)
 	{
-		var question = await _dbContext.Questions.FirstOrDefaultAsync(x => x.Id == id);
+		var question = await dbContext.Questions.FirstOrDefaultAsync(x => x.Id == id);
 
 		if (question == null)
 		{
 			throw new NotFoundException(nameof(Question), id);
 		}
 
-		_dbContext.Remove(question);
-		await _dbContext.SaveChangesAsync();
+		dbContext.Remove(question);
+		await dbContext.SaveChangesAsync();
 	}
 }
