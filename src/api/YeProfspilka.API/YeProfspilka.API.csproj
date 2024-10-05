@@ -5,7 +5,6 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>YeProfspilka.Backend</RootNamespace>
-        <UserSecretsId>8a72245e-cd8d-4373-9dc0-648acdb3f871</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
