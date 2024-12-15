@@ -1,0 +1,24 @@
+<h1 class="text-center text-3xl mb-3 font-bold">Створити подію 🎉</h1>
+<app-container>
+    <form [formGroup]="createEventForm" (ngSubmit)="createEvent()">
+        <app-text-field controlName="title" placeholder="Заголовок"></app-text-field>
+        <app-text-field controlName="date" classStyles="mt-2" type="date"></app-text-field>
+        <app-text-field controlName="shortDescription" placeholder="Короткий опис" classStyles="mt-2"></app-text-field>
+
+        <div class="w-full h-96 flex flex-col my-5 border border-black rounded-standart">
+            <div appDragDrop class="w-1/2 m-auto rounded-standart h-44 grid place-items-center cursor-pointer border">
+                <div class="opacity-50 text-center">
+                    <p class="text-xl">Перетягніть сюди зображення...</p>
+                    <i class="fa-solid fa-image text-3xl"></i>
+                </div>
+            </div>
+            <!-- Тут можна додати відображення завантажених зображень -->
+        </div>
+
+        <div class="border border-black p-3 rounded-standart my-3">
+            <app-editor controlName="description" placeholder="Введіть опис для події"></app-editor>
+        </div>
+
+        <app-button [disabled]="createEventForm.invalid" [type]="'primary'">Створити</app-button>
+    </form>
+</app-container>

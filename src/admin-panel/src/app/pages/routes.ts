@@ -22,6 +22,8 @@ import { AdministratorPageComponent } from './administrator-page/administrator-p
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ModerationPageComponent } from './moderation/moderation-page.component';
+import { CreateEventComponent } from './create-event/create-event.component';
+import { EventsListComponent } from '../components/moderation-components/events-list/events-list.component';
 
 export const administrationsRoutes: Routes = [
 	{
@@ -59,6 +61,20 @@ export const moderationsRoutes: Routes = [
 	{
 		component: EventsComponent,
 		path: 'events',
+        children: [
+            {
+                component: EventsListComponent,
+                path: '',
+            },
+            {
+                component: CreateEventComponent,
+                path: 'create'
+            },
+            {
+                component: EventUpdateComponent,
+                path: ':id',
+            },
+        ]
 	},
 	{
 		component: AdvantagesComponent,
@@ -72,10 +88,7 @@ export const moderationsRoutes: Routes = [
 		component: PartnersComponent,
 		path: 'partners',
 	},
-	{
-		component: EventUpdateComponent,
-		path: 'events/:id',
-	},
+
 ];
 
 export const routes: Routes = [

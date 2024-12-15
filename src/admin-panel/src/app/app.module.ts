@@ -77,6 +77,8 @@ import { QuestionTooltipComponent } from './ui/question-tooltip/question-tooltip
 import { SelectComponent } from './ui/select/select.component';
 import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { EventsListComponent } from './components/moderation-components/events-list/events-list.component';
 
 @NgModule({
 	declarations: [
@@ -131,6 +133,8 @@ import { options } from './utils/editorOptions';
 		FormTextFieldComponent,
 		DiscountTypeComponent,
 		UpdateDiscountComponent,
+  CreateEventComponent,
+  EventsListComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -175,7 +179,6 @@ import { options } from './utils/editorOptions';
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ErrorInterceptor,
-			multi: true,
 		},
 		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
 		JwtHelperService,
