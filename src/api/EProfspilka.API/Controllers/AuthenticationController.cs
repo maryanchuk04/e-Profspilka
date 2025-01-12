@@ -1,15 +1,15 @@
+using EProfspilka.API.Extension;
+using EProfspilka.API.Utils;
+using EProfspilka.API.ViewModels;
+using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.Configurations;
+using EProfspilka.Core.Interfaces;
+using EProfspilka.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using EProfspilka.Application.CommandHandlers;
-using EProfspilka.Application.Configurations;
-using EProfspilka.Extension;
-using EProfspilka.Utils;
-using EProfspilka.ViewModels;
-using EProfspilka.Core.Interfaces;
-using EProfspilka.Core.Models;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("authenticate")]

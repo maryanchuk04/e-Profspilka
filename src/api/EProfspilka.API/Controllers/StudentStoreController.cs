@@ -1,12 +1,12 @@
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using EProfspilka.Application.CommandHandlers;
 using EProfspilka.Application.Factories;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("student-store")]
@@ -99,7 +99,7 @@ public class StudentStoreController(
             var fileData = await mediator.Send(new ExportStudentsCommand());
             logger.LogInformation("Successful created file with users");
 
-            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Append("Access-Control-Expose-Headers", "Content-Disposition");
 
             return File(fileData, XlsxContentType, fileName + ".xlsx");
         }

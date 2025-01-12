@@ -6,7 +6,7 @@ namespace EProfspilka.Db.DbInitialize;
 
 public static class DbInitializer
 {
-    public static void Seed(YeProfspilkaContext db)
+    public static void Seed(EProfspilkaContext db)
     {
         SeedDefaultAdvantages(db);
         SeedDefaultQuestions(db);
@@ -15,7 +15,7 @@ public static class DbInitializer
         db.SaveChanges();
     }
 
-    private static void SeedDefaultAdvantages(YeProfspilkaContext db)
+    private static void SeedDefaultAdvantages(EProfspilkaContext db)
     {
         if (db.Advantage.Any())
         {
@@ -77,7 +77,7 @@ public static class DbInitializer
         db.Advantage.AddRange(advantages);
     }
 
-    private static void SeedDefaultQuestions(YeProfspilkaContext db)
+    private static void SeedDefaultQuestions(EProfspilkaContext db)
     {
         if (db.Questions.Any())
         {
@@ -105,7 +105,7 @@ public static class DbInitializer
         db.Questions.AddRange(questions);
     }
 
-    private static void SeedSuperAdmin(YeProfspilkaContext db)
+    private static void SeedSuperAdmin(EProfspilkaContext db)
     {
         if (db.Users.Any())
         {

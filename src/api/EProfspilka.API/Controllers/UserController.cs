@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using EProfspilka.Policies;
-using EProfspilka.ViewModels;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("user")]

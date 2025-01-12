@@ -11,7 +11,7 @@ using EProfspilka.Db.EF;
 
 namespace EProfspilka.Db.Migrations
 {
-    [DbContext(typeof(YeProfspilkaContext))]
+    [DbContext(typeof(EProfspilkaContext))]
     [Migration("20230331081602_Update_User")]
     partial class Update_User
     {

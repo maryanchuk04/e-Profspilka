@@ -15,7 +15,7 @@ public class GetStudentUserByIdCommand(Guid id) : IRequest<UserMatchingStoreMode
 }
 
 public class GetStudentUserByIdCommandHandler(
-    YeProfspilkaContext db,
+    EProfspilkaContext db,
     ILogger<GenerateDiscountCodeCommandHandler> logger,
     IRoleService roleService)
     : IRequestHandler<GetStudentUserByIdCommand, UserMatchingStoreModel>

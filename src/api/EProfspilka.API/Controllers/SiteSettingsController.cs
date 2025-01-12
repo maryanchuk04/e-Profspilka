@@ -1,9 +1,9 @@
-﻿using MediatR;
+﻿using EProfspilka.Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using EProfspilka.Core.Models;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]

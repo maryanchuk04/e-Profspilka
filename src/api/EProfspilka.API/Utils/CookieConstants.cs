@@ -1,4 +1,4 @@
-namespace EProfspilka.Utils;
+namespace EProfspilka.API.Utils;
 
 public static class CookieConstants
 {

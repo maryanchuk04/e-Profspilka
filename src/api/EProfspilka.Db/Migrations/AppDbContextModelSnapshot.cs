@@ -10,7 +10,7 @@ using EProfspilka.Db.EF;
 
 namespace EProfspilka.Db.Migrations
 {
-    [DbContext(typeof(YeProfspilkaContext))]
+    [DbContext(typeof(EProfspilkaContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

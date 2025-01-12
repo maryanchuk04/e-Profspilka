@@ -11,7 +11,7 @@ public class ExportStudentsCommand : IRequest<byte[]>
 }
 
 public class ExportStudentsCommandHandler(
-    YeProfspilkaContext db,
+    EProfspilkaContext db,
     ILogger<ExportStudentsCommandHandler> logger)
     : IRequestHandler<ExportStudentsCommand, byte[]>
 {

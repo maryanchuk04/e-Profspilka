@@ -1,10 +1,9 @@
 using AutoMapper;
-using EProfspilka.ViewModels;
+using EProfspilka.API.ViewModels;
 using EProfspilka.Core.Entities;
-using EProfspilka.Core.Enumerations;
 using EProfspilka.Core.Models;
 
-namespace EProfspilka.Mappers;
+namespace EProfspilka.API.Mappers;
 
 public class EventsMapper : Profile
 {

@@ -1,4 +1,4 @@
-namespace EProfspilka.ViewModels;
+namespace EProfspilka.API.ViewModels;
 
 public class RegistrationViewModel
 {

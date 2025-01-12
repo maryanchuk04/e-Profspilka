@@ -1,6 +1,6 @@
 using EProfspilka.Core.Enumerations;
 
-namespace EProfspilka.ViewModels;
+namespace EProfspilka.API.ViewModels;
 
 public record CreateDiscountViewModel(
     string Name,

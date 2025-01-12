@@ -1,27 +1,26 @@
+using System.Reflection;
+using System.Text;
+using EProfspilka.API.Mappers;
+using EProfspilka.API.Policies;
+using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.Configurations;
+using EProfspilka.Application.Factories;
+using EProfspilka.Application.Services;
+using EProfspilka.Core.Interfaces;
+using EProfspilka.Db.EF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text;
-using EProfspilka.Application.CommandHandlers;
-using EProfspilka.Application.Configurations;
-using EProfspilka.Application.Factories;
-using EProfspilka.Application.Services;
-using EProfspilka.Mappers;
-using EProfspilka.Policies;
-using EProfspilka.Core;
-using EProfspilka.Core.Interfaces;
-using EProfspilka.Db.EF;
 
-namespace EProfspilka.Extension;
+namespace EProfspilka.API.Extension;
 
 public static class ServicesExtensions
 {
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContextFactory<YeProfspilkaContext>(
+        services.AddDbContextFactory<EProfspilkaContext>(
             options => options.UseSqlServer(
                 configuration.GetConnectionString("ApplicationDbConnectionString"),
                 b => b.MigrationsAssembly("EProfspilka.Db")));

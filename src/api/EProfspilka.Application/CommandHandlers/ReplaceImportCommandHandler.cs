@@ -15,7 +15,7 @@ public class ReplaceImportCommand(string filePath) : IImportCommand
 }
 
 public class ReplaceImportCommandHandler(
-    YeProfspilkaContext db,
+    EProfspilkaContext db,
     IStudentStoreService studentStoreService,
     IFileUserReader fileUserReader,
     ILogger<ReplaceImportCommandHandler> logger)

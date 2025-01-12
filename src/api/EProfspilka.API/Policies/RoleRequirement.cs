@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace EProfspilka.Policies;
+namespace EProfspilka.API.Policies;
 
 public class RoleRequirement(string role) : IAuthorizationRequirement
 {

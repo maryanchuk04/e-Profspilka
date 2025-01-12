@@ -1,5 +1,5 @@
+using EProfspilka.API.Extension;
 using Microsoft.EntityFrameworkCore;
-using EProfspilka.Extension;
 using EProfspilka.Db.DbInitialize;
 using EProfspilka.Db.EF;
 
@@ -41,7 +41,7 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        var dbContext = services.GetRequiredService<YeProfspilkaContext>();
+        var dbContext = services.GetRequiredService<EProfspilkaContext>();
         dbContext.Database.Migrate();
         DbInitializer.Seed(dbContext);
     }

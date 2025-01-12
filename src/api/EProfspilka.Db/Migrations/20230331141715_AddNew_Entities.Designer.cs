@@ -11,7 +11,7 @@ using EProfspilka.Db.EF;
 
 namespace EProfspilka.Db.Migrations
 {
-    [DbContext(typeof(YeProfspilkaContext))]
+    [DbContext(typeof(EProfspilkaContext))]
     [Migration("20230331141715_AddNew_Entities")]
     partial class AddNew_Entities
     {

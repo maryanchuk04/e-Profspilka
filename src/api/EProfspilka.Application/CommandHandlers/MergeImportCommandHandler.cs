@@ -15,7 +15,7 @@ public class MergeImportCommand(string filePath) : IImportCommand
 }
 
 public class MergeImportCommandHandler(
-    YeProfspilkaContext db,
+    EProfspilkaContext db,
     IFileUserReader fileReader,
     ILogger<MergeImportCommandHandler> logger) : IRequestHandler<MergeImportCommand, UploadResultModel>
 {

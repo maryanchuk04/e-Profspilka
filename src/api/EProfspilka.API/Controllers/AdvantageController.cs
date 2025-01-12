@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("advantage")]

@@ -1,11 +1,11 @@
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using EProfspilka.Application.CommandHandlers;
 using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Models;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [AllowAnonymous]

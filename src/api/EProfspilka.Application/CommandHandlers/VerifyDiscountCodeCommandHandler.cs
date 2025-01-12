@@ -16,7 +16,7 @@ public class VerifyDiscountCodeCommand(Guid discountId, Guid discountCodeId) : I
 }
 
 
-public class VerifyDiscountCodeCommandHandler(YeProfspilkaContext db, IMapper mapper)
+public class VerifyDiscountCodeCommandHandler(EProfspilkaContext db, IMapper mapper)
     : IRequestHandler<VerifyDiscountCodeCommand, VerifyDiscountResult>
 {
     public async Task<VerifyDiscountResult> Handle(VerifyDiscountCodeCommand request, CancellationToken cancellationToken)

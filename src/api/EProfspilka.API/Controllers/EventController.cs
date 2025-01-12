@@ -1,12 +1,12 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using EProfspilka.ViewModels;
+using EProfspilka.API.ViewModels;
 using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EProfspilka.Controllers;
+namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("event")]

@@ -11,7 +11,7 @@ using EProfspilka.Db.EF;
 
 namespace EProfspilka.Db.Migrations
 {
-    [DbContext(typeof(YeProfspilkaContext))]
+    [DbContext(typeof(EProfspilkaContext))]
     [Migration("20230703095308_Discount_Type_For_Discoiunt")]
     partial class Discount_Type_For_Discoiunt
     {

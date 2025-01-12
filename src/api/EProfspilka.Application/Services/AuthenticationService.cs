@@ -9,7 +9,7 @@ using Role = EProfspilka.Core.Enumerations.Role;
 namespace EProfspilka.Application.Services;
 
 public class AuthenticationService(
-    YeProfspilkaContext context,
+    EProfspilkaContext context,
     IStudentStoreService studentStore,
     ITokenService tokenService)
     : IAuthenticationService

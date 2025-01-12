@@ -3,7 +3,7 @@ using EProfspilka.Core.Entities;
 using EProfspilka.Core.Models;
 using Role = EProfspilka.Core.Enumerations.Role;
 
-namespace EProfspilka.Mappers;
+namespace EProfspilka.API.Mappers;
 
 public class UserMapper : Profile
 {
