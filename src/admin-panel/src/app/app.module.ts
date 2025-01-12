@@ -149,7 +149,7 @@ import { EventsListComponent } from './components/moderation-components/events-l
 			maxAge: 25,
 			logOnly: environment.production,
 			autoPause: true,
-		}),
+		connectInZone: true}),
 		NgxEditorModule.forRoot(options),
 		CKEditorModule,
 		ReactiveFormsModule,
