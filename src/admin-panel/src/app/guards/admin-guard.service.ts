@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { TokenService } from '../services/token.service';
@@ -7,7 +7,7 @@ import { TokenService } from '../services/token.service';
 @Injectable({
 	providedIn: 'root',
 })
-export class AdminGuardService implements CanActivate {
+export class AdminGuardService  {
 	constructor(
 		public router: Router,
 		private tokenService: TokenService,
