@@ -80,13 +80,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "YeProfspilka.Admin:build:production"
+              "buildTarget": "YeProfspilka.Admin:build:production"
             },
             "development": {
-              "browserTarget": "YeProfspilka.Admin:build:development"
+              "buildTarget": "YeProfspilka.Admin:build:development"
             },
             "local": {
-                "browserTarget": "YeProfspilka.Admin:build:local"
+              "buildTarget": "YeProfspilka.Admin:build:local"
             }
           },
           "defaultConfiguration": "development"
@@ -94,7 +94,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "YeProfspilka.Admin:build"
+            "buildTarget": "YeProfspilka.Admin:build"
           }
         },
         "test": {
