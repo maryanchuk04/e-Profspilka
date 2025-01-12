@@ -2,13 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import {
-	HttpErrorResponse,
-	HttpHandler,
-	HttpInterceptor,
-	HttpRequest,
-	HttpStatusCode,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
