@@ -65,6 +65,27 @@
               ],
               "outputHashing": "all"
             },
+            "dev": {
+                "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -87,7 +108,10 @@
             },
             "local": {
               "buildTarget": "YeProfspilka.Admin:build:local"
-            }
+            },
+            "dev": {
+                "buildTarget": "YeProfspilka.Admin:build:dev"
+              }
           },
           "defaultConfiguration": "development"
         },

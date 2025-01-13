@@ -8,7 +8,7 @@ import {
 	SocialAuthServiceConfig,
 	SocialLoginModule,
 } from '@abacritt/angularx-social-login';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -79,6 +79,8 @@ import { TextFieldComponent } from './ui/text-field/text-field.component';
 import { options } from './utils/editorOptions';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { EventsListComponent } from './components/moderation-components/events-list/events-list.component';
+import { httpInterceptor } from './interceptors/http.interceptor';
+import { Router } from '@angular/router';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -172,12 +174,8 @@ import { EventsListComponent } from './components/moderation-components/events-l
         },
         RestService,
         DownloadService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptor,
-        },
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         JwtHelperService,
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptorsFromDi(), withInterceptors([httpInterceptor])),
     ] })
 export class AppModule {}
