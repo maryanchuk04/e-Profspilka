@@ -1,13 +1,75 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
+
 import { environment } from './environments/environment';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { environment as environment_1 } from 'src/environments/environment';
+import { RestService } from './app/services/rest.service';
+import { DownloadService } from './app/services/download.service';
+import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
+import { httpInterceptor } from './app/interceptors/http.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { AppRoutingModule } from './app/app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxEditorModule } from 'ngx-editor';
+import { options } from './app/utils/editorOptions';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ButtonModule } from 'primeng/button';
+import { AppComponent } from './app/app.component';
 
 if (environment.production) {
 	enableProdMode();
 }
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(BrowserModule, AppRoutingModule, SocialLoginModule, JwtModule, FormsModule, StoreModule.forRoot(reducers), EffectsModule.forRoot(effects), StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: environment.production,
+            autoPause: true,
+            connectInZone: true,
+        }), NgxEditorModule.forRoot(options), CKEditorModule, ReactiveFormsModule, FormsModule, // required animations module
+        ToastrModule.forRoot(), NgxPaginationModule, ButtonModule),
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(environment.googleId),
+                    },
+                ],
+                onError: (err) => {
+                    console.log(err);
+                },
+            } as SocialAuthServiceConfig,
+        },
+        RestService,
+        DownloadService,
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService,
+        provideHttpClient(withInterceptorsFromDi(), withInterceptors([httpInterceptor])),
+        provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: false || 'none'
+                }
+            },
+        }),
+        provideAnimations(),
+    ]
+})
 	.catch((err) => console.error(err));

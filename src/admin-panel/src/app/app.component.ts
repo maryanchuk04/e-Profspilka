@@ -4,12 +4,14 @@ import { Store } from '@ngrx/store';
 import { TokenService } from './services/token.service';
 import AppState from './store';
 import { fetchCurrentUser } from './store/actions/user.action';
+import { AlertComponent } from './components/alert/alert.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    standalone: false
+    imports: [AlertComponent, RouterOutlet]
 })
 export class AppComponent implements OnInit {
 	title = 'YeProfspilka.Admin';
