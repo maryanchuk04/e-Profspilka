@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgIf, NgSwitch } from '@angular/common';
 
 @Component({
     selector: 'app-role',
     templateUrl: './role.component.html',
-    standalone: false
+    imports: [NgIf, NgSwitch]
 })
 export class RoleComponent implements OnInit {
 	@Input() role: number;

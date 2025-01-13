@@ -14,11 +14,16 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgIf, NgTemplateOutlet, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ButtonComponent } from '../../../ui/button/button.component';
+import { DiscountTypeComponent } from '../../../ui/discount-type/discount-type.component';
+import { IconButtonComponent } from '../../../ui/icon-button/icon-button.component';
 
 @Component({
     selector: 'app-main-discounts',
     templateUrl: './main-discounts.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, NgTemplateOutlet, ButtonComponent, NgFor, DiscountTypeComponent, IconButtonComponent, AsyncPipe]
 })
 export class MainDiscountsComponent implements OnInit {
 	discounts$: Observable<Discount[]>;

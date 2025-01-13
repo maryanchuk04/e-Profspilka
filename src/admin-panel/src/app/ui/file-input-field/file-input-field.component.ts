@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, } from '@angular/core';
-import { FormGroup, } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-file-input-field',
     templateUrl: './file-input-field.component.html',
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, NgIf]
 })
 export class FileInputFieldComponent {
 	@Input() formGroup: FormGroup;

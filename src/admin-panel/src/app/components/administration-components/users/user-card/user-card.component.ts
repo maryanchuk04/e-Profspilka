@@ -5,14 +5,19 @@ import AppState from 'src/app/store';
 import { updateUser, } from 'src/app/store/actions/user.action';
 
 import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Route, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { NgIf } from '@angular/common';
+import { LoaderComponent } from '../../../loader/loader.component';
+import { ButtonComponent } from '../../../../ui/button/button.component';
+import { RoleComponent } from '../../../../shared/role/role.component';
+import { IconButtonComponent } from '../../../../ui/icon-button/icon-button.component';
 
 @Component({
     selector: 'app-user-card',
     templateUrl: './user-card.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ButtonComponent, RoleComponent, FormsModule, ReactiveFormsModule, IconButtonComponent]
 })
 export class UserCardComponent implements OnInit {
 	user: User = null;

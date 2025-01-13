@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { LoaderComponent } from '../components/loader/loader.component';
 
 @Component({
     selector: 'app-spinner-button',
     templateUrl: './spinner-button.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent]
 })
 export class SpinnerButtonComponent {
     @Input() loading: boolean;

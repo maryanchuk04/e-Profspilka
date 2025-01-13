@@ -4,11 +4,17 @@ import { Partner } from 'src/app/models/Partners';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
 import { deletePartner, updatePartner } from 'src/app/store/actions/partners.action';
+import { IconButtonComponent } from '../../ui/icon-button/icon-button.component';
+import { NgIf } from '@angular/common';
+import { ModalComponent } from '../modal/modal.component';
+import { TextFieldComponent } from '../../ui/text-field/text-field.component';
+import { DragDropDirective } from '../../directives/drag-drop.directive';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
     selector: 'app-partner',
     templateUrl: './partner.component.html',
-    standalone: false
+    imports: [IconButtonComponent, NgIf, ModalComponent, TextFieldComponent, DragDropDirective, ButtonComponent]
 })
 export class PartnerComponent implements OnInit {
 	@Input() partner: Partner;

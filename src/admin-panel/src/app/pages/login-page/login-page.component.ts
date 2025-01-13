@@ -3,17 +3,17 @@ import { GoogleUserInfo, } from 'src/app/models/GoogleUserInfo';
 import AppState from 'src/app/store';
 import { googleLoginUser, } from 'src/app/store/actions/user.action';
 
-import {
-	GoogleLoginProvider, SocialAuthService, SocialUser,
-} from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService, SocialUser, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { FormsModule } from '@angular/forms';
+import { SvgComponent } from '../../shared/svg/svg.component';
 
 @Component({
     selector: 'app-login-page',
     templateUrl: './login-page.component.html',
-    standalone: false
+    imports: [FormsModule, SvgComponent, SocialLoginModule]
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 	socialUser!: SocialUser;

@@ -6,11 +6,15 @@ import { selectUserData } from 'src/app/store/selectors/user.selector';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { RoleComponent } from '../role/role.component';
+import { ButtonComponent } from '../../ui/button/button.component';
+import { RouterLinkActive, RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    standalone: false
+    imports: [NgIf, RoleComponent, ButtonComponent, NgFor, RouterLinkActive, RouterLink, AsyncPipe]
 })
 export class HeaderComponent implements OnInit {
 	links = [

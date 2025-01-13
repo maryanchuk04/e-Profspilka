@@ -8,11 +8,19 @@ import { updateEvent, } from 'src/app/store/actions/events.action';
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { NgIf, NgFor } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ButtonComponent } from '../../../ui/button/button.component';
+import { FormsModule } from '@angular/forms';
+import { EditorComponent } from '../../../ui/editor/editor.component';
+import { IconButtonComponent } from '../../../ui/icon-button/icon-button.component';
+import { ModalComponent } from '../../modal/modal.component';
+import { DragDropDirective } from '../../../directives/drag-drop.directive';
 
 @Component({
     selector: 'app-event-update',
     templateUrl: './event-update.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ButtonComponent, FormsModule, EditorComponent, NgFor, IconButtonComponent, ModalComponent, DragDropDirective]
 })
 export class EventUpdateComponent implements OnInit, OnDestroy {
 	subscription: Subscription = new Subscription();

@@ -7,11 +7,13 @@ import { selectAlertState } from 'src/app/store/selectors/alert.selector';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
+import { IconButtonComponent } from '../../ui/icon-button/icon-button.component';
 
 @Component({
     selector: 'app-alert',
     templateUrl: './alert.component.html',
-    standalone: false
+    imports: [NgIf, NgClass, IconButtonComponent, AsyncPipe]
 })
 export class AlertComponent implements OnInit {
 	alert$: Observable<Alert>;

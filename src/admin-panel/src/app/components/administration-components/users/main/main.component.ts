@@ -8,11 +8,14 @@ import { selectUserLoading, } from 'src/app/store/selectors/user.selector';
 import { Component, OnInit, } from '@angular/core';
 import { Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { SpinnerButtonComponent } from '../../../../spinner-button/spinner-button.component';
+import { ButtonComponent } from '../../../../ui/button/button.component';
+import { UsersTableComponent } from '../users-table/users-table.component';
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
-    standalone: false
+    imports: [SpinnerButtonComponent, ButtonComponent, UsersTableComponent]
 })
 export class MainComponent implements OnInit {
 	loading$: Observable<boolean>;

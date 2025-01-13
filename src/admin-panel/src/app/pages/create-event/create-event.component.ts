@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, EMPTY, first, tap } from 'rxjs';
 import { Event } from 'src/app/models/Event';
 import { EventsService } from 'src/app/services/events.service';
 import { createEvent } from 'src/app/store/actions/events.action';
+import { ContainerComponent } from '../../shared/container/container.component';
+import { TextFieldComponent } from '../../ui/text-field/text-field.component';
+import { DragDropDirective } from '../../directives/drag-drop.directive';
+import { EditorComponent } from '../../ui/editor/editor.component';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
     selector: 'app-create-event',
     templateUrl: './create-event.component.html',
-    standalone: false
+    imports: [ContainerComponent, FormsModule, ReactiveFormsModule, TextFieldComponent, DragDropDirective, EditorComponent, ButtonComponent]
 })
 export class CreateEventComponent implements OnInit {
     createEventForm: FormGroup;

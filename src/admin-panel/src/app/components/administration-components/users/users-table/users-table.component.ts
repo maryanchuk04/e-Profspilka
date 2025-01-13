@@ -8,11 +8,15 @@ import { selectUserLoading, selectUsers, } from 'src/app/store/selectors/user.se
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../../loader/loader.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-users-table',
     templateUrl: './users-table.component.html',
-    standalone: false
+    imports: [FormsModule, NgIf, LoaderComponent, NgFor, NgxPaginationModule, AsyncPipe]
 })
 export class UsersTableComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();

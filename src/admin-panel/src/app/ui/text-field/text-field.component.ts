@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Optional, Output } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-text-field',
     templateUrl: './text-field.component.html',
-    standalone: false
+    imports: [NgIf, FormsModule, NgClass, ReactiveFormsModule]
 })
 export class TextFieldComponent implements OnInit {
     @Input() type: string = 'text';

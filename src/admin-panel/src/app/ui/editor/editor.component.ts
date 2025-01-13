@@ -1,4 +1,4 @@
-import { Editor, Toolbar } from 'ngx-editor';
+import { Editor, Toolbar, NgxEditorModule } from 'ngx-editor';
 
 import {
 	Component,
@@ -9,13 +9,14 @@ import {
 	Output,
 	ViewEncapsulation,
 } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-editor',
     templateUrl: './editor.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgxEditorModule]
 })
 export class EditorComponent implements OnInit {
 	@Input() value: string = '';

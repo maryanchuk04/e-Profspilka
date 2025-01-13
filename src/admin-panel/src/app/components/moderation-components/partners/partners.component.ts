@@ -10,11 +10,19 @@ import {
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ModerationHeaderComponent } from '../../../shared/moderation-header/moderation-header.component';
+import { PartnerComponent } from '../../partner/partner.component';
+import { ModalComponent } from '../../modal/modal.component';
+import { TextFieldComponent } from '../../../ui/text-field/text-field.component';
+import { DragDropDirective } from '../../../directives/drag-drop.directive';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
     selector: 'app-partners',
     templateUrl: './partners.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, PartnerComponent, ModalComponent, TextFieldComponent, DragDropDirective, ButtonComponent, AsyncPipe]
 })
 export class PartnersComponent implements OnInit {
 	open: boolean = false;

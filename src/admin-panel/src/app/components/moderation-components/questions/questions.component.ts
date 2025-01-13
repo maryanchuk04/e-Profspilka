@@ -6,11 +6,19 @@ import { selectQuestions, selectQuestionsLoading } from 'src/app/store/selectors
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ModerationHeaderComponent } from '../../../shared/moderation-header/moderation-header.component';
+import { QuestionComponent } from '../../question/question.component';
+import { ModalComponent } from '../../modal/modal.component';
+import { TextFieldComponent } from '../../../ui/text-field/text-field.component';
+import { EditorComponent } from '../../../ui/editor/editor.component';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
     selector: 'app-questions',
     templateUrl: './questions.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, QuestionComponent, ModalComponent, TextFieldComponent, EditorComponent, ButtonComponent, AsyncPipe]
 })
 export class QuestionsComponent implements OnInit {
 	question: string;

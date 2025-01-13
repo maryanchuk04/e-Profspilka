@@ -8,14 +8,22 @@ import AppState from 'src/app/store';
 import { createDiscount, updateDiscount, } from 'src/app/store/actions/discounts.actions';
 
 import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators, } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
+import { NgIf } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { FormTextFieldComponent } from '../../../ui/form-text-field/form-text-field.component';
+import { EditorComponent } from '../../../ui/editor/editor.component';
+import { SelectComponent } from '../../../ui/select/select.component';
+import { QuestionTooltipComponent } from '../../../ui/question-tooltip/question-tooltip.component';
+import { FileInputFieldComponent } from '../../../ui/file-input-field/file-input-field.component';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
     selector: 'app-create-discount',
     templateUrl: './create-discount.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, FormsModule, ReactiveFormsModule, FormTextFieldComponent, EditorComponent, SelectComponent, QuestionTooltipComponent, FileInputFieldComponent, ButtonComponent]
 })
 export class CreateDiscountComponent implements OnInit, OnDestroy {
 	createDiscountForm: FormGroup;

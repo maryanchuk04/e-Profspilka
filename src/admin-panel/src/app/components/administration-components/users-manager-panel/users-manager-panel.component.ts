@@ -4,7 +4,11 @@ import { ImportType, } from 'src/app/models/ImportType';
 import { StudentStoreService, } from 'src/app/services/student-store.service';
 
 import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FeedbackComponent } from '../../../ui/feedback/feedback.component';
+import { SelectComponent } from '../../../ui/select/select.component';
+import { FileInputFieldComponent } from '../../../ui/file-input-field/file-input-field.component';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 const importOptions = [
 	{
@@ -24,7 +28,7 @@ const importOptions = [
 @Component({
     selector: 'app-users-manager-panel',
     templateUrl: './users-manager-panel.component.html',
-    standalone: false
+    imports: [FeedbackComponent, FormsModule, ReactiveFormsModule, SelectComponent, FileInputFieldComponent, ButtonComponent]
 })
 export class UsersManagerPanelComponent implements OnInit, OnDestroy {
 	form: FormGroup;

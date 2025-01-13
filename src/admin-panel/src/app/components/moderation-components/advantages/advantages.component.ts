@@ -8,11 +8,19 @@ import {
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ModerationHeaderComponent } from '../../../shared/moderation-header/moderation-header.component';
+import { AdvantageComponent } from '../../advantage/advantage.component';
+import { ModalComponent } from '../../modal/modal.component';
+import { TextFieldComponent } from '../../../ui/text-field/text-field.component';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
     selector: 'app-advantages',
     templateUrl: './advantages.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, AdvantageComponent, ModalComponent, TextFieldComponent, FormsModule, ButtonComponent, AsyncPipe]
 })
 export class AdvantagesComponent implements OnInit {
 	loading$: Observable<boolean>;

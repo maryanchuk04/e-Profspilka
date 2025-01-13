@@ -1,13 +1,14 @@
 import { Option } from 'src/app/models/ui-models/Option';
 
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-select',
     templateUrl: './select.component.html',
     styleUrls: ['./select.component.css'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, NgFor]
 })
 export class SelectComponent implements OnInit {
 	@Input() options: Option[] = [];

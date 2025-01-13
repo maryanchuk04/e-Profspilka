@@ -6,11 +6,15 @@ import {
 	deleteQuestion,
 	updateQuestion,
 } from 'src/app/store/actions/questions.action';
+import { NgIf } from '@angular/common';
+import { IconButtonComponent } from '../../ui/icon-button/icon-button.component';
+import { TextFieldComponent } from '../../ui/text-field/text-field.component';
+import { EditorComponent } from '../../ui/editor/editor.component';
 
 @Component({
     selector: 'app-question',
     templateUrl: './question.component.html',
-    standalone: false
+    imports: [NgIf, IconButtonComponent, TextFieldComponent, EditorComponent]
 })
 export class QuestionComponent implements OnInit {
 	questionText: string;

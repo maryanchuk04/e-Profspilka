@@ -4,11 +4,14 @@ import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { NgIf } from '@angular/common';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
     selector: 'app-main-page',
     templateUrl: './main-page.component.html',
-    standalone: false
+    imports: [HeaderComponent, NgIf, ButtonComponent]
 })
 export class MainPageComponent implements OnInit {
 	isAdminOrModerator: boolean;

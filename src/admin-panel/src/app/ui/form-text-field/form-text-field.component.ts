@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormGroupDirective, } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-form-text-field',
     templateUrl: './form-text-field.component.html',
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule]
 })
 export class FormTextFieldComponent implements OnInit {
 	@Input() controlName: string;

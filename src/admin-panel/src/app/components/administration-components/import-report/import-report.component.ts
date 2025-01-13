@@ -6,8 +6,7 @@ import { Component, Input, OnInit, } from '@angular/core';
 @Component({
     selector: 'app-import-report',
     templateUrl: './import-report.component.html',
-    styleUrls: ['./import-report.component.css'],
-    standalone: false
+    styleUrls: ['./import-report.component.css']
 })
 export class ImportReportComponent implements OnInit {
 	@Input() importResult: ImportResult = {

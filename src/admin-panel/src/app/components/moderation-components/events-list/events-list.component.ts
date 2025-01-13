@@ -7,11 +7,15 @@ import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import AppState from 'src/app/store';
 import { fetchEvents } from 'src/app/store/actions/events.action';
 import { selectEventsData, selectEventsLoading } from 'src/app/store/selectors/events.selector';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ModerationHeaderComponent } from '../../../shared/moderation-header/moderation-header.component';
+import { EventCardComponent } from '../../event-card/event-card.component';
 
 @Component({
     selector: 'app-events-list',
     templateUrl: './events-list.component.html',
-    standalone: false
+    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, EventCardComponent, AsyncPipe]
 })
 export class EventsListComponent implements OnInit {
 

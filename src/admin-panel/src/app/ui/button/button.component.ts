@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-button',
-    templateUrl: './button.component.html',
-    standalone: false
+    templateUrl: './button.component.html'
 })
 export class ButtonComponent implements OnInit {
 	@Input() disabled: boolean = false;

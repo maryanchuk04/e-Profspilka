@@ -81,8 +81,30 @@ import Aura from '@primeng/themes/aura';
 import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    declarations: [
-        AppComponent,
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SocialLoginModule,
+        JwtModule,
+        FormsModule,
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot(effects),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: environment.production,
+            autoPause: true,
+            connectInZone: true,
+        }),
+        NgxEditorModule.forRoot(options),
+        CKEditorModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(),
+        NgxPaginationModule,
+        ButtonModule,
         MainPageComponent,
         HeaderComponent,
         LoginPageComponent,
@@ -135,30 +157,6 @@ import { ButtonModule } from 'primeng/button';
         UpdateDiscountComponent,
         CreateEventComponent,
         EventsListComponent,
-    ],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        SocialLoginModule,
-        JwtModule,
-        FormsModule,
-        StoreModule.forRoot(reducers),
-        EffectsModule.forRoot(effects),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: environment.production,
-            autoPause: true,
-            connectInZone: true,
-        }),
-        NgxEditorModule.forRoot(options),
-        CKEditorModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule, // required animations module
-        ToastrModule.forRoot(),
-        NgxPaginationModule,
-        ButtonModule,
     ],
     providers: [
         {

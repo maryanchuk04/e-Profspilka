@@ -7,11 +7,12 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { IconButtonComponent } from '../../ui/icon-button/icon-button.component';
 
 @Component({
     selector: 'app-event-card',
     templateUrl: './event-card.component.html',
-    standalone: false
+    imports: [IconButtonComponent]
 })
 export class EventCardComponent implements OnInit {
 	@Input() event: Event;

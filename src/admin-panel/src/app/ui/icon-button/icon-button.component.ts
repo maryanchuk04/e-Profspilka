@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-icon-button',
     templateUrl: './icon-button.component.html',
-    standalone: false
+    imports: [NgClass]
 })
 export class IconButtonComponent implements OnInit {
 	@Input() icon: string;

@@ -1,9 +1,10 @@
 import { Component, OnInit, } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    standalone: false
+    imports: [NgTemplateOutlet]
 })
 export class DashboardComponent implements OnInit {
 	constructor() {}

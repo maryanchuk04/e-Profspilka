@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-feedback',
     templateUrl: './feedback.component.html',
     styleUrls: ['./feedback.component.css'],
-    standalone: false
+    imports: [NgIf]
 })
 export class FeedbackComponent implements OnInit {
 	@Input() text: string = '';
