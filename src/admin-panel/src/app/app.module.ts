@@ -3,12 +3,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 
-import {
-	GoogleLoginProvider,
-	SocialAuthServiceConfig,
-	SocialLoginModule,
-} from '@abacritt/angularx-social-login';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -55,7 +51,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ModerationPageComponent } from './pages/moderation/moderation-page.component';
 import { DownloadService } from './services/download.service';
-import { ErrorInterceptor } from './services/error-interceptor.service';
 import { RestService } from './services/rest.service';
 import { ContainerComponent } from './shared/container/container.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -80,9 +75,13 @@ import { options } from './utils/editorOptions';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { EventsListComponent } from './components/moderation-components/events-list/events-list.component';
 import { httpInterceptor } from './interceptors/http.interceptor';
-import { Router } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import { ButtonModule } from 'primeng/button';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         MainPageComponent,
         HeaderComponent,
@@ -137,7 +136,9 @@ import { Router } from '@angular/router';
         CreateEventComponent,
         EventsListComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         SocialLoginModule,
         JwtModule,
@@ -148,7 +149,7 @@ import { Router } from '@angular/router';
             maxAge: 25,
             logOnly: environment.production,
             autoPause: true,
-            connectInZone: true
+            connectInZone: true,
         }),
         NgxEditorModule.forRoot(options),
         CKEditorModule,
@@ -156,7 +157,10 @@ import { Router } from '@angular/router';
         FormsModule,
         BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(),
-        NgxPaginationModule], providers: [
+        NgxPaginationModule,
+        ButtonModule,
+    ],
+    providers: [
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {
@@ -177,5 +181,15 @@ import { Router } from '@angular/router';
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         JwtHelperService,
         provideHttpClient(withInterceptorsFromDi(), withInterceptors([httpInterceptor])),
-    ] })
+        provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: false || 'none'
+                }
+            },
+        }),
+    ],
+})
 export class AppModule {}
