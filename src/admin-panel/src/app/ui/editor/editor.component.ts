@@ -12,9 +12,10 @@ import {
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
-	selector: 'app-editor',
-	templateUrl: './editor.component.html',
-	encapsulation: ViewEncapsulation.None,
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EditorComponent implements OnInit {
 	@Input() value: string = '';

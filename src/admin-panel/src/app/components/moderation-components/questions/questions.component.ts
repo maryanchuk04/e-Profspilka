@@ -8,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-questions',
-	templateUrl: './questions.component.html',
+    selector: 'app-questions',
+    templateUrl: './questions.component.html',
+    standalone: false
 })
 export class QuestionsComponent implements OnInit {
 	question: string;

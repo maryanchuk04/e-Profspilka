@@ -10,6 +10,7 @@ import { createEvent } from 'src/app/store/actions/events.action';
 @Component({
     selector: 'app-create-event',
     templateUrl: './create-event.component.html',
+    standalone: false
 })
 export class CreateEventComponent implements OnInit {
     createEventForm: FormGroup;

@@ -12,8 +12,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-partners',
-	templateUrl: './partners.component.html',
+    selector: 'app-partners',
+    templateUrl: './partners.component.html',
+    standalone: false
 })
 export class PartnersComponent implements OnInit {
 	open: boolean = false;

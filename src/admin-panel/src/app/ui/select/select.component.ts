@@ -4,9 +4,10 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
-	selector: 'app-select',
-	templateUrl: './select.component.html',
-	styleUrls: ['./select.component.css'],
+    selector: 'app-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.css'],
+    standalone: false
 })
 export class SelectComponent implements OnInit {
 	@Input() options: Option[] = [];

@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-role',
-	templateUrl: './role.component.html',
+    selector: 'app-role',
+    templateUrl: './role.component.html',
+    standalone: false
 })
 export class RoleComponent implements OnInit {
 	@Input() role: number;

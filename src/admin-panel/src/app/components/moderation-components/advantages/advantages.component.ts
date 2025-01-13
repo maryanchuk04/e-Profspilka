@@ -10,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-advantages',
-	templateUrl: './advantages.component.html',
+    selector: 'app-advantages',
+    templateUrl: './advantages.component.html',
+    standalone: false
 })
 export class AdvantagesComponent implements OnInit {
 	loading$: Observable<boolean>;

@@ -10,8 +10,9 @@ import { Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
 
 @Component({
-	selector: 'app-main',
-	templateUrl: './main.component.html',
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    standalone: false
 })
 export class MainComponent implements OnInit {
 	loading$: Observable<boolean>;

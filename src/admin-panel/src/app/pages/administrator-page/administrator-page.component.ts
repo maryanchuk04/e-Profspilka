@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-administrator-page',
-	templateUrl: './administrator-page.component.html',
+    selector: 'app-administrator-page',
+    templateUrl: './administrator-page.component.html',
+    standalone: false
 })
 export class AdministratorPageComponent implements OnInit {
 	constructor() {}

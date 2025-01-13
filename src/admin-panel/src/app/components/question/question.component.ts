@@ -8,8 +8,9 @@ import {
 } from 'src/app/store/actions/questions.action';
 
 @Component({
-	selector: 'app-question',
-	templateUrl: './question.component.html',
+    selector: 'app-question',
+    templateUrl: './question.component.html',
+    standalone: false
 })
 export class QuestionComponent implements OnInit {
 	questionText: string;

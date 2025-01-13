@@ -6,8 +6,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-	selector: 'app-update-discount',
-	templateUrl: './update-discount.component.html',
+    selector: 'app-update-discount',
+    templateUrl: './update-discount.component.html',
+    standalone: false
 })
 export class UpdateDiscountComponent implements OnInit, OnDestroy {
 	$destroy = new Subject<void>();

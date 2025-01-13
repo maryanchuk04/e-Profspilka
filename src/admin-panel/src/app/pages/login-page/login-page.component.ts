@@ -11,8 +11,9 @@ import { Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
 
 @Component({
-	selector: 'app-login-page',
-	templateUrl: './login-page.component.html',
+    selector: 'app-login-page',
+    templateUrl: './login-page.component.html',
+    standalone: false
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 	socialUser!: SocialUser;

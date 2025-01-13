@@ -10,8 +10,9 @@ import { ActivatedRoute, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
 
 @Component({
-	selector: 'app-event-update',
-	templateUrl: './event-update.component.html',
+    selector: 'app-event-update',
+    templateUrl: './event-update.component.html',
+    standalone: false
 })
 export class EventUpdateComponent implements OnInit, OnDestroy {
 	subscription: Subscription = new Subscription();

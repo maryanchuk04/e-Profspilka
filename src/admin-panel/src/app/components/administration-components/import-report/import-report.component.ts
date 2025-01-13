@@ -4,9 +4,10 @@ import { ImportType, } from 'src/app/models/ImportType';
 import { Component, Input, OnInit, } from '@angular/core';
 
 @Component({
-	selector: 'app-import-report',
-	templateUrl: './import-report.component.html',
-	styleUrls: ['./import-report.component.css'],
+    selector: 'app-import-report',
+    templateUrl: './import-report.component.html',
+    styleUrls: ['./import-report.component.css'],
+    standalone: false
 })
 export class ImportReportComponent implements OnInit {
 	@Input() importResult: ImportResult = {

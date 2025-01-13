@@ -9,8 +9,9 @@ import { fetchEvents } from 'src/app/store/actions/events.action';
 import { selectEventsData, selectEventsLoading } from 'src/app/store/selectors/events.selector';
 
 @Component({
-  selector: 'app-events-list',
-  templateUrl: './events-list.component.html',
+    selector: 'app-events-list',
+    templateUrl: './events-list.component.html',
+    standalone: false
 })
 export class EventsListComponent implements OnInit {
 

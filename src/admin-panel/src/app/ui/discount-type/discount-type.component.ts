@@ -3,8 +3,9 @@ import { DiscountType, } from 'src/app/models/DiscountType';
 import { Component, Input, OnInit, } from '@angular/core';
 
 @Component({
-	selector: 'app-discount-type',
-	templateUrl: './discount-type.component.html',
+    selector: 'app-discount-type',
+    templateUrl: './discount-type.component.html',
+    standalone: false
 })
 export class DiscountTypeComponent implements OnInit {
 	@Input() discoutType: DiscountType;

@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
     selector: 'app-spinner-button',
     templateUrl: './spinner-button.component.html',
+    standalone: false
 })
 export class SpinnerButtonComponent {
     @Input() loading: boolean;

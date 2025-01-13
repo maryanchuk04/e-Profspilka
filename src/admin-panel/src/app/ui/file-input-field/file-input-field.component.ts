@@ -2,8 +2,9 @@ import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { FormGroup, } from '@angular/forms';
 
 @Component({
-	selector: 'app-file-input-field',
-	templateUrl: './file-input-field.component.html',
+    selector: 'app-file-input-field',
+    templateUrl: './file-input-field.component.html',
+    standalone: false
 })
 export class FileInputFieldComponent {
 	@Input() formGroup: FormGroup;

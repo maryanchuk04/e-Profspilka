@@ -12,6 +12,7 @@ import { Store, } from '@ngrx/store';
 @Component({
     selector: 'app-users-table',
     templateUrl: './users-table.component.html',
+    standalone: false
 })
 export class UsersTableComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();

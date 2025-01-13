@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
-	selector: 'app-main-page',
-	templateUrl: './main-page.component.html',
+    selector: 'app-main-page',
+    templateUrl: './main-page.component.html',
+    standalone: false
 })
 export class MainPageComponent implements OnInit {
 	isAdminOrModerator: boolean;

@@ -6,9 +6,10 @@ import AppState from './store';
 import { fetchCurrentUser } from './store/actions/user.action';
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
 	title = 'YeProfspilka.Admin';

@@ -10,8 +10,9 @@ import { ActivatedRoute, Route, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
 
 @Component({
-	selector: 'app-user-card',
-	templateUrl: './user-card.component.html',
+    selector: 'app-user-card',
+    templateUrl: './user-card.component.html',
+    standalone: false
 })
 export class UserCardComponent implements OnInit {
 	user: User = null;

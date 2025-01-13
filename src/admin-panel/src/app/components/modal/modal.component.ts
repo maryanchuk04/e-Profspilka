@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-	selector: 'app-modal',
-	templateUrl: './modal.component.html',
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    standalone: false
 })
 export class ModalComponent implements OnInit {
 	@Output() close: EventEmitter<any> = new EventEmitter();

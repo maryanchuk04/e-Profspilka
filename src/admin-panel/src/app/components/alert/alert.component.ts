@@ -9,8 +9,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-alert',
-	templateUrl: './alert.component.html',
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    standalone: false
 })
 export class AlertComponent implements OnInit {
 	alert$: Observable<Alert>;

@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SvgService } from './svg.service';
 
 @Component({
-	selector: 'app-svg',
-	templateUrl: './svg.component.html',
+    selector: 'app-svg',
+    templateUrl: './svg.component.html',
+    standalone: false
 })
 export class SvgComponent implements OnInit {
 	@Input() classNames = '';

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Optional, Output } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'app-text-field',
     templateUrl: './text-field.component.html',
+    standalone: false
 })
 export class TextFieldComponent implements OnInit {
     @Input() type: string = 'text';
@@ -16,7 +17,7 @@ export class TextFieldComponent implements OnInit {
 
     form: FormGroup = null;
 
-    constructor(@Optional() private formGroupDirective: FormGroupDirective) {}
+    constructor(@Inject('formGroupDirective') private formGroupDirective: FormGroupDirective) {}
 
     ngOnInit(): void {
         if (this.controlName && this.formGroupDirective) {

@@ -6,8 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-advantage',
-	templateUrl: './advantage.component.html',
+    selector: 'app-advantage',
+    templateUrl: './advantage.component.html',
+    standalone: false
 })
 export class AdvantageComponent implements OnInit {
 	@Input() advantage: Advantage;

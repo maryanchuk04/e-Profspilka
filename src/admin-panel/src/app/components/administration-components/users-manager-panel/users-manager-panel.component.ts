@@ -22,8 +22,9 @@ const importOptions = [
 ];
 
 @Component({
-	selector: 'app-users-manager-panel',
-	templateUrl: './users-manager-panel.component.html',
+    selector: 'app-users-manager-panel',
+    templateUrl: './users-manager-panel.component.html',
+    standalone: false
 })
 export class UsersManagerPanelComponent implements OnInit, OnDestroy {
 	form: FormGroup;

@@ -13,8 +13,9 @@ import { ActivatedRoute, Router, } from '@angular/router';
 import { Store, } from '@ngrx/store';
 
 @Component({
-	selector: 'app-create-discount',
-	templateUrl: './create-discount.component.html',
+    selector: 'app-create-discount',
+    templateUrl: './create-discount.component.html',
+    standalone: false
 })
 export class CreateDiscountComponent implements OnInit, OnDestroy {
 	createDiscountForm: FormGroup;

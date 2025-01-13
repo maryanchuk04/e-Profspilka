@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
-	selector: 'app-moderation-header',
-	templateUrl: './moderation-header.component.html',
+    selector: 'app-moderation-header',
+    templateUrl: './moderation-header.component.html',
+    standalone: false
 })
 export class ModerationHeaderComponent implements OnInit {
 	@Output() handleAdd: EventEmitter<any> = new EventEmitter();

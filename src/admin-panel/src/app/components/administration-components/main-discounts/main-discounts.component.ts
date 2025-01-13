@@ -16,8 +16,9 @@ import { Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-main-discounts',
-	templateUrl: './main-discounts.component.html',
+    selector: 'app-main-discounts',
+    templateUrl: './main-discounts.component.html',
+    standalone: false
 })
 export class MainDiscountsComponent implements OnInit {
 	discounts$: Observable<Discount[]>;

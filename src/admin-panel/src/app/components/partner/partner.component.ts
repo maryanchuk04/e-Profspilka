@@ -6,8 +6,9 @@ import AppState from 'src/app/store';
 import { deletePartner, updatePartner } from 'src/app/store/actions/partners.action';
 
 @Component({
-	selector: 'app-partner',
-	templateUrl: './partner.component.html',
+    selector: 'app-partner',
+    templateUrl: './partner.component.html',
+    standalone: false
 })
 export class PartnerComponent implements OnInit {
 	@Input() partner: Partner;

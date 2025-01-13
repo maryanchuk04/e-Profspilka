@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 @Component({
-	selector: 'app-event-card',
-	templateUrl: './event-card.component.html',
+    selector: 'app-event-card',
+    templateUrl: './event-card.component.html',
+    standalone: false
 })
 export class EventCardComponent implements OnInit {
 	@Input() event: Event;
