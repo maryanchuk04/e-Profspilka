@@ -36,9 +36,8 @@ export class UserEffect {
 			ofType(googleLoginUser),
 			switchMap(({ googleModel }) =>
 				this.authService.authenticateGoogle(googleModel).pipe(
-					map(({ token }) => {
-						this.tokenService.set(token);
-						return googleLoginUserSuccess({ token });
+					map(() => {
+						return googleLoginUserSuccess();
 					})
 				)
 			)
@@ -48,8 +47,8 @@ export class UserEffect {
 	getCurrentUser$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(googleLoginUserSuccess),
-			switchMap(({ token }) =>
-				this.userService.getCurrentUserWithToken(token).pipe(
+			switchMap(() =>
+				this.userService.getCurrentUser().pipe(
 					map((user) => {
 						this.toastrService.success(`Вітаю вас ${user.fullName}!`);
 						return loginUserSuccess({ user });

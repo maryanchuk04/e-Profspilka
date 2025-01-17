@@ -1,19 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-moderation-header',
     templateUrl: './moderation-header.component.html',
-    imports: [ButtonComponent]
+    imports: [ButtonModule],
 })
 export class ModerationHeaderComponent implements OnInit {
-	@Output() handleAdd: EventEmitter<any> = new EventEmitter();
-	constructor() { }
+    @Input() buttonLabel: string = '';
 
-	ngOnInit(): void {
-	}
+    @Output() handleAdd: EventEmitter<any> = new EventEmitter();
+    constructor() {}
 
-	handleClick() {
-		this.handleAdd.emit();
-	}
+    ngOnInit(): void {}
+
+    handleClick() {
+        this.handleAdd.emit();
+    }
 }

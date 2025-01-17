@@ -17,14 +17,15 @@ public class AuthenticationService(
     public async Task<AuthenticateResponseModel> Authenticate(string email, string avatar)
     {
         var user = context.Users
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(x => x.Image)
             .Include(x => x.UserTokens)
             .Include(x => x.UserRoles)
             .FirstOrDefault(x => x.Email == email);
 
         if (user == null)
-        {
             throw new AuthenticateException($"Користувача з емеллом {email} не існує!");
-        }
 
         if (!string.IsNullOrEmpty(avatar))
             user.Image = new Image(avatar);

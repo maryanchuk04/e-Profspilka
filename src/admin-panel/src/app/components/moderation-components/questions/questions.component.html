@@ -1,34 +1,28 @@
 <ng-container *ngIf="loading$ | async; else elseTemplate">
-	<app-loader></app-loader>
+    <app-loader></app-loader>
 </ng-container>
 <ng-template #elseTemplate>
-	<app-moderation-header (handleAdd)="handleOpenModal()"></app-moderation-header>
-	<div class="h-fit w-full pt-10">
-		<app-question *ngFor="let item of questions$ | async" [question]="item"></app-question>
-	</div>
-	<app-modal *ngIf="modal" (close)="handleCloseModal()">
-		<div class="w-[800px] h-fit max-h-[800px]">
-			<div class="w-11/12 mx-auto">
-				<h1 class="text-2xl text-center my-4">Створіть нове питання!</h1>
-				<hr />
-				<app-text-field
+    <app-moderation-header buttonLabel="Додати нове питання" (handleAdd)="handleOpenModal()"></app-moderation-header>
+    <div class="h-fit w-full pt-10">
+        <app-question *ngFor="let item of questions$ | async" [question]="item"></app-question>
+    </div>
+    <app-modal *ngIf="modal" (close)="handleCloseModal()">
+        <div class="w-[800px] h-fit max-h-[800px]">
+            <div class="w-11/12 mx-auto">
+                <h1 class="text-2xl text-center my-4">Створіть нове питання!</h1>
+                <hr />
+                <!-- <app-text-field
 					placeholder="Введіть саме питання..."
 					class="my-3"
 					classStyles="my-5"
 					[(value)]="question"
-				></app-text-field>
-				<app-editor
-					placeholder="Введіть відповідь на питання..."
-					[(value)]="answer"
-					[mode]="'simple'"
-				></app-editor>
-				<app-button
-					(onClick)="create()"
-					classStyles="my-5"
-					[disabled]="!question || !answer"
-					>Створити</app-button
-				>
-			</div>
-		</div>
-	</app-modal>
+				></app-text-field> -->
+                <input pInputText placeholder="Введіть саме питання..." />
+                <app-editor placeholder="Введіть відповідь на питання..." [(value)]="answer"
+                    [mode]="'simple'"></app-editor>
+                <app-button (onClick)="create()" classStyles="my-5"
+                    [disabled]="!question || !answer">Створити</app-button>
+            </div>
+        </div>
+    </app-modal>
 </ng-template>

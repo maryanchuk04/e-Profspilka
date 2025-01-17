@@ -10,14 +10,12 @@ public class SecurityContext(IHttpContextAccessor httpContextAccessor, ILogger<S
 {
     public Guid GetCurrentUserId()
     {
-        var guidClaim = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Name);
+        var guidClaim = httpContextAccessor.HttpContext?.User.FindFirst($"{TokenService.ClaimBaseAddress}/userId");
 
-        if (guidClaim == null || !Guid.TryParse(guidClaim.Value, out var result))
-        {
-            logger.LogError("guidClaim for User token not found");
-            throw new Exception("User not found");
-        }
+        if (guidClaim != null && Guid.TryParse(guidClaim.Value, out var result)) 
+            return result;
 
-        return result;
+        logger.LogError("guidClaim for User token not found");
+        throw new Exception("User not found");
     }
 }

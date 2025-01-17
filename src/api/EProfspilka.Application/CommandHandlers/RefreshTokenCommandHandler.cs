@@ -20,9 +20,12 @@ public class RefreshTokenCommandHandler(EProfspilkaContext db, ITokenService tok
         CancellationToken cancellationToken)
     {
         var user = await db.Users
+                       .AsNoTracking()
+                       .AsSplitQuery()
                        .Include(x => x.UserRoles)
                        .ThenInclude(x => x.Role)
                        .Include(x => x.UserTokens)
+                       .Include(x => x.Image)
                        .SingleOrDefaultAsync(u => u.UserTokens.Any(x => x.Token == request.RefreshToken),
                            cancellationToken)
                    ?? throw new NotFoundException(nameof(User), request.RefreshToken);
@@ -38,6 +41,7 @@ public class RefreshTokenCommandHandler(EProfspilkaContext db, ITokenService tok
         refreshToken.Revoked = DateTime.Now;
         refreshToken.ReplacedByToken = newRefreshToken.Token;
         newRefreshToken.UserId = user.Id;
+
         await db.UserTokens.AddAsync(newRefreshToken, cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
 

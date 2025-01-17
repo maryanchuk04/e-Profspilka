@@ -111,7 +111,7 @@ public class AuthenticationController(
     [HttpPost("logout")]
     public IActionResult Logout()
     {
-        HttpContext.DeleteRefreshToken();
+        HttpContext.ClearApplicationCookies();
         return Ok();
     }
 }

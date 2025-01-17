@@ -19,7 +19,7 @@ export class RestService<T> {
 			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token.get()}`,
+				Authorization: `Bearer ${this.token.getAccessToken()}`,
 			}),
 		});
 	}
@@ -29,7 +29,7 @@ export class RestService<T> {
 			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token.get()}`,
+				Authorization: `Bearer ${this.token.getAccessToken()}`,
 			}),
 		});
 	}
@@ -39,7 +39,7 @@ export class RestService<T> {
 			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token.get()}`,
+				Authorization: `Bearer ${this.token.getAccessToken()}`,
 			}),
 		});
 	}
@@ -48,7 +48,7 @@ export class RestService<T> {
 		return this.http.delete(`${this.baseURL}/${url}`, {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token.get()}`,
+				Authorization: `Bearer ${this.token.getAccessToken()}`,
 			}),
 		});
 	}
@@ -58,7 +58,7 @@ export class RestService<T> {
 			withCredentials: true,
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.token.get()}`,
+				Authorization: `Bearer ${this.token.getAccessToken()}`,
 			}),
 		});
 	}

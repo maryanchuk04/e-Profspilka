@@ -1,8 +1,8 @@
 export const MemberStatus = {
-    NotVerified: 0,
-    Student: 1,
-    MemberProfspilka: 2,
-    Moderator: 3,
-    HeadOfUnit: 4,
-    Admin: 5,
+    NotVerified: 'notVerified',
+    Student: 'student',
+    MemberProfspilka: 'memberProfspilka',
+    Moderator: 'moderator',
+    HeadOfUnit: 'headOfUnit',
+    Admin: 'admin',
 };

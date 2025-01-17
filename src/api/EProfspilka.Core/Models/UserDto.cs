@@ -18,7 +18,7 @@ public class UserDto
 
 	public int Course { get; set; }
 
-	public Role Role { get; set; }
+    public Role Role { get; set; }
 
 	public IEnumerable<DiscountDto> Discounts { get; set; } = Enumerable.Empty<DiscountDto>();
 }

@@ -15,10 +15,6 @@ export class UserService {
 		return this.service.getOne(this.url);
 	}
 
-	getCurrentUserWithToken(token: string) {
-		return this.service.getWithToken(this.url, token);
-	}
-
 	updateUser(user: User) {
 		return this.service.put(`${this.url}`, user);
 	}

@@ -10,8 +10,7 @@ export const googleLoginUser = createAction(
 );
 
 export const googleLoginUserSuccess = createAction(
-	'[USER] Google login success',
-	props<{ token: string }>()
+	'[USER] Google login success'
 );
 
 export const loginUserSuccess = createAction('[USER] Login user success', props<{ user: User }>());

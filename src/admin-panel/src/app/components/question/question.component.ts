@@ -2,51 +2,53 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Question } from 'src/app/models/Question';
 import AppState from 'src/app/store';
 import { Store } from '@ngrx/store';
-import {
-	deleteQuestion,
-	updateQuestion,
-} from 'src/app/store/actions/questions.action';
+import { deleteQuestion, updateQuestion } from 'src/app/store/actions/questions.action';
 import { NgIf } from '@angular/common';
-import { IconButtonComponent } from '../../ui/icon-button/icon-button.component';
-import { TextFieldComponent } from '../../ui/text-field/text-field.component';
 import { EditorComponent } from '../../ui/editor/editor.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-question',
     templateUrl: './question.component.html',
-    imports: [NgIf, IconButtonComponent, TextFieldComponent, EditorComponent]
+    imports: [NgIf, InputTextModule, EditorComponent, IftaLabelModule, ReactiveFormsModule, ButtonModule],
+    providers: [FormsModule],
 })
 export class QuestionComponent implements OnInit {
-	questionText: string;
-	answer: string;
-	@Input() question: Question;
-	isEdit: boolean = false;
+    questionForm: FormGroup;
 
-	constructor(private store: Store<AppState>) { }
+    @Input() question: Question;
+    isEdit: boolean = false;
 
-	ngOnInit(): void {
-		this.answer = this.question.answer;
-		this.questionText = this.question.questionText;
-	}
+    constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
-	changeMode() {
-		this.isEdit = !this.isEdit;
-	}
+    ngOnInit(): void {
+        this.questionForm = this.fb.group({
+            questionText: [this.question.questionText, [Validators.required]],
+            answer: [this.question.answer, [Validators.required]],
+        });
+    }
 
-	save() {
-		this.store.dispatch(
-			updateQuestion({
-				question: {
-					...this.question,
-					questionText: this.questionText,
-					answer: this.answer,
-				},
-			}),
-		);
-		this.changeMode();
-	}
+    changeMode() {
+        this.isEdit = !this.isEdit;
+    }
 
-	delete() {
-		this.store.dispatch(deleteQuestion({ id: this.question.id }));
-	}
+    save() {
+        this.store.dispatch(
+            updateQuestion({
+                question: {
+                    ...this.question,
+                    questionText: this.questionForm.value?.questionText,
+                    answer: this.questionForm.value?.answer,
+                },
+            })
+        );
+        this.changeMode();
+    }
+
+    delete() {
+        this.store.dispatch(deleteQuestion({ id: this.question.id }));
+    }
 }

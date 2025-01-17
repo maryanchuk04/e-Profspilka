@@ -14,11 +14,15 @@ import { ModalComponent } from '../../modal/modal.component';
 import { TextFieldComponent } from '../../../ui/text-field/text-field.component';
 import { EditorComponent } from '../../../ui/editor/editor.component';
 import { ButtonComponent } from '../../../ui/button/button.component';
+import { FormGroupDirective } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 @Component({
     selector: 'app-questions',
     templateUrl: './questions.component.html',
-    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, QuestionComponent, ModalComponent, TextFieldComponent, EditorComponent, ButtonComponent, AsyncPipe]
+    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, QuestionComponent, ModalComponent, EditorComponent, ButtonComponent, AsyncPipe, InputTextModule],
+    providers: [FormGroupDirective]
 })
 export class QuestionsComponent implements OnInit {
 	question: string;

@@ -1,23 +1,19 @@
 import { Injectable, } from '@angular/core';
 
-import { TOKEN_KEY, } from '../utils/constants';
+import { CookieService } from 'ngx-cookie-service';
+import { accessTokenCookieName } from '../core/constants';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class TokenService {
-	constructor() {}
+	constructor(private cookie: CookieService) {}
 
-	get(): string | null {
-		return localStorage.getItem(TOKEN_KEY);
-	}
-
-	set(token: string): void {
-		localStorage.setItem(TOKEN_KEY, token);
+	getAccessToken(): string | null {
+		return this.cookie.get(accessTokenCookieName);
 	}
 
 	remove(): void {
-		localStorage.removeItem(TOKEN_KEY);
+		this.cookie.deleteAll();
 	}
 }
-   

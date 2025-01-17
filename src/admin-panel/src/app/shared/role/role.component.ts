@@ -1,34 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgIf, NgSwitch } from '@angular/common';
+import { Role, roleResolver } from 'src/app/models/roles';
 
 @Component({
     selector: 'app-role',
     templateUrl: './role.component.html',
-    imports: [NgIf, NgSwitch]
+    imports: [NgIf, NgSwitch],
 })
 export class RoleComponent implements OnInit {
-	@Input() role: number;
+    @Input() role: Role;
 
-	roleLabel: string | null;
+    roleLabel: string | null;
 
-	constructor() {}
+    constructor() {}
 
-	ngOnInit(): void {
-		this.roleLabel = this.getRoleLabel();
-	}
+    ngOnInit(): void {
+        this.roleLabel = this.getRoleLabel();
+    }
 
-	getRoleLabel() {
-		switch (this.role) {
-			case 2:
-				return 'Член профспілки';
-			case 3:
-				return 'Модератор';
-			case 1:
-				return 'Студент';
-			case 5:
-				return 'Адмін';
-			default:
-				return 'Не Активований';
-		}
-	}
+    getRoleLabel() {
+        return roleResolver(this.role);
+    }
 }

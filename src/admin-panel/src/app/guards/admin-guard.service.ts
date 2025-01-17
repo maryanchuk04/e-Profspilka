@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-
-import { TokenService } from '../services/token.service';
+import { UserPermissionService } from '../core/user-permission.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -10,12 +8,10 @@ import { TokenService } from '../services/token.service';
 export class AdminGuardService  {
 	constructor(
 		public router: Router,
-		private tokenService: TokenService,
-		private jwtHelper: JwtHelperService,
+		private userPermissionService: UserPermissionService,
 	) { }
 
 	canActivate(): boolean {
-		const decodedToken = this.jwtHelper.decodeToken(this.tokenService.get());
-		return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].includes('Admin');
+		return this.userPermissionService.isAdmin();
 	}
 }

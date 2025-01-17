@@ -5,7 +5,8 @@ import { NgIf, NgClass } from '@angular/common';
 @Component({
     selector: 'app-text-field',
     templateUrl: './text-field.component.html',
-    imports: [NgIf, FormsModule, NgClass, ReactiveFormsModule]
+    imports: [NgIf, FormsModule, NgClass, ReactiveFormsModule],
+    providers: [FormGroupDirective]
 })
 export class TextFieldComponent implements OnInit {
     @Input() type: string = 'text';
@@ -18,7 +19,7 @@ export class TextFieldComponent implements OnInit {
 
     form: FormGroup = null;
 
-    constructor(@Inject('formGroupDirective') private formGroupDirective: FormGroupDirective) {}
+    constructor(@Optional() private formGroupDirective: FormGroupDirective) {}
 
     ngOnInit(): void {
         if (this.controlName && this.formGroupDirective) {

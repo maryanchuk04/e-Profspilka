@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenService } from '../services/token.service';
 import { ApplicationUrls } from '../utils/constants';
 
@@ -8,10 +7,10 @@ import { ApplicationUrls } from '../utils/constants';
     providedIn: 'root',
 })
 export class AuthGuardService {
-    constructor(public router: Router, private tokenService: TokenService, private jwtHelper: JwtHelperService) {}
+    constructor(public router: Router, private tokenService: TokenService) {}
 
     canActivate(): boolean {
-        if (!this.tokenService.get()) {
+        if (!this.tokenService.getAccessToken()) {
             this.router.navigate([ApplicationUrls.authenticate]);
             return false;
         }

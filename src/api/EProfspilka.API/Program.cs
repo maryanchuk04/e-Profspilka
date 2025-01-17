@@ -2,6 +2,8 @@ using EProfspilka.API.Extension;
 using Microsoft.EntityFrameworkCore;
 using EProfspilka.Db.DbInitialize;
 using EProfspilka.Db.EF;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,11 @@ builder.Services.ConfigureServices(builder.Configuration);
 builder.Services.ConfigureSwagger();
 
 builder.Services.ConfigureAuthorization(builder.Configuration);
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, false));
+    });
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

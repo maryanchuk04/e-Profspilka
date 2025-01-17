@@ -1,11 +1,11 @@
-<div class="border rounded-standart p-5 mb-4">
+<form [formGroup]="questionForm" class="border rounded-standart p-5 mb-4">
     <ng-container *ngIf="!isEdit; else editTemplate">
         <div class="relative">
             <h1 class="font-bold text-2xl mr-8">{{ question.questionText }}</h1>
-            <app-icon-button class="absolute top-1 right-1" icon="fa-solid fa-pen-to-square"
-                (handleClick)="changeMode()"></app-icon-button>
+            <p-button [rounded]="true" (onClick)="changeMode()" severity="secondary" class="absolute top-1 right-1"
+                icon="fa-solid fa-pen-to-square" aria-label="Change mode" />
         </div>
-        <div class="mt-3">
+        <div class="mt-5">
             <div class="editor" [innerHTML]="question.answer"></div>
         </div>
     </ng-container>
@@ -13,22 +13,25 @@
         <div class="relative">
             <div class="relative">
                 <div class="w-11/12 mt-4">
-                    <app-text-field [(value)]="questionText" classStyles="h-10" placeholder="Введіть питання..."
-                        [defaultValue]="questionText"></app-text-field>
+                    <p-iftalabel>
+                        <input formControlName="questionText" pInputText id="questionText" size="large" class="w-full"
+                            placeholder="Введіть питання..." autocomplete="off" />
+                        <label for="questionText">Назва питання</label>
+                    </p-iftalabel>
                 </div>
-                <app-icon-button class="absolute top-3 right-3"
-                    [icon]="!isEdit ? 'fa-solid fa-pen-to-square' : 'fa-solid fa-xmark'"
-                    (handleClick)="changeMode()"></app-icon-button>
+                <p-button [rounded]="true" (onClick)="changeMode()" severity="secondary" class="absolute top-3 right-3"
+                    [icon]="!isEdit ? 'fa-solid fa-pen-to-square' : 'fa-solid fa-xmark'" aria-label="Change mode" />
             </div>
-            <app-icon-button class="absolute bottom-14 right-3" icon="fa-solid fa-trash text-red-500"
-                (handleClick)="delete()"></app-icon-button>
-            <app-icon-button class="absolute bottom-3 right-3" icon="fa-solid fa-check text-lime-500"
-                (handleClick)="save()"></app-icon-button>
+
+            <p-button (onClick)="delete()" [rounded]="true" severity="danger" class="absolute bottom-14 mb-3 right-3"
+                icon="fa-solid fa-trash" aria-label="Delete" />
+            <p-button (onClick)="save()" [rounded]="true" class="absolute bottom-3 right-3" icon="fa-solid fa-check"
+                aria-label="Save" />
             <div>
-                <div class="w-11/12 mt-2">
-                    <app-editor rows="4" [(value)]="answer"></app-editor>
+                <div class="w-11/12 mt-5">
+                    <app-editor rows="4" controlName="answer" placeholder="Місце для відповіді..."></app-editor>
                 </div>
             </div>
         </div>
     </ng-template>
-</div>
+</form>

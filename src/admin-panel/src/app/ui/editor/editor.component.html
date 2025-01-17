@@ -1,25 +1,10 @@
 <ng-container *ngIf="controlName; else binder">
-	<ng-container [formGroup]="form">
-		<ngx-editor-menu
-			[editor]="editor"
-			[toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"
-		></ngx-editor-menu>
-		<ngx-editor
-			[editor]="editor"
-			[formControlName]="controlName"
-			[placeholder]="placeholder"
-		></ngx-editor>
-	</ng-container>
+    <ng-container [formGroup]="form">
+        <ngx-editor-menu [editor]="editor" [toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"></ngx-editor-menu>
+        <ngx-editor [editor]="editor" [formControlName]="controlName" [placeholder]="placeholder"></ngx-editor>
+    </ng-container>
 </ng-container>
-<ng-template #binder
-	><ngx-editor-menu
-		[editor]="editor"
-		[toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"
-	></ngx-editor-menu>
-	<ngx-editor
-		[editor]="editor"
-		[(ngModel)]="value"
-		[placeholder]="placeholder"
-		(ngModelChange)="valueChange.emit(value)"
-	></ngx-editor
-></ng-template>
+<ng-template #binder><ngx-editor-menu [editor]="editor"
+        [toolbar]="isDefaultToolbar ? toolbar : simpleToolbar"></ngx-editor-menu>
+    <ngx-editor [editor]="editor" [(ngModel)]="value" [placeholder]="placeholder"
+        (ngModelChange)="valueChange.emit(value)"></ngx-editor></ng-template>

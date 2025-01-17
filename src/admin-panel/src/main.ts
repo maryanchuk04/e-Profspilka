@@ -1,13 +1,9 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 
 import { environment } from './environments/environment';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { environment as environment_1 } from 'src/environments/environment';
 import { RestService } from './app/services/rest.service';
 import { DownloadService } from './app/services/download.service';
-import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { httpInterceptor } from './app/interceptors/http.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -26,20 +22,38 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ButtonModule } from 'primeng/button';
 import { AppComponent } from './app/app.component';
+import reducers from './app/store/reducers';
+import effects from './app/store/effects';
+import { eProfspilkaPreset } from './app/theme/preset';
+import { CookieService } from 'ngx-cookie-service';
 
 if (environment.production) {
-	enableProdMode();
+    enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, SocialLoginModule, JwtModule, FormsModule, StoreModule.forRoot(reducers), EffectsModule.forRoot(effects), StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: environment.production,
-            autoPause: true,
-            connectInZone: true,
-        }), NgxEditorModule.forRoot(options), CKEditorModule, ReactiveFormsModule, FormsModule, // required animations module
-        ToastrModule.forRoot(), NgxPaginationModule, ButtonModule),
+        importProvidersFrom(
+            BrowserModule,
+            AppRoutingModule,
+            SocialLoginModule,
+            FormsModule,
+            StoreModule.forRoot(reducers),
+            EffectsModule.forRoot(effects),
+            StoreDevtoolsModule.instrument({
+                maxAge: 25,
+                logOnly: environment.production,
+                autoPause: true,
+                connectInZone: true,
+            }),
+            NgxEditorModule.forRoot(options),
+            CKEditorModule,
+            ReactiveFormsModule,
+            FormsModule, // required animations module
+            ToastrModule.forRoot(),
+            NgxPaginationModule,
+            ButtonModule
+        ),
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {
@@ -55,21 +69,21 @@ bootstrapApplication(AppComponent, {
                 },
             } as SocialAuthServiceConfig,
         },
+        CookieService,
         RestService,
         DownloadService,
-        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        JwtHelperService,
         provideHttpClient(withInterceptorsFromDi(), withInterceptors([httpInterceptor])),
         provideAnimationsAsync(),
         providePrimeNG({
             theme: {
-                preset: Aura,
+                preset: eProfspilkaPreset,
                 options: {
-                    darkModeSelector: false || 'none'
-                }
+                    darkModeSelector: false || 'none',
+                },
+
             },
+            ripple: true,
         }),
         provideAnimations(),
-    ]
-})
-	.catch((err) => console.error(err));
+    ],
+}).catch((err) => console.error(err));

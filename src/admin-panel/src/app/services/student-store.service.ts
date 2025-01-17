@@ -38,7 +38,7 @@ export class StudentStoreService {
                 observe: 'response',
                 responseType: 'blob' as 'json',
                 headers: {
-                    Authorization: `Bearer ${this.token.get()}`,
+                    Authorization: `Bearer ${this.token.getAccessToken()}`,
                 },
             })
             .pipe(

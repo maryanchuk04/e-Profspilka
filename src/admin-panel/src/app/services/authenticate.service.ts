@@ -7,17 +7,14 @@ import { AuthenticateModel } from '../models/AuhenticateModel';
 import { GoogleUserInfo } from '../models/GoogleUserInfo';
 import { RestService } from './rest.service';
 import { TokenService } from './token.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthenticateService {
     url: string = 'authenticate';
-    constructor(
-        private service: RestService<AuthenticateModel>,
-        private toastr: ToastrService,
-        private tokenService: TokenService
-    ) {}
+    constructor(private service: RestService<AuthenticateModel>, private tokenService: TokenService) {}
 
     authenticate(authData: { email: string; password: string }) {
         this.service.post(this.url, authData);
@@ -38,9 +35,7 @@ export class AuthenticateService {
             .post(`${this.url}/refresh-token`)
             .pipe(first())
             .subscribe({
-                next: (authModel) => {
-                    this.tokenService.set(authModel.token);
-                },
+                next: (authModel) => {},
                 error: (err) => {
                     console.info(err);
                 },

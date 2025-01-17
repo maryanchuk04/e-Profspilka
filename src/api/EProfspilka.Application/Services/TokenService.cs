@@ -11,42 +11,52 @@ namespace EProfspilka.Application.Services;
 
 public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
 {
+    public const string ClaimBaseAddress = "https://e-profspilka.com.ua";
+
     public string GenerateAccessToken(User user)
-	{
-		var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Key));
-		var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-		var claims = GetClaims(user);
-		var token = new JwtSecurityToken(
-			jwtConfiguration.Issuer,
-			jwtConfiguration.Audience,
-			claims,
-			expires: DateTime.Now.AddHours(6),
-			signingCredentials: credentials);
+    {
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Key));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        var claims = GetClaims(user);
+        var token = new JwtSecurityToken(
+            jwtConfiguration.Issuer,
+            jwtConfiguration.Audience,
+            claims,
+            expires: DateTime.Now.AddHours(6),
+            signingCredentials: credentials);
 
-		return new JwtSecurityTokenHandler().WriteToken(token);
-	}
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
 
-	public UserToken GenerateRefreshToken()
-	{
-		var randomNumber = new byte[32];
-		using var rng = RandomNumberGenerator.Create();
-		rng.GetBytes(randomNumber);
+    public UserToken GenerateRefreshToken()
+    {
+        var randomNumber = new byte[32];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
 
-		return new UserToken
-		{
-			Token = Convert.ToBase64String(randomNumber),
-			Expires = DateTime.Now.AddDays(7),
-			Created = DateTime.Now,
-		};
-	}
+        return new UserToken
+        {
+            Token = Convert.ToBase64String(randomNumber),
+            Expires = DateTime.Now.AddDays(7),
+            Created = DateTime.Now,
+        };
+    }
 
-	private static IEnumerable<Claim> GetClaims(User user)
-	{
-		var claims = new List<Claim>();
+    private static IEnumerable<Claim> GetClaims(User user)
+    {
+        List<Claim> claims =
+        [
+            new($"{ClaimBaseAddress}/userId", $"{user.Id}"),
+            new($"{ClaimBaseAddress}/fullName", $"{user.FullName}"),
+            new($"{ClaimBaseAddress}/faculty", $"{user.Facultet}"),
+            new($"{ClaimBaseAddress}/isActive", $"{user.IsActive}"),
+            new($"{ClaimBaseAddress}/email", $"{user.Email}"),
+            new($"{ClaimBaseAddress}/picture", $"{user.Image.ImageUrl}"),
+        ];
 
-		claims.Add(new Claim(ClaimTypes.Name, $"{user.Id}"));
-		claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.RoleId.ToString())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.RoleId.ToString().ToLower())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim($"{ClaimBaseAddress}/role", ur.RoleId.ToString().ToLower())));
 
-		return claims;
-	}
+        return claims;
+    }
 }
