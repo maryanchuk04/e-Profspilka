@@ -6,64 +6,72 @@ import { selectQuestions, selectQuestionsLoading } from 'src/app/store/selectors
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { NgIf, NgFor, AsyncPipe, NgClass } from '@angular/common';
 import { LoaderComponent } from '../../loader/loader.component';
 import { ModerationHeaderComponent } from '../../../shared/moderation-header/moderation-header.component';
 import { QuestionComponent } from '../../question/question.component';
-import { ModalComponent } from '../../modal/modal.component';
-import { TextFieldComponent } from '../../../ui/text-field/text-field.component';
+import { DialogModule } from 'primeng/dialog';
 import { EditorComponent } from '../../../ui/editor/editor.component';
-import { ButtonComponent } from '../../../ui/button/button.component';
-import { FormGroupDirective } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { QuestionFormFactory } from 'src/app/forms/question-form.factory';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-questions',
     templateUrl: './questions.component.html',
-    imports: [NgIf, LoaderComponent, ModerationHeaderComponent, NgFor, QuestionComponent, ModalComponent, EditorComponent, ButtonComponent, AsyncPipe, InputTextModule],
-    providers: [FormGroupDirective]
+    imports: [
+        NgIf,
+        LoaderComponent,
+        ModerationHeaderComponent,
+        NgFor,
+        QuestionComponent,
+        DialogModule,
+        EditorComponent,
+        AsyncPipe,
+        NgClass,
+        InputTextModule,
+        ReactiveFormsModule,
+        ButtonModule,
+    ],
 })
 export class QuestionsComponent implements OnInit {
-	question: string;
-	answer: string = '';
-	loading$: Observable<boolean>;
-	questions$: Observable<Question[]>;
-	search: string;
-	modal: boolean = false;
+    questionForm: FormGroup;
 
-	constructor(private store: Store<AppState>) {}
+    loading$: Observable<boolean>;
+    questions$: Observable<Question[]>;
+    search: string;
+    modal: boolean = false;
 
-	ngOnInit(): void {
-		this.store.dispatch(fetchQuestions());
-		this.loading$ = this.store.select(selectQuestionsLoading);
-		this.questions$ = this.store.select(selectQuestions);
-	}
+    constructor(private store: Store<AppState>, private questionFormFactory: QuestionFormFactory) {
+        this.questionForm = this.questionFormFactory.createForm();
+    }
 
-	handleChange(value: string) {
-		// TODO add search handler
-	}
+    ngOnInit(): void {
+        this.store.dispatch(fetchQuestions());
+        this.loading$ = this.store.select(selectQuestionsLoading);
+        this.questions$ = this.store.select(selectQuestions);
+    }
 
-	handleOpenModal() {
-		this.modal = true;
-	}
+    handleOpenModal() {
+        this.modal = true;
+        this.questionForm.reset();
+    }
 
-	handleCloseModal() {
-		this.modal = false;
-	}
+    handleCloseModal = () => this.modal = false;
 
-	create() {
-		this.store.dispatch(
-			createQuestion({
-				question: {
-					questionText: this.question,
-					answer: this.answer,
-					id: '',
-				},
-			})
-		);
-		this.handleCloseModal();
-		this.question = '';
-		this.answer = '';
-	}
+    create() {
+        if (this.questionForm.invalid) return;
+
+        this.store.dispatch(
+            createQuestion({
+                question: {
+                    questionText: this.questionForm.value.questionText,
+                    answer: this.questionForm.value.answer,
+                } as Question,
+            })
+        );
+
+        this.handleCloseModal();
+    }
 }

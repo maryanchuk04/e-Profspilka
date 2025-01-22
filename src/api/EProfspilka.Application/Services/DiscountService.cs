@@ -36,7 +36,9 @@ public class DiscountService(EProfspilkaContext db, IMapper mapper) : IDiscountS
 
     public async Task<DiscountDto> UpdateAsync(DiscountDto discountDto)
     {
-        var entity = db.Discounts.FirstOrDefault(x => x.Id == discountDto.Id);
+        var entity = db.Discounts
+            .Include(discount => discount.BarCodeImage)
+            .FirstOrDefault(x => x.Id == discountDto.Id);
 
         if (entity is null)
         {
@@ -47,6 +49,7 @@ public class DiscountService(EProfspilkaContext db, IMapper mapper) : IDiscountS
         entity.Name = discountDto.Name;
         entity.WithBarCode = discountDto.WithBarCode;
         entity.WithQrCode = discountDto.WithQrCode;
+
         if (discountDto.BarCodeImage != null)
         {
             if (entity.BarCodeImage != null)

@@ -12,7 +12,8 @@ public class AdvantageService(IMapper mapper, EProfspilkaContext dbContext) : IA
 {
     public async Task<AdvantageDto> Update(AdvantageDto advantageDto)
     {
-        var entity = await dbContext.Advantage.FirstOrDefaultAsync(x => x.Id == advantageDto.Id);
+        var entity = await dbContext.Advantage
+            .FirstOrDefaultAsync(x => x.Id == advantageDto.Id);
 
         if (entity == null)
         {
@@ -35,7 +36,8 @@ public class AdvantageService(IMapper mapper, EProfspilkaContext dbContext) : IA
 
     public async Task<AdvantageDto> GetById(Guid id)
     {
-        var entity = await dbContext.Advantage.AsNoTracking()
+        var entity = await dbContext.Advantage
+            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (entity == null)

@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using EProfspilka.Core.Entities;
 using EProfspilka.Core.Exceptions;
@@ -52,18 +52,12 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             throw new NotFoundException(nameof(User), id);
         }
 
-        user.Facultet = facultet;
+        user.Faculty = facultet;
         user.Course = course;
 
-        var student = await dbContext.StudentsStore.SingleAsync(x => x.Email == user.Email);
-
-        student.Course = course;
-        student.Facultet = facultet;
-
-
-        if (user.UserRoles.Select(x => x.RoleId).Contains(role))
+        if (user.UserRoles.Select(x => x.Id).Contains(role))
         {
-            var roles = user.UserRoles.Select(x => x.RoleId).ToList();
+            var roles = user.UserRoles.Select(x => x.Id).ToList();
             // Sort list by value of enum
             roles.Sort();
             var maxRole = roles.Max();
@@ -72,7 +66,7 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             {
                 for (var i = roles.IndexOf(maxRole); i < roles.Count; i++)
                 {
-                    user.UserRoles.Remove(user.UserRoles.Single(x => x.RoleId == roles[i]));
+                    user.UserRoles.Remove(user.UserRoles.Single(x => x.Id == roles[i]));
                 }
             }
 
@@ -87,32 +81,29 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             user.UserRoles.Clear();
             user.UserRoles.Add(new UserRole
             {
-                RoleId = Role.NotVerified
+                Id = Role.NotVerified
             });
 
             dbContext.Users.Update(user);
-            dbContext.StudentsStore.Update(student);
 
             await dbContext.SaveChangesAsync();
 
             return mapper.Map<UserDto>(user);
         }
 
-        if (user.UserRoles.Select(x => x.RoleId).Contains(Role.NotVerified))
+        if (user.UserRoles.Select(x => x.Id).Contains(Role.NotVerified))
         {
             var notVerified =
-                await dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.RoleId == Role.NotVerified);
+                await dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.Id == Role.NotVerified);
             user.UserRoles.Remove(notVerified);
         }
 
         user.UserRoles.Add(new UserRole
         {
-            RoleId = role
+            Id = role
         });
 
         dbContext.Users.Update(user);
-        dbContext.StudentsStore.Update(student);
-
         await dbContext.SaveChangesAsync();
 
         return mapper.Map<UserDto>(user);

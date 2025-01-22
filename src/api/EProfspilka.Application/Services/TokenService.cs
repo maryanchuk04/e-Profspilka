@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using EProfspilka.Application.Configurations;
 using EProfspilka.Core.Entities;
 using EProfspilka.Core.Interfaces;
+using EProfspilka.Core.Enumerations;
+using Role = EProfspilka.Core.Enumerations.Role;
 
 namespace EProfspilka.Application.Services;
 
@@ -48,14 +50,14 @@ public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
         [
             new($"{ClaimBaseAddress}/userId", $"{user.Id}"),
             new($"{ClaimBaseAddress}/fullName", $"{user.FullName}"),
-            new($"{ClaimBaseAddress}/faculty", $"{user.Facultet}"),
-            new($"{ClaimBaseAddress}/isActive", $"{user.IsActive}"),
+            new($"{ClaimBaseAddress}/faculty", $"{user.Faculty}"),
             new($"{ClaimBaseAddress}/email", $"{user.Email}"),
             new($"{ClaimBaseAddress}/picture", $"{user.Image.ImageUrl}"),
+            new($"{ClaimBaseAddress}/isActive", $"{user.IsActive}"),
         ];
 
-        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.RoleId.ToString().ToLower())));
-        claims.AddRange(user.UserRoles.Select(ur => new Claim($"{ClaimBaseAddress}/role", ur.RoleId.ToString().ToLower())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.Id.ToString().ToLower())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim($"{ClaimBaseAddress}/role", ur.Id.ToString().ToLower())));
 
         return claims;
     }

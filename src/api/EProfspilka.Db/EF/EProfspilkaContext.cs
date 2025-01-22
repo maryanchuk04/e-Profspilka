@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using EProfspilka.Core.Entities;
+using EProfspilka.Core.Entities.Base;
 
 namespace EProfspilka.Db.EF;
 
@@ -14,6 +15,7 @@ public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOpti
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+
         optionsBuilder.EnableSensitiveDataLogging(false);
     }
 
@@ -24,8 +26,6 @@ public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOpti
     public DbSet<UserToken> UserTokens { get; set; }
 
     public DbSet<Image> Images { get; set; }
-
-    public DbSet<StudentStore> StudentsStore { get; set; }
 
     public DbSet<Event> Events { get; set; }
 
@@ -44,4 +44,37 @@ public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOpti
     public DbSet<Discount> Discounts { get; set; }
 
     public DbSet<DiscountCode> DiscountCodes { get; set; }
+
+    #region Context Modifications
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        AddTimestamps();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public override int SaveChanges()
+    {
+        AddTimestamps();
+        return base.SaveChanges();
+    }
+
+    private void AddTimestamps()
+    {
+        var entities = ChangeTracker.Entries()
+            .Where(x => x is { Entity: BaseEntity, State: EntityState.Added or EntityState.Modified });
+
+        foreach (var entity in entities)
+        {
+            var now = DateTime.UtcNow;
+
+            if (entity.State == EntityState.Added)
+            {
+                ((BaseEntity)entity.Entity).CreatedDateUtc = now;
+            }
+            ((BaseEntity)entity.Entity).UpdatedDateUtc = now;
+        }
+    }
+
+    #endregion
 }

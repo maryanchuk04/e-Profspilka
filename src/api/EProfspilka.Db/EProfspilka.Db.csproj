@@ -17,4 +17,9 @@
       <ProjectReference Include="..\EProfspilka.Core\EProfspilka.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Configurations\" />
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

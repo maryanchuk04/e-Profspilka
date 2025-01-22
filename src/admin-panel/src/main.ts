@@ -26,6 +26,7 @@ import reducers from './app/store/reducers';
 import effects from './app/store/effects';
 import { eProfspilkaPreset } from './app/theme/preset';
 import { CookieService } from 'ngx-cookie-service';
+import { QuestionFormFactory } from './app/forms/question-form.factory';
 
 if (environment.production) {
     enableProdMode();
@@ -72,6 +73,7 @@ bootstrapApplication(AppComponent, {
         CookieService,
         RestService,
         DownloadService,
+        QuestionFormFactory,
         provideHttpClient(withInterceptorsFromDi(), withInterceptors([httpInterceptor])),
         provideAnimationsAsync(),
         providePrimeNG({

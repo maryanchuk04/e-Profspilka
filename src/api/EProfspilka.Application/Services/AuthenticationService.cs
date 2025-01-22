@@ -10,7 +10,6 @@ namespace EProfspilka.Application.Services;
 
 public class AuthenticationService(
     EProfspilkaContext context,
-    IStudentStoreService studentStore,
     ITokenService tokenService)
     : IAuthenticationService
 {
@@ -22,10 +21,11 @@ public class AuthenticationService(
             .Include(x => x.Image)
             .Include(x => x.UserTokens)
             .Include(x => x.UserRoles)
+            .ThenInclude(x => x.Role)
             .FirstOrDefault(x => x.Email == email);
 
         if (user == null)
-            throw new AuthenticateException($"Користувача з емеллом {email} не існує!");
+            throw new AuthenticateException($"Користувача з емейлом {email} не існує!");
 
         if (!string.IsNullOrEmpty(avatar))
             user.Image = new Image(avatar);
@@ -33,7 +33,9 @@ public class AuthenticationService(
         var jwtToken = tokenService.GenerateAccessToken(user);
         var refreshToken = tokenService.GenerateRefreshToken();
 
+        user.LastLoginDateTimeUtc = DateTime.UtcNow;
         user.UserTokens.Add(refreshToken);
+
         context.Users.Update(user);
 
         await context.SaveChangesAsync();
@@ -49,6 +51,7 @@ public class AuthenticationService(
         var refreshToken = tokenService.GenerateRefreshToken();
 
         user.UserTokens.Add(refreshToken);
+        user.LastLoginDateTimeUtc = DateTime.UtcNow;
 
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
@@ -58,36 +61,46 @@ public class AuthenticationService(
 
     private async Task<User> CreateOrUpdateUserAsync(string email, string fullName, string image)
     {
-        if (await context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
+        var user = await context.Users
+            .Include(user => user.UserRoles)
+            .Include(user => user.Image)
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+        
+        if (user is not null)
         {
+            // update user
+            user.FullName = fullName;
+            user.Image.ImageUrl = fullName;
 
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+            return user;
         }
 
-        var user = new User
+        user = new User
         {
             Id = Guid.NewGuid(),
             Email = email,
             FullName = fullName,
             Image = new Image(image),
-            UserRoles = new List<UserRole>(),
             UserTokens = new List<UserToken>(),
             IsActive = true,
         };
 
-        user.UserRoles.Add(new UserRole { RoleId = Role.Student, UserId = user.Id });
+        user.UserRoles.Add(new UserRole { Id = Role.Student, UserId = user.Id });
 
-        if (!await studentStore.IsStudent(email))
-        {
-            user.UserRoles.Add(new UserRole
-            {
-                RoleId = Role.NotVerified,
-                UserId = user.Id,
-            });
-        }
-        else
-        {
-            await studentStore.MappingUser(user);
-        }
+        //if (!await studentStore.IsStudent(email))
+        //{
+        //    user.UserRoles.Add(new UserRole
+        //    {
+        //        RoleId = Role.NotVerified,
+        //        UserId = user.Id,
+        //    });
+        //}
+        //else
+        //{
+        //    await studentStore.MappingUser(user);
+        //}
 
         return user;
     }

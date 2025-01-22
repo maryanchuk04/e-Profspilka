@@ -23,7 +23,7 @@ public class RefreshTokenCommandHandler(EProfspilkaContext db, ITokenService tok
                        .AsNoTracking()
                        .AsSplitQuery()
                        .Include(x => x.UserRoles)
-                       .ThenInclude(x => x.Role)
+                       .ThenInclude(s => s.Role)
                        .Include(x => x.UserTokens)
                        .Include(x => x.Image)
                        .SingleOrDefaultAsync(u => u.UserTokens.Any(x => x.Token == request.RefreshToken),

@@ -2,19 +2,20 @@ import { Editor, Toolbar, NgxEditorModule } from 'ngx-editor';
 
 import { Component, EventEmitter, Input, OnInit, Optional, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-editor',
     templateUrl: './editor.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, NgxEditorModule],
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgxEditorModule, NgClass],
 })
 export class EditorComponent implements OnInit {
     @Input() value: string = '';
     @Input() placeholder: string = '';
     @Input() mode: 'simple' | 'default' = 'default';
     @Input() controlName: string | null = null;
+    @Input() isInvalid: boolean = false;
 
     @Output() valueChange = new EventEmitter<string>();
 

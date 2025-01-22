@@ -33,7 +33,6 @@ public static class ServicesExtensions
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
-        services.AddScoped<IStudentStoreService, StudentStoreService>();
         services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IPartnersService, PartnersService>();
         services.AddScoped<IAdvantageService, AdvantageService>();

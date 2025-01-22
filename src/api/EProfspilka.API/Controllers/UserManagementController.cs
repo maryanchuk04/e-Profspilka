@@ -9,11 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
-[Route("student-store")]
-public class StudentStoreController(
-    IStudentStoreService studentStore,
+[Route("api/[controller]")]
+public class UserManagementController(
     IMediator mediator,
-    ILogger<StudentStoreController> logger,
+    ILogger<UserManagementController> logger,
     IImportCommandFactory importCommandFactory)
     : ControllerBase
 {
@@ -52,36 +51,12 @@ public class StudentStoreController(
         }
     }
 
-    [HttpPost]
-    public async Task<IActionResult> UploadExcel([FromForm] IFormFile file)
-    {
-        try
-        {
-            if (file.Length == 0)
-            {
-                return BadRequest(new ErrorResponseModel("Помилка файл пустий!"));
-            }
-
-            var filePath = Path.GetTempFileName();
-            await using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            return Ok(await studentStore.UploadUsers(filePath, true));
-        }
-        catch (Exception e)
-        {
-            return BadRequest(new ErrorResponseModel(e.Message));
-        }
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
         try
         {
-            return Ok(await studentStore.GetAllUsers());
+            return Ok();
         }
         catch (Exception e)
         {
@@ -96,7 +71,7 @@ public class StudentStoreController(
         try
         {
             const string fileName = "users";
-            var fileData = await mediator.Send(new ExportStudentsCommand());
+            var fileData = await mediator.Send(new ExportUsersCommand());
             logger.LogInformation("Successful created file with users");
 
             Response.Headers.Append("Access-Control-Expose-Headers", "Content-Disposition");
@@ -114,7 +89,7 @@ public class StudentStoreController(
     {
         try
         {
-            var matchingUser = await mediator.Send(new GetStudentUserByIdCommand(id));
+            var matchingUser = await mediator.Send(new GetUserByIdCommand(id));
 
             return Ok(matchingUser);
         }

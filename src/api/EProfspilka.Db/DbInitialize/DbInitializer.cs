@@ -118,22 +118,26 @@ public static class DbInitializer
         {
             Id = adminId,
             Email = "marianchuk.maksym@chnu.edu.ua",
-            Facultet = "ФМІ",
-            Image = new () { Id = Guid.NewGuid(), ImageUrl = "https://lh3.googleusercontent.com/a/ACg8ocKRehp3a4owyAgaI_uiQgJ6xbVmcOf-VugDuo7XnJXoKw=s576-c-no"},
+            Faculty = "ФМІ",
+            Image = new() { Id = Guid.NewGuid(), ImageUrl = "https://lh3.googleusercontent.com/a/ACg8ocKRehp3a4owyAgaI_uiQgJ6xbVmcOf-VugDuo7XnJXoKw=s576-c-no" },
             FullName = "Максим Васильович Мар'янчук",
-            UserRoles = new List<UserRole>
-            {
-                new()
+            UserRoles =
+            [
+                new UserRole
                 {
                     UserId = adminId,
-                    RoleId = Role.Admin,
+                    Id = Role.Admin,
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow,
                 },
-                new()
+                new UserRole
                 {
                     UserId = adminId,
-                    RoleId = Role.Student,
+                    Id = Role.Student,
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow,
                 }
-            }
+            ],
         };
 
         db.Users.Add(admin);

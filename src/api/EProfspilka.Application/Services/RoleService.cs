@@ -7,7 +7,7 @@ public class RoleService : IRoleService
 {
     public Core.Enumerations.Role RoleResolver(IEnumerable<UserRole> userRoles)
     {
-        var userRolesEnum = userRoles.Select(x => x.RoleId).ToList();
+        var userRolesEnum = userRoles.Select(x => x.Role.Id).ToList();
 
         if (userRolesEnum.Contains(Core.Enumerations.Role.Admin))
             return Core.Enumerations.Role.Admin;

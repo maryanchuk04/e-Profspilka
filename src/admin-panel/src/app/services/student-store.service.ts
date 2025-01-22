@@ -12,7 +12,7 @@ import { TokenService } from './token.service';
 
 @Injectable({ providedIn: 'root' })
 export class StudentStoreService {
-    url = 'student-store';
+    url = 'api/userManagement';
 
     constructor(
         private service: RestService<UploadFileResults>,
