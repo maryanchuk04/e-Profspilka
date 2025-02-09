@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Svg from '../../components/Svg';
 // import Button from './Button'
 import { useGoogleLogin } from '@react-oauth/google';
-import { googleAuthenticateThunk } from '../../features/userSlice';
+import { googleAuthenticateThunk } from '../../features/user.slice';
 import PrimaryButton from './PrimaryButton';
 
 const GoogleButton = ({ className = '' }) => {

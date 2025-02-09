@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { selectAlertState } from '../../features/alertSlice';
-import { fetchDiscounts } from '../../features/discountSlice';
-import { handleOpen, selectLoginState } from '../../features/loginSlice';
-import { fetchUserThunk } from '../../features/userSlice';
-import { Token } from '../../services/TokenService';
+import { selectAlertState } from '../../features/alert.slice';
+import { fetchDiscounts } from '../../features/discount.slice';
+import { handleOpen, selectLoginState } from '../../features/login.slice';
+import { fetchUserThunk } from '../../features/user.slice';
+import { getAccessToken } from '@/apis/token';
 import Alert from '../Alert';
 import RegistrationForm from '../RegistrationForm';
 import SimpleModal from '../SimpleModal';
@@ -18,7 +18,8 @@ const Layout = ({ children }) => {
 
     useEffect(() => {
         dispatch(fetchDiscounts());
-        const token = Token.get();
+
+        const token = getAccessToken();
         if (token) {
             dispatch(fetchUserThunk());
         }

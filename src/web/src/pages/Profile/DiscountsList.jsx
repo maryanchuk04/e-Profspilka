@@ -1,7 +1,7 @@
 import React from 'react';
 import DiscountCard from '../../components/DiscountCard';
 import { useSelector } from 'react-redux';
-import { selectDiscounts, selectDiscountsLoading } from '../../features/discountSlice';
+import { selectDiscounts, selectDiscountsLoading } from '../../features/discount.slice';
 import Loader from '../../components/Loader';
 import { MemberStatus } from '../../types/memberStatus';
 import { DiscountType } from '../../types/discountType';

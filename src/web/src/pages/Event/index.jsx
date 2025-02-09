@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EventService } from '../../services/EventService';
 import Loader from '../../components/Loader';
 import Container from '../../components/Container';
 
+import { getEventById } from '@/apis/events';
+
 const Event = () => {
-    const service = new EventService();
     const { id } = useParams();
     const navigate = useNavigate();
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
         (async () => {
-            const { data } = await service.getEventById(id);
+            const { data } = await getEventById(id);
             setEvent(data);
         })();
     }, []);

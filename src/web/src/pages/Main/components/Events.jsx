@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import EventCard from '../../../components/EventCard';
-import { selectEvents } from '../../../features/eventsSlice';
+import { selectEvents } from '../../../features/events.slice';
 import Button from '../../../ui/Buttons/Button';
 import { useNavigate } from 'react-router-dom';
 

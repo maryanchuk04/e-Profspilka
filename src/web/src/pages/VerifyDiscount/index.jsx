@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { verifyDiscount } from '../../services/DiscountService';
 import Container from '../../components/Container';
 import Loader from '../../components/Loader';
 import PrimaryButton from '../../ui/Buttons/PrimaryButton';
+import { verifyDiscount } from "@/apis/discount";
 
 const VerifyDiscount = () => {
     const { discountId, discountCodeId } = useParams();

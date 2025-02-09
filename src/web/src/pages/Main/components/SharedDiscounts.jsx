@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectSharedDiscounts } from '../../../features/discountSlice';
+import { selectSharedDiscounts } from '../../../features/discount.slice';
 import { DiscountInfoModal } from '../../../components/DiscountCard';
 import Button from '../../../ui/Buttons/Button';
 

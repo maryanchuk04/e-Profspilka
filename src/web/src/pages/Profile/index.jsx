@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from '../../components/Container';
-import { fetchUserThunk, selectUserData, selectUserLoading } from '../../features/userSlice';
+import { fetchUserThunk, selectUserData, selectUserLoading } from '../../features/user.slice';
 import ProfileSidebar from './ProfileSidebar';
 import DiscountsList from './DiscountsList';
 import Loader from '../../components/Loader';

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleOpen } from '../../features/loginSlice';
+import { handleOpen } from '../../features/login.slice';
 import PrimaryButton from '../../ui/Buttons/PrimaryButton';
 import Container from '../Container';
 import UserDetails from './UserDetails';
 import { useMediaQuery } from 'react-responsive';
 import MobileHeader from './MobileHeader';
-import { selectUserData } from '../../features/userSlice';
+import { selectUserData } from '../../features/user.slice';
 import { Link } from 'react-router-dom';
 
 const Header = () => {

@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface LoginState {
+    open: boolean;
+}
+
+const initialState: LoginState = {
     open: false,
 };
 
 const loginSlice = createSlice({
     name: 'login',
-    initialState: initialState,
+    initialState,
     reducers: {
         handleOpen: (state) => {
             state.open = !state.open;
@@ -16,6 +20,6 @@ const loginSlice = createSlice({
 
 export const { handleOpen } = loginSlice.actions;
 
-export const selectLoginState = (state) => state.login;
+export const selectLoginState = (state: { login: LoginState }) => state.login;
 
 export default loginSlice.reducer;

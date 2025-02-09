@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUserData } from '../../features/userSlice';
+import { logout, selectUserData } from '../../features/user.slice';
 import Avatar from '../../components/Avatar';
 import { MemberStatus } from '../../types/memberStatus';
 import Field from './Field';
@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { useMediaQuery } from 'react-responsive';
 import Button from '../../ui/Buttons/Button';
-import { AuthenticateService } from '../../services/AuthenticateService';
-import { Token } from '../../services/TokenService';
+import { removeAccessToken } from '@/apis/token';
+import { logout as logoutApi } from '@/apis/auth';
+
 
 const ProfileSidebar = () => {
-    const service = new AuthenticateService();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -25,8 +25,8 @@ const ProfileSidebar = () => {
     };
 
     const logOut = () => {
-        service.logout().then(() => {
-            Token.remove();
+        logoutApi().then(() => {
+            removeAccessToken();
             dispatch(logout());
             navigate('/');
         });

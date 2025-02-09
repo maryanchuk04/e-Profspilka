@@ -8,9 +8,9 @@ import './index.css';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-	<React.Fragment>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</React.Fragment>
+    <React.Fragment>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.Fragment>
 );

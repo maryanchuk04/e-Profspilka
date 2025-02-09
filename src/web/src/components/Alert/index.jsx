@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { closeAlert } from '../../features/alertSlice';
+import { closeAlert } from '../../features/alert.slice';
 import { AlertType } from '../../types/alertTypes';
 import SimpleModal from '../SimpleModal';
 

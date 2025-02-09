@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../Footer';
 import Header from '../Header';
 import { useDispatch } from 'react-redux';
-import { fetchDiscounts, fetchSharedDiscounts } from '../../features/discountSlice';
-import { fetchEvents } from '../../features/eventsSlice';
-import { fetchPartners } from '../../features/partnersSlice';
-import { fetchQuestions } from '../../features/questionsSlice';
-import { fetchAdvantages } from '../../features/advantagesSlice';
+import { fetchDiscounts, fetchSharedDiscounts } from '../../features/discount.slice';
+import { fetchEvents } from '../../features/events.slice';
+import { fetchPartners } from '../../features/partners.slice';
+import { fetchQuestions } from '../../features/questions.slice';
+import { fetchAdvantages } from '../../features/advantages.slice';
 import Loader from '../Loader';
 import { useNavigate, ScrollRestoration } from 'react-router-dom';
 

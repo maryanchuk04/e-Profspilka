@@ -1,18 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { AlertType } from '../types/alertTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AlertType } from '../models/alert';
 
-const initialState = {
+
+interface AlertState {
+    open: boolean;
+    text: string;
+    type: AlertType;
+    duration: number;
+}
+
+const initialState: AlertState = {
     open: false,
     text: 'Шось пішло не так!',
-    type: AlertType.ERROR,
+    type: AlertType.Error,
     duration: 3000,
 };
 
 export const alertSlice = createSlice({
     name: 'alert',
-    initialState: initialState,
+    initialState,
     reducers: {
-        showAlert: (state, action) => {
+        showAlert: (state, action: PayloadAction<AlertState>) => {
             state.duration = action.payload.duration;
             state.type = action.payload.type;
             state.text = action.payload.text;
@@ -35,6 +43,6 @@ export const alertSlice = createSlice({
 
 export const { closeAlert, toggleAlert, showDefaultAlert, showAlert } = alertSlice.actions;
 
-export const selectAlertState = (state) => state.alert;
+export const selectAlertState = (state: { alert: AlertState }) => state.alert;
 
 export default alertSlice.reducer;

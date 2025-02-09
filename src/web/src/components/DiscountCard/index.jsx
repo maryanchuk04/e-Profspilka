@@ -4,10 +4,8 @@ import SimpleModal from '../SimpleModal';
 import Button from '../../ui/Buttons/Button';
 import Loader from '../Loader';
 import Timer from './Timer';
-import { DiscountService } from '../../services/DiscountService';
+import { getQrCode } from '@/apis/discount';
 import { useMediaQuery } from 'react-responsive';
-
-const service = new DiscountService();
 
 const DiscountCard = ({ discount, blocked = false }) => {
     const { name, withBarCode, withQrCode } = discount;
@@ -97,7 +95,7 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
         }
         setLoading(true);
 
-        const { data } = await service.getQrCode(discount.id);
+        const { data } = await getQrCode(discount.id);
         const url = `${window.location.origin}/verify-discount/${data.discount.id}/${data.code}`;
 
         setQrCodeValue(url);

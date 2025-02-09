@@ -2,7 +2,7 @@ import React from 'react';
 
 class ExternalRedirect extends React.Component {
     componentDidMount() {
-        window.location = process.env.REACT_APP_ADMIN_PATH;
+        window.location = import.meta.env.VITE_APP_ADMIN_PATH;
     }
     render() {
         return null;

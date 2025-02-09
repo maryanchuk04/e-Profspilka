@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PartnerCard from '../../../components/PartnerCard';
-import { selectPartners } from '../../../features/partnersSlice';
+import { selectPartners } from '../../../features/partners.slice';
 import Carousel from '../../../components/Carousel';
 
 const Partners = () => {

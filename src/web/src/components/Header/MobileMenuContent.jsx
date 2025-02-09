@@ -3,7 +3,7 @@ import { HashLink as Link } from 'react-router-hash-link';
 import Button from '../../ui/Buttons/Button';
 import Avatar from '../Avatar';
 import { useNavigate } from 'react-router-dom';
-import { Token } from '../../services/TokenService';
+import { getAccessToken } from '@/apis/token';
 
 const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
     const navigate = useNavigate();
@@ -56,8 +56,11 @@ const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
                     <MenuItem key={index} item={link} />
                 ))}
             </ul>
-            {Token.get() ? (
-                <div onClick={() => handleNavigate()} className='flex items-center mb-12 border border-white rounded-standart px-2 py-2'>
+            {getAccessToken() ? (
+                <div
+                    onClick={() => handleNavigate()}
+                    className='flex items-center mb-12 border border-white rounded-standart px-2 py-2'
+                >
                     <p className='text-white'>{user.fullName}</p>
                     <Avatar src={user.avatar} className='w-20 h-20' />
                 </div>

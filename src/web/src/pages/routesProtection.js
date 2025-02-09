@@ -1,3 +1,3 @@
-import { Token } from '../services/TokenService';
+import { getAccessToken } from '@/apis/token';
 
-export const authorizeProtection = () => Token.get() === null;
+export const authorizeProtection = () => getAccessToken() === null;
