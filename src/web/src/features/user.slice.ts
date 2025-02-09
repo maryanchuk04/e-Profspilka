@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { showAlert, showDefaultAlert } from './alert.slice';
 import { HttpStatusCode } from 'axios';
-import { handleOpen } from './login.slice';
-import { AlertType } from '../models/alert';
-import { MemberStatus } from '../models/member-status';
+
 import { authenticateGoogle, googleDataProvider } from '@/apis/auth';
 import { getCurrentUserInfo } from '@/apis/user';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { AlertType } from '../models/alert';
+import { MemberStatus } from '../models/member-status';
+import { showAlert, showDefaultAlert } from './alert.slice';
+import { handleOpen } from './login.slice';
 
 interface UserState {
     loading: boolean;
@@ -82,7 +83,7 @@ export const googleAuthenticateThunk = createAsyncThunk(
 
 export const fetchUserThunk = createAsyncThunk(
     'user/fetchUser',
-    async (token: string, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
         try {
             const userResponse = await getCurrentUserInfo();
 

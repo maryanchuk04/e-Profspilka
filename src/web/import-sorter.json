@@ -1,0 +1,53 @@
+{
+    "generalConfiguration": {
+      "sortOnBeforeSave": true,
+      "sortOnPaste": true
+    },
+    "sortConfiguration": {
+      "sortOrder": [
+        "importSideEffect",
+        "caseInsensitive",
+        "reactModule",
+        "modules",
+        "parentDirectories",
+        "currentDirectory"
+      ],
+      "customOrderRules": {
+        "rules": [
+          {
+            "regex": "^react$",
+            "orderLevel": 1
+          },
+          {
+            "regex": "^react-",
+            "orderLevel": 2
+          },
+          {
+            "regex": "^@reduxjs/",
+            "orderLevel": 3
+          },
+          {
+            "regex": "^@mui/",
+            "orderLevel": 4
+          },
+          {
+            "regex": "^@/",
+            "orderLevel": 5
+          },
+          {
+            "regex": "^[./]",
+            "orderLevel": 6
+          }
+        ]
+      },
+      "removeUnusedImports": true,
+      "trailingCommaStyle": "multiLine",
+      "quoteMark": "double"
+    },
+    "exportConfiguration": {
+      "sortOrder": [
+        "defaultExport",
+        "namedExport"
+      ]
+    }
+  }
