@@ -27,7 +27,17 @@ app.UseCors(x =>
             .Get<string[]>())
         .AllowCredentials();
 });
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 200;
 
+        await Task.CompletedTask;
+        return;
+    }
+    await next();
+});
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
