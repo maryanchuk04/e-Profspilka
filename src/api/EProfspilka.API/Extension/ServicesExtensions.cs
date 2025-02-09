@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text;
 using EProfspilka.API.Mappers;
 using EProfspilka.API.Policies;
-using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.Discounts;
 using EProfspilka.Application.Configurations;
 using EProfspilka.Application.Factories;
 using EProfspilka.Application.Services;

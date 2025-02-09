@@ -1,12 +1,12 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using EProfspilka.Core.Entities;
+﻿using EProfspilka.Core.Entities;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.UserManagement;
 
 public class MergeImportCommand(string filePath) : IImportCommand
 {

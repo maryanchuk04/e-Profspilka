@@ -1,9 +1,9 @@
-using MediatR;
-using Microsoft.Extensions.Logging;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.UserManagement;
 
 public class AddImportCommand(string filePath) : IImportCommand
 {

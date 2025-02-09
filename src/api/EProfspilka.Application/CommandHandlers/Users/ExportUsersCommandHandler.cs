@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using OfficeOpenXml;
 using EProfspilka.Db.EF;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.Users;
 
 public class ExportUsersCommand : IRequest<byte[]>
 {
@@ -44,7 +44,7 @@ public class ExportUsersCommandHandler(
             worksheet.Cells[row, 2].Value = student.Email;
             worksheet.Cells[row, 3].Value = student.Faculty;
             worksheet.Cells[row, 4].Value = student.Course == 0 ? "не введено" : student.Course;
-           // worksheet.Cells[row, 5].Value = student.IsMemberProf ? "Так" : "Ні";
+            // worksheet.Cells[row, 5].Value = student.IsMemberProf ? "Так" : "Ні";
         }
 
         logger.LogInformation("Finished creation bytes array for xlsx file");

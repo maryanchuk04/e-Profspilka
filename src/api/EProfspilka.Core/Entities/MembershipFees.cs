@@ -6,6 +6,7 @@ public class MembershipFees : BaseEntity
 {
     public Guid UserId { get; set; }
     public DateTime PaidAtUtc { get; set; }
+    public DateTime EndAtUtc { get; set; }
 
     public MembershipType MembershipType { get; set; }
 }

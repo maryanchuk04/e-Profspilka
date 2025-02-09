@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.Discounts;
 
 public class SearchDiscountCommand(string searchWord) : IRequest<IEnumerable<DiscountDto>>
 {
@@ -18,31 +18,13 @@ public class SearchDiscountCommandHandler(EProfspilkaContext db)
         if (string.IsNullOrEmpty(request.SearchWord))
         {
             return await db.Discounts
-                .Select(x => new DiscountDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    WithBarCode = x.WithBarCode,
-                    WithQrCode = x.WithQrCode,
-                    BarCodeImage = x.BarCodeImage == null ? null : x.BarCodeImage.ImageUrl,
-                    Description = x.Description,
-                    DiscountType = x.DiscountType,
-                })
+                .Select(x => new DiscountDto(x))
                 .ToListAsync(cancellationToken);
         }
 
         var discounts = await db.Discounts
             .Where(x => x.Name.Contains(request.SearchWord) || x.Description.Contains(request.SearchWord))
-            .Select(x => new DiscountDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-                WithBarCode = x.WithBarCode,
-                WithQrCode = x.WithQrCode,
-                BarCodeImage = x.BarCodeImage == null ? null : x.BarCodeImage.ImageUrl,
-                Description = x.Description,
-                DiscountType = x.DiscountType,
-            })
+            .Select(x => new DiscountDto(x))
             .ToListAsync(cancellationToken);
 
         return discounts;

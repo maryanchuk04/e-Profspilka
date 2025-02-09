@@ -7,7 +7,7 @@ using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.Discounts;
 
 public class VerifyDiscountCodeCommand(Guid discountId, Guid discountCodeId) : IRequest<VerifyDiscountResult>
 {

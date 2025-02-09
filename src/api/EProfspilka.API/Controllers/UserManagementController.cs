@@ -1,6 +1,6 @@
 using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.Users;
 using EProfspilka.Application.Factories;
-using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

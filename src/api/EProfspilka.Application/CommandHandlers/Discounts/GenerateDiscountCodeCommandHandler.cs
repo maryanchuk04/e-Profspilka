@@ -7,7 +7,7 @@ using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.Discounts;
 
 public class GenerateDiscountCodeCommand(Guid discountId) : IRequest<DiscountCodeDto>
 {

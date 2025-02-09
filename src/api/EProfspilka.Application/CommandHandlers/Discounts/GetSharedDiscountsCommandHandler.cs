@@ -4,7 +4,7 @@ using EProfspilka.Core.Enumerations;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
 
-namespace EProfspilka.Application.CommandHandlers;
+namespace EProfspilka.Application.CommandHandlers.Discounts;
 
 public class GetSharedDiscountCommand : IRequest<IEnumerable<DiscountDto>>
 {
@@ -15,18 +15,12 @@ public class GetSharedDiscountsCommandHandler(EProfspilkaContext db)
 {
     public async Task<IEnumerable<DiscountDto>> Handle(GetSharedDiscountCommand request, CancellationToken cancellationToken)
     {
-        return await db.Discounts
+        var discounts = await db.Discounts
             .Where(d => d.DiscountType == DiscountType.AvailableForAll)
-            .Select(x => new DiscountDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-                WithBarCode = x.WithBarCode,
-                WithQrCode = x.WithQrCode,
-                BarCodeImage = x.BarCodeImage == null ? null : x.BarCodeImage.ImageUrl,
-                Description = x.Description,
-                DiscountType = x.DiscountType,
-            })
+            .Include(discount => discount.BarCodeImage)
             .ToListAsync(cancellationToken);
+
+
+        return discounts.Select(d => new DiscountDto(d));
     }
 }

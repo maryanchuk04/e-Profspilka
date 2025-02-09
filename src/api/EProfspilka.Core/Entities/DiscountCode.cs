@@ -6,11 +6,11 @@ public class DiscountCode : BaseEntity
 {
     public Guid DiscountId { get; set; }
 
-    public Discount? Discount { get; set; }
+    public Discount Discount { get; set; }
 
     public Guid UserId { get; set; }
 
-    public User? User { get; set; }
+    public User User { get; set; }
 
     public bool IsActive { get; set; }
 

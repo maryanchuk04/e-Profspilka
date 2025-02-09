@@ -1,4 +1,4 @@
-using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.UserManagement;
 using EProfspilka.Core.Interfaces;
 
 namespace EProfspilka.Application.Factories;

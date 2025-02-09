@@ -1,5 +1,6 @@
 using EProfspilka.API.ViewModels;
 using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.Discounts;
 using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
