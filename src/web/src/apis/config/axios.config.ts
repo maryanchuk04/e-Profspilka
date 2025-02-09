@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-import { getAccessToken } from '../token';
-
-const baseURL = `${import.meta.env.VITE_APP_API_URL}`;
+const baseURL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const api = axios.create({
     baseURL,
     withCredentials: true,
     headers: {
-        Authorization: `Bearer ${getAccessToken() || ''}`,
+        Authorization: `Bearer ${''}`,
         'Content-Type': 'application/json',
     },
 });

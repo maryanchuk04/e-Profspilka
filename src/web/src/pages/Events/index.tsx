@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import Container from '../../components/Container';
 import EventCard from '../../components/EventCard';
-import { selectEvents } from '../../features/events.slice';
+import { selectEvents } from '../../lib/features/events.slice';
 
 const Events = () => {
     const events = useSelector(selectEvents);

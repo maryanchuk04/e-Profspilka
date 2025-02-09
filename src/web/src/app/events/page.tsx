@@ -1,0 +1,56 @@
+import { notFound } from 'next/navigation';
+
+import { getEvents as getEventsApi } from '@/apis/events';
+import Container from '@/components/Container';
+import EventCard from '@/components/EventCard';
+import { Event } from '@/models/event';
+
+interface EventsPageProps {
+    data: Event[];
+}
+
+async function getEvents() {
+    const { data } = await getEventsApi();
+    if (!data) notFound();
+    return data;
+}
+
+export async function generateStaticParams() {
+    const posts = await getEvents();
+
+    return posts.map((event: Event) => ({
+        id: String(event.id),
+    }));
+}
+
+export async function generateMetadata() {
+    const post = await getEvents();
+
+    return {
+        title: "Події",
+    };
+}
+
+
+export default async function EventsPage() {
+    const events = await getEvents()
+
+    return events.length === 0 ? (
+        <div className='h-96 grid place-items-center'>
+            <h1 className='text-center text-3xl max-sm:text-2xl'>
+                На даний момент подій немає! Але вони будуть найближчим часом! <br />
+                Приготуйтесь, буде цікаво!
+            </h1>
+        </div>
+    ) : (
+        <Container>
+            <p>#події</p>
+            <h1 className='my-4 uppercase text-black/60'>#Актуальні події та новини профспілки</h1>
+            <div className='grid grid-cols-4 gap-3 max-lg:grid-cols-2 max-sm:grid-cols-1'>
+                {events.map((item: Event) => (
+                    <EventCard key={item.id} event={item} />
+                ))}
+            </div>
+        </Container>
+    );
+}

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import EventCard from '../../../components/EventCard';
-import { selectEvents } from '../../../features/events.slice';
+import { selectEvents } from '../../../lib/features/events.slice';
 import Button from '../../../ui/Buttons/Button';
 
 const Events = () => {

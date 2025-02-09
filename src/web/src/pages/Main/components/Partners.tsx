@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import PartnerCard from '../../../components/PartnerCard';
-import { selectPartners } from '../../../features/partners.slice';
+
 import Carousel from '../../../components/Carousel';
+import PartnerCard from '../../../components/PartnerCard';
+import { selectPartners } from '../../../lib/features/partners.slice';
 
 const Partners = () => {
     const partners = useSelector(selectPartners);

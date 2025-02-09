@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ScrollRestoration, useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '@/app/store';
+import { useAppDispatch } from '@/lib/store';
 
-import { fetchAdvantages } from '../../features/advantages.slice';
-import { fetchDiscounts, fetchSharedDiscounts } from '../../features/discount.slice';
-import { fetchEvents } from '../../features/events.slice';
-import { fetchPartners } from '../../features/partners.slice';
-import { fetchQuestions } from '../../features/questions.slice';
+import { fetchAdvantages } from '../../lib/features/advantages.slice';
+import { fetchDiscounts, fetchSharedDiscounts } from '../../lib/features/discount.slice';
+import { fetchEvents } from '../../lib/features/events.slice';
+import { fetchPartners } from '../../lib/features/partners.slice';
+import { fetchQuestions } from '../../lib/features/questions.slice';
 import Footer from '../Footer';
 import Header from '../Header';
 import Loader from '../Loader';

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import Accordion from '../../../components/Accordion';
-import { selectQuestions } from '../../../features/questions.slice';
+import { selectQuestions } from '../../../lib/features/questions.slice';
 
 const TipicalQuestions = () => {
     const questions = useSelector(selectQuestions);

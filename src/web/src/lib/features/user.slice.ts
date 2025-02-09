@@ -4,8 +4,8 @@ import { authenticateGoogle, googleDataProvider } from '@/apis/auth';
 import { getCurrentUserInfo } from '@/apis/user';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AlertType } from '../models/alert';
-import { MemberStatus } from '../models/member-status';
+import { AlertType } from '../../models/alert';
+import { MemberStatus } from '../../models/member-status';
 import { showAlert, showDefaultAlert } from './alert.slice';
 import { handleOpen } from './login.slice';
 

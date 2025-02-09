@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from '@/app/store';
+import { useAppDispatch } from '@/lib/store';
 
 import Container from '../../components/Container';
 import Loader from '../../components/Loader';
-import { fetchUserThunk, selectUserData, selectUserLoading } from '../../features/user.slice';
+import { fetchUserThunk, selectUserData, selectUserLoading } from '../../lib/features/user.slice';
 import DiscountsList from './DiscountsList';
 import ProfileSidebar from './ProfileSidebar';
 

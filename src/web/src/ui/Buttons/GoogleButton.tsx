@@ -1,8 +1,8 @@
-import { useAppDispatch } from '@/app/store';
+import { useAppDispatch } from '@/lib/store';
 import { useGoogleLogin } from '@react-oauth/google';
 
 import Svg from '../../components/Svg';
-import { googleAuthenticateThunk } from '../../features/user.slice';
+import { googleAuthenticateThunk } from '../../lib/features/user.slice';
 import PrimaryButton from './PrimaryButton';
 
 const GoogleButton = ({ className = '' }) => {

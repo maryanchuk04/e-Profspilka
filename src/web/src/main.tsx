@@ -2,17 +2,13 @@ import './index.css';
 
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
 
 import App from './App';
-import { store } from './app/store';
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root')!);
 
 root.render(
     <React.Fragment>
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <App />
     </React.Fragment>
 );

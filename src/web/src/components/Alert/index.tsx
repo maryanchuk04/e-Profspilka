@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { AlertType } from '@/models/alert';
 
-import { closeAlert } from '../../features/alert.slice';
+import { closeAlert } from '../../lib/features/alert.slice';
 import SimpleModal from '../SimpleModal';
 
 const Alert = ({ duration = 3000, type = AlertType.Error, text }) => {

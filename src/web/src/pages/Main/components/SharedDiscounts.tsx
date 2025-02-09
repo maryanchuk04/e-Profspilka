@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { DiscountInfoModal } from '@/components/DiscountCard';
-import { selectSharedDiscounts } from '@/features/discount.slice';
+import { selectSharedDiscounts } from '@/lib/features/discount.slice';
 import Button from '@/ui/Buttons/Button';
 
 interface Discount {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Avatar from '../Avatar';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
+
+import Avatar from '../Avatar';
 
 const UserDetails = ({ user }) => {
     const media = useMediaQuery({ maxWidth: '700px' });

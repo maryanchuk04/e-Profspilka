@@ -1,3 +1,6 @@
+const successImg = "/images/success.png";
+const warningImg = "/images/warning.png";
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -45,14 +48,14 @@ const VerifyDiscount = () => {
                                     <span className='font-bold mx-1'>{state.data?.discount?.name}</span> доступна для
                                     <span className='font-bold ml-1'>{state.data?.fullName}</span>
                                 </p>
-                                <img src='/images/success.png' alt='success' className='w-32 h-32 my-10' />
+                                <img src={successImg} alt='success' className='w-32 h-32 my-10' />
                                 <PrimaryButton className='!w-56'>На головну</PrimaryButton>
                             </div>
                         ) : (
                             <div className='mt-4 grid place-items-center'>
                                 <h2>Цей QR-код вже не дійсний!</h2>
                                 <p className='text-black/60 mt-2'>Не потрібно нас обманювати:)</p>
-                                <img src='/images/warning.png' alt='warning' className='w-32 h-32 my-10' />
+                                <img src={warningImg} alt='warning' className='w-32 h-32 my-10' />
                                 <PrimaryButton className='!w-56'>На головну</PrimaryButton>
                             </div>
                         )}

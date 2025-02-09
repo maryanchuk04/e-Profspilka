@@ -1,14 +1,16 @@
+"use client";
+
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
 import { getAccessToken } from '@/apis/token';
-import { useAppDispatch } from '@/app/store';
+import { useAppDispatch } from '@/lib/store';
 
-import { selectAlertState } from '../../features/alert.slice';
-import { fetchDiscounts } from '../../features/discount.slice';
-import { handleOpen, selectLoginState } from '../../features/login.slice';
-import { fetchUserThunk } from '../../features/user.slice';
+import { selectAlertState } from '../../lib/features/alert.slice';
+import { fetchDiscounts } from '../../lib/features/discount.slice';
+import { handleOpen, selectLoginState } from '../../lib/features/login.slice';
+import { fetchUserThunk } from '../../lib/features/user.slice';
 import Alert from '../Alert';
 import RegistrationForm from '../RegistrationForm';
 import SimpleModal from '../SimpleModal';

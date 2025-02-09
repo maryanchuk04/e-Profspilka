@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-import { useAppDispatch } from '@/app/store';
 import Container from '@/components/Container';
-import { fetchAdvantages } from '@/features/advantages.slice';
-import { fetchDiscounts } from '@/features/discount.slice';
-import { fetchEvents } from '@/features/events.slice';
-import { fetchPartners } from '@/features/partners.slice';
-import { fetchQuestions } from '@/features/questions.slice';
+import { fetchAdvantages } from '@/lib/features/advantages.slice';
+import { fetchDiscounts } from '@/lib/features/discount.slice';
+import { fetchEvents } from '@/lib/features/events.slice';
+import { fetchPartners } from '@/lib/features/partners.slice';
+import { fetchQuestions } from '@/lib/features/questions.slice';
+import { useAppDispatch } from '@/lib/store';
 
 import Advantages from './components/Advantages';
 import Events from './components/Events';

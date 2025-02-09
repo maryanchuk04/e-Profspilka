@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { logout as logoutApi } from '@/apis/auth';
 import { removeAccessToken } from '@/apis/token';
-import { useAppDispatch } from '@/app/store';
+import { useAppDispatch } from '@/lib/store';
 import { MemberStatus } from '@/models/member-status';
 
 import Avatar from '../../components/Avatar';
-import { logout, selectUserData } from '../../features/user.slice';
+import { logout, selectUserData } from '../../lib/features/user.slice';
 import Button from '../../ui/Buttons/Button';
 import Field from './Field';
 

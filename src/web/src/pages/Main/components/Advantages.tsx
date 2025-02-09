@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import AdvantagesCard from '../../../components/AdvantagesCard';
 import Container from '../../../components/Container';
-import { selectAdvantages } from '../../../features/advantages.slice';
+import { selectAdvantages } from '../../../lib/features/advantages.slice';
 import PrimaryButton from '../../../ui/Buttons/PrimaryButton';
 
 const Advantages = () => {

@@ -1,5 +1,7 @@
+"use client";
+
+import Link from 'next/link';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
 
 import Circles from '../Circles';
 import Container from '../Container';
@@ -15,13 +17,13 @@ const Footer = () => {
                 </div>
                 <div className='flex flex-col text-white/75 max-sm:my-6'>
                     <h2 className='mb-6 text-white'>Посилання</h2>
-                    <Link className='mb-5' to='/'>
+                    <Link className='mb-5' href='/'>
                         Головна
                     </Link>
-                    <Link className='mb-5' to='/events'>
+                    <Link className='mb-5' href='/events'>
                         Події
                     </Link>
-                    <Link className='mb-5' to='/profile'>
+                    <Link className='mb-5' href='/profile'>
                         Особистий кабінет
                     </Link>
                 </div>

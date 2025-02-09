@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AlertType } from '../models/alert';
 
+import { AlertType } from '../../models/alert';
 
 interface AlertState {
     open: boolean;

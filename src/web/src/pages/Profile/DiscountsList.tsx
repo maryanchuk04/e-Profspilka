@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import DiscountCard from '../../components/DiscountCard';
 import Loader from '../../components/Loader';
-import { selectDiscounts, selectDiscountsLoading } from '../../features/discount.slice';
+import { selectDiscounts, selectDiscountsLoading } from '../../lib/features/discount.slice';
 import { DiscountType } from '../../types/discountType';
 import { MemberStatus } from '../../types/memberStatus';
 

@@ -3,7 +3,7 @@ import Hamburger from './Hamburger';
 import Container from '../Container';
 import MobileMenuContent from './MobileMenuContent';
 import RegistrationForm from '../RegistrationForm';
-import { selectUserData } from '../../features/user.slice';
+import { selectUserData } from '../../lib/features/user.slice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
