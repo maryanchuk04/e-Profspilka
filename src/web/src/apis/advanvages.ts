@@ -1,5 +1,5 @@
-import api from "./config/axios.config";
+import api from './config/axios.config';
 
-const endpoint = 'advantage';
+const endpoint = '/advantage';
 
 export const getAdvantages = () => api.get(endpoint);

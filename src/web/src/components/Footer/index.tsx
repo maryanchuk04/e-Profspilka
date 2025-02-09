@@ -10,7 +10,7 @@ const Footer = () => {
     const media = useMediaQuery({ maxWidth: '768px' });
 
     return (
-        <div className='bg-[#212121] pt-6 mt-12 h-fit'>
+        <div className='bg-[#212121] pt-6 mt-4 h-fit'>
             <Container className='flex justify-between w-full max-sm:flex-col h-max'>
                 <div>
                     <img src='/images/logo-transparent-big.png' alt='Transparent logo' className='w-20 h-20' />

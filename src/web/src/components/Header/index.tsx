@@ -29,7 +29,7 @@ export default function Header() {
                     <UserDetails user={user} />
                 ) : (
                     <div className="flex items-center">
-                        <PrimaryButton className="!w-56 px-5 mr-4 h-10" onClick={() => dispatch(handleOpen())}>
+                        <PrimaryButton className="!w-56 px-5 mr-4 h-10" onClick={() => {console.log('click'); dispatch(handleOpen())}}>
                             Увійти
                         </PrimaryButton>
                     </div>

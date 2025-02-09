@@ -8,14 +8,14 @@ import { fetchPartners } from '@/lib/features/partners.slice';
 import { fetchQuestions } from '@/lib/features/questions.slice';
 import { useAppDispatch } from '@/lib/store';
 
-import Advantages from './components/Advantages';
-import Events from './components/Events';
-import Landing from './components/Landing';
-import Mark from './components/Mark';
-import Partners from './components/Partners';
-import SharedDiscounts from './components/SharedDiscounts';
-import Socials from './components/Socials';
-import TypicalQuestions from './components/TypicalQuestions';
+import Advantages from '../../components/main-page/AdvantagesSection';
+import Events from '../../components/main-page/Events';
+import Landing from '../../components/main-page/Landing';
+import Mark from '../../components/main-page/Mark';
+import Partners from '../../components/main-page/Partners';
+import SharedDiscounts from '../../components/main-page/SharedDiscounts';
+import Socials from '../../components/main-page/Socials';
+import TypicalQuestions from '../../components/main-page/TypicalQuestions';
 
 const Main = () => {
     const dispatch = useAppDispatch();

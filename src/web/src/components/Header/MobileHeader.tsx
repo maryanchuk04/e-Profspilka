@@ -1,17 +1,20 @@
+'use client'
+
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import Hamburger from './Hamburger';
-import Container from '../Container';
-import MobileMenuContent from './MobileMenuContent';
-import RegistrationForm from '../RegistrationForm';
-import { selectUserData } from '../../lib/features/user.slice';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
+import { selectUserData } from '../../lib/features/user.slice';
+import Container from '../Container';
+import RegistrationForm from '../RegistrationForm';
+import Hamburger from './Hamburger';
+import MobileMenuContent from './MobileMenuContent';
 
 const MobileHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [headerState, setHeaderState] = useState(0);
     const user = useSelector(selectUserData);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     useEffect(() => {
         if (user) {
@@ -25,7 +28,7 @@ const MobileHeader = () => {
     };
 
     const handleNavigate = () => {
-        navigate('/');
+        router.push('/');
         setMenuOpen(false);
     };
 

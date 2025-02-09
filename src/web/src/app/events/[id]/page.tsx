@@ -1,25 +1,35 @@
+import { AxiosError } from 'axios';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { getEventById } from '@/apis/events';
 import Container from '@/components/Container';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    if (!params?.id) return { title: "Подія не знайдена", description: "Невідома подія" };
+    if (!params?.id)
+        return {
+            title: 'Подія не знайдена',
+            description: 'Невідома подія',
+        };
 
     try {
-        const event = await getEventById(params.id);
+        const { data } = await getEventById(params.id);
         return {
-            title: event?.data?.title || "Подія",
-            description: event?.data?.description?.slice(0, 150) || "Опис події",
+            title: data?.title || 'Подія',
+            description: data?.description?.slice(0, 150) || 'Опис події',
         };
     } catch (error) {
-        console.error("Помилка отримання мета-даних:", error);
-        return { title: "Помилка", description: "Не вдалося завантажити подію" };
+        if (error instanceof AxiosError) {
+            if (error.response?.status === 400) {
+                return notFound();
+            }
+        }
+        return { title: 'Помилка', description: 'Не вдалося завантажити подію' };
     }
 }
 
 export default async function EventPage({ params }: { params: { id: string } }) {
-    if (!params?.id) return <p>Помилка: Невідома подія</p>;
+    if (!params?.id) return notFound();
 
     try {
         const { data: event } = await getEventById(params.id);
@@ -41,7 +51,11 @@ export default async function EventPage({ params }: { params: { id: string } }) 
             </Container>
         );
     } catch (error) {
-        console.error("Помилка завантаження події:", error);
-        return <p>Не вдалося завантажити подію. Спробуйте ще раз.</p>;
+        if (error instanceof AxiosError) {
+            if (error.response?.status === 400) {
+                return notFound();
+            }
+        }
+        return notFound();
     }
 }

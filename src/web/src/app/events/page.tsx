@@ -5,32 +5,17 @@ import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
 import { Event } from '@/models/event';
 
-interface EventsPageProps {
-    data: Event[];
-}
-
 async function getEvents() {
     const { data } = await getEventsApi();
     if (!data) notFound();
     return data;
 }
 
-export async function generateStaticParams() {
-    const posts = await getEvents();
-
-    return posts.map((event: Event) => ({
-        id: String(event.id),
-    }));
-}
-
 export async function generateMetadata() {
-    const post = await getEvents();
-
     return {
-        title: "Події",
+        title: "єПрофспілка - Події",
     };
 }
-
 
 export default async function EventsPage() {
     const events = await getEvents()

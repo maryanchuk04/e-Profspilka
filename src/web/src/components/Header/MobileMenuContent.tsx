@@ -1,12 +1,16 @@
+"use client";
+
+import { useRouter } from 'next/router';
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import Button from '../../ui/Buttons/Button';
-import Avatar from '../Avatar';
-import { useNavigate } from 'react-router-dom';
+
 import { getAccessToken } from '@/apis/token';
 
+import Button from '../../ui/Buttons/Button';
+import Avatar from '../Avatar';
+
 const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const links = [
         {
             name: 'Події',
@@ -31,7 +35,7 @@ const MobileMenuContent = ({ setHeaderState, handleClose, user }) => {
     ];
 
     const handleNavigate = () => {
-        navigate('/profile');
+        router.push('/profile');
         handleClose();
     };
 

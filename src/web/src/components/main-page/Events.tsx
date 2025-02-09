@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import EventCard from '../../../components/EventCard';
-import { selectEvents } from '../../../lib/features/events.slice';
-import Button from '../../../ui/Buttons/Button';
+import { selectEvents } from '../../lib/features/events.slice';
+import Button from '../../ui/Buttons/Button';
+import EventCard from '../EventCard';
 
 const Events = () => {
     const navigate = useNavigate();

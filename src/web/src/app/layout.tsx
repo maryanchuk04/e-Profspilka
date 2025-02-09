@@ -14,9 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang='en'>
             <body>
                 <ReduxProvider>
-                    <Header />
-                    <main className='min-h-screen flex flex-col justify-between'>{children}</main>
-                    <Footer />
+                    <main className='min-h-screen h-auto flex flex-col justify-between'>
+                        <Header />
+                        {children}
+                        <Footer />
+                    </main>
                 </ReduxProvider>
             </body>
         </html>
