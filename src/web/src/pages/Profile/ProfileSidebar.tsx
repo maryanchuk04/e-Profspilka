@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
 import { logout as logoutApi } from '@/apis/auth';
 import { removeAccessToken } from '@/apis/token';
+import { useMediaQuery } from '@/hooks';
 import { useAppDispatch } from '@/lib/store';
 import { MemberStatus } from '@/models/member-status';
 
@@ -17,7 +17,7 @@ const ProfileSidebar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const media = useMediaQuery({ maxWidth: '976px' });
+    const media = useMediaQuery(976);
     const { fullName, facultet, course, avatar, role } = useSelector(selectUserData);
     const [isOpen, setIsOpen] = useState(false);
 

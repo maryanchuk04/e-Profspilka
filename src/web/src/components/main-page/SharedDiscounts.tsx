@@ -1,23 +1,36 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { getSharedDiscounts } from '@/apis/discount';
+import LinkButton from '@/ui/Buttons/LinkButton';
 
-import { DiscountInfoModal } from '@/components/DiscountCard';
-import { selectSharedDiscounts } from '@/lib/features/discount.slice';
-import Button from '@/ui/Buttons/Button';
+import { DiscountInfoModal } from '../DiscountCard';
 
 interface Discount {
-    id: number;
+    id: string;
     name: string;
+    description?: string;
 }
 
-const SharedDiscounts: React.FC = () => {
-    const discounts: Discount[] = useSelector(selectSharedDiscounts);
+interface SharedDiscountsProps {
+    selectedDiscountId?: string;
+}
+
+const fetchSharedDiscounts = async (): Promise<Discount[]> => {
+    try {
+        const { data } = await getSharedDiscounts();
+        return data;
+    } catch (error) {
+        console.error('An error occurred while fetching shared discounts:', error);
+        return [];
+    }
+};
+
+export default async function SharedDiscounts({ selectedDiscountId }: SharedDiscountsProps) {
+    const discounts = await fetchSharedDiscounts();
 
     return (
-        <div>
-            <h1 className='my-10'>Знижки які доступні всім студентам</h1>
+        <div className='my-16'>
+            <h1 className='my-10'>Знижки, які доступні всім студентам</h1>
             {discounts.map((discount) => (
-                <DiscountComponent key={discount.id} discount={discount} />
+                <DiscountComponent key={discount.id} discount={discount} isOpen={discount.id === selectedDiscountId} />
             ))}
         </div>
     );
@@ -25,23 +38,21 @@ const SharedDiscounts: React.FC = () => {
 
 interface DiscountProps {
     discount: Discount;
+    isOpen: boolean;
 }
 
-const DiscountComponent: React.FC<DiscountProps> = ({ discount }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
+const DiscountComponent: React.FC<DiscountProps> = ({ discount, isOpen }) => {
     return (
         <div className='p-3 my-2 bg-[#9AE19D] rounded-standart flex gap-2 items-center w-full'>
             <i className='fas fa-tags mx-3 max-sm:mx-1 text-4xl'></i>
             <div className='flex justify-between items-center w-full'>
-                <h3>{discount?.name}</h3>
-                <Button onClick={() => setIsOpen(true)} className='!h-12 !w-12 text-2xl px-3'>
+                <h3>{discount.name}</h3>
+                <LinkButton className='!h-12 !w-12 text-2xl px-3' href={`?discountId=${discount.id}`}>
                     <i className='text-2xl fas fa-info'></i>
-                </Button>
+                </LinkButton>
             </div>
-            {isOpen && <DiscountInfoModal discount={discount} close={() => setIsOpen(false)} />}
+            {isOpen && <DiscountInfoModal discount={discount} />}
         </div>
     );
 };
 
-export default SharedDiscounts;

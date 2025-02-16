@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
 
 import { getAccessToken } from '@/apis/token';
+import { useMediaQuery } from '@/hooks';
 import { useAppDispatch } from '@/lib/store';
 
 import { selectAlertState } from '../../lib/features/alert.slice';
@@ -12,12 +12,12 @@ import { fetchDiscounts } from '../../lib/features/discount.slice';
 import { handleOpen, selectLoginState } from '../../lib/features/login.slice';
 import { fetchUserThunk } from '../../lib/features/user.slice';
 import Alert from '../Alert';
-import RegistrationForm from '../RegistrationForm';
+import AuthenticationForm from '../AuthenticationForm';
 import SimpleModal from '../SimpleModal';
 
 const Layout = ({ children }) => {
     const { open } = useSelector(selectLoginState);
-    const isMobile = useMediaQuery({ maxWidth: '480px' });
+    const isMobile = useMediaQuery(480);
     const alert = useSelector(selectAlertState);
     const dispatch = useAppDispatch();
 
@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
             {children}
             {!isMobile && open && (
                 <SimpleModal className='!h-fit !w-[30rem]' handleClose={handleClose}>
-                    <RegistrationForm />
+                    <AuthenticationForm />
                 </SimpleModal>
             )}
             {alert.open && <Alert text={alert.text} type={alert.type} duration={alert.duration} />}

@@ -1,40 +1,48 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
 
+import AuthenticationForm from '@/components/AuthenticationForm';
 import Container from '@/components/Container';
-import { handleOpen } from '@/lib/features/login.slice';
-import { selectUserData } from '@/lib/features/user.slice';
+import SimpleModal from '@/components/SimpleModal';
+import { useMediaQuery } from '@/hooks';
+import { handleOpen, selectLoginState } from '@/lib/features/login.slice';
+import { useAppDispatch } from '@/lib/store';
 import PrimaryButton from '@/ui/Buttons/PrimaryButton';
 
-import MobileHeader from './MobileHeader';
-import UserDetails from './UserDetails';
+import MobileMenu from './MobileMenu';
 
 export default function Header() {
-    const dispatch = useDispatch();
-    const user = useSelector(selectUserData);
-    const isMobile = useMediaQuery({ maxWidth: 450 });
+    const dispatch = useAppDispatch();
 
-    if (isMobile) return <MobileHeader />;
+    const open = useSelector(selectLoginState);
+    const isMobile = useMediaQuery(768);
+
+    const toggleLoginModal = () => {
+        dispatch(handleOpen());
+    };
+
+    if (isMobile) return <MobileMenu user={undefined} />;
 
     return (
-        <Container>
-            <header className="flex items-center justify-between py-5">
-                <Link href="/" className="w-20 h-20">
-                    <img src="/images/logo-big.png" alt="profspilka-logo" className="w-full h-full" />
-                </Link>
-                {user.fullName ? (
-                    <UserDetails user={user} />
-                ) : (
-                    <div className="flex items-center">
-                        <PrimaryButton className="!w-56 px-5 mr-4 h-10" onClick={() => {console.log('click'); dispatch(handleOpen())}}>
-                            Увійти
-                        </PrimaryButton>
-                    </div>
-                )}
-            </header>
-        </Container>
+        <>
+            <Container>
+                <header className='flex items-center justify-between py-5'>
+                    <Link href='/' className='w-20 h-20'>
+                        <img src='/images/logo-big.png' alt='profspilka-logo' className='w-full h-full' />
+                    </Link>
+
+                    <PrimaryButton className='!w-56 px-5 h-10' onClick={toggleLoginModal}>
+                        Увійти
+                    </PrimaryButton>
+                </header>
+            </Container>
+            {open && (
+                <SimpleModal className='!h-fit !w-[30rem]' handleClose={toggleLoginModal}>
+                    <AuthenticationForm />
+                </SimpleModal>
+            )}
+        </>
     );
 }

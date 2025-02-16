@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+'use client'
 
-const Accordion = ({ title, details }) => {
+import React, { useCallback, useState } from 'react';
+
+interface AccordionProps {
+    title: string;
+    /**
+     * @summary HTML string
+     */
+    details: string;
+}
+
+const Accordion: React.FC<AccordionProps> = ({ title, details }) => {
     const [open, setOpen] = useState(false);
 
-    const toggle = () => {
-        setOpen(!open);
-    };
+    const toggle = useCallback(() => {
+        setOpen((prev) => !prev);
+    }, []);
 
     return (
         <div
@@ -35,3 +45,5 @@ const Accordion = ({ title, details }) => {
 };
 
 export default Accordion;
+
+

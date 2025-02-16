@@ -1,19 +1,17 @@
-import { useAppDispatch } from '@/lib/store';
-import { useGoogleLogin } from '@react-oauth/google';
+
 
 import Svg from '../../components/Svg';
-import { googleAuthenticateThunk } from '../../lib/features/user.slice';
 import PrimaryButton from './PrimaryButton';
 
 const GoogleButton = ({ className = '' }) => {
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
 
-    const login = useGoogleLogin({
-        onSuccess: ({ access_token }) => dispatch(googleAuthenticateThunk(access_token)),
-        onError: () => {
-            console.log('Login Failed');
-        },
-    });
+    // const login = useGoogleLogin({
+    //     onSuccess: ({ access_token }) => dispatch(googleAuthenticateThunk(access_token)),
+    //     onError: () => {
+    //         console.log('Login Failed');
+    //     },
+    // });
 
     return (
         <PrimaryButton

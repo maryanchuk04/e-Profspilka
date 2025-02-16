@@ -1,7 +1,10 @@
+'use client'
+
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 
 import { getQrCode } from '@/apis/discount';
+import { useMediaQuery } from '@/hooks';
+import LinkButton from '@/ui/Buttons/LinkButton';
 
 import Button from '../../ui/Buttons/Button';
 import Loader from '../Loader';
@@ -89,7 +92,7 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
     const [isTimerStarted, setIsTimerStarted] = useState(true);
     const [qrCodeValue, setQrCodeValue] = useState('');
 
-    const isSmScreen = useMediaQuery({ maxWidth: '475px' });
+    const isSmScreen = useMediaQuery(475);
 
     useEffect(() => {
         if (isQrDiscount) {
@@ -162,15 +165,15 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
     );
 };
 
-export const DiscountInfoModal = ({ discount, close }) => (
+export const DiscountInfoModal = ({ discount, closeHref = '/' }) => (
     <SimpleModal className='w-[320px] !h-fit max-h-[80vh] '>
         <div className='editor'>
             <h2>{discount.name}</h2>
             <hr className='my-4' />
             <div className='my-4' dangerouslySetInnerHTML={{ __html: discount?.description }}></div>
-            <Button className='bg-primary' onClick={close}>
+            <LinkButton className='bg-primary' href={closeHref}>
                 Закрити
-            </Button>
+            </LinkButton>
         </div>
     </SimpleModal>
 );

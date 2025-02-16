@@ -1,17 +1,22 @@
-"use client"
+"use client";
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
+
+import { useMediaQuery } from '@/hooks';
 
 import Avatar from '../Avatar';
 
-const UserDetails = ({ user }) => {
-    const media = useMediaQuery({ maxWidth: '700px' });
-    const navigate = useNavigate();
+interface UserDetailsProps {
+    user: any
+}
+
+const UserDetails = ({ user }: UserDetailsProps) => {
+    const media = useMediaQuery(700);
+    const router = useRouter();
 
     const handleNavigate = () => {
-        navigate('/profile');
+        router.push('/profile');
     };
 
     return !media ? (

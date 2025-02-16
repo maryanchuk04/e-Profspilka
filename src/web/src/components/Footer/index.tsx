@@ -1,16 +1,11 @@
-"use client";
-
 import Link from 'next/link';
-import { useMediaQuery } from 'react-responsive';
 
 import Circles from '../Circles';
 import Container from '../Container';
 
 const Footer = () => {
-    const media = useMediaQuery({ maxWidth: '768px' });
-
     return (
-        <div className='bg-[#212121] pt-6 mt-4 h-fit'>
+        <footer className='bg-[#212121] pt-6 mt-4 h-fit'>
             <Container className='flex justify-between w-full max-sm:flex-col h-max'>
                 <div>
                     <img src='/images/logo-transparent-big.png' alt='Transparent logo' className='w-20 h-20' />
@@ -36,7 +31,7 @@ const Footer = () => {
                     <a className='mb-5' href='tel:+380372584857'>
                         <i className='fas fa-phone mr-2'></i>+38 (0372) 509437
                     </a>
-                    <a className='mb-5' href='mailto:prokfqvkndsa@gmail.com' target='_blank' rel='noreferrer'>
+                    <a className='mb-5' href='mailto:studprofkom@chnu.edu.ua' target='_blank' rel='noreferrer'>
                         <i className='fas fa-envelope mr-2'></i>
                         studprofkom@chnu.edu.ua
                     </a>
@@ -49,9 +44,12 @@ const Footer = () => {
                         <i className='fas fa-link mr-2'></i>Корисні посилання
                     </a>
                 </div>
-                {!media && <Circles className='scale-50' />}
+                {/* Circles hidden for Mobile screens */}
+                <div className='max-md:hidden'>
+                    <Circles className='scale-50' />
+                </div>
             </Container>
-        </div>
+        </footer>
     );
 };
 

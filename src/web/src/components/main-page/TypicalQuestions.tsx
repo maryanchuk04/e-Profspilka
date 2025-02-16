@@ -1,10 +1,20 @@
-import { useSelector } from 'react-redux';
+import { getQuestions } from '@/apis/questions';
 
-import { selectQuestions } from '../../lib/features/questions.slice';
 import Accordion from '../Accordion';
 
-const TipicalQuestions = () => {
-    const questions = useSelector(selectQuestions);
+const fetchQuestions = async () => {
+    try {
+        const { data } = await getQuestions();
+        return data;
+    } catch (error) {
+        console.error('An error occurred while fetching questions:', error);
+
+        return [];
+    }
+};
+
+export default async function TypicalQuestions() {
+    const questions = await fetchQuestions();
 
     return (
         questions &&
@@ -19,6 +29,4 @@ const TipicalQuestions = () => {
             </div>
         )
     );
-};
-
-export default TipicalQuestions;
+}

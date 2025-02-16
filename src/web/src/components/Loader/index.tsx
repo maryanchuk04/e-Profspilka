@@ -1,7 +1,9 @@
-import { useMediaQuery } from 'react-responsive';
+'use client'
+
+import { useMediaQuery } from '@/hooks';
 
 const Loader = ({ className = '' }) => {
-    const isSmScreen = useMediaQuery({ maxWidth: '400px' });
+    const isSmScreen = useMediaQuery(400);
 
     return (
         <div className={`h-full w-full flex ${className}`}>

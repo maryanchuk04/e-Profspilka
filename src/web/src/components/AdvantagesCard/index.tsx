@@ -1,12 +1,10 @@
-import { FC } from 'react';
-
 import { Advantage } from '@/models/advantage';
 
 interface AdvantagesCardProps {
     advantages: Advantage;
 }
 
-const AdvantagesCard: FC<AdvantagesCardProps> = ({ advantages }) => {
+export default function AdvantagesCard({ advantages }: AdvantagesCardProps) {
     const { mainText, subText } = advantages;
 
     return (
@@ -18,5 +16,3 @@ const AdvantagesCard: FC<AdvantagesCardProps> = ({ advantages }) => {
         </div>
     );
 };
-
-export default AdvantagesCard;

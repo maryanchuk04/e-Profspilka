@@ -5,7 +5,7 @@ interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ children, className = '', ...custom }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({ children, className = '', ...custom }: PrimaryButtonProps) => {
     return (
         <button
             className={`w-full h-12 text-base font-regular rounded-standart xl:h-14 max-sm:text-sm bg-primary text-white ${className}`}

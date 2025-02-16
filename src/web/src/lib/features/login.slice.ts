@@ -13,6 +13,7 @@ const loginSlice = createSlice({
     initialState,
     reducers: {
         handleOpen: (state) => {
+            console.log('work')
             state.open = !state.open;
         },
     },
@@ -20,6 +21,6 @@ const loginSlice = createSlice({
 
 export const { handleOpen } = loginSlice.actions;
 
-export const selectLoginState = (state: { login: LoginState }) => state.login;
+export const selectLoginState = (state: { login: LoginState }) => state.login.open;
 
 export default loginSlice.reducer;

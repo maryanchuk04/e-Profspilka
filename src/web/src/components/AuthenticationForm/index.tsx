@@ -1,6 +1,6 @@
 import GoogleButton from '../../ui/Buttons/GoogleButton';
 
-const RegistrationForm = ({ className = '' }) => {
+const AuthenticationForm = ({ className = '' }) => {
     return (
         <div className={`my-3 w-full h-full flex flex-col justify-center ${className}`}>
             <h1 className='text-center w-full xs:text-xl sm:text-2xl md:text-3xl'>
@@ -19,4 +19,4 @@ const RegistrationForm = ({ className = '' }) => {
     );
 };
 
-export default RegistrationForm;
+export default AuthenticationForm;

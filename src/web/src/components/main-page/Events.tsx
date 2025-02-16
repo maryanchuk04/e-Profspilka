@@ -1,13 +1,21 @@
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { getEvents } from '@/apis/events';
+import { Event } from '@/models/event';
+import LinkButton from '@/ui/Buttons/LinkButton';
 
-import { selectEvents } from '../../lib/features/events.slice';
-import Button from '../../ui/Buttons/Button';
 import EventCard from '../EventCard';
 
-const Events = () => {
-    const navigate = useNavigate();
-    const events = useSelector(selectEvents);
+const fetchEvents = async (): Promise<Event[]> => {
+    try {
+        const { data } = await getEvents();
+        return data;
+    } catch (error) {
+        console.error('An error occurred while fetching events:', error);
+        return [];
+    }
+}
+
+export default async function Events () {
+    const events = await fetchEvents();
 
     return (
         events &&
@@ -20,16 +28,14 @@ const Events = () => {
                     ))}
                 </div>
                 <div className='w-80 max-sm:w-full'>
-                    <Button onClick={() => navigate('/events')}>
+                    <LinkButton href='/events'>
                         <div className='flex items-center justify-between px-3'>
                             <p>Всі події</p>
                             <span className='text-2xl'>&#8599;</span>
                         </div>
-                    </Button>
+                    </LinkButton>
                 </div>
             </div>
         )
     );
 };
-
-export default Events;

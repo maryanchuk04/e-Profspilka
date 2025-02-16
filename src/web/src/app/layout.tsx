@@ -11,10 +11,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang='en'>
+        <html lang='uk'>
+            <head>
+                <link rel='stylesheet' href='https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css' />
+            </head>
             <body>
                 <ReduxProvider>
-                    <main className='min-h-screen h-auto flex flex-col justify-between'>
+                    <main className='min-h-screen flex flex-col justify-between'>
                         <Header />
                         {children}
                         <Footer />
