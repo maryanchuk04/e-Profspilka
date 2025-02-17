@@ -14,12 +14,16 @@ const EventCard = ({ event }: EventCardProps) => {
     return (
         <Link
             href={`/events/${id}`}
-            className={`relative flex-1 flex flex-col justify-between max-w-xs  p-5 border border-black rounded-standart h-80 duration-150 cursor-pointer hover:text-white hover:bg-primary hover:border-primary ${smStyles}`}
+            className={`relative flex-1 flex flex-col justify-between max-w-xs p-5 border border-black rounded-standart h-80 duration-150 cursor-pointer hover:text-white hover:bg-primary hover:border-primary ${smStyles}`}
             key={id}
         >
             <div className='flex justify-between flex-col h-full'>
-                <h3 className='w-3/4'>{title}</h3>
-                {shortDescription && <p>{shortDescription}</p>}
+                <h4 className='w-3/4'>{title}</h4>
+                {shortDescription && (
+                    <p className='max-sm:line-clamp-2 overflow-hidden text-ellipsis mb-1'>
+                        {shortDescription}
+                    </p>
+                )}
             </div>
             <span className='absolute bottom-3 right-3 text-2xl'>&#8599;</span>
         </Link>

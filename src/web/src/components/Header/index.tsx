@@ -14,10 +14,11 @@ import PrimaryButton from '@/ui/Buttons/PrimaryButton';
 import MobileMenu from './MobileMenu';
 
 export default function Header() {
+    const isMobile = useMediaQuery(768);
     const dispatch = useAppDispatch();
 
     const open = useSelector(selectLoginState);
-    const isMobile = useMediaQuery(768);
+
 
     const toggleLoginModal = () => {
         dispatch(handleOpen());
@@ -33,7 +34,7 @@ export default function Header() {
                         <img src='/images/logo-big.png' alt='profspilka-logo' className='w-full h-full' />
                     </Link>
 
-                    <PrimaryButton className='!w-56 px-5 h-10' onClick={toggleLoginModal}>
+                    <PrimaryButton className='!w-56 px-5 h-10 max-md:hidden' onClick={toggleLoginModal}>
                         Увійти
                     </PrimaryButton>
                 </header>

@@ -10,7 +10,7 @@ export default async function AdvantagesSection() {
     return (
         <div className='bg-primary text-white py-12'>
         <Container>
-            <h1 className='text-2xl md:text-4xl font-bold mb-8'>Переваги профспілкового членства</h1>
+            <h1>Переваги профспілкового членства</h1>
         </Container>
 
         <Container>

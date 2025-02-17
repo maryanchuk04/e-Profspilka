@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { getAccessToken } from '@/apis/token';
 import Container from '@/components/Container';
-import Button from '@/ui/Buttons/Button';
+import GoogleButton from '@/ui/Buttons/GoogleButton';
 
 import Hamburger from './Hamburger';
 
@@ -15,8 +15,9 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ user }: MobileMenuProps) {
-    const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
+
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const links = [
         { name: 'Події', link: '/events' },
@@ -56,12 +57,7 @@ export default function MobileMenu({ user }: MobileMenuProps) {
                             <img src={user.avatar} alt='User Avatar' className='h-14 w-14 rounded-full border' />
                         </div>
                     ) : (
-                        <Button
-                            className='mt-10 w-full text-lg bg-white text-black py-3'
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            Увійти
-                        </Button>
+                        <GoogleButton className='mt-10 w-full text-lg bg-white !text-black py-3'/>
                     )}
                 </Container>
             )}

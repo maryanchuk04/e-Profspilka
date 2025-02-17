@@ -4,8 +4,8 @@ export default function Socials() {
     const socials = getSocials();
 
     return (
-        <div id='socials' className='my-32'>
-            <h1 className='my-12 max-sm:text-center'>Ми в соцмережах</h1>
+        <div id='socials' className='my-20'>
+            <h1>Ми в соцмережах</h1>
             <div className='flex flex-wrap my-5 justify-between gap-10 max-sm:flex-col'>
                 {socials.map((item) => (
                     <a

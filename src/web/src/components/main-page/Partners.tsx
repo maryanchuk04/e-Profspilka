@@ -12,7 +12,7 @@ const Partners = () => {
         partners &&
         partners.length > 0 && (
             <div id='partners' className='my-12'>
-                <h1 className='mb-12 max-sm:text-center'>Наші партнери</h1>
+                <h1>Наші партнери</h1>
                 <Carousel>
                     {partners.map((item) => (
                         <PartnerCard key={item.id} partner={item} />

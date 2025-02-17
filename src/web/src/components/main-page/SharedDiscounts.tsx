@@ -10,7 +10,7 @@ interface Discount {
 }
 
 interface SharedDiscountsProps {
-    selectedDiscountId?: string;
+    selectedDiscountId?: string | null;
 }
 
 const fetchSharedDiscounts = async (): Promise<Discount[]> => {
@@ -28,7 +28,7 @@ export default async function SharedDiscounts({ selectedDiscountId }: SharedDisc
 
     return (
         <div className='my-16'>
-            <h1 className='my-10'>Знижки, які доступні всім студентам</h1>
+            <h1>Знижки, які доступні всім студентам</h1>
             {discounts.map((discount) => (
                 <DiscountComponent key={discount.id} discount={discount} isOpen={discount.id === selectedDiscountId} />
             ))}
@@ -46,7 +46,7 @@ const DiscountComponent: React.FC<DiscountProps> = ({ discount, isOpen }) => {
         <div className='p-3 my-2 bg-[#9AE19D] rounded-standart flex gap-2 items-center w-full'>
             <i className='fas fa-tags mx-3 max-sm:mx-1 text-4xl'></i>
             <div className='flex justify-between items-center w-full'>
-                <h3>{discount.name}</h3>
+                <h4>{discount.name}</h4>
                 <LinkButton className='!h-12 !w-12 text-2xl px-3' href={`?discountId=${discount.id}`}>
                     <i className='text-2xl fas fa-info'></i>
                 </LinkButton>
