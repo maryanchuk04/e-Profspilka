@@ -1,43 +1,29 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-const handler = NextAuth({
+import { backendApiGoogleCallbackUri } from '../settings';
+
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
             authorization: {
+                url: "https://accounts.google.com/o/oauth2/auth",
                 params: {
-                    prompt: 'consent',
-                    access_type: 'offline',
-                    response_type: 'code',
+                    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                    redirect_uri: backendApiGoogleCallbackUri,
+                    response_type: "code",
+                    scope: "openid email profile",
+                    access_type: "offline",
+                    prompt: "consent",
                 },
             },
+            checks: ["state"],
         }),
     ],
+    secret: process.env.NEXTAUTH_SECRET,
+};
 
-    callbacks: {
-        async signIn(params: any) {
-            const { profile } = params;
-            console.log('profile', profile);
-            console.log('params', params);
-
-            // try {
-            //     const res = await fetch(`${process.env.GATEWAY_BASE_ADDRESS}/api/authenticate`, { method: 'POST' });
-            //     if (!res.ok) {
-            //         return false;
-            //     }
-            //     await res.json();
-
-            //     return true;
-            // } catch (err) {
-            //     console.log('Something happened: ', err);
-            //     return false;
-            // }
-
-            return true;
-        },
-    },
-});
-
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

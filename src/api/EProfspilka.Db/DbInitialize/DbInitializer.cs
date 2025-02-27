@@ -126,14 +126,14 @@ public static class DbInitializer
                 new UserRole
                 {
                     UserId = adminId,
-                    Id = Role.Admin,
+                    RoleId = Role.Admin,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                 },
                 new UserRole
                 {
                     UserId = adminId,
-                    Id = Role.Student,
+                    RoleId = Role.Student,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                 }

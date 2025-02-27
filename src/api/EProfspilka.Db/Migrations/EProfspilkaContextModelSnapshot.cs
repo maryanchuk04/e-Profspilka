@@ -362,21 +362,27 @@ namespace EProfspilka.Db.Migrations
 
             modelBuilder.Entity("EProfspilka.Core.Entities.UserRole", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte>("RoleId")
+                        .HasColumnType("tinyint");
+
                     b.Property<DateTime>("UpdatedAtUtc")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("UserId", "Id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("Id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
                 });
@@ -487,7 +493,7 @@ namespace EProfspilka.Db.Migrations
                 {
                     b.HasOne("EProfspilka.Core.Entities.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

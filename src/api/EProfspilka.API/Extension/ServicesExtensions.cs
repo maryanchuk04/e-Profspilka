@@ -7,7 +7,10 @@ using EProfspilka.Application.Configurations;
 using EProfspilka.Application.Factories;
 using EProfspilka.Application.Services;
 using EProfspilka.Core.Interfaces;
+using EProfspilka.Core.Settings;
 using EProfspilka.Db.EF;
+using EProfspilka.Infrastructure.Google;
+using EProfspilka.Infrastructure.Google.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +60,10 @@ public static class ServicesExtensions
         var jwtConfiguration = new JwtConfiguration();
         configuration.GetSection("Jwt").Bind(jwtConfiguration);
         services.AddSingleton(jwtConfiguration);
+
+        services.Configure<UISettings>(configuration.GetSection(nameof(UISettings)));
+
+        services.ConfigureGoogleAuth(configuration);
     }
 
     public static void ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)
@@ -94,6 +101,19 @@ public static class ServicesExtensions
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var token = context.Request.Cookies["e_profspilka_access_token"];
+
+                        // If the token is in the cookie and not passed in the Authorization Header, we use it.
+                        if (string.IsNullOrEmpty(context.Token) && !string.IsNullOrEmpty(token))
+                            context.Token = token;
+
+                        return Task.CompletedTask;
+                    }
                 };
             });
         services.AddSingleton<IAuthorizationHandler, RoleHandler>();

@@ -1,13 +1,11 @@
-import { HttpStatusCode } from 'axios';
 
-import { authenticateGoogle, googleDataProvider } from '@/apis/auth';
+
 import { getCurrentUserInfo } from '@/apis/user';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AlertType } from '../../models/alert';
 import { MemberStatus } from '../../models/member-status';
-import { showAlert, showDefaultAlert } from './alert.slice';
-import { handleOpen } from './login.slice';
+import { showDefaultAlert } from './alert.slice';
 
 interface UserState {
     loading: boolean;
@@ -44,43 +42,6 @@ const alert = {
     duration: 4000,
 };
 
-export const googleAuthenticateThunk = createAsyncThunk(
-    'user/authenticate',
-    async (googleToken: string, { fulfillWithValue, rejectWithValue, dispatch }) => {
-        try {
-            const googleResponse = await googleDataProvider(googleToken);
-
-            const { name, picture, email, hd } = googleResponse;
-            const { data, status } = await authenticateGoogle({
-                name,
-                picture,
-                email,
-                hd,
-            });
-
-            if (status === HttpStatusCode.Created) {
-                alert.text = 'Ваш аккаунт було успішно створено!';
-                dispatch(showAlert(alert));
-            }
-
-            if (status === HttpStatusCode.Ok) {
-                alert.text = 'З поверненням!';
-                dispatch(showAlert(alert));
-            }
-
-            dispatch(fetchUserThunk(data.token));
-
-            dispatch(handleOpen());
-            return fulfillWithValue(null);
-        } catch (error) {
-            alert.type = AlertType.Error;
-            alert.text = 'Щось пішло не так! :(';
-            dispatch(showAlert(alert));
-            return rejectWithValue(null);
-        }
-    }
-);
-
 export const fetchUserThunk = createAsyncThunk(
     'user/fetchUser',
     async (_, { fulfillWithValue, rejectWithValue, dispatch }) => {
@@ -105,15 +66,6 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(googleAuthenticateThunk.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(googleAuthenticateThunk.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(googleAuthenticateThunk.rejected, (state) => {
-                state.loading = false;
-            })
             .addCase(fetchUserThunk.pending, (state) => {
                 state.loading = true;
             })

@@ -20,11 +20,10 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response) {
-            console.error(`[ERROR] ${error.config.method?.toUpperCase()} ${error.config.baseURL}${error.config.url}`);
+            console.error(`[ERROR] ${error?.config?.method?.toUpperCase()} ${error?.config?.baseURL}${error?.config?.url}`);
             console.error(`Status: ${error.response.status}`);
             console.error(`Response:`, error.response.data);
         } else if (error.request) {
-
             console.error(`[NETWORK ERROR] ${error.config.method?.toUpperCase()} ${error.config.baseURL}${error.config.url}`);
             console.error("No response received");
         } else {

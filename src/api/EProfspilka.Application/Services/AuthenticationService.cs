@@ -13,16 +13,16 @@ public class AuthenticationService(
     ITokenService tokenService)
     : IAuthenticationService
 {
-    public async Task<AuthenticateResponseModel> Authenticate(string email, string avatar)
+    public async Task<AuthenticateResponseModel> AuthenticateAsync(string email, string avatar)
     {
-        var user = context.Users
+        var user = await context.Users
             .AsNoTracking()
             .AsSplitQuery()
             .Include(x => x.Image)
             .Include(x => x.UserTokens)
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
-            .FirstOrDefault(x => x.Email == email);
+            .FirstOrDefaultAsync(x => x.Email == email);
 
         if (user == null)
             throw new AuthenticateException($"Користувача з емейлом {email} не існує!");
@@ -87,7 +87,7 @@ public class AuthenticationService(
             IsActive = true,
         };
 
-        user.UserRoles.Add(new UserRole { Id = Role.Student, UserId = user.Id });
+        user.UserRoles.Add(new UserRole { RoleId = Role.Student, UserId = user.Id });
 
         //if (!await studentStore.IsStudent(email))
         //{

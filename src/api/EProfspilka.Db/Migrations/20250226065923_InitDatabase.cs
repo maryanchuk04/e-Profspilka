@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EProfspilka.Db.Migrations
 {
     /// <inheritdoc />
-    public partial class NewDatabase : Migration
+    public partial class InitDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -109,11 +109,11 @@ namespace EProfspilka.Db.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WithQrCode = table.Column<bool>(type: "bit", nullable: true),
-                    WithBarCode = table.Column<bool>(type: "bit", nullable: true),
-                    BarCodeImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountType = table.Column<int>(type: "int", nullable: false),
+                    AccessTypes = table.Column<byte>(type: "tinyint", nullable: false),
+                    PromoCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BarCodeImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -236,17 +236,18 @@ namespace EProfspilka.Db.Migrations
                 name: "UserRoles",
                 columns: table => new
                 {
-                    Id = table.Column<byte>(type: "tinyint", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<byte>(type: "tinyint", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.Id });
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRoles_Roles_Id",
-                        column: x => x.Id,
+                        name: "FK_UserRoles_Roles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -326,9 +327,14 @@ namespace EProfspilka.Db.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_Id",
+                name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
-                column: "Id");
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserId",
+                table: "UserRoles",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_ImageId",

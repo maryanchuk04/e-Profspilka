@@ -23,6 +23,7 @@
     <ItemGroup>
       <ProjectReference Include="..\EProfspilka.Application\EProfspilka.Application.csproj" />
       <ProjectReference Include="..\EProfspilka.Db\EProfspilka.Db.csproj" />
+      <ProjectReference Include="..\EProfspilka.Infrastructure\EProfspilka.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

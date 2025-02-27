@@ -1,19 +1,13 @@
-import axios from "axios";
-import api from "./config/axios.config";
-import { setAccessToken } from "./token";
+import { NextResponse } from 'next/server';
 
-const endpoint = "/authenticate";
+import { GoogleAuthRequest } from '@/models/auth';
 
-export const googleDataProvider = async (googleAccessToken: string) => {
-    try {
-        const { data } = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${googleAccessToken}`);
-        return data;
-    } catch (err) {
-        throw Error(err);
-    }
-};
+import api from './config/axios.config';
+import { ACCESS_TOKEN_COOKIE_NAME } from './config/cookies';
 
-export const authenticateGoogle = async ({ name, picture, email, hd }): Promise<any> => {
+const endpoint = '/authenticate';
+
+export const authenticateGoogle = async ({ name, picture, email, hd }: GoogleAuthRequest) => {
     try {
         const response = await api.post(`${endpoint}/google`, {
             fullName: name,
@@ -22,14 +16,27 @@ export const authenticateGoogle = async ({ name, picture, email, hd }): Promise<
             hd,
         });
 
-        if (response.data.token) {
-            setAccessToken(response.data.token);
-            return { data: response.data, status: response.status };
+        const token = response.data.token;
+
+        if (!token) {
+            throw new Error('No token received from backend');
         }
+
+        const res = new NextResponse(JSON.stringify({ success: true }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        res.cookies.set(ACCESS_TOKEN_COOKIE_NAME, token, {
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 30 * 24 * 60 * 60,
+        });
+
+        return response;
     } catch (err) {
-        throw Error(err);
+        console.error('Error authenticating with Google:', err);
+        throw err;
     }
-}
-
-export const logout = (): Promise<any> => api.post(`${endpoint}/logout`);
-
+};
