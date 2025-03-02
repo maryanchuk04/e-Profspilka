@@ -4,7 +4,6 @@ using EProfspilka.Db.DbInitialize;
 using EProfspilka.Db.EF;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using EProfspilka.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -43,11 +43,13 @@ public static class ServicesExtensions
         services.AddScoped<IFileUserReader, FileUserReader>();
         services.AddScoped<IImportCommandFactory, ImportCommandFactory>();
         services.AddScoped<IRoleService, RoleService>();
+
         services.ConfigureApplicationCookie(c =>
         {
             c.Cookie.SameSite = SameSiteMode.None;
             c.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         });
+
         // Add AutoMapper
         services.AddAutoMapper(typeof(EventsMapper).GetTypeInfo().Assembly);
 
