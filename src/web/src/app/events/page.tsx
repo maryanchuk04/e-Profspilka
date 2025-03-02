@@ -1,5 +1,3 @@
-
-
 import { getEvents as getEventsApi } from '@/apis/events';
 import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
@@ -7,11 +5,10 @@ import { Event } from '@/models/event';
 
 async function getEvents(): Promise<Event[]> {
     try {
-        const { data } = await getEventsApi();
+        const events = await getEventsApi();
 
-        return data;
+        return events;
     } catch (error) {
-
         console.error('An error occurred while fetching events:', error);
         return [];
     }
@@ -26,14 +23,18 @@ export async function generateMetadata() {
 export default async function EventsPage() {
     const events = await getEvents();
 
-    return events.length === 0 ? (
-        <div className='h-96 grid place-items-center'>
-            <h1 className='text-center text-3xl max-sm:text-2xl'>
-                На даний момент подій немає! Але вони будуть найближчим часом! <br />
-                Приготуйтесь, буде цікаво!
-            </h1>
-        </div>
-    ) : (
+    if (events.length === 0) {
+        return (
+            <div className='h-96 grid place-items-center'>
+                <h1 className='text-center text-3xl max-sm:text-2xl'>
+                    На даний момент подій немає! Але вони будуть найближчим часом! <br />
+                    Приготуйтесь, буде цікаво!
+                </h1>
+            </div>
+        );
+    }
+
+    return (
         <Container>
             <p>#події</p>
             <h1 className='my-4 uppercase text-black/60'>#Актуальні події та новини профспілки</h1>

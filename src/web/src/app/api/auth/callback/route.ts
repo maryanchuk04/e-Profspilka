@@ -13,13 +13,14 @@ export async function GET(req: Request) {
     const token = url.searchParams.get('token');
 
     if (!token) {
-        return NextResponse.json({ error: 'Missing token' }, { status: 400 });
+        return NextResponse.redirect(new URL('/?loginState=true', req.url));
     }
 
     (await cookies()).set(ACCESS_TOKEN_COOKIE_NAME, token, {
-        path: '/',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
+        path: '/',
+        sameSite: 'none',
         maxAge: tokenMaxAge,
     });
 

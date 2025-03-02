@@ -1,15 +1,15 @@
-import { AxiosResponse } from 'axios';
+
 
 import { Event } from '@/models/event';
 
-import api from './config/axios.config';
+import api from './config/api.config';
 
 const endpoint = '/event';
 
-export const getEvents = async (): Promise<AxiosResponse<Event[]>> => {
+export const getEvents = async (): Promise<Event[]> => {
     return await api.get(endpoint);
 };
 
-export const getEventById = async (id: string): Promise<AxiosResponse<Event>> => {
+export const getEventById = async (id: string): Promise<Event> => {
     return await api.get(`${endpoint}/${id}`);
 };

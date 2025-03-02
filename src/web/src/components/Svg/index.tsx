@@ -9,7 +9,7 @@ const Svg = ({ name, className = '' }: SvgProps) => {
     const svgsCollection = svgs as Record<string, { src: string }>;
 
     if (!svgsCollection[name]) {
-        console.error(`SVG з ім'ям "${name}" не знайдено`);
+        console.error(`SVG with "${name}" not found`);
         return null;
     }
 

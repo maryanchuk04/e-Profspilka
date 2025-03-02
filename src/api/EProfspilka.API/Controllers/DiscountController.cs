@@ -4,13 +4,14 @@ using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("discount")]
-public class DiscountController(IDiscountService discountService, IMediator mediator) : ControllerBase
+public class DiscountController(IDiscountService discountService, IMediator mediator, ISecurityContext securityContext) : ControllerBase
 {
     [HttpGet]
     public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await discountService.GetAsync();
@@ -41,6 +42,22 @@ public class DiscountController(IDiscountService discountService, IMediator medi
             return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
+
+    [HttpGet("user")]
+    [Authorize]
+    public async Task<ActionResult<IList<DiscountDto>>> GetUserDiscountsAsync(CancellationToken cancellationToken)
+    {
+        var currentUserId = securityContext.GetCurrentUserId();
+
+        if (currentUserId == Guid.Empty)
+            return Unauthorized();
+
+        var cmd = new GetUserDiscountsCommand(currentUserId);
+        var discounts = await mediator.Send(cmd, cancellationToken);
+
+        return Ok(discounts);
+    }
+
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(Guid id)

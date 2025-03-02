@@ -18,7 +18,7 @@ const SimpleModal = ({ children, handleClose, className = '' }: SimpleModalProps
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`w-5/6 bg-white shadow-sm h-3/4 rounded-standart sm:h-5/6 lg:w-1/3 xl:w-1/3 xl:h-2/3 ${className}`}
+                className={`w-5/6 bg-white shadow-sm h-3/4 rounded-standard sm:h-5/6 lg:w-1/3 xl:w-1/3 xl:h-2/3 ${className}`}
             >
                 <div className='w-5/6 max-sm:py-6 py-8 m-auto h-full'>{children}</div>
             </div>

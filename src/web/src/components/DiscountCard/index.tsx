@@ -36,7 +36,7 @@ const DiscountCard = ({ discount, blocked = false }) => {
 
     return (
         <div
-            className={`relative rounded-standart  my-5 h-22 py-3 items-center ${
+            className={`relative rounded-standard  my-5 h-22 py-3 items-center ${
                 blocked ? 'bg-[#C1C1C1]' : 'bg-[#9AE19D]'
             }`}
         >

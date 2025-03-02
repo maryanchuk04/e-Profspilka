@@ -5,7 +5,7 @@ import AdvantagesCard from '../AdvantagesCard';
 import Container from '../Container';
 
 export default async function AdvantagesSection() {
-    const { data } = await getAdvantages();
+    const data = await getAdvantages();
 
     return (
         <div className='bg-primary text-white py-12'>

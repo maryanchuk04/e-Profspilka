@@ -14,7 +14,7 @@ module.exports = {
         },
         extend: {
             borderRadius: {
-                standart: '10px',
+                standard: '10px',
             },
             backdropBlur: {
                 xs: '2px',

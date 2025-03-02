@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using EProfspilka.Core.Interfaces;
+﻿using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using EProfspilka.Infrastructure.Google;
 using MediatR;

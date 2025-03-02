@@ -15,8 +15,8 @@ public class RoleService : IRoleService
         if (userRolesEnum.Contains(Core.Enumerations.Role.Moderator))
             return Core.Enumerations.Role.Moderator;
 
-        if (userRolesEnum.Contains(Core.Enumerations.Role.MemberProfspilka))
-            return Core.Enumerations.Role.MemberProfspilka;
+        if (userRolesEnum.Contains(Core.Enumerations.Role.Member))
+            return Core.Enumerations.Role.Member;
 
         return userRolesEnum.Contains(Core.Enumerations.Role.Student)
             ? Core.Enumerations.Role.Student

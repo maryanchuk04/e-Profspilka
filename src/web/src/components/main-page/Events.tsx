@@ -6,8 +6,8 @@ import EventCard from '../EventCard';
 
 const fetchEvents = async (): Promise<Event[]> => {
     try {
-        const { data } = await getEvents();
-        return data;
+        const events = await getEvents();
+        return events;
     } catch (error) {
         console.error('An error occurred while fetching events:', error);
         return [];

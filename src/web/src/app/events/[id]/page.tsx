@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         };
 
     try {
-        const { data } = await getEventById(params.id);
+        const res = await getEventById(params.id);
         return {
-            title: data?.title || 'Подія',
-            description: data?.description?.slice(0, 150) || 'Опис події',
+            title: res?.title || 'Подія',
+            description: res?.description?.slice(0, 150) || 'Опис події',
         };
     } catch (error) {
         if (error instanceof AxiosError) {
@@ -32,7 +32,7 @@ export default async function EventPage({ params }: { params: { id: string } }) 
     if (!params?.id) return notFound();
 
     try {
-        const { data: event } = await getEventById(params.id);
+        const event = await getEventById(params.id);
 
         return (
             <Container className='min-h-[40vh]'>

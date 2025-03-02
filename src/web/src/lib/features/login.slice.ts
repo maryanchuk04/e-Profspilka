@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface LoginState {
     open: boolean;
@@ -12,15 +12,17 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        handleOpen: (state) => {
-            console.log('work')
+        toggleLoginState: (state) => {
             state.open = !state.open;
+        },
+        setLoginState: (state, action: PayloadAction<boolean>) => {
+            state.open = action.payload;
         },
     },
 });
 
-export const { handleOpen } = loginSlice.actions;
+export const { toggleLoginState, setLoginState } = loginSlice.actions;
 
-export const selectLoginState = (state: { login: LoginState }) => state.login.open;
+export const selectLoginState = (state: { login: LoginState }): boolean => state.login.open;
 
 export default loginSlice.reducer;

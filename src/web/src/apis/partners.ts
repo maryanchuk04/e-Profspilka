@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import api from './config/axios.config';
+import api from './config/api.config';
 
 const endpoint = '/partners';
 

@@ -43,7 +43,11 @@ public static class ServicesExtensions
         services.AddScoped<IFileUserReader, FileUserReader>();
         services.AddScoped<IImportCommandFactory, ImportCommandFactory>();
         services.AddScoped<IRoleService, RoleService>();
-
+        services.ConfigureApplicationCookie(c =>
+        {
+            c.Cookie.SameSite = SameSiteMode.None;
+            c.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        });
         // Add AutoMapper
         services.AddAutoMapper(typeof(EventsMapper).GetTypeInfo().Assembly);
 
@@ -94,6 +98,15 @@ public static class ServicesExtensions
             {
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
+#if DEBUG
+                    ValidateActor = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = false,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+#else
                     ValidateActor = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
@@ -101,16 +114,26 @@ public static class ServicesExtensions
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+#endif
                 };
                 options.Events = new JwtBearerEvents
                 {
                     OnMessageReceived = context =>
                     {
-                        var token = context.Request.Cookies["e_profspilka_access_token"];
+                        Console.WriteLine($"Cookies Token: {context.Request.Cookies["e_profspilka_access_token"]}");
+                        Console.WriteLine($"Authorization Header: {context.Request.Headers["Authorization"]}");
 
-                        // If the token is in the cookie and not passed in the Authorization Header, we use it.
-                        if (string.IsNullOrEmpty(context.Token) && !string.IsNullOrEmpty(token))
+                        var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
+
+                        if (string.IsNullOrEmpty(token))
+                        {
+                            token = context.Request.Cookies["e_profspilka_access_token"];
+                        }
+
+                        if (!string.IsNullOrEmpty(token))
+                        {
                             context.Token = token;
+                        }
 
                         return Task.CompletedTask;
                     }

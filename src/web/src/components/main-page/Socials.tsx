@@ -12,7 +12,7 @@ export default function Socials() {
                         href={item.link}
                         target='_blank'
                         key={item.link}
-                        className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standart py-4 justify-center'
+                        className='cursor-pointer flex-1 flex items-center border-2 border-primary text-black rounded-standard py-4 justify-center'
                         rel='noreferrer'
                     >
                         <i className={`${item.icon} text-4xl mr-4`}></i>

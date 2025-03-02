@@ -4,6 +4,7 @@ using EProfspilka.Db.DbInitialize;
 using EProfspilka.Db.EF;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using EProfspilka.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,22 +24,21 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseCors(x =>
 {
     x.AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins(builder.Configuration.GetSection("AllowedOrigins")
-            .Get<string[]>())
+        .WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
         .AllowCredentials();
 });
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 

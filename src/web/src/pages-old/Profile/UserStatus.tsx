@@ -1,7 +1,7 @@
 const UserStatus = ({ status, className = '' }) => {
-    const defaultStyles = 'relative rounded-standart font-bold border-2 h-12 w-12 grid place-items-center group/item';
+    const defaultStyles = 'relative rounded-standard font-bold border-2 h-12 w-12 grid place-items-center group/item';
     const helperStyles =
-        'absolute invisible -top-10 max-sm:-left-20 max-xl:left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/item:visible text-center p-3 rounded-standart w-72 text-white bg-primary';
+        'absolute invisible -top-10 max-sm:-left-20 max-xl:left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/item:visible text-center p-3 rounded-standard w-72 text-white bg-primary';
     switch (status) {
         // Не верифікований
         case 0:

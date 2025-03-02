@@ -19,7 +19,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, details }) => {
 
     return (
         <div
-            className='p-6 duration-200 border border-standart border-black rounded-standart my-8 max-sm:p-4'
+            className='p-6 duration-200 border border-standard border-black rounded-standard my-8 max-sm:p-4'
             onClick={toggle}
         >
             <h2 className='text-xl relative w-full pr-8 max-sm:text-lg'>

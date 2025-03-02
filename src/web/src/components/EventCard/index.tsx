@@ -14,7 +14,7 @@ const EventCard = ({ event }: EventCardProps) => {
     return (
         <Link
             href={`/events/${id}`}
-            className={`relative flex-1 flex flex-col justify-between max-w-xs p-5 border border-black rounded-standart h-80 duration-150 cursor-pointer hover:text-white hover:bg-primary hover:border-primary ${smStyles}`}
+            className={`relative flex-1 flex flex-col justify-between max-w-xs p-5 border border-black rounded-standard h-80 duration-150 cursor-pointer hover:text-white hover:bg-primary hover:border-primary ${smStyles}`}
             key={id}
         >
             <div className='flex justify-between flex-col h-full'>

@@ -4,8 +4,8 @@ import Accordion from '../Accordion';
 
 const fetchQuestions = async () => {
     try {
-        const { data } = await getQuestions();
-        return data;
+        const res = await getQuestions();
+        return res;
     } catch (error) {
         console.error('An error occurred while fetching questions:', error);
 

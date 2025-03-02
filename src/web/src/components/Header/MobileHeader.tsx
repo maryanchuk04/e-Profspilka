@@ -40,7 +40,7 @@ const MobileHeader = () => {
                 return (
                     <div>
                         <p className='mb-16 text-white'>#реєстрація</p>
-                        <AuthenticationForm className='bg-white p-3 rounded-standart' />
+                        <AuthenticationForm className='bg-white p-3 rounded-standard' />
                     </div>
                 );
         }
