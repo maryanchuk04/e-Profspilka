@@ -16,7 +16,7 @@ const Events = () => {
         </div>
     ) : (
         <Container>
-            <p>#події</p>
+            <p className='font-bold'>#події</p>
             <h1 className='my-4 uppercase text-black/60'>#Актуальні події та новини профспілки</h1>
             <div className='grid grid-cols-4 gap-3 max-lg:grid-cols-2 max-sm:grid-cols-1'>
                 {events.map((item) => (

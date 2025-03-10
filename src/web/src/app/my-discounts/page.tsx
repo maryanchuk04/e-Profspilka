@@ -1,20 +1,20 @@
 import { getUserDiscounts } from '@/apis/discount';
+import Container from '@/components/Container';
+import DiscountCard from '@/components/discounts/DiscountCard';
 
-import DiscountCard from './DiscountCard';
-
-export default async function UserProfileDiscounts() {
+export default async function MyDiscounts() {
     const discounts = await getUserDiscounts();
 
     console.log(discounts);
 
     return (
         <section>
-            <h3>Ваші знижки 😉:</h3>
-            <div>
+            <Container>
+                <p className='font-bold mb-3'>#ваші знижки</p>
                 {discounts.map((discount) => (
                     <DiscountCard discount={discount} key={discount.id} />
                 ))}
-            </div>
+            </Container>
         </section>
     );
 }

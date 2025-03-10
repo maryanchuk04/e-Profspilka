@@ -13,18 +13,8 @@ interface SharedDiscountsProps {
     selectedDiscountId?: string | null;
 }
 
-const fetchSharedDiscounts = async (): Promise<Discount[]> => {
-    try {
-        const res = await getSharedDiscounts();
-        return res;
-    } catch (error) {
-        console.error('An error occurred while fetching shared discounts:', error);
-        return [];
-    }
-};
-
 export default async function SharedDiscounts({ selectedDiscountId }: SharedDiscountsProps) {
-    const discounts = await fetchSharedDiscounts();
+    const discounts = await getSharedDiscounts();
 
     return (
         <div className='my-16'>
@@ -34,7 +24,7 @@ export default async function SharedDiscounts({ selectedDiscountId }: SharedDisc
             ))}
         </div>
     );
-};
+}
 
 interface DiscountProps {
     discount: Discount;
@@ -43,7 +33,7 @@ interface DiscountProps {
 
 const DiscountComponent: React.FC<DiscountProps> = ({ discount, isOpen }) => {
     return (
-        <div className='p-3 my-2 bg-[#9AE19D] rounded-standard flex gap-2 items-center w-full'>
+        <div className='p-3 my-2 bg-light-green rounded-standard flex gap-2 items-center w-full'>
             <i className='fas fa-tags mx-3 max-sm:mx-1 text-4xl'></i>
             <div className='flex justify-between items-center w-full'>
                 <h4>{discount.name}</h4>
@@ -55,4 +45,3 @@ const DiscountComponent: React.FC<DiscountProps> = ({ discount, isOpen }) => {
         </div>
     );
 };
-

@@ -1,3 +1,5 @@
+import { Discount } from '@/models/discount';
+
 import api from './config/api.config';
 
 const endpoint = '/discount';
@@ -16,8 +18,14 @@ export const getQrCode = async (discountId: string) => {
     return await api.get(`${endpoint}/code/${discountId}`);
 };
 
-export const getSharedDiscounts = async () => {
-    return await api.get(`${endpoint}/shared`);
+export const getSharedDiscounts = async (): Promise<Discount[]> => {
+    try {
+        const res = await api.get<Discount[]>(`${endpoint}/shared`);
+        return res;
+    } catch (error) {
+        console.error('An error occurred while fetching shared discounts:', error);
+        return [];
+    }
 };
 
 export const verifyDiscount = async (discountId: string, discountCodeId: string) => {
@@ -30,9 +38,9 @@ export const verifyDiscount = async (discountId: string, discountCodeId: string)
     }
 };
 
-export const getUserDiscounts = async () => {
+export const getUserDiscounts = async (): Promise<Discount[]> => {
     try {
-        const res = await api.get(`${endpoint}/user`);
+        const res = await api.get<Discount[]>(`${endpoint}/user`);
         return res;
     } catch (error) {
         console.error('❌ An error occurred during getting discounts for user:', error);

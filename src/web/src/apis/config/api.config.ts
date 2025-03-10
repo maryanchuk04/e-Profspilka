@@ -21,7 +21,6 @@ const request = async <T>(
         },
         credentials: 'include',
     };
-    console.log(config);
 
     if (body) {
         config.body = JSON.stringify(body);

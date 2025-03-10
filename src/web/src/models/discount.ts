@@ -1,7 +1,20 @@
 export enum DiscountType {
-    AvailableForAll = 0,
-    AvailableForMemberOfProf = 1,
-    OneTimeForAll = 2,
-    OneTimeForMemberOfProf = 3,
-    OneTimeForFirstCourse = 4,
+    AvailableForAll = "availableForAll",
+    AvailableForMembers = "availableForMembers",
+    OneTimeForAll = "oneTimeForAll",
+    OneTimeForMembers = "oneTimeForMembers",
+    OneTimeForFirstCourse = "oneTimeForFirstCourse"
+}
+
+export interface Discount {
+    id: string;
+    name: string;
+    withBarCode?: boolean;
+    withQrCode?: boolean;
+    withPromoCode?: boolean;
+    barCodeImage: string;
+    description: string;
+    promoCode?: string;
+    discountType: DiscountType;
+    createdAtUtc: string;
 }

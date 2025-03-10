@@ -5,7 +5,7 @@ import Container from '../Container';
 
 const Footer = () => {
     return (
-        <footer className='bg-[#212121] pt-6 mt-4 h-fit'>
+        <footer className='bg-[#212121] pt-6 mt-4 h-fit max-lg:pb-32'>
             <Container className='flex justify-between w-full max-sm:flex-col h-max'>
                 <div>
                     <img src='/images/logo-transparent-big.png' alt='Transparent logo' className='w-20 h-20' />

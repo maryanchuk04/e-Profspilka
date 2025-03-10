@@ -37,7 +37,7 @@ const DiscountCard = ({ discount, blocked = false }) => {
     return (
         <div
             className={`relative rounded-standard  my-5 h-22 py-3 items-center ${
-                blocked ? 'bg-[#C1C1C1]' : 'bg-[#9AE19D]'
+                blocked ? 'bg-[#C1C1C1]' : 'bg-light-green'
             }`}
         >
             <div className='w-11/12 flex justify-between items-center mx-auto'>
@@ -119,7 +119,7 @@ const DiscountCardModal = ({ discount, close, isQrDiscount = true }) => {
     return (
         <SimpleModal className='w-[320px] !h-fit max-h-[80vh]'>
             <div>
-                <p>#знижка</p>
+                <p className='font-bold'>#знижка</p>
                 <h2>{discount.name}</h2>
                 {discount.description.length < 100 && (
                     <div
