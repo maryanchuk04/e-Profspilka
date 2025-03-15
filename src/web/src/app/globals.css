@@ -88,3 +88,7 @@ div.no-tailwind {
 ::-webkit-scrollbar-button {
     display: none;
 }
+
+.h-responsive-screen {
+    height: 100dvh;
+}

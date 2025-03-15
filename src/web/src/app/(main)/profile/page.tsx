@@ -1,11 +1,10 @@
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { getServerCurrentUser } from '@/app/api/auth/auth-helpers';
 import Container from '@/components/Container';
 import Loader from '@/components/Loader';
 import ProfileSidebar from '@/components/profile/ProfileSidebar';
-
-import { getServerCurrentUser } from '../api/auth/auth-helpers';
 
 export async function generateMetadata() {
     return {

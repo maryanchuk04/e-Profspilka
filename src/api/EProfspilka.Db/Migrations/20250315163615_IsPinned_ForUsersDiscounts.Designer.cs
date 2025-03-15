@@ -4,6 +4,7 @@ using EProfspilka.Db.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EProfspilka.Db.Migrations
 {
     [DbContext(typeof(EProfspilkaContext))]
-    partial class EProfspilkaContextModelSnapshot : ModelSnapshot
+    [Migration("20250315163615_IsPinned_ForUsersDiscounts")]
+    partial class IsPinned_ForUsersDiscounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +72,6 @@ namespace EProfspilka.Db.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PartnerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PromoCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -84,8 +84,6 @@ namespace EProfspilka.Db.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BarCodeImageId");
-
-                    b.HasIndex("PartnerId");
 
                     b.ToTable("Discounts");
                 });
@@ -243,20 +241,20 @@ namespace EProfspilka.Db.Migrations
                     b.Property<DateTime>("CreatedDateUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("ImageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("MainText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubTextLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDateUtc")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("WebSiteUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -477,13 +475,7 @@ namespace EProfspilka.Db.Migrations
                         .WithMany()
                         .HasForeignKey("BarCodeImageId");
 
-                    b.HasOne("EProfspilka.Core.Entities.Partner", "Partner")
-                        .WithMany()
-                        .HasForeignKey("PartnerId");
-
                     b.Navigation("BarCodeImage");
-
-                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("EProfspilka.Core.Entities.DiscountCode", b =>

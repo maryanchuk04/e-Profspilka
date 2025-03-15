@@ -21,7 +21,7 @@ export default async function Header() {
                     </Link>
                 ) : (
                     <Link href='/login'>
-                        <PrimaryButton className='!w-56 px-5 h-10 max-md:hidden'>Увійти</PrimaryButton>
+                        <PrimaryButton className='!w-56 px-5 h-10'>Увійти</PrimaryButton>
                     </Link>
                 )}
             </header>

@@ -27,6 +27,7 @@ public class GetUserDiscountsCommandHandler(EProfspilkaContext db) : IRequestHan
             .AsNoTracking()
             .AsSplitQuery()
             .Include(ud => ud.Discount)
+            .ThenInclude(d => d.Partner)
             .Where(ud => ud.UserId == request.UserId && ud.IsAvailable && ud.Discount.State == DiscountState.Active)
             .Select(ud => ud.Discount)
             .ToListAsync(cancellationToken);

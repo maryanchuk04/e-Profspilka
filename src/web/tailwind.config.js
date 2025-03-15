@@ -59,6 +59,8 @@ module.exports = {
                 pulseBounce: 'pulseBounce 1.5s ease-in-out infinite',
                 ball: 'ball 3s ease-in-out infinite',
                 'second-ball': 'second-ball 3s ease-in-out infinite',
+                'pulse-slow': 'pulse 6s ease-in-out infinite',
+                'pulse-slower': 'pulse 10s ease-in-out infinite',
             },
         },
     },

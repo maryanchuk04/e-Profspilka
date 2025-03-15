@@ -5,8 +5,6 @@ import DiscountCard from '@/components/discounts/DiscountCard';
 export default async function MyDiscounts() {
     const discounts = await getUserDiscounts();
 
-    console.log(discounts);
-
     return (
         <section>
             <Container>

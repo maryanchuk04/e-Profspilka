@@ -55,6 +55,7 @@ export const authOptions: AuthOptions = {
                 secure: true,
                 sameSite: 'none',
                 maxAge: 60 * 60 * 12,
+                path: '/',
             },
         },
     },

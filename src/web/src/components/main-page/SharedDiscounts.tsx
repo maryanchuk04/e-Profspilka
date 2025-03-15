@@ -1,13 +1,8 @@
 import { getSharedDiscounts } from '@/apis/discount';
+import { Discount } from '@/models/discount';
 import LinkButton from '@/ui/Buttons/LinkButton';
 
-import { DiscountInfoModal } from '../DiscountCard';
-
-interface Discount {
-    id: string;
-    name: string;
-    description?: string;
-}
+import { DiscountInfoModal } from '../discounts/DiscountInfoModal';
 
 interface SharedDiscountsProps {
     selectedDiscountId?: string | null;

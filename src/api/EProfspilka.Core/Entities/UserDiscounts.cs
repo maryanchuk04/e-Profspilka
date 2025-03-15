@@ -13,5 +13,6 @@ public class UserDiscounts : BaseEntity
     public DateTime? UsedLastTimeUtc { get; set; }
     public int UsedCount { get; set; }
 
+    public bool IsPinned { get; set; } = false;
     public bool IsAvailable { get; set; }
 }

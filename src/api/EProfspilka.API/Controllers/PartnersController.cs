@@ -1,4 +1,3 @@
-using EProfspilka.API.ViewModels;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,17 +24,11 @@ public class PartnersController(IPartnersService partnersService) : ControllerBa
     [HttpPost]
     // TODO Uncomment this lines
     //[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
-    public async Task<IActionResult> CreateQuestion([FromBody] PartnerViewModel partnerViewModel)
+    public async Task<IActionResult> CreateQuestion([FromBody] PartnerDto partner)
     {
         try
         {
-            var res = await partnersService.CreateAsync(new PartnerDto
-            {
-                SubText = partnerViewModel.SubText,
-                SubTextLink = partnerViewModel.SubTextLink,
-                Image = partnerViewModel.Image,
-                MainText = partnerViewModel.MainText
-            });
+            var res = await partnersService.CreateAsync(partner);
             return Ok(res);
         }
         catch (Exception e)

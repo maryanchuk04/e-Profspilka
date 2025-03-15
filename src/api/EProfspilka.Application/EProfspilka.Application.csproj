@@ -25,4 +25,8 @@
       <Reference Include="Microsoft.AspNetCore.Http.Abstractions"></Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CommandHandlers\Partners\" />
+    </ItemGroup>
+
 </Project>

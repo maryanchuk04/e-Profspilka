@@ -22,4 +22,7 @@ public class Discount : BaseEntity
     public Image BarCodeImage { get; set; }
 
     public DiscountState State { get; set; }
+
+    public Guid? PartnerId { get; set; }
+    public Partner Partner { get; set; }
 }

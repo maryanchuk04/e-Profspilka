@@ -1,3 +1,5 @@
+'use client';
+
 import { signIn } from 'next-auth/react';
 
 import Svg from '../../components/Svg';
@@ -19,7 +21,7 @@ const GoogleButton = ({ className = '' }: GoogleButtonProps) => {
             onClick={googleSignIn}
         >
             <Svg name='google' className='h-6 w-6 mr-2' />
-            <p className='text-base max-sm:text-sm'>chnu.edu.ua</p>
+            <p className='text-base max-sm:text-sm'>Увійти - chnu.edu.ua</p>
         </PrimaryButton>
     );
 };

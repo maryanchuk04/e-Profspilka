@@ -1,4 +1,4 @@
-import { Discount } from '@/models/discount';
+import { Discount, DiscountCode, VerifyDiscountResult } from '@/models/discount';
 
 import api from './config/api.config';
 
@@ -14,8 +14,25 @@ export const getAllDiscounts = async () => {
     }
 };
 
-export const getQrCode = async (discountId: string) => {
-    return await api.get(`${endpoint}/code/${discountId}`);
+export const getDiscountById = async (id: string): Promise<Discount | null> => {
+    try {
+        const discount = await api.get<Discount>(`${endpoint}/${id}`);
+
+        return discount;
+    } catch (err) {
+        return null;
+    }
+};
+
+export const getQrCode = async (discountId: string): Promise<DiscountCode> => {
+    try {
+        const data = await api.get<DiscountCode>(`${endpoint}/code/${discountId}`);
+
+        return data;
+    } catch (error) {
+        console.error('An error occurred during getting QR code:', error);
+        throw error;
+    }
 };
 
 export const getSharedDiscounts = async (): Promise<Discount[]> => {
@@ -28,9 +45,9 @@ export const getSharedDiscounts = async (): Promise<Discount[]> => {
     }
 };
 
-export const verifyDiscount = async (discountId: string, discountCodeId: string) => {
+export const verifyDiscount = async (discountId: string, discountCodeId: string): Promise<VerifyDiscountResult> => {
     try {
-        const data = await api.get(`${endpoint}/code/verify/${discountId}/${discountCodeId}`);
+        const data = await api.get<VerifyDiscountResult>(`${endpoint}/code/verify/${discountId}/${discountCodeId}`);
         return data;
     } catch (error) {
         console.error('An error occurred during verifying discount:', error);

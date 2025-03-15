@@ -5,8 +5,6 @@ import DiscountCard from './DiscountCard';
 export default async function UserProfileDiscounts() {
     const discounts = await getUserDiscounts();
 
-    console.log(discounts);
-
     return (
         <section>
             <h3>Ваші знижки 😉:</h3>

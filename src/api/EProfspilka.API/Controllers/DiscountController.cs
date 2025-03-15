@@ -59,12 +59,28 @@ public class DiscountController(IDiscountService discountService, IMediator medi
     }
 
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetByIdAsync(Guid id)
+    [HttpGet("{discountId}")]
+    public async Task<ActionResult<DiscountDto>> GetByIdAsync(Guid discountId, CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await discountService.GetByIdAsync(id));
+            var currentUserId = securityContext.GetCurrentUserId();
+
+            if (currentUserId == Guid.Empty)
+                return Unauthorized();
+
+            var cmd = new GetDiscountByIdCommand(currentUserId, discountId);
+
+            try
+            {
+                var discount = await mediator.Send(cmd, cancellationToken);
+
+                return Ok(discount);
+            }
+            catch (DiscountNotFoundException e)
+            {
+                return NotFound();
+            }
         }
         catch (NotFoundException e)
         {

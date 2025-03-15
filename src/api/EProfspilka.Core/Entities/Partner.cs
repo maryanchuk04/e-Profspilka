@@ -4,11 +4,11 @@ namespace EProfspilka.Core.Entities;
 
 public class Partner : BaseEntity
 {
-    public string MainText { get; set; }
+    public string Name { get; set; }
 
-    public string SubText { get; set; }
+    public string Description { get; set; }
 
-    public string SubTextLink { get; set; }
+    public string WebSiteUrl { get; set; }
 
     public Image Image { get; set; }
 }
