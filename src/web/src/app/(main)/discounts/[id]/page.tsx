@@ -5,16 +5,13 @@ import { getDiscountById } from '@/apis/discount';
 import Container from '@/components/Container';
 import { SecureText } from '@/components/SecureText';
 import { Tag } from '@/components/Tag';
+import { ParamsType } from '@/lib/pageParams';
 
 const OpenQrModalButton = dynamic(() => import('@/components/discounts/Modals/OpenQrModalButton'));
 const OpenBarCodeModalButton = dynamic(() => import('@/components/discounts/Modals/OpenBarCodeModalButton'));
 
-interface Props {
-    params: { id: string };
-}
-
-export default async function DiscountDetailsPage({ params }: Props) {
-    const { id } = await params;
+export default async function DiscountDetailsPage(props: { params: ParamsType }) {
+    const { id } = await props.params;
 
     const discount = await getDiscountById(id);
     if (!discount) return notFound();
@@ -22,13 +19,13 @@ export default async function DiscountDetailsPage({ params }: Props) {
     return (
         <Container>
             <h1 className='text-xl font-bold mb-2'>{discount.name}</h1>
-            <div className='w-full flex justify-center mb-4'>
+            {/* <div className='w-full flex justify-center mb-4'>
                 <img
-                    src={'https://static.tildacdn.one/tild3333-6139-4037-b365-326433653431/Logo.svg'}
+                    src={discount.}
                     alt='logo'
                     className='h-24 w-auto max-w-full object-contain'
                 />
-            </div>
+            </div> */}
 
             {discount.description && <p className='text-sm text-gray-700 mb-4'>{discount.description}</p>}
 

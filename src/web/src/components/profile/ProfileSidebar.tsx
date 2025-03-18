@@ -1,4 +1,3 @@
-import { isUserVerified } from '@/models/role';
 import { CurrentUser } from '@/models/user';
 
 import Avatar from '../Avatar';
@@ -9,7 +8,7 @@ export interface ProfileSidebarProps {
 }
 
 const ProfileSidebar = ({ currentUser }: ProfileSidebarProps) => {
-    const verified = isUserVerified(currentUser);
+    // const verified = isUserVerified(currentUser);
 
     return (
         <div className='w-full lg:w-1/4 relative'>

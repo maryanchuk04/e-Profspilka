@@ -7,8 +7,10 @@ import SharedDiscounts from '@/components/main-page/SharedDiscounts';
 import Socials from '@/components/main-page/Socials';
 import TypicalQuestions from '@/components/main-page/TypicalQuestions';
 
-export default async function Home({ searchParams }: { searchParams?: { discountId?: string } | undefined }) {
-    const discountId = (await searchParams)?.discountId;
+type PageParams = Promise<{ searchParams?: { discountId?: string } }>;
+
+export default async function Home(props: { params: PageParams }) {
+    const discountId = (await props.params).searchParams?.discountId;
 
     return (
         <div className="w-full">
