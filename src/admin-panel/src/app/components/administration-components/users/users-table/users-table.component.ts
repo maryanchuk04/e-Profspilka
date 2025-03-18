@@ -1,17 +1,18 @@
-import { Observable, Subscription, } from 'rxjs';
-import { Role, roleResolver, } from 'src/app/models/roles';
-import { User, } from 'src/app/models/User';
-import AppState from 'src/app/store';
-import { fetchAllUsers, fetchUsers, } from 'src/app/store/actions/user.action';
-import { selectUserLoading, selectUsers, } from 'src/app/store/selectors/user.selector';
-
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { Router, } from '@angular/router';
-import { Store, } from '@ngrx/store';
-import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { LoaderComponent } from '../../../loader/loader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Observable, Subscription } from 'rxjs';
+import { Role, roleResolver } from 'src/app/models/roles';
+import { User } from 'src/app/models/User';
+import AppState from 'src/app/store';
+import { fetchAllUsers, fetchUsers } from 'src/app/store/actions/user.action';
+import { selectUserLoading, selectUsers } from 'src/app/store/selectors/user.selector';
+
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { LoaderComponent } from '../../../loader/loader.component';
 
 @Component({
     selector: 'app-users-table',
@@ -73,8 +74,8 @@ export class UsersTableComponent implements OnInit, OnDestroy {
         this.store.dispatch(fetchAllUsers());
     }
 
-    roleResolve(role: Role): string {
-        return roleResolver(role);
+    roleResolve(roles: Role[]): string {
+        return roleResolver(roles);
     }
 
     navigateToUser(id: string) {

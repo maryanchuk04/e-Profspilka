@@ -1,0 +1,27 @@
+<app-moderation-header (handleAdd)="addNewPartner()" buttonLabel="Додати нового партнера"></app-moderation-header>
+
+<div *ngIf="loading$ | async" class="text-center mt-6 text-lg font-medium"><app-loader></app-loader></div>
+
+<div *ngIf="(partners$ | async) as partners" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  <div *ngFor="let partner of partners" class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-3 border border-gray-100">
+
+    <img [src]="partner.image"
+         alt="Зображення партнера"
+         class="w-full h-32 object-contain rounded-md border border-gray-200 default-app-logo-resolution" />
+
+    <h3 class="text-lg font-semibold">{{ partner.name }}</h3>
+
+    <p class="text-gray-600 text-sm">{{ partner.description }}</p>
+
+    <a *ngIf="partner.webSiteUrl"
+       [href]="partner.webSiteUrl"
+       target="_blank"
+       class="text-blue-600 hover:underline text-sm font-medium">
+      🔗 Перейти на сайт
+    </a>
+  </div>
+</div>
+
+<div *ngIf="(partners$ | async)?.length === 0 && !(loading$ | async)" class="text-center text-gray-500 mt-6">
+  Немає доданих партнерів.
+</div>

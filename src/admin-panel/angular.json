@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "YeProfspilka.Admin": {
+    "eProfspilka.admin": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -103,16 +103,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "YeProfspilka.Admin:build:production"
+              "buildTarget": "eProfspilka.admin:build:production"
             },
             "development": {
-              "buildTarget": "YeProfspilka.Admin:build:development"
+              "buildTarget": "eProfspilka.admin:build:development"
             },
             "local": {
-              "buildTarget": "YeProfspilka.Admin:build:local"
+              "buildTarget": "eProfspilka.admin:build:local"
             },
             "dev": {
-                "buildTarget": "YeProfspilka.Admin:build:dev"
+                "buildTarget": "eProfspilka.admin:build:dev"
               }
           },
           "defaultConfiguration": "development"
@@ -120,7 +120,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "YeProfspilka.Admin:build"
+            "buildTarget": "eProfspilka.admin:build"
           }
         },
         "test": {

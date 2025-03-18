@@ -2,10 +2,8 @@
     <app-loader></app-loader>
 </ng-container>
 <ng-template #layout>
-    <app-moderation-header (handleAdd)="goToCreate()"></app-moderation-header>
+    <app-moderation-header buttonLabel="Додати нову подію" (handleAdd)="goToCreate()"></app-moderation-header>
     <div class="mt-3 h-[calc(100vh-10rem)] overflow-y-auto">
         <app-event-card *ngFor="let item of events$ | async" [event]="item"></app-event-card>
     </div>
-
-
 </ng-template>

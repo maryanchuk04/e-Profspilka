@@ -8,7 +8,7 @@ public class EventViewModel
 
 	public DateTime? Date { get; set; }
 
-	public IEnumerable<string> Images { get; set; }
+    public IFormFileCollection? Images { get; set; }
 
 	public string ShortDescription { get; set; }
 }

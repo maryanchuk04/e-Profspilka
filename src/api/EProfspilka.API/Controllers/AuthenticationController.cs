@@ -20,13 +20,13 @@ public class AuthenticationController(
     : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] EmailViewModel emailViewModel)
+    public async Task<IActionResult> AdminLogin([FromBody] EmailViewModel emailViewModel)
     {
         try
         {
             var authenticateResponseModel = await authenticationService.AuthenticateAsync(emailViewModel.Email, emailViewModel.Avatar);
             logger.LogInformation("Successful Google Authenticate user with Email: {Email}", emailViewModel.Email);
-            HttpContext.SetTokenCookie(authenticateResponseModel);
+            HttpContext.SetAdminCookies(authenticateResponseModel);
 
             return Ok(new
             {

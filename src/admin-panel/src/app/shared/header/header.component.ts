@@ -1,20 +1,22 @@
-import { Observable } from 'rxjs';
-import { User } from 'src/app/models/User';
+import { TagModule } from 'primeng/tag';
+import { Observable, of } from 'rxjs';
+import { CurrentUser } from 'src/app/core/user.model';
+import { UserProvider } from 'src/app/core/user.provider';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
 import AppState from 'src/app/store';
-import { selectUserData } from 'src/app/store/selectors/user.selector';
 
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { RoleComponent } from '../role/role.component';
+
 import { ButtonComponent } from '../../ui/button/button.component';
-import { RouterLinkActive, RouterLink } from '@angular/router';
+import { RoleComponent } from '../role/role.component';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    imports: [NgIf, RoleComponent, ButtonComponent, NgFor, RouterLinkActive, RouterLink, AsyncPipe]
+    imports: [NgIf, RoleComponent, ButtonComponent, NgFor, RouterLinkActive, RouterLink, AsyncPipe, TagModule]
 })
 export class HeaderComponent implements OnInit {
 	links = [
@@ -27,11 +29,11 @@ export class HeaderComponent implements OnInit {
 			link: '/administration/',
 		},
 	];
-	user$: Observable<User>;
-	constructor(private store: Store<AppState>, private authService: AuthenticateService) {}
+	user$: Observable<CurrentUser>;
+	constructor(private store: Store<AppState>, private authService: AuthenticateService, private userProvider: UserProvider) {}
 
 	ngOnInit(): void {
-		this.user$ = this.store.select(selectUserData);
+		this.user$ = of(this.userProvider.getCurrentUser());
 	}
 
 	logout() {

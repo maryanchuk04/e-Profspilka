@@ -1,27 +1,30 @@
+export type UserStatus = 'student' | 'member' | 'notVerified';
+
 export enum Role {
-    NotVerified = 'notVerified',
-    Student = 'student',
-    MemberProfspilka = 'memberProfspilka',
-    Moderator = 'moderator',
-    HeadOfUnit = 'headOfUnit',
-    Admin = 'admin',
+    notVerified = 'notVerified',
+    student = 'student',
+    member = 'member',
+    moderator = 'moderator',
+    admin = 'admin',
 }
 
-export const roleResolver = (role: Role): string => {
-    switch (role) {
-        case Role.Admin:
-            return 'Адміністратор';
-        case Role.Student:
-            return 'Студент';
-        case Role.MemberProfspilka:
-            return 'Член профспілки';
-        case Role.Moderator:
-            return 'Модератор';
-        case Role.NotVerified:
-            return 'Не верифікований';
-        case Role.HeadOfUnit:
-            return 'Голова підрозділу';
-        default:
-            return 'Не активований';
-    }
+export const roleResolver = (roles: Role[]): string => {
+    console.log(roles);
+
+    if (roles.includes(Role.admin))
+        return 'Адміністратор';
+
+    if (roles.includes(Role.moderator))
+        return 'Модератор';
+
+    if (roles.includes(Role.member))
+        return 'Член профспілки';
+
+    if (roles.includes(Role.student))
+        return 'Студент';
+
+    if (roles.includes(Role.notVerified))
+        return 'Не підтверджено';
+
+    return 'Не визначено';
 };

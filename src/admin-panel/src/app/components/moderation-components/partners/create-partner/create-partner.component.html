@@ -1,0 +1,65 @@
+<div class="flex flex-col p-6 pace-y-6">
+    <h2 class="text-2xl font-semibold mb-4">🤝 Створення нового партнера</h2>
+
+    <form [formGroup]="partnerForm" (ngSubmit)="onSubmit()" class="space-y-5" class="max-w-xl">
+
+        <div>
+            <label class="block mb-1 font-medium">Назва партнера <span class="text-red-500">*</span></label>
+            <input pInputText type="text" formControlName="name" class="w-full" />
+        </div>
+
+        <div>
+            <label class="block mb-1 font-medium">Опис</label>
+            <textarea pTextarea formControlName="description" rows="4" class="w-full"></textarea>
+        </div>
+
+        <div>
+            <label class="block mb-1 font-medium">Посилання на сайт<span class="text-red-500">🔗</span></label>
+            <input pInputText type="url" formControlName="webSiteUrl" class="w-full" />
+        </div>
+
+        <div>
+            <label class="block mb-1 font-medium">Тип зображення</label>
+            <div class="flex space-x-4 items-center">
+                <p-radioButton inputId="upload" name="imageType" formControlName="imageType" value="upload" />
+                <label for="upload">Завантажити зображення</label>
+
+                <p-radioButton inputId="url" name="imageType" formControlName="imageType" value="url" />
+                <label for="url">Посилання на зображення</label>
+            </div>
+        </div>
+
+        <div *ngIf="imageSourceType === 'upload'" class="my-4">
+            <div class="flex justify-start items-center gap-4">
+                <p-fileUpload name="image" mode="basic" auto="true" (onSelect)="onImageUpload($event)"
+                    chooseLabel="Завантажити"  severity="secondary" [customUpload]="true"></p-fileUpload>
+
+                <p class="text-sm text-gray-500 mt-2">📐 Рекомендовано: формат 16:9, 228px (ширина) × 128px (висота)</p>
+            </div>
+
+            <div>
+                <div *ngIf="imageHintMessage" class="text-sm mt-1"
+                    [ngClass]="{'text-red-500': imageHintMessage.startsWith('⚠️'), 'text-green-600': imageHintMessage.startsWith('✅')}">
+                    {{ imageHintMessage }}
+                </div>
+
+                <div *ngIf="imageBase64" class="mt-3">
+                    <p class="text-sm text-gray-500 mb-2">Попередній перегляд:</p>
+                    <img [src]="imageBase64" alt="Preview" class="default-app-logo-resolution rounded-xl border border-gray-200" />
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="imageSourceType === 'url'" class="my-4">
+            <label class="block mb-1 font-medium">Посилання на зображення</label>
+            <input pInputText type="url" placeholder="https://some-url.com.ua" formControlName="imageUrl" class="w-full" />
+            <div *ngIf="partnerForm.value.imageUrl" class="mt-3">
+                <p class="text-sm text-gray-500 mb-2">Попередній перегляд:</p>
+                <img [src]="partnerForm.value.imageUrl" alt="Preview"
+                    class="default-app-logo-resolution rounded-xl border border-gray-200" />
+            </div>
+        </div>
+
+        <button pButton type="submit" label="Створити партнера" [disabled]="partnerForm.invalid"></button>
+    </form>
+</div>

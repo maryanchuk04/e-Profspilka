@@ -27,6 +27,28 @@ public static class CookieExtension
         context.Response.Cookies.Append(CookieConstants.RefreshTokenKey, model.RefreshToken, refreshTokenCookieOptions);
     }
 
+    public static void SetAdminCookies(this HttpContext context, AuthenticateResponseModel model)
+    {
+        var refreshTokenCookieOptions = new CookieOptions
+        {
+            HttpOnly = false,
+            Expires = DateTime.Now.AddDays(7),
+            Secure = false,
+            SameSite = SameSiteMode.None,
+        };
+
+        var accessTokenCookieOptions = new CookieOptions()
+        {
+            HttpOnly = false,
+            Expires = DateTimeOffset.UtcNow.AddHours(7),
+            Secure = true,
+            SameSite = SameSiteMode.None,
+        };
+
+        context.Response.Cookies.Append(CookieConstants.AccessTokenKey, model.JwtToken, accessTokenCookieOptions);
+        context.Response.Cookies.Append(CookieConstants.RefreshTokenKey, model.RefreshToken, refreshTokenCookieOptions);
+    }
+
     public static void DeleteRefreshToken(this HttpContext context)
     {
         context.Response.Cookies.Delete(CookieConstants.RefreshTokenKey);

@@ -92,3 +92,9 @@ div.no-tailwind {
 .h-responsive-screen {
     height: 100dvh;
 }
+
+.default-app-logo-resolution {
+    max-width: 228px;
+    max-height: 128px;
+    height: 100%;
+}

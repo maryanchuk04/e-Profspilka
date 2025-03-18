@@ -1,58 +1,82 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
 import { catchError, EMPTY, first, tap } from 'rxjs';
 import { Event } from 'src/app/models/Event';
 import { EventsService } from 'src/app/services/events.service';
-import { createEvent } from 'src/app/store/actions/events.action';
+
+import { DatePipe, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import {
+    FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators
+} from '@angular/forms';
+
 import { ContainerComponent } from '../../shared/container/container.component';
-import { TextFieldComponent } from '../../ui/text-field/text-field.component';
-import { DragDropDirective } from '../../directives/drag-drop.directive';
 import { EditorComponent } from '../../ui/editor/editor.component';
-import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
     selector: 'app-create-event',
     templateUrl: './create-event.component.html',
-    imports: [ContainerComponent, FormsModule, ReactiveFormsModule, TextFieldComponent, DragDropDirective, EditorComponent, ButtonComponent]
+    standalone: true,
+    imports: [
+        ContainerComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        SelectModule,
+        ButtonModule,
+        EditorComponent,
+        NgIf,
+        DatePipe,
+        FileUploadModule,
+    ],
 })
 export class CreateEventComponent implements OnInit {
     createEventForm: FormGroup;
 
     constructor(private fb: FormBuilder, private toastr: ToastrService, private eventService: EventsService) {}
 
+    selectedImages: File[] = [];
+
+    onImageSelect(event: any) {
+        this.selectedImages = Array.from(event.files);
+      }
+
     ngOnInit(): void {
         this.createEventForm = this.fb.group({
             title: ['', Validators.required],
-            description: ['', Validators.required],
             date: ['', Validators.required],
-            images: this.fb.array([]),
             shortDescription: ['', Validators.required],
+            description: ['', Validators.required],
+            // status: ['draft', Validators.required], // Default status
         });
     }
 
     createEvent() {
-        // this.store.dispatch(
-        //     createEvent({
-        //         event: {
-        //             ...this.createEventForm.value,
-        //         } as Event,
-        //     })
-        // );
+        console.log(this.createEventForm);
+
+        if (this.createEventForm.invalid) return;
+
+        const eventPayload: Event = {
+            ...this.createEventForm.value,
+        };
+
         this.eventService
-            .create({
-                ...this.createEventForm.value,
-            } as Event)
+            .create(eventPayload, this.selectedImages)
             .pipe(
                 first(),
                 tap(() => {
+                    this.toastr.success('Подія успішно створена');
                     this.createEventForm.reset();
+                    this.selectedImages = [];
                 }),
                 catchError((err) => {
-                    this.toastr.error('Щось пішло не так');
+                    this.toastr.error('Щось пішло не так при створенні події');
                     return EMPTY;
                 })
-            );
+            )
+            .subscribe();
     }
 }

@@ -11,7 +11,7 @@
 		<h3 class="mb-2">Id: {{ user.id }}</h3>
 		<img [src]="user.avatar" class="w-52 h-52 mx-auto rounded-standart" />
 		<div class="my-2">
-			<app-role [role]="user.role"></app-role>
+			<!-- <app-role [role]="user.role"></app-role> -->
 		</div>
 
 		<ng-container *ngIf="!isEditMode; else editMode">

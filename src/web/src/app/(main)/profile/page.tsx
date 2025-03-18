@@ -15,7 +15,7 @@ export async function generateMetadata() {
 export default async function Profile() {
     const currentUser = await getServerCurrentUser();
 
-    if (!currentUser) redirect('/?loginState=true');
+    if (!currentUser) redirect('/login');
 
     return (
         <Container>

@@ -1,12 +1,14 @@
-using EProfspilka.Core.Interfaces;
+﻿using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using EProfspilka.Infrastructure.FileStorage.Exceptions;
+using EProfspilka.Infrastructure.FileStorage;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("partners")]
-public class PartnersController(IPartnersService partnersService) : ControllerBase
+public class PartnersController(IPartnersService partnersService, IImageStorage imageStorage) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetQuestions()
@@ -22,18 +24,32 @@ public class PartnersController(IPartnersService partnersService) : ControllerBa
     }
 
     [HttpPost]
-    // TODO Uncomment this lines
-    //[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
-    public async Task<IActionResult> CreateQuestion([FromBody] PartnerDto partner)
+    // [Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
+    public async Task<IActionResult> CreatePartnerAsync([FromBody] PartnerDto partner)
     {
         try
         {
-            var res = await partnersService.CreateAsync(partner);
-            return Ok(res);
+            if (!string.IsNullOrWhiteSpace(partner.Image) && partner.Image.StartsWith("data:image/"))
+            {
+                var base64Data = partner.Image[(partner.Image.IndexOf(',') + 1)..];
+
+                try
+                {
+                    var imageUrl = await imageStorage.UploadAsync(base64Data);
+                    partner.Image = imageUrl;
+                }
+                catch (ImgBbImageUploadException uploadEx)
+                {
+                    return BadRequest(new ErrorResponseModel($"Image upload error: {uploadEx.Message}"));
+                }
+            }
+
+            var result = await partnersService.CreateAsync(partner);
+            return Ok(result);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return BadRequest(new ErrorResponseModel(e.Message));
+            return BadRequest(new ErrorResponseModel(ex.Message));
         }
     }
 

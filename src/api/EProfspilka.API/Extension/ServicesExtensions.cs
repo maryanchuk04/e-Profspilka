@@ -9,6 +9,7 @@ using EProfspilka.Application.Services;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Settings;
 using EProfspilka.Db.EF;
+using EProfspilka.Infrastructure.FileStorage.Extensions;
 using EProfspilka.Infrastructure.Google;
 using EProfspilka.Infrastructure.Google.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,6 +71,7 @@ public static class ServicesExtensions
         services.Configure<UISettings>(configuration.GetSection(nameof(UISettings)));
 
         services.ConfigureGoogleAuth(configuration);
+        services.ConfigureImgBbStorage(configuration);
     }
 
     public static void ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)

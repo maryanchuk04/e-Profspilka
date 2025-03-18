@@ -40,13 +40,19 @@ export default async function EventPage({ params }: { params: { id: string } }) 
                     <a href='/events'>#Актуальні новини та події</a>
                 </h1>
                 <h2 className='w-1/2 my-4'>{event.title}</h2>
-                <div className='grid grid-cols-auto gap-4 my-4 place-items-center max-lg:grid-cols-2 max-sm:grid-cols-1'>
+                <div className='flex flex-wrap gap-4 my-4 justify-center'>
                     {event.images.map((image: string) => (
-                        <div key={image} className='h-96'>
-                            <img src={image} loading='lazy' className='object-cover w-full h-full' />
+                        <div key={image} className='w-[30%] min-w-[240px] max-w-full h-[250px] flex-1'>
+                            <img
+                                src={image}
+                                loading='lazy'
+                                className='object-cover w-full h-full rounded-xl shadow'
+                                alt={event.title}
+                            />
                         </div>
                     ))}
                 </div>
+
                 <div className='no-tailwind event' dangerouslySetInnerHTML={{ __html: event.description }}></div>
             </Container>
         );

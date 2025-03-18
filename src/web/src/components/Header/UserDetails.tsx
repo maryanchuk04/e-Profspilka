@@ -1,18 +1,35 @@
-import { CurrentUser } from '@/models/user';
+"use client";
+
+import { useRouter } from 'next/navigation';
+import React from 'react';
+
+import { useMediaQuery } from '@/hooks';
 
 import Avatar from '../Avatar';
 
 interface UserDetailsProps {
-    user: CurrentUser;
+    user: any
 }
 
 const UserDetails = ({ user }: UserDetailsProps) => {
-    return (
+    const media = useMediaQuery(700);
+    const router = useRouter();
+
+    const handleNavigate = () => {
+        router.push('/profile');
+    };
+
+    return !media ? (
         <div
-            className='cursor-pointer flex h-[70px] rounded-standard lg:border border-black items-center px-3 w-fit max-w-xl'
+            onClick={handleNavigate}
+            className='cursor-pointer  flex h-[70px] rounded-standard border max-w-xl: w-fit border-black items-center px-3'
         >
-            <h3 className='mr-6 max-lg:hidden'>{user.fullName}</h3>
-            <Avatar alt='user-picture' src={user.picture} className='h-14 w-14' />
+            <h2 className='mr-6 text-xl max-xl:text-2xl max-w-xl: text-right max-xl:w-fit'>{user.fullName}</h2>
+            <Avatar src={user.avatar} className='h-14 w-14' />
+        </div>
+    ) : (
+        <div onClick={handleNavigate}>
+            <Avatar src={user.avatar} className='border border-black w-14 h-14' />
         </div>
     );
 };

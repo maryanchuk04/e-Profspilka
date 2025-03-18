@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { CurrentUser } from './user.model';
-import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
+
+import { Injectable } from '@angular/core';
+
+import { Role } from '../models/roles';
 import { accessTokenCookieName } from './constants';
+import { CurrentUser } from './user.model';
 
 interface JwtPayload {
     'https://e-profspilka.com.ua/isActive': string;
@@ -11,7 +14,7 @@ interface JwtPayload {
     'https://e-profspilka.com.ua/faculty': string;
     'https://e-profspilka.com.ua/email': string;
     'https://e-profspilka.com.ua/picture': string;
-    'https://e-profspilka.com.ua/role'?: string[];
+    'https://e-profspilka.com.ua/roles'?: Role[];
 }
 
 @Injectable({
@@ -30,7 +33,6 @@ export class UserProvider {
 
         try {
             const payload = jwtDecode<JwtPayload>(token);
-
             const isActive = payload['https://e-profspilka.com.ua/isActive'] === 'True';
 
             const user: CurrentUser = {
@@ -40,7 +42,7 @@ export class UserProvider {
                 isActive: isActive,
                 email: payload['https://e-profspilka.com.ua/email'],
                 picture: payload['https://e-profspilka.com.ua/picture'],
-                role: payload['https://e-profspilka.com.ua/role'] ?? [],
+                roles: payload['https://e-profspilka.com.ua/roles'] ?? [],
             };
 
             return user;

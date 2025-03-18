@@ -25,7 +25,7 @@ export class AuthenticateService {
     }
 
     authenticateGoogle(googleAuthModel: GoogleUserInfo) {
-        return this.service.post(`${this.url}/google`, googleAuthModel).pipe(
+        return this.service.post(this.url, googleAuthModel).pipe(
             catchError((err) => {
                 console.error('[Google] An error occurred during authentication', err);
                 this.toastr.error('Щось пішло не так під час авторизації!');
