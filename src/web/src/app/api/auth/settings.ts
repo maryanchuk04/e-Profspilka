@@ -1,1 +1,1 @@
-export const backendApiGoogleCallbackUri = `http://localhost:5002/api/authenticate/google/callback`;
+export const backendApiGoogleCallbackUri = `${process.env.NEXT_PUBLIC_API_URL}/authenticate/google/callback`;
