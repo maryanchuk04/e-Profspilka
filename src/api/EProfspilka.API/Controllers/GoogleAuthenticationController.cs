@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
-[Route("api/authenticate/google")]
+[Route("authenticate/google")]
 public class GoogleAuthenticationController(
     ILogger<AuthenticationController> logger,
     IMediator mediator,
