@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 
 import { getEventById } from '@/apis/events';
 import Container from '@/components/Container';
-import Loader from '@/components/Loader';
 
 type tParams = Promise<{ id: string }>;
 
