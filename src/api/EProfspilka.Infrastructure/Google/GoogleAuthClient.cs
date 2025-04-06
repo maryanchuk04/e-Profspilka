@@ -35,7 +35,7 @@ public class GoogleAuthClient(HttpClient httpClient, IOptions<GoogleClientSettin
         if (!response.IsSuccessStatusCode)
         {
             var errorResponse = await response.Content.ReadAsStringAsync(cancellationToken);
-            throw new СanNotObtainGoogleAccessTokenException($"Google token exchange fail ed: {errorResponse}");
+            throw new CanNotObtainGoogleAccessTokenException($"Google token exchange fail ed: {errorResponse}");
         }
 
         var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);

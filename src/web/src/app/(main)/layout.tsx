@@ -16,8 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ApplicationProvider>
             <main className='min-h-screen flex flex-col justify-between'>
                 <Header />
-                {children}
-                <ResponsiveWrapper showOn='mobile'><Menu /></ResponsiveWrapper>
+                <main className='flex-1'>{children}</main>
+                <ResponsiveWrapper showOn='mobile'>
+                    <Menu />
+                </ResponsiveWrapper>
                 <Footer />
             </main>
         </ApplicationProvider>

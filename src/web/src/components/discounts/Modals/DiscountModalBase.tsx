@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import QrcodeGenerator from '@/components/QrcodeGenerator';
 import SimpleModal from '@/components/SimpleModal';
 import { buildVerifyUri, DiscountCode } from '@/models/discount';
+import Button from '@/ui/Buttons/Button';
 import PrimaryButton from '@/ui/Buttons/PrimaryButton';
 
 import Timer from './Timer';
@@ -75,9 +76,9 @@ export const DiscountModalBase = ({ discount, isQr = true, barCodeImage, fetchQr
                             />
                         )}
 
-                        <button onClick={toggleModal} className='bg-gray-200 mt-4 px-4 py-2 rounded'>
+                        <Button onClick={toggleModal} className='bg-gray-200 mt-4 px-4 py-2 rounded'>
                             Закрити
-                        </button>
+                        </Button>
                     </div>
                 </SimpleModal>
             )}

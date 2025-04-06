@@ -1,4 +1,5 @@
 ﻿using EProfspilka.Application.CommandHandlers.Auth;
+using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Settings;
 using EProfspilka.Infrastructure.Google.Exceptions;
 using MediatR;
@@ -29,10 +30,22 @@ public class GoogleAuthenticationController(
 
             logger.LogInformation("Frontend redirectURI = '{FrontendRedirectUri}'", redirectUri);
         }
-        catch (СanNotObtainGoogleAccessTokenException ex)
+        catch (CanNotObtainGoogleAccessTokenException ex)
         {
-            redirectUri = "/unauthorized";
-            logger.LogError(ex, "Cannot obtain google access token exception occured, redirect to '{FrontendRedirectUri}'", redirectUri);
+            redirectUri += "/unauthorized?reasonCode=google_auth_error";
+            logger.LogError(ex,
+                "Cannot obtain google access token exception occured, redirect to '{FrontendRedirectUri}'",
+                redirectUri);
+        }
+        catch (DomainNotAllowedException ex)
+        {
+            redirectUri += "/unauthorized?reasonCode=domain_is_not_acceptable";
+            logger.LogError(ex, "Domain is not acceptable");
+        }
+        catch (AuthenticateException ex)
+        {
+            redirectUri += "/unauthorized?reasonCode=user_is_not_exist";
+            logger.LogError(ex, "User is not exist");
         }
 
         return Redirect(redirectUri);

@@ -5,7 +5,7 @@ export const metadata = {
     description: 'Офіційний сайт профспілки студентів Чернівецького національного університету імені Юрія Федьковича',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {   
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang='uk'>
             <head>
@@ -16,3 +16,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </html>
     );
 }
+    

@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace EProfspilka.Infrastructure.Google.Exceptions;
 
-public class СanNotObtainGoogleAccessTokenException(string message) : Exception
+public class CanNotObtainGoogleAccessTokenException(string message) : Exception
 {
 }

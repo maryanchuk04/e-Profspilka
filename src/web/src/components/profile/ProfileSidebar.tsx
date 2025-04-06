@@ -8,8 +8,6 @@ export interface ProfileSidebarProps {
 }
 
 const ProfileSidebar = ({ currentUser }: ProfileSidebarProps) => {
-    // const verified = isUserVerified(currentUser);
-
     return (
         <div className='w-full lg:w-1/4 relative'>
             <div className='flex justify-center lg:justify-between items-center'>

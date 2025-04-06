@@ -1,4 +1,6 @@
-﻿using EProfspilka.Core.Interfaces;
+﻿using EProfspilka.Application.Configurations;
+using EProfspilka.Core.Exceptions;
+using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using EProfspilka.Infrastructure.Google;
 using MediatR;
@@ -10,7 +12,7 @@ public class GoogleCallbackCommand(string googleCallbackCode) : IRequest<Authent
     public string GoogleCallbackCode { get; set; } = googleCallbackCode;
 }
 
-public class GoogleCallbackCommandHandler(IGoogleAuthClient googleAuthClient, IAuthenticationService authenticationService) : IRequestHandler<GoogleCallbackCommand, AuthenticateResponseModel>
+public class GoogleCallbackCommandHandler(IGoogleAuthClient googleAuthClient, IAuthenticationService authenticationService, AppConfiguration appConfiguration) : IRequestHandler<GoogleCallbackCommand, AuthenticateResponseModel>
 {
     public async Task<AuthenticateResponseModel> Handle(GoogleCallbackCommand request, CancellationToken cancellationToken)
     {
@@ -18,8 +20,11 @@ public class GoogleCallbackCommandHandler(IGoogleAuthClient googleAuthClient, IA
 
         var googleUser = await googleAuthClient.GetUserInfoAsync(googleAccessToken, cancellationToken);
 
-        var authResponseModel = await authenticationService.AuthenticateAsync(googleUser.Email, googleUser.Picture);
+        //if (appConfiguration.AllowedDomains.All(d => !googleUser.Email.Contains(d)))
+        //    throw new DomainNotAllowedException($"The user with the email = '{googleUser.Email}' did not pass the domain verification");
+
+        var authResponseModel = await authenticationService.AuthenticateOrRegisterAsync(googleUser.Email, googleUser.Name, googleUser.Picture);
 
         return authResponseModel;
     }
-}
+} 

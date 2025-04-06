@@ -14,10 +14,15 @@ export const ProfileInfoFields = ({ currentUser }: ProfileInfoFieldsProps) => {
 
     return (
         <>
-            <Field label='Статус:' text={verified ? 'Верифікований' : 'НЕ Верифікований'} />
+            <Field label='Статус:' isValueCorrect={verified} text={verified ? 'Верифікований' : 'НЕ Верифікований'} />
             <Field label='Роль' text={userStatusLabel} />
             <Field label='Місце навчання:' text={currentUser.faculty || 'Невідомо'} />
-            <Field label='Курс:' text={currentUser.course.toString() || 'Невідомо'} />
+            <Field
+                label='Курс:'
+                text={
+                    currentUser.course === null || currentUser.course === 0 ? 'Невідомо' : currentUser.course.toString()
+                }
+            />
             <LogoutButton />
         </>
     );

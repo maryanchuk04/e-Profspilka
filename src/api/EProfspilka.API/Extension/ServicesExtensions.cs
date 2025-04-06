@@ -124,9 +124,6 @@ public static class ServicesExtensions
                 {
                     OnMessageReceived = context =>
                     {
-                        Console.WriteLine($"Cookies Token: {context.Request.Cookies["e_profspilka_access_token"]}");
-                        Console.WriteLine($"Authorization Header: {context.Request.Headers["Authorization"]}");
-
                         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
 
                         if (string.IsNullOrEmpty(token))

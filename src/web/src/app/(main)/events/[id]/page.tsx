@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { getEventById } from '@/apis/events';
 import Container from '@/components/Container';
+import Loader from '@/components/Loader';
 
 type tParams = Promise<{ id: string }>;
 
@@ -29,7 +30,6 @@ export async function generateMetadata(props: { params: tParams }): Promise<Meta
     }
 }
 
-
 export default async function EventPage(props: { params: tParams }) {
     const { id } = await props.params;
     if (!id) return notFound();
@@ -50,7 +50,6 @@ export default async function EventPage(props: { params: tParams }) {
                         <div key={image} className='w-[30%] min-w-[240px] max-w-full h-[250px] flex-1'>
                             <img
                                 src={image}
-                                loading='lazy'
                                 className='object-cover w-full h-full rounded-xl shadow'
                                 alt={event.title}
                             />

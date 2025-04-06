@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import { getAuthCookiesHeaders } from './cookies';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -31,6 +33,12 @@ const request = async <T>(
 
         if (!response.ok) {
             const errorText = await response.text();
+
+            if (response.status === 401) {
+                console.warn(`[401] Redirecting to /login...`);
+                redirect('/login');
+            }
+
             console.error(`[ERROR] ${method} ${url}, Response: ${errorText}`);
             throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
         }
