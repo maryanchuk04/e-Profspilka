@@ -19,6 +19,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: 🔧 Restore dependencies
+<<<<<<< Updated upstream
       run: dotnet restore
 
     - name: 🏗️ Build (Debug)
@@ -26,6 +27,15 @@ jobs:
 
     - name: 🛠 Publish
       run: dotnet publish --configuration Release --output publish --no-build
+=======
+      run: dotnet restore ./src/api
+
+    - name: 🏗️ Build (Debug)
+      run: dotnet build ./src/api --configuration Release --no-restore
+
+    - name: 🛠 Publish
+      run: dotnet publish ./src/api/EProfspilka.API/EProfspilka.API.csproj --configuration Release --output publish --no-build
+>>>>>>> Stashed changes
 
     - name: 🔐 Setup SSH
       uses: webfactory/ssh-agent@v0.7.0
