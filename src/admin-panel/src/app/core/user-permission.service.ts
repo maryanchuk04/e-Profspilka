@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserProvider } from './user.provider';
+
 import { Role } from '../models/roles';
+import { UserProvider } from './user.provider';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +16,7 @@ export class UserPermissionService {
             return false;
         }
 
-        return user.role.includes(Role.Admin) || user.role.includes(Role.Moderator);
+        return user.roles.includes(Role.admin) || user.roles.includes(Role.moderator);
     }
 
     isAdmin(): boolean {
@@ -25,6 +26,6 @@ export class UserPermissionService {
             return false;
         }
 
-        return user.role.includes(Role.Admin);
+        return user.roles.includes(Role.admin);
     }
 }

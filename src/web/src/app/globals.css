@@ -1,0 +1,100 @@
+@import 'styles/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply font-ukraine font-extrabold text-3xl max-sm:text-center max-sm:text-2xl my-8;
+    }
+
+    h2 {
+        @apply text-2xl font-ukraine font-bold;
+    }
+
+    h3 {
+        @apply text-lg font-ukraine font-bold;
+    }
+
+    * {
+        font-family: "e-Ukraine";
+    }
+
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p:empty {
+    min-height: 1em;
+}
+
+div.no-tailwind {
+    all: unset;
+}
+
+.editor {
+    all: unset;
+}
+
+.editor a {
+    color: #0026f3;
+    text-decoration: underline;
+}
+
+.no-tailwind a {
+    color: #0026f3;
+    text-decoration: underline;
+}
+
+.loader {
+    display: inline-block;
+    border: 8px solid #0026f3;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar styles */
+
+::-webkit-scrollbar {
+    background-color: #fff;
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 3px solid #fff;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+.h-responsive-screen {
+    height: 100dvh;
+}
+
+.default-app-logo-resolution {
+    max-width: 228px;
+    max-height: 128px;
+    height: 100%;
+}

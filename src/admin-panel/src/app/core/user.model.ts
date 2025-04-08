@@ -1,3 +1,5 @@
+import { Role } from '../models/roles';
+
 export interface CurrentUser {
     userId: string;
     fullName: string;
@@ -5,5 +7,5 @@ export interface CurrentUser {
     isActive: boolean;
     email: string;
     picture: string;
-    role: string[];
+    roles: Role[];
 }

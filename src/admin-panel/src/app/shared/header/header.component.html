@@ -4,10 +4,10 @@
 >
 	<div class="w-fit flex items-center">
 		<div class="h-10 w-10 mr-3">
-			<img [src]="user.avatar" class="w-full h-full rounded-full" [alt]="user.fullName" />
+			<img [src]="user.picture" class="w-full h-full rounded-full" [alt]="user.fullName" />
 		</div>
 		<p class="text-2xl font-bold mr-3">{{ user.fullName }}</p>
-		<app-role [role]="user.role"></app-role>
+		<app-role [roles]="user.roles"></app-role>
 		<app-button [classStyles]="'mx-2 px-3 !py-2 h-fit'" (onClick)="logout()">Вийти</app-button>
 	</div>
 	<ul class="flex w-fit justify-between">

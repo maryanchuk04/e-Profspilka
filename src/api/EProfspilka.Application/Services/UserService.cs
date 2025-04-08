@@ -55,9 +55,9 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
         user.Faculty = facultet;
         user.Course = course;
 
-        if (user.UserRoles.Select(x => x.Id).Contains(role))
+        if (user.UserRoles.Select(x => x.RoleId).Contains(role))
         {
-            var roles = user.UserRoles.Select(x => x.Id).ToList();
+            var roles = user.UserRoles.Select(x => x.RoleId).ToList();
             // Sort list by value of enum
             roles.Sort();
             var maxRole = roles.Max();
@@ -66,7 +66,7 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             {
                 for (var i = roles.IndexOf(maxRole); i < roles.Count; i++)
                 {
-                    user.UserRoles.Remove(user.UserRoles.Single(x => x.Id == roles[i]));
+                    user.UserRoles.Remove(user.UserRoles.Single(x => x.RoleId == roles[i]));
                 }
             }
 
@@ -81,7 +81,7 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             user.UserRoles.Clear();
             user.UserRoles.Add(new UserRole
             {
-                Id = Role.NotVerified
+                RoleId = Role.NotVerified
             });
 
             dbContext.Users.Update(user);
@@ -91,16 +91,16 @@ public class UserService(EProfspilkaContext dbContext, ISecurityContext security
             return mapper.Map<UserDto>(user);
         }
 
-        if (user.UserRoles.Select(x => x.Id).Contains(Role.NotVerified))
+        if (user.UserRoles.Select(x => x.RoleId).Contains(Role.NotVerified))
         {
             var notVerified =
-                await dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.Id == Role.NotVerified);
+                await dbContext.UserRoles.FirstAsync(x => x.UserId == user.Id && x.RoleId == Role.NotVerified);
             user.UserRoles.Remove(notVerified);
         }
 
         user.UserRoles.Add(new UserRole
         {
-            Id = role
+            RoleId = role
         });
 
         dbContext.Users.Update(user);

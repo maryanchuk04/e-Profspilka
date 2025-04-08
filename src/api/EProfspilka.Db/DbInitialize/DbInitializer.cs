@@ -1,4 +1,5 @@
 using EProfspilka.Core.Entities;
+using EProfspilka.Core.Enumerations;
 using EProfspilka.Db.EF;
 using Role = EProfspilka.Core.Enumerations.Role;
 
@@ -10,6 +11,7 @@ public static class DbInitializer
     {
         SeedDefaultAdvantages(db);
         SeedDefaultQuestions(db);
+        SeedDiscounts(db);
         SeedSuperAdmin(db);
 
         db.SaveChanges();
@@ -105,6 +107,41 @@ public static class DbInitializer
         db.Questions.AddRange(questions);
     }
 
+    private static void SeedDiscounts(EProfspilkaContext db)
+    {
+        if (db.Discounts.Any())
+            return;
+
+        var discounts = new List<Discount>()
+        {
+            new()
+            {
+                Id = Guid.NewGuid(),
+                AccessTypes = DiscountAccessType.QRCode | DiscountAccessType.PromoCode,
+                CreatedDateUtc = DateTime.UtcNow,
+                DiscountType = DiscountType.AvailableForAll,
+                Description = "Якщо ви любите випити кави, ця пропозиція саме для вас!",
+                Name = "Знижка 20% на лате від Bacara Coffe❤️‍🔥",
+                State = DiscountState.Active,
+                PromoCode = "PROFSPILKABACARA20",
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                AccessTypes = DiscountAccessType.QRCode | DiscountAccessType.PromoCode,
+                CreatedDateUtc = DateTime.UtcNow,
+                DiscountType = DiscountType.OneTimeForMembers,
+                Description = "ЩЕ БІЛЬШЕ КАВИ! Якщо ви любите випити кави, ця пропозиція саме для вас! Bacara Coffe дарує одноразову знижку в 40% для кожного члена профспілки!",
+                Name = "Знижка 40% на лате від Bacara Coffe",
+                State = DiscountState.Active,
+                PromoCode = "PROFSPILKABACARA40",
+            }
+        };
+
+        db.Discounts.AddRange(discounts);
+        db.SaveChanges();
+    }
+
     private static void SeedSuperAdmin(EProfspilkaContext db)
     {
         if (db.Users.Any())
@@ -126,20 +163,44 @@ public static class DbInitializer
                 new UserRole
                 {
                     UserId = adminId,
-                    Id = Role.Admin,
+                    RoleId = Role.Admin,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                 },
                 new UserRole
                 {
                     UserId = adminId,
-                    Id = Role.Student,
+                    RoleId = Role.Student,
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow,
+                },
+                new UserRole
+                {
+                    UserId = adminId,
+                    RoleId = Role.Member,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                 }
             ],
         };
 
+        var discounts = db.Discounts.Where(d => d.State == DiscountState.Active).Select(d => d.Id).ToList();
+        var adminDiscounts = new List<UserDiscounts>();
+        
+        foreach (var id in discounts)
+        {
+            adminDiscounts.Add(
+                new UserDiscounts
+                {
+                    DiscountId = id,
+                    UserId = adminId,
+                    CreatedDateUtc = DateTime.UtcNow,
+                    IsAvailable = true,
+                    UsedCount = 0,
+                });
+        }
+
         db.Users.Add(admin);
+        db.UserDiscounts.AddRange(adminDiscounts);
     }
 }

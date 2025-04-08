@@ -50,3 +50,9 @@
         background: #c0a0b9;
     }
 }
+
+.default-app-logo-resolution {
+    max-width: 228px;
+    max-height: 128px;
+    height: auto;
+}

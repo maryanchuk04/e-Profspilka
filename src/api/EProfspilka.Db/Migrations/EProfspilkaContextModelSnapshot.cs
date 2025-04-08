@@ -69,8 +69,14 @@ namespace EProfspilka.Db.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PartnerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("PromoCode")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDateUtc")
                         .HasColumnType("datetime2");
@@ -78,6 +84,8 @@ namespace EProfspilka.Db.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BarCodeImageId");
+
+                    b.HasIndex("PartnerId");
 
                     b.ToTable("Discounts");
                 });
@@ -235,20 +243,20 @@ namespace EProfspilka.Db.Migrations
                     b.Property<DateTime>("CreatedDateUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("ImageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("MainText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubTextLink")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDateUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("WebSiteUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -360,23 +368,68 @@ namespace EProfspilka.Db.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EProfspilka.Core.Entities.UserRole", b =>
+            modelBuilder.Entity("EProfspilka.Core.Entities.UserDiscounts", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DiscountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPinned")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedDateUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsedCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UsedLastTimeUtc")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiscountId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserDiscounts");
+                });
+
+            modelBuilder.Entity("EProfspilka.Core.Entities.UserRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte>("RoleId")
+                        .HasColumnType("tinyint");
+
                     b.Property<DateTime>("UpdatedAtUtc")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("UserId", "Id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("Id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
                 });
@@ -424,7 +477,13 @@ namespace EProfspilka.Db.Migrations
                         .WithMany()
                         .HasForeignKey("BarCodeImageId");
 
+                    b.HasOne("EProfspilka.Core.Entities.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerId");
+
                     b.Navigation("BarCodeImage");
+
+                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("EProfspilka.Core.Entities.DiscountCode", b =>
@@ -483,11 +542,30 @@ namespace EProfspilka.Db.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("EProfspilka.Core.Entities.UserDiscounts", b =>
+                {
+                    b.HasOne("EProfspilka.Core.Entities.Discount", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EProfspilka.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("EProfspilka.Core.Entities.UserRole", b =>
                 {
                     b.HasOne("EProfspilka.Core.Entities.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

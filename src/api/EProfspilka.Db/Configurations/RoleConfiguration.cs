@@ -16,7 +16,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
             new Role { Id = Core.Enumerations.Role.Admin, Name = "Admin" },
             new Role { Id = Core.Enumerations.Role.Moderator, Name = "Moderator" },
             new Role { Id = Core.Enumerations.Role.NotVerified, Name = "NotVerified" },
-            new Role { Id = Core.Enumerations.Role.MemberProfspilka, Name = "MemberProfspilka" }
+            new Role { Id = Core.Enumerations.Role.Member, Name = "MemberProfspilka" }
         ]);
     }
 }

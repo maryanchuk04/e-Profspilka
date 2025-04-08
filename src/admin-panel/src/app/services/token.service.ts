@@ -1,6 +1,7 @@
-import { Injectable, } from '@angular/core';
-
 import { CookieService } from 'ngx-cookie-service';
+
+import { Injectable } from '@angular/core';
+
 import { accessTokenCookieName } from '../core/constants';
 
 @Injectable({

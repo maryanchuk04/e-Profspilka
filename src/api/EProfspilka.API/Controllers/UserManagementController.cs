@@ -1,7 +1,11 @@
 using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.UserManagement;
 using EProfspilka.Application.CommandHandlers.Users;
 using EProfspilka.Application.Factories;
+using EProfspilka.Core;
 using EProfspilka.Core.Models;
+using EProfspilka.Core.Requests;
+using EProfspilka.Core.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class UserManagementController(
     IMediator mediator,
     ILogger<UserManagementController> logger,
@@ -96,6 +100,23 @@ public class UserManagementController(
         catch (Exception e)
         {
             return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
+    [HttpPost("{userId}/AssignRole")]
+    public async Task<ActionResult<OperationResponse>> AssignRoleForUserAsync(Guid userId, AssignRoleRequest request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await mediator.Send(
+                new AssignRoleForUserCommand(userId, request.Role), cancellationToken);
+
+            return Ok(result);
+        }
+        catch (Exception)
+        {
+            var error = new OperationResponse(false, ErrorCodes.UnhandledError);
+            return StatusCode(500, error);
         }
     }
 }

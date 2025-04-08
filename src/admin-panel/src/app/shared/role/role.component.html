@@ -1,7 +1,1 @@
-<div
-	[ngSwitch]="role"
-	class="text-xl text-center bg-slate-300 text-black/70 px-4 py-2 rounded-standart"
-	*ngIf="roleLabel"
->
-	<span>{{ roleLabel }}</span>
-</div>
+<p-tag *ngIf="roleLabel">{{ roleLabel }}</p-tag>

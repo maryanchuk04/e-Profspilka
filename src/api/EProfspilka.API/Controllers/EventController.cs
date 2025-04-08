@@ -1,8 +1,10 @@
 using AutoMapper;
 using EProfspilka.API.ViewModels;
+using EProfspilka.Application.CommandHandlers.Events;
 using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +13,19 @@ namespace EProfspilka.API.Controllers;
 [ApiController]
 [Route("event")]
 //[Authorize(Policy = PolicyNames.ModeratorAndAdminPolicyName)]
-public class EventController(IEventService eventService, IMapper mapper, ILogger<EventController> logger)
+public class EventController(IEventService eventService, IMapper mapper, ILogger<EventController> logger, IMediator mediator)
     : ControllerBase
 {
     private ILogger<EventController> _logger = logger;
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] EventViewModel eventViewModel)
+    public async Task<IActionResult> Create([FromForm] EventViewModel eventViewModel, CancellationToken cancellationToken)
     {
         try
         {
-            var eventDto = await eventService.Create(mapper.Map<EventDto>(eventViewModel));
+            await mediator.Send(new CreateEventCommand(mapper.Map<EventDto>(eventViewModel), eventViewModel.Images), cancellationToken);
 
-            return StatusCode(StatusCodes.Status201Created, eventDto);
+            return StatusCode(StatusCodes.Status201Created);
         }
         catch (Exception e)
         {

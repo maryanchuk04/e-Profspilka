@@ -16,8 +16,11 @@ public class GetSharedDiscountsCommandHandler(EProfspilkaContext db)
     public async Task<IEnumerable<DiscountDto>> Handle(GetSharedDiscountCommand request, CancellationToken cancellationToken)
     {
         var discounts = await db.Discounts
+            .AsNoTracking()
+            .AsSplitQuery()
             .Where(d => d.DiscountType == DiscountType.AvailableForAll)
             .Include(discount => discount.BarCodeImage)
+            .Include(d => d.Partner)
             .ToListAsync(cancellationToken);
 
 

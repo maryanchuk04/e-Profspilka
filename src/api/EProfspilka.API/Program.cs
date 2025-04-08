@@ -23,22 +23,21 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseCors(x =>
 {
     x.AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins(builder.Configuration.GetSection("AllowedOrigins")
-            .Get<string[]>())
+        .WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
         .AllowCredentials();
 });
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 

@@ -1,0 +1,43 @@
+name: Build and Deploy .NET API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🧾 Checkout code
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 🔧 Restore dependencies
+      run: dotnet restore
+
+    - name: 🏗️ Build (Debug)
+      run: dotnet build --configuration Release --no-restore
+
+    - name: 🛠 Publish
+      run: dotnet publish --configuration Release --output publish --no-build
+
+    - name: 🔐 Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: 📤 Deploy files via rsync (без appsettings.json)
+      run: |
+        rsync -avz --delete \
+          --exclude 'appsettings.json' \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          ./publish/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.APP_FOLDER }}
+
+    - name: 🚀 Restart Service
+      run: ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "sudo systemctl restart myapp"

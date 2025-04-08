@@ -34,7 +34,7 @@ public class DiscountCodeController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("verify/{discountId:guid}/{discountCodeId:guid}")]
-    public async Task<ActionResult<DiscountCodeDto>> ValidateDiscountCode(Guid discountId, Guid discountCodeId)
+    public async Task<ActionResult<VerifyDiscountResult>> ValidateDiscountCode(Guid discountId, Guid discountCodeId)
     {
         try
         {

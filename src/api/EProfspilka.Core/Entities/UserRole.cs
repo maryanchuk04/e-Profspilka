@@ -2,7 +2,9 @@ namespace EProfspilka.Core.Entities;
 
 public class UserRole
 {
-    public Enumerations.Role Id { get; set; }
+    public Guid Id { get; set; }
+
+    public Enumerations.Role RoleId { get; set; }
 
     public Guid UserId { get; set; }
 

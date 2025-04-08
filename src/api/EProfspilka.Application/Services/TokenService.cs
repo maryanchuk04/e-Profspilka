@@ -6,8 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using EProfspilka.Application.Configurations;
 using EProfspilka.Core.Entities;
 using EProfspilka.Core.Interfaces;
-using EProfspilka.Core.Enumerations;
-using Role = EProfspilka.Core.Enumerations.Role;
 
 namespace EProfspilka.Application.Services;
 
@@ -24,7 +22,7 @@ public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
             jwtConfiguration.Issuer,
             jwtConfiguration.Audience,
             claims,
-            expires: DateTime.Now.AddHours(6),
+            expires: DateTime.UtcNow.AddHours(12),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -39,8 +37,8 @@ public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
         return new UserToken
         {
             Token = Convert.ToBase64String(randomNumber),
-            Expires = DateTime.Now.AddDays(7),
-            Created = DateTime.Now,
+            Expires = DateTime.UtcNow.AddDays(7),
+            Created = DateTime.UtcNow,
         };
     }
 
@@ -56,8 +54,8 @@ public class TokenService(JwtConfiguration jwtConfiguration) : ITokenService
             new($"{ClaimBaseAddress}/isActive", $"{user.IsActive}"),
         ];
 
-        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.Id.ToString().ToLower())));
-        claims.AddRange(user.UserRoles.Select(ur => new Claim($"{ClaimBaseAddress}/role", ur.Id.ToString().ToLower())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.RoleId.ToString().ToLower())));
+        claims.AddRange(user.UserRoles.Select(ur => new Claim($"{ClaimBaseAddress}/roles", ur.RoleId.ToString().ToLower())));
 
         return claims;
     }

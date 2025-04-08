@@ -1,5 +1,16 @@
-import api from "./config/axios.config";
+import { Advantage } from '@/models/advantage';
 
-const endpoint = 'advantage';
+import api from './config/api.config';
 
-export const getAdvantages = () => api.get(endpoint);
+const endpoint = '/advantage';
+
+export const getAdvantages = async (): Promise<Advantage[]> => {
+    try {
+        const advantages = await api.get<Advantage[]>(endpoint);
+
+        return advantages;
+    }
+    catch(err) {
+        return [];
+    }
+};

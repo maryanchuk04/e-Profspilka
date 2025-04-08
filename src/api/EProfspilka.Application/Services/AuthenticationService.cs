@@ -13,19 +13,19 @@ public class AuthenticationService(
     ITokenService tokenService)
     : IAuthenticationService
 {
-    public async Task<AuthenticateResponseModel> Authenticate(string email, string avatar)
+    public async Task<AuthenticateResponseModel> AuthenticateAsync(string email, string avatar)
     {
-        var user = context.Users
+        var user = await context.Users
             .AsNoTracking()
             .AsSplitQuery()
             .Include(x => x.Image)
             .Include(x => x.UserTokens)
             .Include(x => x.UserRoles)
             .ThenInclude(x => x.Role)
-            .FirstOrDefault(x => x.Email == email);
+            .FirstOrDefaultAsync(x => x.Email == email);
 
         if (user == null)
-            throw new AuthenticateException($"Користувача з емейлом {email} не існує!");
+            throw new AuthenticateException($"User with email = '{email}' is not exist");
 
         if (!string.IsNullOrEmpty(avatar))
             user.Image = new Image(avatar);
@@ -41,6 +41,16 @@ public class AuthenticationService(
         await context.SaveChangesAsync();
 
         return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
+    }
+
+    public async Task<AuthenticateResponseModel> AuthenticateOrRegisterAsync(string email, string fullName, string image)
+    {
+        if (await context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
+        {
+            return await AuthenticateAsync(email, image);
+        }
+
+        return await Registration(email, fullName, image);
     }
 
     public async Task<AuthenticateResponseModel> Registration(string email, string fullName, string image)
@@ -72,6 +82,11 @@ public class AuthenticationService(
             user.FullName = fullName;
             user.Image.ImageUrl = fullName;
 
+            if (user.UserRoles.All(s => s.RoleId != Role.Student))
+            {
+                user.UserRoles.Add(new UserRole { RoleId = Role.Student, UserId = user.Id });
+            }
+
             context.Users.Update(user);
             await context.SaveChangesAsync();
             return user;
@@ -87,20 +102,15 @@ public class AuthenticationService(
             IsActive = true,
         };
 
-        user.UserRoles.Add(new UserRole { Id = Role.Student, UserId = user.Id });
-
-        //if (!await studentStore.IsStudent(email))
-        //{
-        //    user.UserRoles.Add(new UserRole
-        //    {
-        //        RoleId = Role.NotVerified,
-        //        UserId = user.Id,
-        //    });
-        //}
-        //else
-        //{
-        //    await studentStore.MappingUser(user);
-        //}
+        // if user not exist, add notVerified role.
+        user.UserRoles = new List<UserRole>()
+        {
+            new()
+            {
+                RoleId = Role.NotVerified,
+                UserId = user.Id,
+            }
+        };
 
         return user;
     }

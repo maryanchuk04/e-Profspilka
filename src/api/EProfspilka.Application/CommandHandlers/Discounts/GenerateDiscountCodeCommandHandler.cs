@@ -50,8 +50,8 @@ public class GenerateDiscountCodeCommandHandler(
             Code = Guid.NewGuid(),
             Discount = discount,
             Id = Guid.NewGuid(),
-            ActivateTimeUtc = DateTime.Now,
-            DeactivateTimeUtc = DateTime.Now.AddMinutes(1),
+            ActivateTimeUtc = DateTime.UtcNow,
+            DeactivateTimeUtc = DateTime.UtcNow.AddMinutes(1),
             UserId = _securityContext.GetCurrentUserId(),
         };
     }

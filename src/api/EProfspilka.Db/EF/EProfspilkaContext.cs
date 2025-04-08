@@ -15,7 +15,6 @@ public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOpti
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
         optionsBuilder.EnableSensitiveDataLogging(false);
     }
 
@@ -42,6 +41,8 @@ public class EProfspilkaContext(DbContextOptions<EProfspilkaContext> contextOpti
     public DbSet<Advantage> Advantage { get; set; }
 
     public DbSet<Discount> Discounts { get; set; }
+
+    public DbSet<UserDiscounts> UserDiscounts { get; set; }
 
     public DbSet<DiscountCode> DiscountCodes { get; set; }
 

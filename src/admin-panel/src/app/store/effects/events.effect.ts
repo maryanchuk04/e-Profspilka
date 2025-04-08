@@ -1,18 +1,17 @@
-import { ToastrService, } from 'ngx-toastr';
-import { catchError, exhaustMap, map, mergeMap, of, tap, } from 'rxjs';
-import { Event, } from 'src/app/models/Event';
-import { EventsService, } from 'src/app/services/events.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, exhaustMap, map, mergeMap, of } from 'rxjs';
+import { Event } from 'src/app/models/Event';
+import { EventsService } from 'src/app/services/events.service';
 
-import { Injectable, } from '@angular/core';
-import { Actions, createEffect, ofType, } from '@ngrx/effects';
-import { Store, } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
 import {
-	createEvent, createEventFailed, createEventSuccess, deleteEvent, deleteEventSuccess,
-	fetchEvents, fetchEventsFailed, fetchEventsSuccess, updateEvent, updateEventFailed,
-	updateEventSuccess,
+    createEventFailed, deleteEvent, deleteEventSuccess, fetchEvents, fetchEventsFailed,
+    fetchEventsSuccess, updateEvent, updateEventFailed, updateEventSuccess
 } from '../actions/events.action';
-import { AppState, } from '../AppState';
+import { AppState } from '../AppState';
 
 @Injectable()
 export class EventsEffect {
@@ -43,26 +42,26 @@ export class EventsEffect {
 		)
 	);
 
-	createEvent$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(createEvent),
-			exhaustMap(({ event }) =>
-				this.service.create(event).pipe(
-					map(
-						(event) => {
-							this.toastService.success('Подію успішно створено!');
-							return createEventSuccess({ event });
-						},
-						catchError(() => {
-							this.toastService.error('Помика при створенні події!');
-							createEventFailed();
-							return of([]);
-						})
-					)
-				)
-			)
-		)
-	);
+	// createEvent$ = createEffect(() =>
+	// 	this.actions$.pipe(
+	// 		ofType(createEvent),
+	// 		exhaustMap(({ event }) =>
+	// 			this.service.create(event).pipe(
+	// 				map(
+	// 					(event) => {
+	// 						this.toastService.success('Подію успішно створено!');
+	// 						return createEventSuccess({ event });
+	// 					},
+	// 					catchError(() => {
+	// 						this.toastService.error('Помика при створенні події!');
+	// 						createEventFailed();
+	// 						return of([]);
+	// 					})
+	// 				)
+	// 			)
+	// 		)
+	// 	)
+	// );
 
 	deleteEvent$ = createEffect(() =>
 		this.actions$.pipe(

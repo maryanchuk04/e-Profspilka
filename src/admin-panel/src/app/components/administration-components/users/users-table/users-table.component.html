@@ -30,7 +30,7 @@
             <tr class="cursor-pointer" (click)="navigateToUser(user.id)" *ngFor="let user of filteredUsers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                 <td class="border px-4 py-2">{{ user.fullName }}</td>
                 <td class="border px-4 py-2">{{ user.email }}</td>
-                <td class="border px-4 py-2">{{ roleResolve(user.role) }}</td>
+                <!-- <td class="border px-4 py-2">{{ roleResolve(user.role) }}</td> -->
                 <td class="border px-4 py-2">
                     <img [src]="user.avatar" alt="Avatar" class="w-10 h-10 rounded-full">
                 </td>

@@ -1,17 +1,17 @@
 using EProfspilka.API.ViewModels;
-using EProfspilka.Application.CommandHandlers;
 using EProfspilka.Application.CommandHandlers.Discounts;
 using EProfspilka.Core.Exceptions;
 using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("discount")]
-public class DiscountController(IDiscountService discountService, IMediator mediator) : ControllerBase
+public class DiscountController(IDiscountService discountService, IMediator mediator, ISecurityContext securityContext) : ControllerBase
 {
     [HttpGet]
     public async Task<IEnumerable<DiscountDto>> GetAllAsync() => await discountService.GetAsync();
@@ -43,12 +43,44 @@ public class DiscountController(IDiscountService discountService, IMediator medi
         }
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetByIdAsync(Guid id)
+    [HttpGet("user")]
+    [Authorize]
+    public async Task<ActionResult<IList<DiscountDto>>> GetUserDiscountsAsync(CancellationToken cancellationToken)
+    {
+        var currentUserId = securityContext.GetCurrentUserId();
+
+        if (currentUserId == Guid.Empty)
+            return Unauthorized();
+
+        var cmd = new GetUserDiscountsCommand(currentUserId);
+        var discounts = await mediator.Send(cmd, cancellationToken);
+
+        return Ok(discounts);
+    }
+
+
+    [HttpGet("{discountId}")]
+    public async Task<ActionResult<DiscountDto>> GetByIdAsync(Guid discountId, CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await discountService.GetByIdAsync(id));
+            var currentUserId = securityContext.GetCurrentUserId();
+
+            if (currentUserId == Guid.Empty)
+                return Unauthorized();
+
+            var cmd = new GetDiscountByIdCommand(currentUserId, discountId);
+
+            try
+            {
+                var discount = await mediator.Send(cmd, cancellationToken);
+
+                return Ok(discount);
+            }
+            catch (DiscountNotFoundException e)
+            {
+                return NotFound();
+            }
         }
         catch (NotFoundException e)
         {
