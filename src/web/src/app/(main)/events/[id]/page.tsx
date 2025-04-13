@@ -38,9 +38,7 @@ export default async function EventPage(props: { params: tParams }) {
 
         return (
             <Container className='min-h-[40vh]'>
-                <h1 className='text-black/60 uppercase m-0 p-0 cursor-pointer'>
-                    <a href='/events'>#Актуальні новини та події</a>
-                </h1>
+                <a href='/events'>#всі події</a>
 
                 <h2 className='w-1/2 my-4'>{event.title}</h2>
 
