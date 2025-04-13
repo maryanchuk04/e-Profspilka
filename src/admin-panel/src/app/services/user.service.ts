@@ -24,6 +24,6 @@ export class UserService {
 	}
 
 	getUser(id: string) {
-		return this.service.getOne(`student-store/${this.url}/${id}`);
+		return this.service.getOne(`${this.url}/${id}`);
 	}
 }

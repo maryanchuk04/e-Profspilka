@@ -1,38 +1,14 @@
 namespace EProfspilka.API.Policies;
 
-public class PolicyNames
+public static class PolicyNames
 {
-    // Policy names
-    public const string AdminPolicyName = "AdminPolicy";
-
-    public const string StudentPolicyName = "StudentPolicy";
-
-    public const string MemberProfspilkaPolicyName = "MemberProfspilkaPolicy";
-
-    public const string NotVerifiedPolicyName = "NotVerifiedPolicy";
-
-    public const string ModeratorPolicyName = "ModeratorPolicy";
-
-    public const string HeadOfUnitPolicyName = "HeadOfUnitPolicy";
-
-    public const string ModeratorAndAdminPolicyName = "ModeratorAndAdminPolicy";
-
-    public const string AllRolesPolicyName = "ModeratorAndAdminAndStudentPolicy";
-
     // Roles
-    public const string AdminRole = "Admin";
+    public const string Admin = "admin";
+    public const string Student = "student";
+    public const string Member = "member";
 
-    public const string StudentRole = "Student";
-
-    public const string MemberProfspilkaRole = "MemberProfspilka";
-
-    public const string NotVerifiedRole = "NotVerified";
-
-    public const string ModeratorRole = "Moderator";
-
-    public const string HeadOfUnitRole = "HeadOfUnit";
-
-    public const string ModeratorAndAdminRole = "ModeratorAndAdmin";
-
-    public const string AllRoles = "ModeratorAndAdminAndStudent";
+    // Policies
+    public const string AdminPolicy = "Admin";
+    public const string StudentPolicy = "Student";
+    public const string MemberPolicy = "Member";
 }

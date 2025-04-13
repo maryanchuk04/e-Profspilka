@@ -27,6 +27,7 @@ import effects from './app/store/effects';
 import { eProfspilkaPreset } from './app/theme/preset';
 import { CookieService } from 'ngx-cookie-service';
 import { QuestionFormFactory } from './app/forms/question-form.factory';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 if (environment.production) {
     enableProdMode();
@@ -53,8 +54,10 @@ bootstrapApplication(AppComponent, {
             FormsModule, // required animations module
             ToastrModule.forRoot(),
             NgxPaginationModule,
-            ButtonModule
+            ButtonModule,
         ),
+        ConfirmationService,
+        MessageService,
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {

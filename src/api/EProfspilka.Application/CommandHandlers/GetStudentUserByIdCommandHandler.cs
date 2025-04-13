@@ -7,10 +7,11 @@ using EProfspilka.Core.Interfaces;
 using EProfspilka.Core.Models;
 using EProfspilka.Db.EF;
 using EProfspilka.Application.CommandHandlers.Discounts;
+using EProfspilka.Core.Responses;
 
 namespace EProfspilka.Application.CommandHandlers;
 
-public class GetUserByIdCommand(Guid id) : IRequest<UserMatchingStoreModel>
+public class GetUserByIdCommand(Guid id) : IRequest<UserManagementModel>
 {
     public Guid Id { get; set; } = id;
 }
@@ -19,12 +20,11 @@ public class GetStudentUserByIdCommandHandler(
     EProfspilkaContext db,
     ILogger<GenerateDiscountCodeCommandHandler> logger,
     IRoleService roleService)
-    : IRequestHandler<GetUserByIdCommand, UserMatchingStoreModel>
+    : IRequestHandler<GetUserByIdCommand, UserManagementModel>
 {
-    private const string DefaultImage =
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+    private const string DefaultImage = "https://i.ibb.co/KjFRZqHf/default-user.webp"; // default user image, hosted on imgbb
 
-    public async Task<UserMatchingStoreModel> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
+    public async Task<UserManagementModel> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
     {
         var user = await db.Users
             .AsNoTracking()
@@ -32,7 +32,21 @@ public class GetStudentUserByIdCommandHandler(
             .Include(u => u.Image)
             .Include(u => u.UserRoles)
             .ThenInclude(x => x.Role)
-            .SingleOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+            .Include(u => u.UserDiscounts)
+            .ThenInclude(x => x.Discount)
+            .Select(user => new UserManagementModel
+            {
+                Email = user.Email,
+                FullName = user.FullName,
+                Picture = user.Image.ImageUrl ?? DefaultImage,
+                Course = user.Course,
+                Faculty = user.Faculty,
+                LastLoginDateTimeUtc = user.LastLoginDateTimeUtc,
+                IsActive = user.IsActive,
+                Roles = user.UserRoles.Select(x => x.RoleId).OrderBy(x => x).ToList(),
+                Id = user.Id
+            })
+            .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
@@ -40,15 +54,6 @@ public class GetStudentUserByIdCommandHandler(
             throw new NotFoundException(nameof(User), request.Id);
         }
 
-        return new UserMatchingStoreModel()
-        {
-            Email = user.Email,
-            FullName = user.FullName,
-            Avatar = user?.Image.ImageUrl ?? DefaultImage,
-            Course = user?.Course ?? user.Course,
-            Facultet = user?.Faculty ?? user.Faculty,
-            //Role = user == null ? null : roleService.RoleResolver(user.UserRole),
-            Id = user?.Id ?? user.Id,
-        };
+        return user;
     }
 }

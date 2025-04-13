@@ -12,31 +12,41 @@ import { Store } from '@ngrx/store';
 
 import { ButtonComponent } from '../../ui/button/button.component';
 import { RoleComponent } from '../role/role.component';
+import { UserPermissionService } from 'src/app/core/user-permission.service';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    imports: [NgIf, RoleComponent, ButtonComponent, NgFor, RouterLinkActive, RouterLink, AsyncPipe, TagModule]
+    imports: [NgIf, RoleComponent, ButtonComponent, NgFor, RouterLinkActive, RouterLink, AsyncPipe, TagModule],
 })
 export class HeaderComponent implements OnInit {
-	links = [
-		{
-			name: 'Модераційна',
-			link: '/moderation/',
-		},
-		{
-			name: 'Адміністрування',
-			link: '/administration/',
-		},
-	];
-	user$: Observable<CurrentUser>;
-	constructor(private store: Store<AppState>, private authService: AuthenticateService, private userProvider: UserProvider) {}
+    user$: Observable<CurrentUser>;
 
-	ngOnInit(): void {
-		this.user$ = of(this.userProvider.getCurrentUser());
-	}
+    links = [
+        {
+            name: 'Модераційна',
+            link: '/moderation/',
+        },
+        {
+            name: 'Адміністрування',
+            link: '/administration/',
+        },
+    ];
+    hasAdminPanelAccess: boolean;
 
-	logout() {
-		this.authService.logout();
-	}
+    constructor(
+        private store: Store<AppState>,
+        private authService: AuthenticateService,
+        private userProvider: UserProvider,
+        private userPermissionService: UserPermissionService
+    ) {}
+
+    ngOnInit(): void {
+        this.user$ = of(this.userProvider.getCurrentUser());
+        this.hasAdminPanelAccess = this.userPermissionService.hasAccessToAdminPanel();
+    }
+
+    logout() {
+        this.authService.logout();
+    }
 }

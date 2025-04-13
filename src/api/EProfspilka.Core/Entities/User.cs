@@ -20,5 +20,7 @@ public class User : BaseEntity
 
     public ICollection<UserToken> UserTokens { get; set; }
 
+    public ICollection<UserDiscounts> UserDiscounts { get; set; }
+
     public DateTime? LastLoginDateTimeUtc { get; set; }
 }

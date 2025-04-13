@@ -1,7 +1,10 @@
+using EProfspilka.API.Policies;
 using EProfspilka.Application.CommandHandlers;
+using EProfspilka.Application.CommandHandlers.Discounts;
 using EProfspilka.Application.CommandHandlers.UserManagement;
 using EProfspilka.Application.CommandHandlers.Users;
 using EProfspilka.Application.Factories;
+using EProfspilka.Application.QueryHandlers;
 using EProfspilka.Core;
 using EProfspilka.Core.Models;
 using EProfspilka.Core.Requests;
@@ -14,16 +17,15 @@ namespace EProfspilka.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = PolicyNames.AdminPolicy)]
 public class UserManagementController(
     IMediator mediator,
     ILogger<UserManagementController> logger,
-    IImportCommandFactory importCommandFactory)
-    : ControllerBase
+    IImportCommandFactory importCommandFactory) : ControllerBase
 {
     private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     [HttpPost("upload")]
-    [Authorize]
     public async Task<ActionResult> UploadUsers(IFormFile file, [FromQuery] string importType = "merge")
     {
         try
@@ -47,7 +49,6 @@ public class UserManagementController(
             }
 
             return Ok(await mediator.Send(importCommand));
-
         }
         catch (Exception e)
         {
@@ -55,12 +56,15 @@ public class UserManagementController(
         }
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetUsers()
+    [HttpGet("users")]
+    public async Task<IActionResult> GetUsers([FromQuery] PaginationRequest request)
     {
         try
         {
-            return Ok();
+            var query = new GetUsersQuery(request);
+
+            var response = await mediator.Send(query);
+            return Ok(response);
         }
         catch (Exception e)
         {
@@ -88,7 +92,7 @@ public class UserManagementController(
         }
     }
 
-    [HttpGet("user/{id}")]
+    [HttpGet("users/{id}")]
     public async Task<ActionResult<UserMatchingStoreModel>> GetUser(Guid id)
     {
         try
@@ -103,8 +107,9 @@ public class UserManagementController(
         }
     }
 
-    [HttpPost("{userId}/AssignRole")]
-    public async Task<ActionResult<OperationResponse>> AssignRoleForUserAsync(Guid userId, AssignRoleRequest request, CancellationToken cancellationToken)
+    [HttpPost("users/{userId}/AssignRole")]
+    public async Task<ActionResult<OperationResponse>> AssignRoleForUserAsync(Guid userId, AssignRoleRequest request,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -118,5 +123,64 @@ public class UserManagementController(
             var error = new OperationResponse(false, ErrorCodes.UnhandledError);
             return StatusCode(500, error);
         }
+    }
+
+    [HttpPost("{userId}/discount/{discountId}")]
+    public async Task<ActionResult<OperationResponse>> AssignDiscountForUserAsync(Guid userId, Guid discountId,
+        CancellationToken cancellationToken)
+    {
+        return Ok();
+    }
+
+    [HttpPost("users/{userId}/assignDiscounts")]
+    [AllowAnonymous]
+    public async Task<ActionResult<OperationResponse>> AssignDiscountsCorrespondingToRoleAsync(Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var command = new AssignDiscountsCorrespondingToRoleCommand(userId);
+        var result = await mediator.Send(command, cancellationToken);
+
+        if (result.Success)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+
+    [HttpPost("users/{userId}/deactivate")]
+    public async Task<ActionResult<OperationResponse>> DeactivateUserAsync(Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var cmd = new ChangeUserStateCommand(userId, newStateActive: false); // deactivate user
+        var result = await mediator.Send(cmd, cancellationToken);
+
+        if (result.Success)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+
+    [HttpPost("users/{userId}/activate")]
+    public async Task<ActionResult<OperationResponse>> ActivateUserAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var cmd = new ChangeUserStateCommand(userId, newStateActive: true); // activate user
+        var result = await mediator.Send(cmd, cancellationToken);
+
+        if (result.Success)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+    
+    [HttpPatch("users")]
+    public async Task<ActionResult<OperationResponse>> UpdateUserAsync(UserManagementModel user, CancellationToken cancellationToken)
+    {
+        var cmd = new UpdateUserCommand(user);
+
+        var result = await mediator.Send(cmd, cancellationToken);
+
+        if (result.Success)
+            return Ok(result);
+
+        return BadRequest(result);
     }
 }

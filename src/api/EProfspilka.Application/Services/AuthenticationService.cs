@@ -30,6 +30,9 @@ public class AuthenticationService(
         if (!string.IsNullOrEmpty(avatar))
             user.Image = new Image(avatar);
 
+        if (!user.IsActive)
+            throw new UserNotActiveException(user.Email);
+
         var jwtToken = tokenService.GenerateAccessToken(user);
         var refreshToken = tokenService.GenerateRefreshToken();
 
@@ -43,7 +46,8 @@ public class AuthenticationService(
         return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
     }
 
-    public async Task<AuthenticateResponseModel> AuthenticateOrRegisterAsync(string email, string fullName, string image)
+    public async Task<AuthenticateResponseModel> AuthenticateOrRegisterAsync(string email, string fullName,
+        string image)
     {
         if (await context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
         {
@@ -75,7 +79,7 @@ public class AuthenticationService(
             .Include(user => user.UserRoles)
             .Include(user => user.Image)
             .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
-        
+
         if (user is not null)
         {
             // update user

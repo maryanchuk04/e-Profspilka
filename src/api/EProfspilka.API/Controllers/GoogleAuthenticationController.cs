@@ -37,6 +37,11 @@ public class GoogleAuthenticationController(
                 "Cannot obtain google access token exception occured, redirect to '{FrontendRedirectUri}'",
                 redirectUri);
         }
+        catch (UserNotActiveException ex)
+        {
+            redirectUri += "/unauthorized?reasonCode=account_disabled";
+            logger.LogError(ex, "User not active exception occured");
+        }
         catch (DomainNotAllowedException ex)
         {
             redirectUri += "/unauthorized?reasonCode=domain_is_not_acceptable";

@@ -22,4 +22,7 @@ public class OperationResponse
         Success = success;
         ErrorCode = errorCode;
     }
+
+    public static OperationResponse CreateError(string errorCode = null) => new OperationResponse(false, errorCode);
+    public static OperationResponse CreateSuccess() => new OperationResponse();
 }

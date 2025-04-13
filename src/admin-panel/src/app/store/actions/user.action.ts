@@ -35,4 +35,3 @@ export const fetchUsersSuccess = createAction(
 	'[USER] fetch users success',
 	props<{ users: User[] }>()
 );
-export const fetchAllUsers = createAction('[USER] fetch all users');

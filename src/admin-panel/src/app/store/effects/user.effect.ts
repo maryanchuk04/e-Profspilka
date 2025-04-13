@@ -1,7 +1,7 @@
 import { ToastrService, } from 'ngx-toastr';
 import { exhaustMap, map, mergeMap, switchMap, tap, } from 'rxjs';
 import { AuthenticateService, } from 'src/app/services/authenticate.service';
-import { StudentStoreService, } from 'src/app/services/student-store.service';
+import { UserManagementService, } from 'src/app/services/user-management.service';
 import { TokenService, } from 'src/app/services/token.service';
 import { UserService, } from 'src/app/services/user.service';
 
@@ -12,7 +12,7 @@ import { Store, } from '@ngrx/store';
 
 import { showAlert, } from '../actions/alert.action';
 import {
-	fetchAllUsers, fetchCurrentUser, fetchCurrentUserSuccess, fetchUsers, fetchUsersSuccess,
+	fetchCurrentUser, fetchCurrentUserSuccess, fetchUsers, fetchUsersSuccess,
 	googleLoginUser, googleLoginUserSuccess, loginUserSuccess, updateUser, updateUserSuccess,
 } from '../actions/user.action';
 import { AppState, } from '../AppState';
@@ -27,7 +27,7 @@ export class UserEffect {
 		private userService: UserService,
 		private tokenService: TokenService,
 		private router: Router,
-		private studentStore: StudentStoreService,
+		private studentStore: UserManagementService,
 		private toastrService: ToastrService
 	) {}
 
@@ -89,15 +89,6 @@ export class UserEffect {
 			ofType(fetchUsers),
 			exhaustMap(() =>
 				this.userService.getUsers().pipe(map((users) => fetchUsersSuccess({ users })))
-			)
-		)
-	);
-
-	fetchAllUsers$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(fetchAllUsers),
-			exhaustMap(() =>
-				this.studentStore.getAll().pipe(map((users) => fetchUsersSuccess({ users })))
 			)
 		)
 	);

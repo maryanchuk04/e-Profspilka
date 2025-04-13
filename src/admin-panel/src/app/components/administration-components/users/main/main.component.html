@@ -12,37 +12,3 @@
     </div>
     <app-users-table></app-users-table>
 </div>
-
-<!-- <app-modal *ngIf="open" (close)="handleOpen(false)">
-    <div class="w-[500px] h-fit p-4">
-        <h1 class="text-center text-2xl font-bold mb-3">Завантаження користувачів</h1>
-        <div appDragDrop (fileDrop)="uploadFile($event)"
-            class="grid rounded-standart cursor-pointer my-2 border place-items-center font-xl h-40">
-            <ng-container *ngIf="file === null; else elseTemplate">
-                <div class="h-full grid place-items-center opacity-50 text-2xl text-center">
-                    <h2>Завантажте свій excel файл з користувачами</h2>
-                    <i class="fa-solid fa-file-excel"></i>
-                </div>
-            </ng-container>
-            <ng-template #elseTemplate>
-                <ng-container *ngIf="result === null; else results">
-                    <app-loader></app-loader>
-                </ng-container>
-                <ng-template #results>
-                    <div class="grid place-items-center">
-                        <h2 class="text-center">Файл успішно завантажено</h2>
-                    </div>
-                </ng-template>
-            </ng-template>
-            <div class="w-full text-center" *ngIf="result !== null">
-                <p>{{ result.message }}</p>
-                <p>
-                    Всього було в файлі {{ result.count }}. Оновлено користувачів {{ result.updatedUsers }}, нових
-                    користувачів
-                    {{ result.newUsers }}
-                </p>
-            </div>
-        </div>
-        <app-button [disabled]="result === null">Готово!</app-button>
-    </div>
-</app-modal> -->

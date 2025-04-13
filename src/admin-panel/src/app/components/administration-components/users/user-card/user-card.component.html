@@ -1,59 +1,84 @@
 <ng-container *ngIf="user === null; else content">
-	<app-loader></app-loader>
+    <app-loader></app-loader>
 </ng-container>
+
 <ng-template #content>
-	<app-button (onClick)="goBack()" classStyles="mb-4" type="secondary"
-		><i class="fas fa-angle-left mr-4"></i>До усіх користувачів</app-button
-	>
-	<div class="group relative p-6 border w-fit rounded-standart">
-		<h1 class="font-bold text-black/50 mb-3">#Картка користувача</h1>
-		<h2 class="font-bold mb-2">ПІБ: {{ user.fullName }}</h2>
-		<h3 class="mb-2">Id: {{ user.id }}</h3>
-		<img [src]="user.avatar" class="w-52 h-52 mx-auto rounded-standart" />
-		<div class="my-2">
-			<!-- <app-role [role]="user.role"></app-role> -->
-		</div>
+    <p-button label="До усіх користувачів" icon="pi pi-arrow-left" class="mb-4" (onClick)="goBack()"
+        styleClass="p-button-secondary"></p-button>
 
-		<ng-container *ngIf="!isEditMode; else editMode">
-			<h3 class="mt-2 mb-2">Факультет: {{ user.facultet ?? 'Невідомо' }}</h3>
-			<h3 class="mb-2">Курс: {{ user.course ?? 'Невідомо' }}</h3>
-		</ng-container>
-		<ng-template #editMode>
-			<form [formGroup]="form" (ngSubmit)="submit()">
-				<input
-					class="w-full h-12 border mb-2 text-xl rounded-standart focus-visible:outline-none px-3"
-					formControlName="facultet"
-					placeholder="Факультет"
-				/>
-				<input
-					formControlName="course"
-					type="number"
-					class="w-full h-12 border mb-2 text-xl rounded-standart focus-visible:outline-none px-3"
-					placeholder="Курс"
-				/>
-				<select
-					id="role"
-					name="role"
-					formControlName="role"
-					class="p-2 w-full rounded-standart text-xl border mb-2"
-				>
-					<option value="0">Не верифікований</option>
-					<option value="1">Студент</option>
-					<option value="2">Член профспілки</option>
-					<option value="3">Модератор</option>
-					<option value="4">Голова підрозділу</option>
-					<option value="5">Адмін</option>
-				</select>
-				<app-button [disabled]="!form.touched || !form.valid">Зберегти</app-button>
-			</form>
-		</ng-template>
+    <div class="flex flex-col lg:flex-row gap-6">
+        <p-card header="Картка користувача" styleClass="flex-1">
+            <div class="mb-4">
+                <div class="text-xl font-semibold text-primary mb-1">{{ user.fullName }}</div>
+                <small class="text-muted text-sm">ID: {{ user.id }}</small>
+            </div>
 
-		<app-icon-button
-			(handleClick)="edit()"
-			icon="opacity-0 group-hover:opacity-100 transition-opacity {{
-				isEditMode ? 'fas fa-xmark' : 'fas fa-pen'
-			}}"
-			className="absolute top-4 right-4"
-		></app-icon-button>
-	</div>
+            <div class="flex justify-center mb-4">
+                <img [src]="user.picture" alt="User Avatar" class="w-40 h-40 rounded-full shadow-lg border" />
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="submit()" class="grid gap-4">
+                <div class="flex flex-col gap-1">
+                    <label for="faculty" class="text-sm font-medium text-gray-700">Факультет</label>
+                    <input pInputText id="faculty" formControlName="faculty" placeholder="Факультет" class="w-full" />
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="course" class="text-sm font-medium text-gray-700">Курс</label>
+                    <p-inputNumber inputId="course" formControlName="course" placeholder="Курс"
+                        class="w-full"></p-inputNumber>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="roles" class="text-sm font-medium text-gray-700">Ролі користувача</label>
+                    <p-multiSelect inputId="roles" formControlName="roles" [options]="availableRoles"
+                        optionLabel="label" optionValue="value" display="chip" placeholder="Оберіть ролі"
+                        class="w-full"></p-multiSelect>
+                </div>
+
+                <p-button type="submit" label="Зберегти" icon="pi pi-save" styleClass="w-full"
+                    [disabled]="!form.valid"></p-button>
+            </form>
+        </p-card>
+
+        <p-card header="Додаткова інформація" styleClass="flex-1 w-96">
+            <div class="flex flex-col gap-5 text-base text-gray-700">
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm text-gray-500">Електронна пошта</label>
+                    <div class="flex items-center gap-3">
+                        <i class="pi pi-envelope text-gray-500 text-lg"></i>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm text-gray-500">Статус користувача</label>
+                    <div class="flex items-center gap-3">
+                        <i class="pi pi-user-check text-lg"
+                            [ngClass]="user.isActive ? 'text-green-500' : 'text-gray-400'"></i>
+                        <p-tag [severity]="user.isActive ? 'success' : 'secondary'">
+                            {{ user.isActive ? 'Активний' : 'Неактивний' }}
+                        </p-tag>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm text-gray-500">Останній вхід</label>
+                    <div class="flex items-center gap-3">
+                        <i class="pi pi-clock text-blue-500 text-lg"></i>
+                        <span>
+                            {{ user.lastLoginDateTimeUtc ? (user.lastLoginDateTimeUtc | utcToLocal) : 'Немає даних' }}
+                        </span>
+                    </div>
+                </div>
+                <p-button [label]="changeStateLabel" [severity]="user.isActive ? 'danger': 'primary'" size='small' class="w-full"
+                    (onClick)="confirmChangeUserState()" />
+
+                <p-confirmDialog rejectButtonStyleClass="" header="Підтвердження" acceptLabel="Так"
+                    rejectLabel="Скасувати"></p-confirmDialog>
+            </div>
+        </p-card>
+
+    </div>
 </ng-template>

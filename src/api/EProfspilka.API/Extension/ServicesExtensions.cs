@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text;
 using EProfspilka.API.Mappers;
 using EProfspilka.API.Policies;
+using EProfspilka.Application;
 using EProfspilka.Application.CommandHandlers.Discounts;
 using EProfspilka.Application.Configurations;
 using EProfspilka.Application.Factories;
@@ -43,6 +44,7 @@ public static class ServicesExtensions
         services.AddScoped<IDiscountService, DiscountService>();
         services.AddScoped<IFileUserReader, FileUserReader>();
         services.AddScoped<IImportCommandFactory, ImportCommandFactory>();
+        services.AddScoped<IDiscountProvider, DiscountProvider>();
         services.AddScoped<IRoleService, RoleService>();
 
         services.ConfigureApplicationCookie(c =>
@@ -80,22 +82,14 @@ public static class ServicesExtensions
             .AddMemoryCache()
             .AddAuthorization(options =>
             {
-                options.AddPolicy(PolicyNames.AdminPolicyName, policy =>
-                    policy.Requirements.Add(new RoleRequirement(PolicyNames.AdminRole)));
-                options.AddPolicy(PolicyNames.StudentPolicyName, policy =>
-                    policy.Requirements.Add(new RoleRequirement(PolicyNames.StudentRole)));
-                options.AddPolicy(PolicyNames.MemberProfspilkaPolicyName, policy =>
-                    policy.Requirements.Add(new RoleRequirement(PolicyNames.MemberProfspilkaRole)));
-                options.AddPolicy(PolicyNames.NotVerifiedPolicyName, policy =>
-                    policy.RequireRole(PolicyNames.NotVerifiedRole));
-                options.AddPolicy(PolicyNames.ModeratorPolicyName, policy =>
-                    policy.RequireRole(PolicyNames.ModeratorRole));
-                options.AddPolicy(PolicyNames.HeadOfUnitPolicyName, policy =>
-                    policy.RequireRole(PolicyNames.HeadOfUnitRole));
-                options.AddPolicy(PolicyNames.AllRolesPolicyName, policy =>
-                    policy.RequireRole(PolicyNames.AllRoles));
-                options.AddPolicy(PolicyNames.ModeratorAndAdminPolicyName, policy =>
-                    policy.Requirements.Add(new RoleRequirement(PolicyNames.ModeratorAndAdminRole)));
+                options.AddPolicy(PolicyNames.AdminPolicy, policy =>
+                    policy.RequireRole(PolicyNames.Admin));
+
+                options.AddPolicy(PolicyNames.StudentPolicy, policy =>
+                    policy.RequireRole(PolicyNames.Student));
+
+                options.AddPolicy(PolicyNames.MemberPolicy, policy =>
+                    policy.RequireRole(PolicyNames.Member));
             })
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -119,6 +113,7 @@ public static class ServicesExtensions
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
 #endif
+                    RoleClaimType = "https://e-profspilka.com.ua/roles"
                 };
                 options.Events = new JwtBearerEvents
                 {
@@ -127,14 +122,10 @@ public static class ServicesExtensions
                         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
 
                         if (string.IsNullOrEmpty(token))
-                        {
                             token = context.Request.Cookies["e_profspilka_access_token"];
-                        }
 
                         if (!string.IsNullOrEmpty(token))
-                        {
                             context.Token = token;
-                        }
 
                         return Task.CompletedTask;
                     }

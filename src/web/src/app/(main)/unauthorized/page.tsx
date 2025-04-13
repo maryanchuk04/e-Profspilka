@@ -21,6 +21,9 @@ export default async function UnauthorizePage({ searchParams }: SearchParamsProp
             label = 'Виникла помилка під час авторизації через Google. ';
             break;
 
+        case 'account_disabled':
+            label = 'Ваш акаунт заблоковано! ';
+            break;
         default:
             label = '';
             break;

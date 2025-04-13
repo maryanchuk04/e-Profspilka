@@ -21,6 +21,7 @@ public class AssignRoleForUserCommandHandler(EProfspilkaContext db) : IRequestHa
         var result = new OperationResponse();
 
         var user = await db.Users
+            .AsSplitQuery()
             .Include(u => u.UserRoles)
             .ThenInclude(r => r.Role)
             .FirstOrDefaultAsync(u => u.Id == request.UserId, cancellationToken: cancellationToken);
@@ -43,7 +44,7 @@ public class AssignRoleForUserCommandHandler(EProfspilkaContext db) : IRequestHa
             return result;
         }
 
-        user.UserRoles.Add(new UserRole()
+        user.UserRoles.Add(new UserRole
         {
             RoleId = request.Role,
             UserId = user.Id,

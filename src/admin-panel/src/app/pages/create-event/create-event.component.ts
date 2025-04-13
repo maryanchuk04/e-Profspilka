@@ -28,8 +28,6 @@ import { EditorComponent } from '../../ui/editor/editor.component';
         SelectModule,
         ButtonModule,
         EditorComponent,
-        NgIf,
-        DatePipe,
         FileUploadModule,
     ],
 })

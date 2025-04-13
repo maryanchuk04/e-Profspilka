@@ -22,25 +22,4 @@ public class UserController(IUserServices userServices) : ControllerBase
             return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
-
-    [HttpGet("all")]
-    public async Task<IActionResult> GetUsers() => Ok(await userServices.GetUsers());
-
-    [HttpPut]
-    [Authorize]
-    public async Task<IActionResult> UpdateUser([FromBody] UserMatchingStoreModel userMatchingStoreModel)
-    {
-        try
-        {
-            return Ok(await userServices.UpdateUser(
-                userMatchingStoreModel.Id.Value,
-                userMatchingStoreModel.Facultet,
-                userMatchingStoreModel.Course.Value,
-                userMatchingStoreModel.Role.Value));
-        }
-        catch (Exception e)
-        {
-            return BadRequest(new ErrorResponseModel(e.Message));
-        }
-    }
 }

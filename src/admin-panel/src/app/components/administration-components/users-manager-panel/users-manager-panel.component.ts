@@ -1,7 +1,7 @@
 import { ToastrService, } from 'ngx-toastr';
 import { pipe, Subject, takeUntil, } from 'rxjs';
 import { ImportType, } from 'src/app/models/ImportType';
-import { StudentStoreService, } from 'src/app/services/student-store.service';
+import { UserManagementService, } from 'src/app/services/user-management.service';
 
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +39,7 @@ export class UsersManagerPanelComponent implements OnInit, OnDestroy {
 	constructor(
 		private formBuilder: FormBuilder,
 		private toastrService: ToastrService,
-		private studentStoreService: StudentStoreService
+		private userManagementService: UserManagementService
 	) {}
 
 	ngOnInit(): void {
@@ -57,7 +57,7 @@ export class UsersManagerPanelComponent implements OnInit, OnDestroy {
 	uploadFile() {
 		if (this.form.valid) {
 			console.log(this.form.value);
-			this.studentStoreService
+			this.userManagementService
 				.uploadUsers(this.file, this.form.value.importType)
 				.pipe(takeUntil(this.destroy$))
 				.subscribe({
